@@ -1,0 +1,9 @@
+# Ignore everything by default
+*
+
+# Publish only these files
+!.gitignore
+!index.html
+!plenee_legal.html
+!RAM.svg
+!CNAME

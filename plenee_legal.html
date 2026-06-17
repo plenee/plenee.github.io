@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legal Disclosures & Notices — Plenee</title>
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:    #0C1929;
+  --navy2:   #152236;
+  --teal:    #0FA8BC;
+  --teal-d:  #0A8A9E;
+  --teal-l:  #E6F7FA;
+  --orange:  #E87722;
+  --white:   #FFFFFF;
+  --off:     #F6F9FB;
+  --text:    #0C1929;
+  --muted:   #4E6175;
+  --light:   #8A9EB0;
+  --border:  #DDE8F0;
+  --green:   #1E9E5E;
+  --red:     #D63B3B;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+/* ─── NAV ─── */
+nav {
+  position: sticky; top: 0; z-index: 300;
+  background: rgba(255,255,255,0.97); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  height: 68px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+}
+.logo { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; text-decoration: none; line-height: 1; }
+.logo-mark { display: flex; align-items: baseline; line-height: 1; }
+.logo-mark .lenee-text {
+  font-family: 'Varela Round', sans-serif; font-size: 26px;
+  color: #1B4DB8; margin-left: 2px; -webkit-text-stroke: 0.6px #1B4DB8;
+}
+.logo-tagline { font-family: 'Varela Round', sans-serif; font-size: 10px; color: var(--teal); letter-spacing: 0.2px; }
+.nav-back { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: color .2s; }
+.nav-back:hover { color: var(--navy); }
+.nav-back svg { opacity: .6; }
+
+/* ─── HERO ─── */
+#legal-hero {
+  background: var(--navy); padding: 64px 48px 52px;
+  position: relative; overflow: hidden;
+}
+#legal-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(255,255,255,.02) 80px),
+                    repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(255,255,255,.015) 80px);
+  pointer-events: none;
+}
+.hero-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(15,168,188,.15); border: 1px solid rgba(15,168,188,.3);
+  border-radius: 100px; padding: 5px 14px; margin-bottom: 20px;
+}
+.hero-badge span { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal); }
+#legal-hero h1 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(32px, 4vw, 52px); font-weight: 700;
+  color: #fff; line-height: 1.15; letter-spacing: -1px; margin-bottom: 16px;
+}
+.hero-sub { font-size: 17px; color: #5A7B98; line-height: 1.7; max-width: 640px; }
+.hero-date { margin-top: 24px; font-size: 12px; color: rgba(255,255,255,.3); }
+
+/* ─── MAIN CONTENT ─── */
+#legal-content { max-width: 860px; margin: 0 auto; padding: 48px 48px 80px; }
+
+/* ─── INTRO SUMMARY ─── */
+.legal-summary-box {
+  background: var(--teal-l); border: 1.5px solid #B0E4ED; border-radius: 14px;
+  padding: 28px 32px; margin-bottom: 48px;
+}
+.legal-summary-box .lsb-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--teal-d); margin-bottom: 10px;
+}
+.legal-summary-box p { font-size: 16px; color: var(--text); line-height: 1.75; }
+
+/* ─── TABLE OF CONTENTS ─── */
+.legal-toc {
+  background: var(--off); border: 1px solid var(--border); border-radius: 14px;
+  padding: 28px 32px; margin-bottom: 56px;
+}
+.legal-toc .toc-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 16px;
+}
+.legal-toc ol { padding-left: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 32px; }
+.legal-toc li { font-size: 14px; color: var(--muted); }
+.legal-toc a { color: var(--teal); text-decoration: none; font-weight: 500; }
+.legal-toc a:hover { text-decoration: underline; }
+
+/* ─── SECTIONS ─── */
+.legal-section { margin-bottom: 56px; padding-top: 8px; }
+.legal-section h2 {
+  display: flex; align-items: baseline; gap: 14px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(20px, 2.5vw, 26px); font-weight: 700; color: var(--navy);
+  letter-spacing: -.3px; margin-bottom: 20px; padding-bottom: 14px;
+  border-bottom: 2px solid var(--border);
+}
+.sec-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; background: var(--teal); color: #fff;
+  border-radius: 8px; font-size: 14px; font-weight: 700; flex-shrink: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+.legal-section p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 14px; }
+.legal-section p:last-child { margin-bottom: 0; }
+.legal-section strong { color: var(--text); }
+.legal-section ul { padding-left: 20px; margin-bottom: 14px; }
+.legal-section li { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 6px; }
+
+.rule-box {
+  background: var(--off); border-left: 4px solid var(--teal);
+  border-radius: 0 10px 10px 0; padding: 18px 22px; margin: 20px 0;
+}
+.rule-box p { font-size: 14px; color: var(--text); line-height: 1.7; margin: 0; }
+.rule-box strong { color: var(--navy); }
+
+.warning-box {
+  background: #FFF8E6; border-left: 4px solid #F5A623;
+  border-radius: 0 10px 10px 0; padding: 18px 22px; margin: 20px 0;
+}
+.warning-box p { font-size: 14px; color: #5A3A00; line-height: 1.7; margin: 0; }
+
+.info-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0;
+}
+.info-card {
+  background: var(--off); border: 1px solid var(--border);
+  border-radius: 10px; padding: 18px 20px;
+}
+.info-card .ic-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); margin-bottom: 8px; }
+.info-card .ic-val { font-size: 14px; color: var(--text); line-height: 1.6; font-weight: 600; }
+.info-card .ic-desc { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+
+/* ─── DIVIDER ─── */
+.legal-divider { border: none; border-top: 1px solid var(--border); margin: 0 0 56px; }
+
+/* ─── CONTACT BLOCK ─── */
+.contact-block {
+  background: var(--navy); border-radius: 16px; padding: 36px 40px;
+  margin-top: 8px;
+}
+.contact-block h3 { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+.contact-block p { font-size: 15px; color: #5A7B98; line-height: 1.7; margin-bottom: 14px; }
+.contact-block a { color: var(--teal); text-decoration: none; }
+.contact-block a:hover { text-decoration: underline; }
+
+/* ─── DISCLAIMER STRIP ─── */
+#disclaimer-strip {
+  background: var(--off); border-top: 1px solid var(--border);
+  padding: 16px 48px; text-align: center;
+}
+#disclaimer-strip p { font-size: 12px; color: var(--light); line-height: 1.6; max-width: 900px; margin: 0 auto; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--navy); border-top: 1px solid rgba(255,255,255,.07);
+  padding: 32px 48px; display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 16px;
+}
+footer p { color: #2E4A60; font-size: 13px; }
+.fl a { color: #2E4A60; font-size: 13px; text-decoration: none; margin-left: 24px; transition: color .2s; }
+.fl a:hover { color: var(--teal); }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 56px; }
+  #legal-hero { padding: 48px 20px 36px; }
+  #legal-content { padding: 32px 20px 64px; }
+  .legal-toc ol { grid-template-columns: 1fr; }
+  .info-grid { grid-template-columns: 1fr; }
+  #disclaimer-strip { padding: 14px 20px; }
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .fl a { margin-left: 0; margin-right: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="index.html">
+    <div class="logo-mark">
+      <svg viewBox="0 0 50 64" width="22" height="29" style="display:inline-block;vertical-align:baseline;margin-bottom:-2px;" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="nav-pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F5A04A"/><stop offset="100%" stop-color="#C96515"/></linearGradient></defs>
+        <path d="M6 5 L6 59 L16 59 L16 42 L29 42 C41 42 49 35 49 25 C49 15 41 5 29 5 Z M16 14 L29 14 C36 14 40 19 40 25 C40 31 36 33 29 33 L16 33 Z" fill="url(#nav-pg)"/>
+        <rect x="2" y="21" width="20" height="5" rx="2.5" fill="url(#nav-pg)"/>
+        <rect x="2" y="30" width="20" height="5" rx="2.5" fill="url(#nav-pg)"/>
+      </svg>
+      <span class="lenee-text">lenee</span>
+    </div>
+    <span class="logo-tagline">A Guide to Wealth</span>
+  </a>
+  <a class="nav-back" href="index.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m7-7-7 7 7 7"/></svg>
+    Back to Plenee
+  </a>
+</nav>
+
+<!-- HERO -->
+<div id="legal-hero">
+  <div class="hero-inner">
+    <div class="hero-badge"><span>Legal & Regulatory</span></div>
+    <h1>Legal Disclosures<br>& Notices</h1>
+    <p class="hero-sub">Important information about the nature of Plenee's services, data use, regulatory status, and your rights as a user.</p>
+    <p class="hero-date">Effective date: June 16, 2026 · Plenee Co.</p>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div id="legal-content">
+
+  <!-- Summary box -->
+  <div class="legal-summary-box">
+    <p class="lsb-label">Read This First</p>
+    <p><strong>Plenee is a financial analysis and information tool, not a financial adviser.</strong> Nothing on this platform constitutes personalized financial, investment, tax, or legal advice. All outputs — scenarios, projections, fee calculations, and alerts — are informational estimates based on data you provide and publicly available reference data. You are responsible for all financial decisions you make. Always consult a qualified professional before making significant financial decisions.</p>
+  </div>
+
+  <!-- TOC -->
+  <nav class="legal-toc" aria-label="Table of Contents">
+    <p class="toc-title">Contents</p>
+    <ol>
+      <li><a href="#s1">Not Financial Advice</a></li>
+      <li><a href="#s2">Informational Purpose Only</a></li>
+      <li><a href="#s3">No Fiduciary Relationship</a></li>
+      <li><a href="#s4">Data Accuracy & Sources</a></li>
+      <li><a href="#s5">Third-Party Services & Plaid</a></li>
+      <li><a href="#s6">Privacy & Financial Data (GLBA)</a></li>
+      <li><a href="#s7">California & State Privacy Rights</a></li>
+      <li><a href="#s8">No Money Transmission</a></li>
+      <li><a href="#s9">Age Restriction — 18+ Only</a></li>
+      <li><a href="#s10">Communications Consent</a></li>
+      <li><a href="#s11">Limitation of Liability</a></li>
+      <li><a href="#s12">Regulatory Status & Contact</a></li>
+      <li><a href="#s13">European Users — GDPR</a></li>
+    </ol>
+  </nav>
+
+  <!-- Section 1 -->
+  <section class="legal-section" id="s1">
+    <h2><span class="sec-num">1</span> Not Financial Advice</h2>
+    <p>Plenee is <strong>not a registered investment adviser, broker-dealer, financial planner, or financial counselor</strong> under the Investment Advisers Act of 1940 or any applicable state law. Plenee has not registered with the U.S. Securities and Exchange Commission (SEC) or any state securities regulator as an investment adviser.</p>
+    <div class="rule-box">
+      <p><strong>Rule:</strong> Nothing in Plenee — including fee analysis, debt payoff scenarios, idle cash calculations, refinancing breakdowns, and cash flow projections — constitutes personalized investment advice, financial planning advice, tax advice, or legal advice. These are analytical tools and scenario models, not recommendations.</p>
+    </div>
+    <p>Plenee's outputs are informational in nature and are intended to help you understand your current financial picture. They do not account for all factors relevant to your specific situation, risk tolerance, goals, or overall financial health. Before making any financial decisions based on information from Plenee, you should consult with a licensed and qualified financial professional.</p>
+    <p>Plenee does not guarantee any financial outcome, including but not limited to savings, interest reduction, or debt elimination. All projections are estimates based on inputs you provide and may not reflect actual future results.</p>
+  </section>
+
+  <!-- Section 2 -->
+  <section class="legal-section" id="s2">
+    <h2><span class="sec-num">2</span> Informational Purpose Only</h2>
+    <p>Plenee is designed to show you how your financial data looks under various scenarios — it is <strong>not designed to direct your actions</strong>. The platform presents analysis; you make the decisions.</p>
+    <p>All outputs in Plenee are framed as analytical scenarios, not directives. Plenee will not tell you what you "should" do. Where Plenee surfaces a scenario (e.g., "avalanche payment order would have saved $X"), this is a mathematical illustration — not a recommendation to take that action.</p>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="ic-label">What Plenee Shows</div>
+        <div class="ic-val">Scenarios & Analysis</div>
+        <div class="ic-desc">How your numbers look under different conditions, based on your actual account data.</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-label">What Plenee Does Not Provide</div>
+        <div class="ic-val">Advice or Recommendations</div>
+        <div class="ic-desc">Plenee never tells you what action to take. Decisions are yours alone.</div>
+      </div>
+    </div>
+    <p>Plenee expressly avoids directive language ("you should," "we recommend," "the best option for you"). Where alert language necessarily refers to upcoming deadlines or risks (e.g., a payment due date), this is factual notification — not advice to take a specific action.</p>
+  </section>
+
+  <!-- Section 3 -->
+  <section class="legal-section" id="s3">
+    <h2><span class="sec-num">3</span> No Fiduciary Relationship</h2>
+    <p>Use of Plenee does not create a fiduciary relationship between you and Plenee Co. The term "fiduciary" has a specific legal meaning that applies to certain licensed professionals (registered investment advisers, attorneys, trustees). <strong>Plenee is not a registered fiduciary in any legal capacity.</strong></p>
+    <div class="warning-box">
+      <p>Where Plenee describes its business model as acting "only for you" or "without conflicts of interest" (no advertising, no referral fees, no data sales), this describes our commercial incentive structure — not a legally defined fiduciary duty. We believe these commitments align our interests with yours, but they do not constitute legal fiduciary obligations.</p>
+    </div>
+    <p>Plenee's commitment to users:</p>
+    <ul>
+      <li>We receive no commissions, referral fees, or compensation from any financial institution, lender, or product provider we mention or analyze.</li>
+      <li>We do not sell or share your financial data with third parties for marketing or advertising purposes.</li>
+      <li>Our revenue comes from user subscriptions, not from third parties with interests in your financial decisions.</li>
+    </ul>
+    <p>These commitments are commercial and ethical — not legally enforceable fiduciary duties. You should treat Plenee as a transparent analytical tool, not as a licensed professional acting on your behalf.</p>
+  </section>
+
+  <!-- Section 4 -->
+  <section class="legal-section" id="s4">
+    <h2><span class="sec-num">4</span> Data Accuracy & Sources</h2>
+    <p>Plenee relies on data imported from your linked financial accounts (via Plaid), data you enter manually, and reference data maintained by Plenee (such as benchmark interest rates and HYSA rates). <strong>Plenee does not guarantee the accuracy, completeness, or timeliness of any data.</strong></p>
+    <p>Factors that may affect data accuracy include:</p>
+    <ul>
+      <li>Delays in Plaid transaction synchronization (typically 1–3 business days)</li>
+      <li>Rounding and estimation in fee/interest classification algorithms</li>
+      <li>Reference rates (HYSA benchmarks, market rates) updated monthly — may not reflect current conditions</li>
+      <li>Manual account entries that are not verified against source institutions</li>
+      <li>Transaction categorization that may be misclassified by automated pattern matching</li>
+    </ul>
+    <div class="rule-box">
+      <p><strong>All dollar figures in Plenee — fees identified, interest calculated, savings projected — are estimates.</strong> They are based on available transaction data and should be verified against your actual account statements before being relied upon for any financial decision.</p>
+    </div>
+    <p>Statistics and benchmarks cited by Plenee (e.g., average overdraft fees, national average APRs, typical savings account rates) are sourced from publicly available industry data and are provided for context and illustration. They may not reflect your specific institution's current rates or your individual circumstances.</p>
+    <p>Where Plenee displays projected figures (e.g., estimated annual savings, debt-free date), these projections assume consistent income, spending patterns, and rates based on recent historical data. Actual results will vary.</p>
+  </section>
+
+  <!-- Section 5 -->
+  <section class="legal-section" id="s5">
+    <h2><span class="sec-num">5</span> Third-Party Services & Plaid</h2>
+    <p>Plenee uses <strong>Plaid Technologies, Inc.</strong> to connect to and retrieve data from your financial institutions. When you link an account through Plenee, you are also subject to <a href="https://plaid.com/legal" target="_blank" rel="noopener noreferrer">Plaid's Privacy Policy</a> and <a href="https://plaid.com/legal#end-user-privacy-policy" target="_blank" rel="noopener noreferrer">End User Privacy Policy</a>.</p>
+    <ul>
+      <li>Plenee accesses your financial data in <strong>read-only mode</strong> via Plaid. Plenee cannot initiate transactions, move money, or modify account settings.</li>
+      <li>Plaid may store credentials and access tokens separately from Plenee. Plenee does not store your bank login credentials.</li>
+      <li>Data retrieved via Plaid is subject to the terms of your financial institution's account agreement.</li>
+    </ul>
+    <p>Plenee may also use the following third-party data services for market reference data:</p>
+    <ul>
+      <li><strong>CoinGecko API</strong> — cryptocurrency spot prices (if crypto holdings are tracked)</li>
+      <li><strong>Coinbase API</strong> — gold and silver spot prices (if precious metals are tracked)</li>
+      <li><strong>Zillow</strong> — estimated property values for real estate linked in the net worth tracker (Zestimate is a third-party estimate, not an appraisal)</li>
+    </ul>
+    <p>Plenee is not responsible for the accuracy, availability, or content of third-party data sources. Reference to these services does not constitute an endorsement by Plenee.</p>
+  </section>
+
+  <!-- Section 6 -->
+  <section class="legal-section" id="s6">
+    <h2><span class="sec-num">6</span> Privacy & Financial Data Protection (GLBA)</h2>
+    <p>Plenee collects, maintains, and protects your nonpublic personal financial information (NPI) in accordance with the <strong>Gramm-Leach-Bliley Act (GLBA)</strong> and the FTC's Safeguards Rule (16 C.F.R. Part 314).</p>
+    <p><strong>What we collect:</strong> Account balances, transaction history, loan terms, bill due dates, and other financial data retrieved via Plaid or entered by you.</p>
+    <p><strong>How we use it:</strong> Solely to provide Plenee's analysis features to you. We do not use your financial data for advertising, profiling, or sale to third parties.</p>
+    <p><strong>Who we share it with:</strong></p>
+    <ul>
+      <li><strong>Plaid</strong> — for account data retrieval (subject to Plaid's privacy policy)</li>
+      <li><strong>Supabase</strong> — our database and authentication infrastructure provider, under data processing agreement</li>
+      <li><strong>Service providers</strong> acting strictly on our behalf under confidentiality obligations</li>
+      <li>We do not share your NPI with financial institutions, advertisers, or data brokers</li>
+    </ul>
+    <p><strong>Security:</strong> Plenee implements a written information security program with encryption at rest and in transit, access controls, and incident response procedures as required by the FTC Safeguards Rule.</p>
+    <p><strong>Opt-out:</strong> You may request that we limit sharing of your NPI beyond what is required to provide the service at any time by contacting us at <a href="mailto:privacy@plenee.com">privacy@plenee.com</a>.</p>
+    <p><strong>Your data access rights (CFPB Section 1033):</strong> Under Dodd-Frank §1033, you have the right to view and revoke Plenee's access to each connected financial institution at any time. You can manage connected accounts and revoke access per institution from the Connected Accounts screen in app settings. Upon revocation, Plenee will immediately stop syncing that account and schedule deletion of all associated data within 30 days. You may also request immediate deletion of all your data at any time.</p>
+    <p>A full Privacy Policy governing all data collection and use is available at <a href="#">plenee.com/privacy</a>.</p>
+  </section>
+
+  <!-- Section 7 -->
+  <section class="legal-section" id="s7">
+    <h2><span class="sec-num">7</span> California & State Privacy Rights</h2>
+    <p>If you are a California resident, you have the following rights under the <strong>California Consumer Privacy Act (CCPA) as amended by the CPRA</strong>:</p>
+    <ul>
+      <li><strong>Right to Know</strong> — You may request disclosure of the categories and specific pieces of personal information we have collected about you.</li>
+      <li><strong>Right to Delete</strong> — You may request deletion of your personal information, subject to certain exceptions.</li>
+      <li><strong>Right to Correct</strong> — You may request correction of inaccurate personal information.</li>
+      <li><strong>Right to Opt-Out</strong> — You may opt out of the sale or sharing of your personal information. Plenee does not sell personal information. We do not share personal information for cross-context behavioral advertising.</li>
+      <li><strong>Right to Limit Use of Sensitive Personal Information</strong> — Financial data is considered sensitive personal information under CPRA. We use it only to provide our services.</li>
+      <li><strong>Right to Non-Discrimination</strong> — We will not discriminate against you for exercising any of these rights.</li>
+    </ul>
+    <p>To exercise your California privacy rights, contact us at <a href="mailto:privacy@plenee.com">privacy@plenee.com</a> or via the data request form in the Plenee app settings.</p>
+    <p><strong>California Financial Information Privacy Act (CalFIPA):</strong> California residents have additional rights regarding the sharing of financial information with affiliated and non-affiliated companies. Plenee does not share your financial information with affiliates or non-affiliates for marketing purposes without your affirmative consent (opt-in).</p>
+    <p>Residents of other states with enacted privacy laws (Virginia VCDPA, Colorado CPA, Connecticut CTDPA, and others) have similar rights. Contact us at the address below to exercise your rights under applicable state law.</p>
+  </section>
+
+  <!-- Section 8 -->
+  <section class="legal-section" id="s8">
+    <h2><span class="sec-num">8</span> No Money Transmission — No Funds Held</h2>
+    <p>Plenee is a <strong>read-only financial analysis platform</strong>. Plenee does not:</p>
+    <ul>
+      <li>Hold, transfer, transmit, or move money on your behalf</li>
+      <li>Execute transactions in your financial accounts</li>
+      <li>Act as a payment processor, money transmitter, or custodian</li>
+      <li>Store payment credentials beyond what is required for read-only Plaid access</li>
+    </ul>
+    <div class="rule-box">
+      <p><strong>Plenee is not licensed as a money transmitter in any U.S. state.</strong> Any feature that appears to suggest a financial action (e.g., "apply idle cash to debt," "transfer to HYSA") is a scenario illustration only — Plenee does not and cannot execute these actions on your behalf. You must initiate any such transactions directly with your financial institution.</p>
+    </div>
+    <p>If Plenee ever introduces a money movement feature in a future version, it will be powered by a licensed payment processor and disclosed separately, with applicable terms and disclosures presented prior to use.</p>
+  </section>
+
+  <!-- Section 9 -->
+  <section class="legal-section" id="s9">
+    <h2><span class="sec-num">9</span> Age Restriction — 18+ Only</h2>
+    <p>Plenee is intended for use by individuals who are <strong>18 years of age or older</strong>. By creating an account and using Plenee, you represent that you are at least 18 years old.</p>
+    <p>Plenee does not knowingly collect personal information from anyone under the age of 13. If we become aware that a user is under 13, we will promptly delete their account and associated data. If you believe a minor has created an account, contact us at <a href="mailto:privacy@plenee.com">privacy@plenee.com</a>.</p>
+    <p>Financial account aggregation, debt analysis, and related features are designed for adult consumers managing their own finances. Use of Plenee to manage finances on behalf of a minor requires the account holder to be an adult guardian.</p>
+  </section>
+
+  <!-- Section 10 -->
+  <section class="legal-section" id="s10">
+    <h2><span class="sec-num">10</span> Communications Consent</h2>
+    <p><strong>Email (CAN-SPAM Act):</strong> By providing your email address, you consent to receive transactional emails related to your Plenee account, including account alerts, bill payment reminders, and fee notifications. These emails are transactional in nature and support the service you've signed up for.</p>
+    <p>You may opt out of promotional or marketing emails at any time by clicking the unsubscribe link in any such email or by updating your communication preferences in app settings. Opt-out requests for promotional email will be honored within 10 business days. Note: opting out of marketing emails does not unsubscribe you from transactional account alerts that are part of the core service.</p>
+    <p><strong>SMS / Text Messages (TCPA):</strong> Plenee may send SMS alerts (e.g., bill due reminders, low balance alerts) if you opt in to text notifications. By opting in, you expressly consent to receive automated text messages from Plenee at the number you provide.</p>
+    <ul>
+      <li>Message frequency varies based on your account activity</li>
+      <li>Message and data rates may apply</li>
+      <li>Reply STOP to any message to unsubscribe immediately</li>
+      <li>Reply HELP for support information</li>
+    </ul>
+    <p>Plenee will never sell your phone number or use it for third-party marketing. SMS consent is separate from email consent and must be given independently.</p>
+  </section>
+
+  <!-- Section 11 -->
+  <section class="legal-section" id="s11">
+    <h2><span class="sec-num">11</span> Limitation of Liability</h2>
+    <p>To the maximum extent permitted by applicable law, Plenee Co. and its officers, employees, and agents shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the Plenee platform, including but not limited to:</p>
+    <ul>
+      <li>Financial losses resulting from decisions made based on Plenee analysis</li>
+      <li>Errors or inaccuracies in fee detection, interest calculations, or projections</li>
+      <li>Data delays or failures in third-party data sources (Plaid, rate APIs)</li>
+      <li>Missed alerts due to technical failures or notification delivery issues</li>
+      <li>Actions taken or not taken based on Plenee's informational outputs</li>
+    </ul>
+    <p>Plenee's liability, if any, is limited to the subscription fees you paid in the three months preceding the claim. Nothing in these disclosures limits liability for gross negligence, willful misconduct, or fraud by Plenee.</p>
+    <div class="warning-box">
+      <p><strong>Important:</strong> Plenee identifies fees and interest you have already paid based on transaction data. It does not guarantee that fees identified in the past will not recur. Future fee avoidance depends on your financial behavior and actions taken outside of Plenee.</p>
+    </div>
+  </section>
+
+  <!-- Section 12 -->
+  <section class="legal-section" id="s12">
+    <h2><span class="sec-num">12</span> Regulatory Status & Contact</h2>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="ic-label">Entity Type</div>
+        <div class="ic-val">Financial Technology Company</div>
+        <div class="ic-desc">Plenee Co. is a financial technology company, not a bank, broker-dealer, or registered investment adviser.</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-label">Registered</div>
+        <div class="ic-val">Not SEC / FINRA Registered</div>
+        <div class="ic-desc">Plenee is not registered with the SEC, FINRA, or any state securities regulator as an investment adviser or broker.</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-label">Regulated By</div>
+        <div class="ic-val">FTC Safeguards Rule</div>
+        <div class="ic-desc">As a financial technology company handling consumer financial data, Plenee complies with the FTC Safeguards Rule under GLBA.</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-label">CFPB Coverage</div>
+        <div class="ic-val">UDAAP Standards Apply</div>
+        <div class="ic-desc">Plenee's consumer-facing claims and practices are designed to comply with CFPB UDAAP standards.</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-label">Security Certification</div>
+        <div class="ic-val">SOC 2 Type II (In Progress)</div>
+        <div class="ic-desc">Plenee is pursuing SOC 2 Type II certification covering Security, Availability, and Confidentiality. Interim controls are in place.</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-label">Geographic Availability</div>
+        <div class="ic-val">United States Only</div>
+        <div class="ic-desc">Plenee currently accepts users in the United States only. European users (GDPR) are not yet supported — see Section 13.</div>
+      </div>
+    </div>
+
+    <p>These disclosures are updated periodically. Material changes will be communicated via email or in-app notification. Continued use of Plenee after a disclosure update constitutes acceptance of the updated terms.</p>
+
+    <div class="contact-block">
+      <h3>Questions? Contact Plenee</h3>
+      <p>For legal inquiries, privacy requests, or questions about these disclosures:</p>
+      <p>
+        <strong style="color:#fff">Plenee Co.</strong><br>
+        <a href="mailto:legal@plenee.com">legal@plenee.com</a> — Legal & Compliance<br>
+        <a href="mailto:privacy@plenee.com">privacy@plenee.com</a> — Privacy & Data Requests
+      </p>
+      <p style="margin-top:16px;font-size:13px;color:#2E4A60">
+        These disclosures do not constitute legal advice. For legal guidance, consult a licensed attorney in your jurisdiction.
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 13 -->
+  <section class="legal-section" id="s13">
+    <h2><span class="sec-num">13</span> European Users — GDPR / UK GDPR</h2>
+    <div class="warning-box">
+      <p><strong>Plenee is currently available in the United States only.</strong> We do not accept sign-ups from users in the European Union or United Kingdom at this time. If you are located in the EU or UK, please join our international waitlist and we will notify you when Plenee becomes available in your region.</p>
+    </div>
+    <p>When Plenee expands to the EU or UK, the General Data Protection Regulation (GDPR) and UK GDPR will govern all processing of personal data for users in those regions. The following rights and obligations will apply:</p>
+    <p><strong>Lawful basis for processing:</strong> Plenee will process your financial data on the basis of contractual necessity — the data is required to deliver the service you signed up for. Certain secondary uses (e.g., product analytics) will be based on legitimate interest or explicit consent, which you may withdraw at any time.</p>
+    <p><strong>Your rights under GDPR:</strong></p>
+    <ul>
+      <li><strong>Right of access</strong> — Request a copy of all personal data Plenee holds about you</li>
+      <li><strong>Right to erasure</strong> — Request deletion of your data; honored within 30 days</li>
+      <li><strong>Right to rectification</strong> — Correct inaccurate manually-entered data</li>
+      <li><strong>Right to data portability</strong> — Export your data in machine-readable format (JSON/CSV)</li>
+      <li><strong>Right to object</strong> — Object to processing based on legitimate interest</li>
+      <li><strong>Right to restrict processing</strong> — Request that we limit how we use your data while a dispute is resolved</li>
+    </ul>
+    <p><strong>International data transfers:</strong> Plenee's infrastructure (Supabase) and data aggregation provider (Plaid) are based in the United States. EU/UK user data transferred to the US will be protected by Standard Contractual Clauses (SCCs) or equivalent approved mechanisms under GDPR. Data Processing Agreements will be in place with all sub-processors before EU sign-ups are accepted.</p>
+    <p><strong>Data retention:</strong> Raw transaction data is retained for up to 24 months from the date of import (matching the Plaid maximum history window). Account metadata is retained for the duration of your subscription plus 90 days following account closure. You may request earlier deletion at any time.</p>
+    <p>For GDPR inquiries, contact us at <a href="mailto:privacy@plenee.com">privacy@plenee.com</a>. EU/UK users may also lodge a complaint with their local supervisory authority.</p>
+  </section>
+
+</div><!-- /legal-content -->
+
+<!-- DISCLAIMER STRIP -->
+<div id="disclaimer-strip">
+  <p>Plenee provides financial information and analysis tools, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. All scenarios and projections are estimates. Past costs identified do not guarantee future performance.</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a class="logo" href="index.html" style="text-decoration:none">
+    <div class="logo-mark">
+      <svg viewBox="0 0 50 64" width="22" height="29" style="display:inline-block;vertical-align:baseline;margin-bottom:-2px;" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="ft-pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F5A04A"/><stop offset="100%" stop-color="#C96515"/></linearGradient></defs>
+        <path d="M6 5 L6 59 L16 59 L16 42 L29 42 C41 42 49 35 49 25 C49 15 41 5 29 5 Z M16 14 L29 14 C36 14 40 19 40 25 C40 31 36 33 29 33 L16 33 Z" fill="url(#ft-pg)"/>
+        <rect x="2" y="21" width="20" height="5" rx="2.5" fill="url(#ft-pg)"/>
+        <rect x="2" y="30" width="20" height="5" rx="2.5" fill="url(#ft-pg)"/>
+      </svg>
+      <span class="lenee-text" style="color:rgba(255,255,255,0.9);-webkit-text-stroke:0.6px rgba(255,255,255,0.9);">lenee</span>
+    </div>
+    <span class="logo-tagline" style="color:rgba(255,255,255,0.4)">A Guide to Wealth</span>
+  </a>
+  <p>© 2026 Plenee Co. All rights reserved.</p>
+  <div class="fl">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="plenee_legal.html" style="color:var(--teal)">Legal</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>
