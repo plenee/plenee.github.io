@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plenee — Stop Paying More Than You Should</title>
+<title>Plenee Navigator — A Guide for Wealth</title>
 <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,14 +32,16 @@ body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sa
 /* ─── NAV ─── */
 nav {
   position: sticky; top: 0; z-index: 300;
-  background: rgba(255,255,255,0.97); backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  height: 68px; display: flex; align-items: center; justify-content: space-between;
+  background: #0C1929;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  height: 72px; display: flex; align-items: center; justify-content: space-between;
   padding: 0 48px;
 }
+.nav-logo { display: flex; align-items: center; height: 100%; line-height: 0; }
+.nav-logo img { height: 100%; display: block; }
 .nav-links { display: flex; gap: 32px; align-items: center; }
-.nav-links a { color: var(--muted); text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
-.nav-links a:hover { color: var(--navy); }
+.nav-links a { color: #B6C6D6; text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--teal); }
 .nav-cta { background: var(--orange); color: #fff; border: none; padding: 11px 24px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; transition: background .2s, transform .15s; }
 .nav-cta:hover { background: #C96515; transform: translateY(-1px); }
 
@@ -365,6 +367,119 @@ nav {
 .fdesc { font-size: 14px; color: #5A7B98; line-height: 1.65; }
 
 
+/* ─── HERO SNAPSHOT VISUAL ─── */
+.snap-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 20px; padding: 26px 26px 22px; box-shadow: 0 18px 50px rgba(12,25,41,.08); }
+.snap-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); margin-bottom: 6px; }
+.snap-nw { font-family: Georgia, serif; font-size: 40px; font-weight: 700; color: var(--navy); letter-spacing: -1.5px; line-height: 1; }
+.snap-nw span { display: block; font-family: 'Segoe UI', sans-serif; font-size: 12px; font-weight: 600; color: var(--green); letter-spacing: 0; margin-top: 6px; }
+.snap-rows { margin-top: 20px; display: flex; flex-direction: column; gap: 1px; }
+.snap-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 11px 0; border-bottom: 1px solid var(--border); }
+.snap-row:last-child { border-bottom: none; }
+.snap-acct { display: flex; align-items: center; gap: 11px; font-size: 13px; color: var(--muted); font-weight: 500; min-width: 0; }
+.snap-ico { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.snap-amt { font-size: 14px; font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; white-space: nowrap; flex-shrink: 0; }
+.snap-amt.neg { color: var(--red); }
+
+/* ─── VISIBILITY GAP ─── */
+#visibility { background: var(--white); padding: 92px 48px; }
+.vg-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 64px; align-items: center; }
+.vg-points { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; }
+.vg-point { display: flex; gap: 14px; align-items: flex-start; }
+.vg-ico { width: 42px; height: 42px; border-radius: 11px; background: var(--orange-l); display: flex; align-items: center; justify-content: center; font-size: 19px; flex-shrink: 0; }
+.vg-point h4 { font-size: 16px; color: var(--navy); margin-bottom: 4px; }
+.vg-point p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+.vg-visual { background: var(--navy); border-radius: 20px; padding: 30px; position: relative; overflow: hidden; }
+.vg-visual::before { content: ''; position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; border-radius: 50%; background: rgba(15,168,188,.12); }
+.vg-scatter { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 18px; position: relative; z-index: 1; }
+.vg-chip { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 9px; padding: 9px 13px; font-size: 12px; color: rgba(255,255,255,.6); }
+.vg-arrow-row { text-align: center; color: var(--teal); font-size: 22px; margin: 4px 0 14px; position: relative; z-index: 1; }
+.vg-unified { background: rgba(15,168,188,.1); border: 1px solid rgba(15,168,188,.3); border-radius: 12px; padding: 18px 20px; position: relative; z-index: 1; }
+.vg-unified .vgu-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+.vg-unified .vgu-val { font-family: Georgia, serif; font-size: 30px; font-weight: 700; color: #fff; letter-spacing: -1px; }
+
+/* ─── HOW IT WORKS (4 LEVELS) ─── */
+#how { background: var(--off); padding: 92px 48px; border-bottom: 1px solid var(--border); }
+.how-head { max-width: 1100px; margin: 0 auto 12px; text-align: center; }
+.how-steps { max-width: 1100px; margin: 44px auto 0; display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; }
+.how-step { background: #fff; border: 1.5px solid var(--border); border-radius: 18px; padding: 28px 24px; transition: transform .2s, box-shadow .2s; }
+.how-step:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(12,25,41,.08); }
+.how-badge { width: 42px; height: 42px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px; margin-bottom: 16px; font-family: Georgia, serif; }
+.how-step h3 { font-size: 18px; color: var(--navy); margin-bottom: 8px; font-weight: 700; }
+.how-step p { font-size: 14px; color: var(--muted); line-height: 1.62; }
+.how-note { max-width: 1100px; margin: 28px auto 0; text-align: center; font-size: 14px; color: var(--muted); }
+.how-note strong { color: var(--navy); }
+
+/* ─── WEALTH LEVELS ─── */
+#levels { background: var(--white); padding: 92px 48px; }
+.levels-head { max-width: 1100px; margin: 0 auto 12px; text-align: center; }
+.levels-grid { max-width: 1100px; margin: 44px auto 0; display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+.level-card { background: var(--off); border: 1.5px solid var(--border); border-radius: 20px; padding: 34px 30px; transition: transform .2s, box-shadow .2s; }
+.level-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(12,25,41,.09); }
+.level-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 13px; border-radius: 100px; margin-bottom: 18px; }
+.level-tag.t1 { background: var(--teal-l); color: var(--teal-d); }
+.level-tag.t2 { background: var(--green-l); color: #1A7A42; }
+.level-tag.t3 { background: var(--orange-l); color: #B8601A; }
+.level-card h3 { font-family: Georgia, serif; font-size: 24px; color: var(--navy); margin-bottom: 4px; letter-spacing: -.5px; }
+.level-income { font-size: 13px; color: var(--light); margin-bottom: 18px; font-weight: 600; }
+.level-quote { font-size: 16px; color: var(--text); line-height: 1.55; font-weight: 600; margin-bottom: 20px; padding-left: 14px; border-left: 3px solid var(--teal); }
+.level-wins { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.level-wins li { font-size: 14px; color: var(--muted); display: flex; gap: 9px; align-items: flex-start; line-height: 1.5; }
+.level-wins li::before { content: '✓'; color: var(--green); font-weight: 800; flex-shrink: 0; }
+
+/* ─── EXTRACTION INTRO (ram + sheep) ─── */
+#extract-intro { background: var(--navy); padding: 80px 48px 40px; position: relative; overflow: hidden; }
+.ei-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 360px 1fr; gap: 50px; align-items: center; position: relative; z-index: 1; }
+#ei-ram-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+#ei-ram { width: 100%; max-width: 320px; filter: invert(1) sepia(1) saturate(2) hue-rotate(155deg) brightness(0.9); position: relative; z-index: 2; animation: ramFloat 5s ease-in-out infinite; transform-origin: bottom center; }
+#ei-glow { position: absolute; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(15,168,188,.22) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 1; animation: glowPulse 4s ease-in-out infinite; }
+.ei-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); margin-bottom: 14px; }
+.ei-h { font-family: Georgia, serif; font-size: clamp(30px,4vw,46px); font-weight: 700; color: #fff; line-height: 1.15; letter-spacing: -1px; margin-bottom: 8px; }
+.ei-h em { color: var(--teal); font-style: normal; }
+.ei-sub { font-size: 17px; color: #7A9AB5; line-height: 1.7; max-width: 560px; }
+
+/* ─── ESTIMATOR ─── */
+#estimator { background: var(--off); padding: 92px 48px; }
+.est-wrap { max-width: 720px; margin: 0 auto; text-align: center; }
+.est-card { background: #fff; border: 1.5px solid var(--border); border-radius: 24px; padding: 40px; margin-top: 36px; box-shadow: 0 18px 50px rgba(12,25,41,.07); }
+.est-slider-row { text-align: left; margin-bottom: 26px; }
+.est-slider-row label { display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; color: var(--muted); margin-bottom: 12px; font-weight: 600; }
+.est-slider-row label strong { color: var(--navy); font-size: 20px; font-family: Georgia, serif; }
+input[type=range].est { width: 100%; -webkit-appearance: none; appearance: none; height: 6px; border-radius: 3px; background: var(--border); outline: none; }
+input[type=range].est::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; background: var(--orange); cursor: pointer; border: 3px solid #fff; box-shadow: 0 2px 8px rgba(232,119,34,.4); }
+input[type=range].est::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: var(--orange); cursor: pointer; border: 3px solid #fff; }
+.est-result { margin-top: 30px; padding-top: 28px; border-top: 1px solid var(--border); }
+.est-result .est-num { font-family: Georgia, serif; font-size: clamp(48px,8vw,80px); font-weight: 700; color: var(--orange); letter-spacing: -2px; line-height: 1; }
+.est-result .est-cap { font-size: 15px; color: var(--muted); margin-top: 10px; line-height: 1.5; }
+.est-privacy { font-size: 12px; color: var(--light); margin-top: 22px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+/* ─── FORWARD-LOOKING DIFFERENTIATOR ─── */
+#forward { background: var(--off); padding: 92px 48px; border-top: 1px solid var(--border); }
+.fwd-head { max-width: 1100px; margin: 0 auto; text-align: center; }
+.compare { max-width: 920px; margin: 44px auto 0; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.cmp-card { border-radius: 18px; padding: 30px 28px; }
+.cmp-past { background: #fff; border: 1.5px solid var(--border); }
+.cmp-future { background: var(--navy); border: 1.5px solid var(--navy); position: relative; overflow: hidden; }
+.cmp-future::before { content: ''; position: absolute; top: -50px; right: -50px; width: 180px; height: 180px; border-radius: 50%; background: rgba(15,168,188,.12); }
+.cmp-tag { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px; position: relative; z-index: 1; }
+.cmp-past .cmp-tag { color: var(--light); }
+.cmp-future .cmp-tag { color: var(--teal); }
+.cmp-card h3 { font-family: Georgia, serif; font-size: 22px; letter-spacing: -.5px; margin-bottom: 20px; position: relative; z-index: 1; }
+.cmp-past h3 { color: var(--navy); }
+.cmp-future h3 { color: #fff; }
+.cmp-list { list-style: none; display: flex; flex-direction: column; gap: 13px; position: relative; z-index: 1; }
+.cmp-list li { font-size: 14px; line-height: 1.5; display: flex; gap: 11px; align-items: flex-start; }
+.cmp-past .cmp-list li { color: var(--muted); }
+.cmp-future .cmp-list li { color: rgba(255,255,255,.85); }
+.cmp-ic { flex-shrink: 0; font-weight: 800; font-size: 13px; line-height: 1.45; }
+.cmp-past .cmp-ic { color: var(--light); }
+.cmp-future .cmp-ic { color: var(--teal); }
+.benefits { max-width: 1100px; margin: 22px auto 0; display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.benefit { background: #fff; border: 1.5px solid var(--border); border-radius: 18px; padding: 30px 26px; transition: transform .2s, box-shadow .2s; }
+.benefit:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(12,25,41,.08); }
+.benefit-ic { width: 50px; height: 50px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px; }
+.benefit h3 { font-size: 18px; color: var(--navy); margin-bottom: 8px; }
+.benefit p { font-size: 14px; color: var(--muted); line-height: 1.62; }
+
 /* ─── DISCLAIMER STRIP ─── */
 #disclaimer-strip {
   background: var(--off); border-top: 1px solid var(--border);
@@ -428,6 +543,22 @@ footer p { color: #2E4A60; font-size: 13px; }
   #fid { padding: 52px 20px; }
   .fid-grid { grid-template-columns: 1fr; }
 
+  /* NEW SECTIONS */
+  #visibility { padding: 52px 20px; }
+  .vg-grid { grid-template-columns: 1fr; gap: 36px; }
+  #how { padding: 52px 20px; }
+  .how-steps { grid-template-columns: 1fr 1fr; }
+  #levels { padding: 52px 20px; }
+  .levels-grid { grid-template-columns: 1fr; }
+  #extract-intro { padding: 48px 20px 28px; }
+  .ei-inner { grid-template-columns: 1fr; gap: 24px; }
+  #ei-ram-wrap { max-width: 240px; margin: 0 auto; }
+  #estimator { padding: 52px 20px; }
+  .est-card { padding: 28px 22px; }
+  #forward { padding: 52px 20px; }
+  .compare { grid-template-columns: 1fr; }
+  .benefits { grid-template-columns: 1fr; }
+
   /* WAITLIST */
 
   /* FOOTER */
@@ -440,12 +571,13 @@ footer p { color: #2E4A60; font-size: 13px; }
 
 <!-- NAV -->
 <nav>
-  <a href="#" style="display:block;line-height:0">
-    <img src="Logo%20-%20Plenee_Navigator.svg" height="44" alt="Plenee Navigator">
+  <a href="#" class="nav-logo">
+    <img src="Logo%20-%20Plenee_Navigator_v2.svg" alt="Plenee Navigator">
   </a>
   <div class="nav-links">
+    <a href="#how">How it works</a>
     <a href="#features-start">Features</a>
-    <a href="#dashboard">Dashboard</a>
+    <a href="#levels">Every level</a>
     <a href="#fid">Our Promise</a>
   </div>
 </nav>
@@ -456,159 +588,168 @@ footer p { color: #2E4A60; font-size: 13px; }
 <div id="hero-top">
   <div id="hero-top-inner">
     <div id="hero-text">
-      <p class="hero-kicker">Wake up.</p>
-      <h1 id="hero-h1">Americans are<br>being <em>Fleeced.</em></h1>
-      <p id="hero-tagline">Don't be a Sheep.</p>
-      <p id="hero-desc">Banks, lenders, and financial institutions quietly collect billions in fees and interest every year — from people who don't even know it's happening. Plenee shows you exactly how much, and what to do about it.</p>
+      <p class="hero-kicker">A guide for wealth</p>
+      <h1 id="hero-h1">See your whole<br>financial picture.</h1>
+      <p id="hero-tagline">Then keep more of it.</p>
+      <p id="hero-desc">Plenee Navigator brings every account, debt, and dollar into one clear view — then does the heavy lifting for you: finding wasted fees and interest, and guiding you forward toward saving money, saving time, and building wealth. For every income level.</p>
       <div class="cta-row" style="justify-content:flex-start;margin-top:36px">
-        <button class="cta-primary">See My Number <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></button>
-        <button class="cta-secondary">How it works</button>
+        <button class="cta-primary" onclick="document.getElementById('estimator').scrollIntoView({behavior:'smooth'})">Estimate what you could keep <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></button>
+        <button class="cta-secondary" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">See how it works</button>
       </div>
     </div>
     <div id="hero-ram">
-      <img src="RAM.svg" alt="Ram" id="ram-img" />
-      <div id="ram-glow"></div>
+      <div class="snap-card">
+        <div class="snap-label">Your complete picture</div>
+        <div class="snap-nw">$248,300<span>▲ Net worth, up $4,180 this month</span></div>
+        <div class="snap-rows">
+          <div class="snap-row"><div class="snap-acct"><div class="snap-ico" style="background:var(--teal-l)">🏦</div>Cash &amp; savings</div><div class="snap-amt">$18,420</div></div>
+          <div class="snap-row"><div class="snap-acct"><div class="snap-ico" style="background:var(--green-l)">📈</div>Investments</div><div class="snap-amt">$96,540</div></div>
+          <div class="snap-row"><div class="snap-acct"><div class="snap-ico" style="background:#EDEAF7">🏠</div>Property &amp; assets</div><div class="snap-amt">$182,000</div></div>
+          <div class="snap-row"><div class="snap-acct"><div class="snap-ico" style="background:var(--red-l)">💳</div>Debts</div><div class="snap-amt neg">−$48,660</div></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════ PARALLAX ══════════ -->
-<div id="proot">
-    <div class="orb orb1" id="orb1"></div>
-    <div class="orb orb2" id="orb2"></div>
-
-    <div id="scene-wrap">
-
-      <!-- S0: Intro -->
-      <div class="scene" id="s0">
-        <div class="s-eyebrow">The cost of doing nothing</div>
-        <div class="s-number" id="s0n">$0</div>
-        <div class="s-headline">How much the average American<br>overpays every single year.</div>
-        <div class="s-sub">Not one big hit. Dozens of quiet ones — fees, interest, missed rates — draining your account every month while the banks count the difference.</div>
-        <div class="s-stats">
-          <div><div class="s-stat-num"><span id="c1">0</span>M+</div><div class="s-stat-label">transactions analyzed</div></div>
-          <div><div class="s-stat-num"><span id="c2">0</span></div><div class="s-stat-label">fee categories tracked</div></div>
-          <div><div class="s-stat-num"><span id="c3">0</span>%</div><div class="s-stat-label">of users find a surprise</div></div>
+<!-- ══════════ VISIBILITY GAP ══════════ -->
+<div id="visibility">
+  <div class="vg-grid">
+    <div>
+      <p class="sec-eyebrow">The real problem</p>
+      <h2 class="sec-h">Before anyone overpays,<br>they're left in the dark.</h2>
+      <p class="sec-sub" style="margin-bottom:0">At every income level, the first struggle is the same: people can't see their whole financial situation in one place. Without a clear picture of accounts, debts, cash flow, and net worth, planning becomes guesswork — and guesswork is expensive.</p>
+      <div class="vg-points">
+        <div class="vg-point">
+          <div class="vg-ico">⏳</div>
+          <div><h4>Hours spent, still in the dark</h4><p>Many people track their finances by hand every month and still can't answer simple questions about where they really stand.</p></div>
+        </div>
+        <div class="vg-point">
+          <div class="vg-ico">🌀</div>
+          <div><h4>Never fully in control</h4><p>Others never get debt, savings, and cash flow working together — so money quietly leaks, year after year.</p></div>
         </div>
       </div>
-
-      <!-- S1: Credit cards -->
-      <div class="scene" id="s1">
-        <div class="s-pill"><div class="s-dot"></div><span>Credit Card Interest</span></div>
-        <div class="s-number">$1,380</div>
-        <div class="s-headline">Average annual interest paid<br>per American household.</div>
-        <div class="s-sub">At 24.9% APR, carrying the national average $5,500 balance costs over $100 every month in interest alone. The minimum payment barely touches the principal.</div>
-        <div class="s-chips">
-          <div class="s-chip"><strong>$5,500</strong>avg balance</div>
-          <div class="s-chip"><strong>24.9%</strong>avg APR</div>
-          <div class="s-chip"><strong>~$114/mo</strong>interest on min payment</div>
-          <div class="s-chip"><strong>17 years</strong>payoff on minimums</div>
-        </div>
+    </div>
+    <div class="vg-visual">
+      <div class="vg-scatter">
+        <div class="vg-chip">Checking</div>
+        <div class="vg-chip">Savings</div>
+        <div class="vg-chip">Credit cards</div>
+        <div class="vg-chip">Car loan</div>
+        <div class="vg-chip">401(k)</div>
+        <div class="vg-chip">Brokerage</div>
+        <div class="vg-chip">Mortgage</div>
+        <div class="vg-chip">BNPL</div>
+        <div class="vg-chip">Crypto</div>
       </div>
-
-      <!-- S2: Overdraft -->
-      <div class="scene" id="s2">
-        <div class="s-pill"><div class="s-dot"></div><span>Overdraft & NSF Fees</span></div>
-        <div class="s-number">$35</div>
-        <div class="s-headline">Charged for being $24 short.<br>Over and over again.</div>
-        <div class="s-sub">Banks collected $5.8 billion in overdraft fees last year. The average overdraft triggers on a $24 transaction. That $35 fee is a 146% effective APR.</div>
-        <div class="s-chips">
-          <div class="s-chip"><strong>$24</strong>avg overdraft amount</div>
-          <div class="s-chip"><strong>$35</strong>fee charged</div>
-          <div class="s-chip"><strong>146%</strong>effective APR</div>
-          <div class="s-chip"><strong>$5.8B</strong>collected annually</div>
-        </div>
+      <div class="vg-arrow-row">↓</div>
+      <div class="vg-unified">
+        <div class="vgu-label">One clear view</div>
+        <div class="vgu-val">Net worth, cash flow &amp; every dollar — together</div>
       </div>
-
-      <!-- S3: Idle cash -->
-      <div class="scene" id="s3">
-        <div class="s-pill"><div class="s-dot"></div><span>Idle Cash Opportunity Cost</span></div>
-        <div class="s-number">$258</div>
-        <div class="s-headline">Lost every year leaving $6,000<br>in a big-bank savings account.</div>
-        <div class="s-sub">Big banks pay 0.46% on savings. High-yield accounts pay 4.75%. On $6,000 idle, that gap costs you $258 a year. Most people have no idea.</div>
-        <div class="s-chips">
-          <div class="s-chip"><strong>0.46%</strong>big bank rate</div>
-          <div class="s-chip"><strong>4.75%</strong>HYSA rate</div>
-          <div class="s-chip"><strong>4.29%</strong>rate gap</div>
-          <div class="s-chip"><strong>$258/yr</strong>lost on $6,000</div>
-        </div>
-      </div>
-
-      <!-- S4: BNPL -->
-      <div class="scene" id="s4">
-        <div class="s-pill"><div class="s-dot"></div><span>BNPL Deferred Interest</span></div>
-        <div class="s-number">$340</div>
-        <div class="s-headline">Backdated interest on a balance<br>you thought was 0%.</div>
-        <div class="s-sub">Deferred interest plans charge all accrued interest from day one if you miss the payoff deadline. Miss by $1. Get charged for the whole year. One in three users gets hit.</div>
-        <div class="s-chips">
-          <div class="s-chip"><strong>0%</strong>promo rate for 12 mo</div>
-          <div class="s-chip"><strong>26.99%</strong>post-deadline APR</div>
-          <div class="s-chip"><strong>Day 1</strong>interest backdated to</div>
-          <div class="s-chip"><strong>1 in 3</strong>users affected</div>
-        </div>
-      </div>
-
-      <!-- S5: Payday -->
-      <div class="scene" id="s5">
-        <div class="s-pill"><div class="s-dot"></div><span>Payday & Short-Term Loans</span></div>
-        <div class="s-number">391%</div>
-        <div class="s-headline">Average APR on a payday loan.<br>Legal in 37 states.</div>
-        <div class="s-sub">A $400 payday loan for two weeks costs $60 in fees — 391% annualized. 80% roll over within 14 days, turning one emergency into months of compounding debt.</div>
-        <div class="s-chips">
-          <div class="s-chip"><strong>$400</strong>avg loan</div>
-          <div class="s-chip"><strong>$60</strong>fee per 2 weeks</div>
-          <div class="s-chip"><strong>80%</strong>rollover rate</div>
-          <div class="s-chip"><strong>391%</strong>effective APR</div>
-        </div>
-      </div>
-
-      <!-- S6: Total -->
-      <div class="scene" id="s6">
-        <div class="s-eyebrow">The full picture</div>
-        <div class="s-number">$4,200</div>
-        <div class="s-headline">Total annual overpayment<br>for the average American.</div>
-        <div class="s-sub">Credit card interest. Overdraft fees. Idle cash. BNPL traps. Payday loans. Over $4,000 a year quietly leaving your account — and going to the bank.</div>
-        <div class="s-chips">
-          <div class="s-chip"><strong>$1,380</strong>CC interest</div>
-          <div class="s-chip"><strong>$340</strong>bank fees</div>
-          <div class="s-chip"><strong>$258</strong>idle cash loss</div>
-          <div class="s-chip"><strong>$420</strong>BNPL & other</div>
-          <div class="s-chip"><strong>$1,802</strong>loan fees</div>
-        </div>
-      </div>
-
-    </div><!-- /scene-wrap -->
-
-    <div class="scene-bar" id="sbar"></div>
-    <div class="scroll-hint" id="shint"><p>Scroll to explore</p><div class="scroll-mouse"></div></div>
+    </div>
+  </div>
 </div>
 
-<!-- ══════════ HERO CTA ══════════ -->
-<div id="hero-cta">
-  <h1 class="hero-h">Stop paying more<br>than <em>you should.</em></h1>
-  <p class="hero-sub">Plenee shows you the true cost of every financial decision — and the path to keeping more of what you earn.</p>
-  <div class="cta-row">
-    <button class="cta-secondary">See how it works</button>
+<!-- ══════════ HOW IT WORKS ══════════ -->
+<div id="how">
+  <div class="how-head">
+    <p class="sec-eyebrow" style="text-align:center">How Plenee works</p>
+    <h2 class="sec-h" style="margin:0 auto 10px">Four steps, from confusion to confidence.</h2>
+    <p class="sec-sub" style="margin:0 auto">The same product for everyone — it simply meets you where you are.</p>
+  </div>
+  <div class="how-steps">
+    <div class="how-step">
+      <div class="how-badge">1</div>
+      <h3>Map</h3>
+      <p>Every account, asset, and debt aggregated into one live view — your complete net worth, finally visible.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-badge">2</div>
+      <h3>Simulate</h3>
+      <p>Forward-looking forecasts of your cash flow and net worth, so you see what's coming before it arrives.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-badge">3</div>
+      <h3>Recommend</h3>
+      <p>Ranked, unbiased next steps — clear options with the math shown. You always decide and execute.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-badge">4</div>
+      <h3>Guide</h3>
+      <p>The right action surfaced at the right moment, so good decisions happen on time, not too late.</p>
+    </div>
+  </div>
+  <p class="how-note"><strong>You stay in control.</strong> Plenee shows you what to do — it never moves your money, opens accounts, or makes a transaction.</p>
+</div>
+
+<!-- ══════════ FORWARD-LOOKING DIFFERENTIATOR ══════════ -->
+<div id="forward">
+  <div class="fwd-head">
+    <p class="sec-eyebrow" style="text-align:center">Why Plenee is different</p>
+    <h2 class="sec-h" style="margin:0 auto 10px">Other apps show you the past.<br>Plenee shows you the way forward.</h2>
+    <p class="sec-sub" style="margin:0 auto">Most money apps are rear-view mirrors — they total up what you already spent. Plenee Navigator looks ahead: forecasting what's coming, catching savings before you lose them, and guiding you toward where you want to go.</p>
+  </div>
+
+  <div class="compare">
+    <div class="cmp-card cmp-past">
+      <div class="cmp-tag">Other financial apps</div>
+      <h3>Looking backward</h3>
+      <ul class="cmp-list">
+        <li><span class="cmp-ic">✕</span>Show you what you already spent</li>
+        <li><span class="cmp-ic">✕</span>Categorize the past into charts</li>
+        <li><span class="cmp-ic">✕</span>Leave the next move up to you</li>
+        <li><span class="cmp-ic">✕</span>Warn you after the fee already hit</li>
+      </ul>
+    </div>
+    <div class="cmp-card cmp-future">
+      <div class="cmp-tag">Plenee Navigator</div>
+      <h3>Looking forward</h3>
+      <ul class="cmp-list">
+        <li><span class="cmp-ic">✓</span>Forecasts your cash flow and net worth</li>
+        <li><span class="cmp-ic">✓</span>Flags fees and interest before they cost you</li>
+        <li><span class="cmp-ic">✓</span>Surfaces the next best move, with the math</li>
+        <li><span class="cmp-ic">✓</span>Guides you toward where you want to go</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="benefits">
+    <div class="benefit">
+      <div class="benefit-ic" style="background:var(--green-l)">💰</div>
+      <h3>Saves you money</h3>
+      <p>Plenee surfaces the unnecessary fees, interest charges, and missed rates draining your accounts — then shows you exactly how to keep that money instead.</p>
+    </div>
+    <div class="benefit">
+      <div class="benefit-ic" style="background:var(--teal-l)">⏱️</div>
+      <h3>Saves you time</h3>
+      <p>Plenee does the heavy lifting — aggregating, analyzing, and flagging what matters — so you can focus on the essentials instead of spreadsheets and statements.</p>
+    </div>
+    <div class="benefit">
+      <div class="benefit-ic" style="background:var(--orange-l)">📈</div>
+      <h3>Builds your wealth</h3>
+      <p>Every dollar you stop losing gets redirected toward growing your own net worth — turning small recovered amounts into long-term wealth.</p>
+    </div>
   </div>
 </div>
 
 <!-- ══════════ STATS BAND ══════════ -->
 <div id="stats-band">
   <div class="stat-item">
-    <div class="stat-n">$<em>4,200</em><span style="font-size:28px;color:#5A7B98">+</span></div>
-    <div class="stat-l">avg. annual overpayment per U.S. household†</div>
+    <div class="stat-n">$<em>1.2</em><span style="font-size:28px;color:#5A7B98">T+</span></div>
+    <div class="stat-l">in interest &amp; fees taken from U.S. consumers in 2025†</div>
   </div>
   <div class="stat-item">
-    <div class="stat-n"><em>$840</em></div>
-    <div class="stat-l">avg. in avoidable bank fees per U.S. household†</div>
+    <div class="stat-n"><em>130</em><span style="font-size:28px;color:#5A7B98">M</span></div>
+    <div class="stat-l">U.S. households Plenee Navigator is built to help</div>
   </div>
   <div class="stat-item">
-    <div class="stat-n"><em>94</em><span style="font-size:28px;color:#5A7B98">%</span></div>
-    <div class="stat-l">of U.S. households face at least one unexpected fee†</div>
+    <div class="stat-n"><em>$0</em></div>
+    <div class="stat-l">in ads or data sales — now and always</div>
   </div>
   <div class="stat-item">
-    <div class="stat-n"><em>2</em><span style="font-size:28px;color:#5A7B98">min</span></div>
-    <div class="stat-l">estimated time to first insights after linking accounts</div>
+    <div class="stat-n"><em>1</em><span style="font-size:28px;color:#5A7B98"> view</span></div>
+    <div class="stat-l">every account, debt, and dollar in one place</div>
   </div>
 </div>
 <div style="background:var(--navy);padding:0 48px 14px;text-align:center">
@@ -622,10 +763,10 @@ footer p { color: #2E4A60; font-size: 13px; }
 <div class="feature-section">
   <div class="feature-inner">
     <div>
-      <p class="feature-eyebrow">Fee & Interest Detection</p>
-      <h2 class="feature-h">See every dollar the bank<br>quietly took from you.</h2>
-      <p class="feature-p">Plenee scans your full transaction history and surfaces every fee, interest charge, and overdraft — categorized, totaled, and shown as a single number. Most users are surprised by how big it is.</p>
-      <a class="feature-link" href="#">See your number <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></a>
+      <p class="feature-eyebrow">Level 1 · Map</p>
+      <h2 class="feature-h">Everything you own and owe,<br>in one clear view.</h2>
+      <p class="feature-p">Plenee brings your checking, savings, cards, loans, investments, property, and more into a single live picture — so your complete net worth is finally visible. It also surfaces the fees and interest quietly leaving your accounts, so nothing stays hidden.</p>
+      <a class="feature-link" href="#how">See the full picture <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></a>
     </div>
     <div class="feature-card">
       <div>
@@ -647,10 +788,10 @@ footer p { color: #2E4A60; font-size: 13px; }
 <div class="feature-section">
   <div class="feature-inner flip">
     <div>
-      <p class="feature-eyebrow">Cash Flow Calendar</p>
-      <h2 class="feature-h">Know what's coming<br>before it hits.</h2>
-      <p class="feature-p">Plenee projects your daily balance 30, 60, and 90 days forward — flagging days where you're at risk before they become overdrafts or late fees. Green means covered. Red means act now.</p>
-      <a class="feature-link" href="#">See your forecast <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></a>
+      <p class="feature-eyebrow">Level 2 · Simulate</p>
+      <h2 class="feature-h">Know what's coming<br>before it arrives.</h2>
+      <p class="feature-p">Plenee projects your daily balance and net worth 30, 60, and 90 days forward — gently flagging the days that look tight before they turn into an overdraft or a late fee. Green means covered. Amber means plan ahead.</p>
+      <a class="feature-link" href="#how">See your forecast <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></a>
     </div>
     <div class="feature-card-light">
       <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:14px">30-Day Forecast — Checking</div>
@@ -677,10 +818,10 @@ footer p { color: #2E4A60; font-size: 13px; }
 <div class="feature-section">
   <div class="feature-inner">
     <div>
-      <p class="feature-eyebrow">Debt Payoff Engine</p>
-      <h2 class="feature-h">Pay off debt faster.<br>Pay less interest doing it.</h2>
-      <p class="feature-p">Plenee shows how an avalanche payment order — highest APR first — compares to what you're doing now. Same income. Same expenses. A different order that saves thousands.</p>
-      <a class="feature-link" href="#">See your payoff plan <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></a>
+      <p class="feature-eyebrow">Level 3 · Recommend</p>
+      <h2 class="feature-h">Pay debt in the order<br>that costs you least.</h2>
+      <p class="feature-p">Plenee shows how an avalanche order — highest interest rate first — compares to what you're doing now. Same income, same expenses, just a smarter sequence. You see the math, then you decide. Plenee never moves a dollar for you.</p>
+      <a class="feature-link" href="#how">See your payoff plan <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></a>
     </div>
     <div class="avalanche-card">
       <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:16px">Avalanche order by APR</div>
@@ -700,10 +841,10 @@ footer p { color: #2E4A60; font-size: 13px; }
 <div class="feature-section">
   <div class="feature-inner flip">
     <div>
-      <p class="feature-eyebrow">Historical Simulation</p>
-      <h2 class="feature-h">What last year would have<br>looked like with Plenee.</h2>
-      <p class="feature-p">We replay your last 12 months using your actual income and spending — but with an optimal payment order. The difference is what you would have kept instead of paying the bank.</p>
-      <a class="feature-link" href="#">Run your simulation <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></a>
+      <p class="feature-eyebrow">Level 4 · Guide</p>
+      <h2 class="feature-h">See what a smarter year<br>would have kept.</h2>
+      <p class="feature-p">Plenee replays your last 12 months using your actual income and spending — just with better timing and order. The difference is money you could have kept and put toward your own net worth instead of someone else's.</p>
+      <a class="feature-link" href="#how">Run your simulation <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></a>
     </div>
     <div class="sim-card">
       <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:20px">Last 12 months · Interest paid</div>
@@ -721,12 +862,181 @@ footer p { color: #2E4A60; font-size: 13px; }
   </div>
 </div>
 
+<!-- ══════════ WEALTH LEVELS ══════════ -->
+<div id="levels">
+  <div class="levels-head">
+    <p class="sec-eyebrow" style="text-align:center">Built for every wealth level</p>
+    <h2 class="sec-h" style="margin:0 auto 10px">Same product. Wherever you are.</h2>
+    <p class="sec-sub" style="margin:0 auto">Whether you're climbing out of debt or managing millions, the problem is the same — money leaking where you can't see it. Plenee meets you where you are.</p>
+  </div>
+  <div class="levels-grid">
+    <div class="level-card">
+      <span class="level-tag t1">Getting ahead</span>
+      <h3>Find your footing</h3>
+      <div class="level-income">Carrying debt · building from the ground up</div>
+      <p class="level-quote">"Stop the late fees and pay down debt in the order that actually saves money."</p>
+      <ul class="level-wins">
+        <li>Eliminate overdraft &amp; late fees before they hit</li>
+        <li>Debt payoff in the lowest-cost order</li>
+        <li>Bill timing that keeps you covered</li>
+      </ul>
+    </div>
+    <div class="level-card">
+      <span class="level-tag t2">Building wealth</span>
+      <h3>Make money work</h3>
+      <div class="level-income">Earning well · leaving money on the table</div>
+      <p class="level-quote">"Your idle cash and account choices are quietly costing you thousands a year."</p>
+      <ul class="level-wins">
+        <li>Put idle cash to work at better rates</li>
+        <li>Smarter debt and savings sequencing</li>
+        <li>Net worth tracked and trending up</li>
+      </ul>
+    </div>
+    <div class="level-card">
+      <span class="level-tag t3">Optimizing wealth</span>
+      <h3>Keep what's yours</h3>
+      <div class="level-income">High net worth · fleeced at scale, quietly</div>
+      <p class="level-quote">"Management fees, tax inefficiency, and advisor costs can run into tens of thousands a year."</p>
+      <ul class="level-wins">
+        <li>See AUM &amp; advisory fees in plain dollars</li>
+        <li>Tax-efficiency and account sequencing</li>
+        <li>The true time cost of managing it all</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ EXTRACTION INTRO (ram) ══════════ -->
+<div id="extract-intro">
+  <div class="ei-inner">
+    <div id="ei-ram-wrap">
+      <img src="RAM.svg" alt="Ram" id="ei-ram" />
+      <div id="ei-glow"></div>
+    </div>
+    <div>
+      <p class="ei-eyebrow">The extraction economy</p>
+      <h2 class="ei-h">Don't be a <em>sheep.</em></h2>
+      <p class="ei-sub">The financial system is built to quietly take a little from everyone, at every level — an estimated $1.2–1.35 trillion in interest and fees in 2025 alone. Most of it is avoidable once you can see it. Here's where it tends to hide.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PARALLAX (extraction detail) ══════════ -->
+<div id="proot">
+    <div class="orb orb1" id="orb1"></div>
+    <div class="orb orb2" id="orb2"></div>
+
+    <div id="scene-wrap">
+
+      <!-- S0: Intro -->
+      <div class="scene" id="s0">
+        <div class="s-eyebrow">A quiet, steady drain</div>
+        <div class="s-number" id="s0n">$0</div>
+        <div class="s-headline">What an average household<br>loses to avoidable costs each year.</div>
+        <div class="s-sub">Rarely one big hit — usually dozens of small ones. Fees, interest, and missed rates that add up quietly every month. The first step to keeping it is simply seeing it.</div>
+        <div class="s-stats">
+          <div><div class="s-stat-num"><span id="c1">0</span>M+</div><div class="s-stat-label">transactions analyzed</div></div>
+          <div><div class="s-stat-num"><span id="c2">0</span></div><div class="s-stat-label">cost categories tracked</div></div>
+          <div><div class="s-stat-num"><span id="c3">0</span>%</div><div class="s-stat-label">of users find something</div></div>
+        </div>
+      </div>
+
+      <!-- S1: Credit cards -->
+      <div class="scene" id="s1">
+        <div class="s-pill"><div class="s-dot"></div><span>Credit Card Interest</span></div>
+        <div class="s-number">$1,380</div>
+        <div class="s-headline">Average annual interest paid<br>per American household.</div>
+        <div class="s-sub">At around 24% APR, carrying the national average balance costs over $100 every month in interest alone — and the minimum payment barely touches the principal.</div>
+        <div class="s-chips">
+          <div class="s-chip"><strong>$5,500</strong>avg balance</div>
+          <div class="s-chip"><strong>24.9%</strong>avg APR</div>
+          <div class="s-chip"><strong>~$114/mo</strong>interest on min payment</div>
+          <div class="s-chip"><strong>17 years</strong>payoff on minimums</div>
+        </div>
+      </div>
+
+      <!-- S2: Overdraft -->
+      <div class="scene" id="s2">
+        <div class="s-pill"><div class="s-dot"></div><span>Overdraft &amp; NSF Fees</span></div>
+        <div class="s-number">$35</div>
+        <div class="s-headline">Charged for being a few<br>dollars short — again and again.</div>
+        <div class="s-sub">Banks collected billions in overdraft fees last year. The average overdraft triggers on a $24 transaction — making that $35 fee an effective APR of over 140%.</div>
+        <div class="s-chips">
+          <div class="s-chip"><strong>$24</strong>avg overdraft amount</div>
+          <div class="s-chip"><strong>$35</strong>fee charged</div>
+          <div class="s-chip"><strong>146%</strong>effective APR</div>
+          <div class="s-chip"><strong>$12.4B</strong>collected annually</div>
+        </div>
+      </div>
+
+      <!-- S3: Idle cash -->
+      <div class="scene" id="s3">
+        <div class="s-pill"><div class="s-dot"></div><span>Idle Cash Opportunity Cost</span></div>
+        <div class="s-number">$258</div>
+        <div class="s-headline">Lost each year leaving $6,000<br>in a near-zero savings account.</div>
+        <div class="s-sub">Big banks pay around 0.46% on savings while high-yield accounts pay 4.75%+. On $6,000 sitting idle, that gap quietly costs about $258 a year — and most people never notice.</div>
+        <div class="s-chips">
+          <div class="s-chip"><strong>0.46%</strong>big bank rate</div>
+          <div class="s-chip"><strong>4.75%</strong>HYSA rate</div>
+          <div class="s-chip"><strong>4.29%</strong>rate gap</div>
+          <div class="s-chip"><strong>$258/yr</strong>lost on $6,000</div>
+        </div>
+      </div>
+
+      <!-- S4: AUM / advisor fees (high wealth) -->
+      <div class="scene" id="s4">
+        <div class="s-pill"><div class="s-dot"></div><span>Management &amp; Advisory Fees</span></div>
+        <div class="s-number">$30,000</div>
+        <div class="s-headline">A year in fees on a $3M portfolio<br>at a typical 1% AUM rate.</div>
+        <div class="s-sub">It sounds small as a percentage. In dollars — and in the returns that money would have compounded into — a 1% fee can quietly cost $375,000+ over a decade.</div>
+        <div class="s-chips">
+          <div class="s-chip"><strong>1%</strong>typical AUM fee</div>
+          <div class="s-chip"><strong>$30,000</strong>per year on $3M</div>
+          <div class="s-chip"><strong>$375K+</strong>10-year compounded cost</div>
+          <div class="s-chip"><strong>Often hidden</strong>in statements</div>
+        </div>
+      </div>
+
+      <!-- S5: Tax & time cost (high wealth) -->
+      <div class="scene" id="s5">
+        <div class="s-pill"><div class="s-dot"></div><span>Tax Inefficiency &amp; Time Cost</span></div>
+        <div class="s-number">10–20<span style="font-size:.4em">hrs</span></div>
+        <div class="s-headline">A month spent managing money<br>by hand — plus tax left on the table.</div>
+        <div class="s-sub">Wrong account sequencing, missed tax-loss harvesting, and fees for automatable tasks add up. For high earners, the hours alone carry a real and recurring cost.</div>
+        <div class="s-chips">
+          <div class="s-chip"><strong>10–20 hrs</strong>per month manual work</div>
+          <div class="s-chip"><strong>$3K–$20K</strong>advisory/accounting fees</div>
+          <div class="s-chip"><strong>Account order</strong>tax drag</div>
+          <div class="s-chip"><strong>Recurring</strong>every year</div>
+        </div>
+      </div>
+
+      <!-- S6: Total -->
+      <div class="scene" id="s6">
+        <div class="s-eyebrow">The full picture</div>
+        <div class="s-number">$1.2T+</div>
+        <div class="s-headline">Taken from U.S. consumers<br>in interest and fees in 2025.</div>
+        <div class="s-sub">It scales with wealth and changes form — overdraft fees at one end, management fees at the other. Plenee's job is simple: make it all visible, whatever your level.</div>
+        <div class="s-chips">
+          <div class="s-chip"><strong>Lower wealth</strong>fees &amp; high-APR debt</div>
+          <div class="s-chip"><strong>Middle wealth</strong>idle cash &amp; sequencing</div>
+          <div class="s-chip"><strong>High wealth</strong>AUM, tax &amp; time</div>
+          <div class="s-chip"><strong>Every level</strong>made visible</div>
+        </div>
+      </div>
+
+    </div><!-- /scene-wrap -->
+
+    <div class="scene-bar" id="sbar"></div>
+    <div class="scroll-hint" id="shint"><p>Scroll to explore</p><div class="scroll-mouse"></div></div>
+</div>
+
 <!-- ══════════ BENTO DASHBOARD ══════════ -->
 <div id="dashboard">
   <div class="sec-wrap">
-    <p class="sec-eyebrow">Your Financial Dashboard</p>
-    <h2 class="sec-h">Everything at a glance.</h2>
-    <p class="sec-sub">Live view of your fees, cash flow, debt payoff, and savings opportunities — all in one place.</p>
+    <p class="sec-eyebrow">Your financial dashboard</p>
+    <h2 class="sec-h">Your whole picture, at a glance.</h2>
+    <p class="sec-sub">Net worth, cash flow, debt payoff, fees, and savings opportunities — one live view, working for you.</p>
     <div class="bento">
 
       <div class="card c1 card-navy">
@@ -849,13 +1159,42 @@ footer p { color: #2E4A60; font-size: 13px; }
   </div>
 </div>
 
+<!-- ══════════ ESTIMATOR ══════════ -->
+<div id="estimator">
+  <div class="est-wrap">
+    <p class="sec-eyebrow" style="text-align:center">Try it now</p>
+    <h2 class="sec-h" style="margin:0 auto 10px">Estimate what you could keep.</h2>
+    <p class="sec-sub" style="margin:0 auto">Move the two sliders. You'll get a rough idea of what Plenee could help you recover or redirect each year — at any income level.</p>
+
+    <div class="est-card">
+      <div class="est-slider-row">
+        <label>Annual income <strong id="est-income-val">$85,000</strong></label>
+        <input type="range" class="est" id="est-income" min="20000" max="500000" step="5000" value="85000">
+      </div>
+      <div class="est-slider-row">
+        <label>Net worth <strong id="est-nw-val">$120,000</strong></label>
+        <input type="range" class="est" id="est-nw" min="-50000" max="5000000" step="10000" value="120000">
+      </div>
+      <div class="est-result">
+        <div class="est-num" id="est-num">$0</div>
+        <div class="est-cap">estimated you could recover or redirect each year</div>
+      </div>
+      <p class="est-privacy">🔒 None of your answers are stored, recorded, or tracked.</p>
+    </div>
+    <div class="cta-row" style="margin-top:28px">
+      <button class="cta-primary" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">See exactly how it works <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></button>
+    </div>
+    <p class="cta-note" style="text-align:center">Estimate only. Your exact numbers come from your own linked accounts.</p>
+  </div>
+</div>
+
 <!-- ══════════ FIDUCIARY ══════════ -->
 <div id="fid">
   <div class="fid-inner">
     <div class="fid-title-block">
       <p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:14px">Our Promise</p>
       <h2 class="fid-h">No ads. No data sales.<br>No conflicts. Ever.</h2>
-      <p class="fid-sub">Every analysis Plenee runs works only for you. We have no financial relationship with any bank, lender, or product we mention.</p>
+      <p class="fid-sub">Plenee earns only from your subscription — so our one incentive is to grow your net worth. We have no financial relationship with any bank, lender, or product we mention.</p>
     </div>
     <div class="fid-grid">
       <div class="fcard"><div class="ficon">🛡️</div><div class="ftitle">No Advertising</div><div class="fdesc">We never show ads and never earn referral fees. Plenee is a subscription product — our only incentive is to be genuinely useful to you.</div></div>
@@ -873,7 +1212,7 @@ footer p { color: #2E4A60; font-size: 13px; }
 
 <footer>
   <a href="#" style="display:block;line-height:0">
-    <img src="Logo%20-%20Plenee_Navigator.svg" height="44" alt="Plenee Navigator">
+    <img src="Logo%20-%20Plenee_Navigator_v2.svg" height="44" alt="Plenee Navigator">
   </a>
   <p>© 2026 Plenee Co. All rights reserved.</p>
   <div class="fl"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="plenee_legal.html" style="color:var(--teal)">Legal</a><a href="contact.html">Contact</a></div>
@@ -996,6 +1335,30 @@ setTimeout(()=>debts.forEach((_,i)=>{ document.getElementById('db'+i).style.widt
 
 // Avalanche bars
 setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getElementById('av2').style.width='45%'; document.getElementById('av3').style.width='62%'; },600);
+
+// ─── Estimator ───
+(function(){
+  const inc = document.getElementById('est-income');
+  const nw  = document.getElementById('est-nw');
+  const incV = document.getElementById('est-income-val');
+  const nwV  = document.getElementById('est-nw-val');
+  const out  = document.getElementById('est-num');
+  if (!inc || !nw || !out) return;
+  const money = n => (n<0?'−$':'$') + Math.abs(Math.round(n)).toLocaleString();
+  function calc(){
+    const income = +inc.value, networth = +nw.value;
+    incV.textContent = money(income);
+    nwV.textContent  = money(networth);
+    // Blend: a share of income (fees/interest/idle cash) + a share of positive net worth
+    // (management fees, tax, advisory). Always meaningful, scales with both.
+    let est = income * 0.035 + Math.max(0, networth) * 0.011 + 450;
+    est = Math.max(900, Math.round(est/10)*10);
+    out.textContent = '$' + est.toLocaleString();
+  }
+  inc.addEventListener('input', calc);
+  nw.addEventListener('input', calc);
+  calc();
+})();
 
 </script>
 </body>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 415" width="1300" height="415">
+  <defs>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Varela+Round&amp;display=swap');</style>
+    <linearGradient id="needle-bright" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFD08A"/>
+      <stop offset="100%" stop-color="#F9AE4C"/>
+    </linearGradient>
+  </defs>
+
+  <!-- background -->
+  <rect width="1300" height="415" rx="24" fill="#0C1929"/>
+
+  <!-- ─── COMPASS MARK ─── -->
+  <g transform="translate(250,205) rotate(43)" fill="none" stroke-linecap="round">
+
+    <!-- direction ticks (NW / SE after rotation) -->
+    <line x1="-152" y1="0" x2="-50" y2="0" stroke="#D2E0EE" stroke-width="7.5" opacity="0.55"/>
+    <line x1="50"   y1="0" x2="152" y2="0" stroke="#D2E0EE" stroke-width="7.5" opacity="0.55"/>
+
+    <!-- motion arcs, strong -->
+    <path d="M -23,-12 Q -52,42 -80,137" stroke="#E2ECF5" stroke-width="8.5" opacity="0.72"/>
+    <path d="M  23,-12 Q  52,42  80,137" stroke="#E2ECF5" stroke-width="8.5" opacity="0.72"/>
+    <!-- motion arcs, faint -->
+    <path d="M -23,-12 Q -61,52 -105,168" stroke="#C7D6E6" stroke-width="4.2" opacity="0.34"/>
+    <path d="M  23,-12 Q  61,52  105,168" stroke="#C7D6E6" stroke-width="4.2" opacity="0.34"/>
+    <!-- motion arcs, faintest -->
+    <path d="M -23,-12 Q -70,63 -126,200" stroke="#C7D6E6" stroke-width="1.8" opacity="0.16"/>
+    <path d="M  23,-12 Q  70,63  126,200" stroke="#C7D6E6" stroke-width="1.8" opacity="0.16"/>
+
+    <!-- 3D needle: bright top-left facet + dark right facet sharing the tip ridge -->
+    <polygon points="0,-172 -25,-39 7,-32" fill="url(#needle-bright)" stroke="none"/>
+    <polygon points="0,-172 7,-32 25,-39" fill="#C0822F" stroke="none"/>
+
+    <!-- pivot ring + hub -->
+    <circle cx="0" cy="0" r="20" fill="#0C1929" stroke="#FFB256" stroke-width="7"/>
+    <circle cx="0" cy="0" r="10" fill="#FFB256" stroke="none"/>
+  </g>
+
+  <!-- ─── WORDMARK ─── -->
+  <g font-family="'Varela Round', sans-serif">
+    <text x="545" y="170" font-size="150" letter-spacing="-2" fill="#FFFFFF">Plenee</text>
+    <text x="545" y="300" font-size="150" letter-spacing="-2" fill="#2D9CB8">Navigator</text>
+    <text x="550" y="380" font-size="43"  letter-spacing="10.5" fill="#FFB256">A GUIDE FOR WEALTH</text>
+  </g>
+</svg>
