@@ -34,13 +34,6 @@ nav {
   height: 68px; display: flex; align-items: center; justify-content: space-between;
   padding: 0 48px;
 }
-.logo { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; text-decoration: none; line-height: 1; }
-.logo-mark { display: flex; align-items: baseline; line-height: 1; }
-.logo-mark .lenee-text {
-  font-family: 'Varela Round', sans-serif; font-size: 26px;
-  color: #1B4DB8; margin-left: 2px; -webkit-text-stroke: 0.6px #1B4DB8;
-}
-.logo-tagline { font-family: 'Varela Round', sans-serif; font-size: 10px; color: var(--teal); letter-spacing: 0.2px; }
 .nav-back { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: color .2s; }
 .nav-back:hover { color: var(--navy); }
 .nav-back svg { opacity: .6; }
@@ -190,17 +183,8 @@ footer p { color: #2E4A60; font-size: 13px; }
 
 <!-- NAV -->
 <nav>
-  <a class="logo" href="index.html">
-    <div class="logo-mark">
-      <svg viewBox="0 0 50 64" width="22" height="29" style="display:inline-block;vertical-align:baseline;margin-bottom:-2px;" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="nav-pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F5A04A"/><stop offset="100%" stop-color="#C96515"/></linearGradient></defs>
-        <path d="M6 5 L6 59 L16 59 L16 42 L29 42 C41 42 49 35 49 25 C49 15 41 5 29 5 Z M16 14 L29 14 C36 14 40 19 40 25 C40 31 36 33 29 33 L16 33 Z" fill="url(#nav-pg)"/>
-        <rect x="2" y="21" width="20" height="5" rx="2.5" fill="url(#nav-pg)"/>
-        <rect x="2" y="30" width="20" height="5" rx="2.5" fill="url(#nav-pg)"/>
-      </svg>
-      <span class="lenee-text">lenee</span>
-    </div>
-    <span class="logo-tagline">A Guide to Wealth</span>
+  <a href="index.html" style="display:block;line-height:0">
+    <img src="Logo%20-%20Plenee_Navigator.svg" height="44" alt="Plenee Navigator">
   </a>
   <a class="nav-back" href="index.html">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m7-7-7 7 7 7"/></svg>
@@ -480,7 +464,7 @@ footer p { color: #2E4A60; font-size: 13px; }
   <section class="legal-section" id="s13">
     <h2><span class="sec-num">13</span> European Users — GDPR / UK GDPR</h2>
     <div class="warning-box">
-      <p><strong>Plenee is currently available in the United States only.</strong> We do not accept sign-ups from users in the European Union or United Kingdom at this time. If you are located in the EU or UK, please join our international waitlist and we will notify you when Plenee becomes available in your region.</p>
+      <p><strong>Plenee is currently available in the United States only.</strong> We do not accept sign-ups from users in the European Union or United Kingdom at this time.</p>
     </div>
     <p>When Plenee expands to the EU or UK, the General Data Protection Regulation (GDPR) and UK GDPR will govern all processing of personal data for users in those regions. The following rights and obligations will apply:</p>
     <p><strong>Lawful basis for processing:</strong> Plenee will process your financial data on the basis of contractual necessity — the data is required to deliver the service you signed up for. Certain secondary uses (e.g., product analytics) will be based on legitimate interest or explicit consent, which you may withdraw at any time.</p>
@@ -507,24 +491,15 @@ footer p { color: #2E4A60; font-size: 13px; }
 
 <!-- FOOTER -->
 <footer>
-  <a class="logo" href="index.html" style="text-decoration:none">
-    <div class="logo-mark">
-      <svg viewBox="0 0 50 64" width="22" height="29" style="display:inline-block;vertical-align:baseline;margin-bottom:-2px;" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="ft-pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F5A04A"/><stop offset="100%" stop-color="#C96515"/></linearGradient></defs>
-        <path d="M6 5 L6 59 L16 59 L16 42 L29 42 C41 42 49 35 49 25 C49 15 41 5 29 5 Z M16 14 L29 14 C36 14 40 19 40 25 C40 31 36 33 29 33 L16 33 Z" fill="url(#ft-pg)"/>
-        <rect x="2" y="21" width="20" height="5" rx="2.5" fill="url(#ft-pg)"/>
-        <rect x="2" y="30" width="20" height="5" rx="2.5" fill="url(#ft-pg)"/>
-      </svg>
-      <span class="lenee-text" style="color:rgba(255,255,255,0.9);-webkit-text-stroke:0.6px rgba(255,255,255,0.9);">lenee</span>
-    </div>
-    <span class="logo-tagline" style="color:rgba(255,255,255,0.4)">A Guide to Wealth</span>
+  <a href="index.html" style="display:block;line-height:0">
+    <img src="Logo%20-%20Plenee_Navigator.svg" height="44" alt="Plenee Navigator">
   </a>
   <p>© 2026 Plenee Co. All rights reserved.</p>
   <div class="fl">
-    <a href="#">Privacy</a>
-    <a href="#">Terms</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
     <a href="plenee_legal.html" style="color:var(--teal)">Legal</a>
-    <a href="#">Contact</a>
+    <a href="contact.html">Contact</a>
   </div>
 </footer>
 

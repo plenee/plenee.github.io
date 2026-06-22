@@ -37,16 +37,6 @@ nav {
   height: 68px; display: flex; align-items: center; justify-content: space-between;
   padding: 0 48px;
 }
-.logo { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; text-decoration: none; line-height: 1; }
-.logo-mark { display: flex; align-items: baseline; line-height: 1; }
-.logo-mark .lenee-text {
-  font-family: 'Varela Round', sans-serif;
-  font-size: 26px;
-  color: #1B4DB8;
-  margin-left: 2px;
-  -webkit-text-stroke: 0.6px #1B4DB8;
-}
-.logo-tagline { font-family: 'Varela Round', sans-serif; font-size: 10px; color: var(--teal); letter-spacing: 0.2px; }
 .nav-links { display: flex; gap: 32px; align-items: center; }
 .nav-links a { color: var(--muted); text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
 .nav-links a:hover { color: var(--navy); }
@@ -374,29 +364,6 @@ nav {
 .ftitle { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 10px; }
 .fdesc { font-size: 14px; color: #5A7B98; line-height: 1.65; }
 
-/* ─── WAITLIST ─── */
-#waitlist { background: var(--white); padding: 96px 48px; text-align: center; }
-.wl-inner { max-width: 620px; margin: 0 auto; }
-.wl-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--teal-l); display: flex; align-items: center; justify-content: center; margin: 0 auto 28px; font-size: 26px; }
-.wl-h { font-family: Georgia, serif; font-size: clamp(30px,4vw,48px); font-weight: 700; color: var(--navy); letter-spacing: -1px; line-height: 1.2; margin-bottom: 16px; }
-.wl-h em { color: var(--teal); font-style: normal; }
-.wl-sub { font-size: 18px; color: var(--muted); line-height: 1.7; margin-bottom: 36px; }
-.wl-form { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-.wl-in { padding: 15px 20px; border-radius: 10px; border: 1.5px solid var(--border); font-size: 15px; width: 290px; outline: none; font-family: inherit; color: var(--text); transition: border-color .2s; }
-.wl-in:focus { border-color: var(--teal); }
-.wl-btn { background: var(--orange); color: #fff; border: none; padding: 15px 28px; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 8px; transition: background .2s, transform .15s; }
-.wl-btn:hover { background: #C96515; transform: translateY(-1px); }
-.wl-note { font-size: 13px; color: var(--light); margin-top: 14px; }
-.us-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: #EAF4FF; border: 1px solid #B8D4F0;
-  border-radius: 100px; padding: 5px 14px; margin-bottom: 20px;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: #1A5FAA;
-}
-.intl-msg { display: none; background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 28px 32px; margin-bottom: 28px; text-align: left; }
-.intl-msg p { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 12px; }
-.intl-msg p:last-child { margin-bottom: 0; }
-.intl-msg strong { color: var(--text); }
 
 /* ─── DISCLAIMER STRIP ─── */
 #disclaimer-strip {
@@ -462,9 +429,6 @@ footer p { color: #2E4A60; font-size: 13px; }
   .fid-grid { grid-template-columns: 1fr; }
 
   /* WAITLIST */
-  #waitlist { padding: 64px 20px; }
-  .wl-in { width: 100%; max-width: 360px; }
-  .wl-form { flex-direction: column; align-items: center; }
 
   /* FOOTER */
   footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
@@ -476,25 +440,14 @@ footer p { color: #2E4A60; font-size: 13px; }
 
 <!-- NAV -->
 <nav>
-  <a class="logo" href="#">
-    <div class="logo-mark">
-      <svg viewBox="0 0 50 64" width="22" height="29" style="display:inline-block;vertical-align:baseline;margin-bottom:-2px;" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="nav-pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F5A04A"/><stop offset="100%" stop-color="#C96515"/></linearGradient></defs>
-        <path d="M6 5 L6 59 L16 59 L16 42 L29 42 C41 42 49 35 49 25 C49 15 41 5 29 5 Z M16 14 L29 14 C36 14 40 19 40 25 C40 31 36 33 29 33 L16 33 Z" fill="url(#nav-pg)"/>
-        <rect x="2" y="21" width="20" height="5" rx="2.5" fill="url(#nav-pg)"/>
-        <rect x="2" y="30" width="20" height="5" rx="2.5" fill="url(#nav-pg)"/>
-      </svg>
-      <span class="lenee-text">lenee</span>
-    </div>
-    <span class="logo-tagline">A Guide to Wealth</span>
+  <a href="#" style="display:block;line-height:0">
+    <img src="Logo%20-%20Plenee_Navigator.svg" height="44" alt="Plenee Navigator">
   </a>
   <div class="nav-links">
     <a href="#features-start">Features</a>
     <a href="#dashboard">Dashboard</a>
     <a href="#fid">Our Promise</a>
-    <a href="#waitlist">Early Access</a>
   </div>
-  <button class="nav-cta">Get Early Access</button>
 </nav>
 
 <div id="ndots"></div>
@@ -632,14 +585,11 @@ footer p { color: #2E4A60; font-size: 13px; }
 
 <!-- ══════════ HERO CTA ══════════ -->
 <div id="hero-cta">
-  <p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:14px">Now in early access</p>
   <h1 class="hero-h">Stop paying more<br>than <em>you should.</em></h1>
   <p class="hero-sub">Plenee shows you the true cost of every financial decision — and the path to keeping more of what you earn.</p>
   <div class="cta-row">
-    <button class="cta-primary">Get Early Access <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></button>
     <button class="cta-secondary">See how it works</button>
   </div>
-  <p class="cta-note">No credit card · No spam · Cancel anytime</p>
 </div>
 
 <!-- ══════════ STATS BAND ══════════ -->
@@ -915,45 +865,18 @@ footer p { color: #2E4A60; font-size: 13px; }
   </div>
 </div>
 
-<!-- ══════════ WAITLIST ══════════ -->
-<div id="waitlist">
-  <div class="wl-inner">
-    <div class="wl-icon" id="wl-icon">💡</div>
-    <div class="us-badge" id="wl-geo-badge">🇺🇸 United States only</div>
-    <h2 class="wl-h" id="wl-h">Financial freedom<br>starts <em>here.</em></h2>
-    <p class="wl-sub" id="wl-sub">Join thousands already on the Plenee waitlist. Be first in line when we launch.</p>
-    <div class="intl-msg" id="wl-intl-msg">
-      <p><strong>Plenee is currently available in the United States only.</strong></p>
-      <p>We're actively working on GDPR compliance and international infrastructure. Join the international waitlist and we'll notify you the moment Plenee launches in your region.</p>
-    </div>
-    <div class="wl-form" id="wl-form">
-      <input class="wl-in" type="email" id="wl-email" placeholder="your@email.com" />
-      <button class="wl-btn" id="wl-btn">Join Waitlist <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></button>
-    </div>
-    <p class="wl-note" id="wl-note">Free to join · United States only · No spam · Unsubscribe anytime</p>
-  </div>
-</div>
 
 <!-- ══════════ DISCLAIMER STRIP ══════════ -->
 <div id="disclaimer-strip">
-  <p>Plenee provides financial information and analysis tools, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. All scenarios and projections are estimates based on your data and may not reflect actual future results. <a href="plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
+  <p>Plenee provides financial information and analysis tools, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. All scenarios and projections are estimates based on your data and may not reflect actual future results. <a href="plenee_legal.html">Legal Disclosures &amp; Notices →</a> &nbsp;·&nbsp; <a href="privacy.html">Privacy Policy →</a></p>
 </div>
 
 <footer>
-  <a class="logo" href="#" style="text-decoration:none">
-    <div class="logo-mark">
-      <svg viewBox="0 0 50 64" width="22" height="29" style="display:inline-block;vertical-align:baseline;margin-bottom:-2px;" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="ft-pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F5A04A"/><stop offset="100%" stop-color="#C96515"/></linearGradient></defs>
-        <path d="M6 5 L6 59 L16 59 L16 42 L29 42 C41 42 49 35 49 25 C49 15 41 5 29 5 Z M16 14 L29 14 C36 14 40 19 40 25 C40 31 36 33 29 33 L16 33 Z" fill="url(#ft-pg)"/>
-        <rect x="2" y="21" width="20" height="5" rx="2.5" fill="url(#ft-pg)"/>
-        <rect x="2" y="30" width="20" height="5" rx="2.5" fill="url(#ft-pg)"/>
-      </svg>
-      <span class="lenee-text" style="color:rgba(255,255,255,0.9);-webkit-text-stroke:0.6px rgba(255,255,255,0.9);">lenee</span>
-    </div>
-    <span class="logo-tagline" style="color:rgba(255,255,255,0.4)">A Guide to Wealth</span>
+  <a href="#" style="display:block;line-height:0">
+    <img src="Logo%20-%20Plenee_Navigator.svg" height="44" alt="Plenee Navigator">
   </a>
   <p>© 2026 Plenee Co. All rights reserved.</p>
-  <div class="fl"><a href="#">Privacy</a><a href="#">Terms</a><a href="plenee_legal.html" style="color:var(--teal)">Legal</a><a href="#">Contact</a></div>
+  <div class="fl"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="plenee_legal.html" style="color:var(--teal)">Legal</a><a href="contact.html">Contact</a></div>
 </footer>
 
 <script>
@@ -1074,33 +997,6 @@ setTimeout(()=>debts.forEach((_,i)=>{ document.getElementById('db'+i).style.widt
 // Avalanche bars
 setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getElementById('av2').style.width='45%'; document.getElementById('av3').style.width='62%'; },600);
 
-// US-only geo gate (timezone heuristic — replaced by server-side IP check in production)
-(function() {
-  try {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-    const isUS = /^America\/|^US\/|^Pacific\/Honolulu|^Pacific\/Midway/.test(tz);
-    if (!isUS && tz !== '') {
-      // Non-US visitor detected — swap waitlist to international mode
-      const badge = document.getElementById('wl-geo-badge');
-      const h = document.getElementById('wl-h');
-      const sub = document.getElementById('wl-sub');
-      const form = document.getElementById('wl-form');
-      const note = document.getElementById('wl-note');
-      const intlMsg = document.getElementById('wl-intl-msg');
-      const icon = document.getElementById('wl-icon');
-      if (badge) badge.textContent = '🌍 International waitlist';
-      if (icon) icon.textContent = '🌐';
-      if (h) h.innerHTML = 'Coming to your<br>region <em>soon.</em>';
-      if (sub) sub.textContent = 'Plenee is building toward international availability. Sign up below and we\'ll email you the moment Plenee launches in your region.';
-      if (intlMsg) intlMsg.style.display = 'block';
-      if (form) {
-        const btn = form.querySelector('.wl-btn');
-        if (btn) btn.innerHTML = 'Join International Waitlist <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>';
-      }
-      if (note) note.textContent = 'International waitlist · No spam · We\'ll notify you when Plenee launches in your region';
-    }
-  } catch(e) {}
-})();
 </script>
 </body>
 </html>
