@@ -905,11 +905,17 @@ def overview_html(paragraphs: tuple[str, str]) -> str:
 def render_index_page(track_info, track_title: str, chapters: list[dict], search_index: list[dict]) -> str:
     cards = []
     for c in chapters:
+        title_parts = c["title"].split(":", 1)
+        headline = esc(title_parts[0].strip())
+        subtitle_html = (
+            f'\n      <p class="chap-subtitle">{esc(title_parts[1].strip())}</p>'
+            if len(title_parts) > 1 else ""
+        )
         cards.append(
             f'  <a class="chap-card" href="{c["slug"]}.html">\n'
             f'    <div class="chap-num">{esc(display_chapter_id(c["id"]))}</div>\n'
             '    <div class="chap-info">\n'
-            f'      <h3>{esc(c["title"])}</h3>\n'
+            f'      <h3>{headline}</h3>{subtitle_html}\n'
             "    </div>\n"
             "  </a>"
         )
