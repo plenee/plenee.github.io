@@ -303,7 +303,7 @@ a.ref-link:hover { text-decoration: underline; }
 .cn-empty { visibility: hidden; }
 
 /* ─── TRACK INDEX ─── */
-.track-wrap { max-width: 900px; margin: 0 auto; padding: 56px 48px 88px; }
+.track-wrap { max-width: 720px; margin: 0 auto; padding: 56px 48px 88px; }
 .chapter-grid { display: flex; flex-direction: column; gap: 14px; }
 .chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
 .chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
@@ -332,7 +332,7 @@ a.ref-link:hover { text-decoration: underline; }
 .search-empty.open { display: block; }
 .search-count { font-size: 12px; color: var(--light); margin-top: 12px; text-align: center; display: none; }
 .search-count.open { display: block; }
-.track-search-wrap { max-width: 900px; margin: 32px auto 0; padding: 0 48px; }
+.track-search-wrap { max-width: 720px; margin: 32px auto 0; padding: 0 48px; }
 .track-search-wrap .academy-search-wrap { padding: 0; max-width: none; }
 
 /* ─── OVERVIEW (landing page + track index pages) ─── */
@@ -783,11 +783,11 @@ def render_index_page(track_info, track_title: str, chapters: list[dict], search
   <span>{esc(track_title)}</span>
 </div>
 
-{overview_html(TRACK_OVERVIEWS[track_info.track_slug])}
-
 <div class="track-search-wrap">
 {search_html('track')}
 </div>
+
+{overview_html(TRACK_OVERVIEWS[track_info.track_slug])}
 
 <div class="track-wrap">
   <div class="chapter-grid">
@@ -851,11 +851,11 @@ def render_landing_page(track_order: list, search_index: list[dict]) -> str:
 
 <p class="academy-pullquote">&ldquo;Rich is what people see. Wealth is what they don't.&rdquo;</p>
 
-{overview_html(ACADEMY_OVERVIEW)}
-
 <div class="track-search-wrap">
 {search_html('academy')}
 </div>
+
+{overview_html(ACADEMY_OVERVIEW)}
 
 <div class="track-wrap">
   <div class="volume-section">
