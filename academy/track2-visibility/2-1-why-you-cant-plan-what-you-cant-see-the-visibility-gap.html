@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why You Can't Plan What You Can't See: The Visibility Gap — Plenee Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:    #0C1929;
+  --navy2:   #152236;
+  --teal:    #0FA8BC;
+  --teal-d:  #0A8A9E;
+  --teal-l:  #E6F7FA;
+  --orange:  #E87722;
+  --orange-l:#FFF4EC;
+  --white:   #FFFFFF;
+  --off:     #F6F9FB;
+  --text:    #0C1929;
+  --muted:   #4E6175;
+  --light:   #8A9EB0;
+  --border:  #DDE8F0;
+  --green:   #1E9E5E;
+  --green-l: #E8FAF2;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+nav {
+  position: sticky; top: 0; z-index: 300;
+  background: #0C1929;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  height: 72px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+}
+.nav-logo { display: flex; align-items: center; height: 100%; line-height: 0; }
+.nav-logo img { height: 100%; display: block; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { color: #B6C6D6; text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--teal); }
+.nav-links a.active { color: var(--teal); }
+
+footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.07); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+footer p { color: #2E4A60; font-size: 13px; }
+.fl a { color: #2E4A60; font-size: 13px; text-decoration: none; margin-left: 24px; transition: color .2s; }
+.fl a:hover { color: var(--teal); }
+
+#disclaimer-strip { background: var(--off); border-top: 1px solid var(--border); padding: 16px 48px; text-align: center; }
+#disclaimer-strip p { font-size: 12px; color: var(--light); line-height: 1.6; max-width: 900px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 56px; }
+  .nav-links { display: none; }
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .fl a { margin-left: 0; margin-right: 20px; }
+}
+
+
+/* ─── PAGE HEADER ─── */
+.page-header { background: var(--navy); padding: 64px 48px 52px; text-align: center; }
+.page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
+.page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
+.page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+
+/* ─── BREADCRUMB ─── */
+.crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
+.crumb a { color: var(--muted); text-decoration: none; }
+.crumb a:hover { color: var(--teal); }
+
+/* ─── CHAPTER PAGE ─── */
+.chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
+.chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 28px; }
+.chapter-disclaimer { font-size: 12px; color: var(--light); line-height: 1.6; margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+
+.jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
+.jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.jump-list ol { padding-left: 18px; }
+.jump-list li { margin-bottom: 6px; }
+.jump-list a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
+.jump-list a:hover { color: var(--teal); }
+
+.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 18px; }
+.chapter-body p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 20px; }
+.chapter-body p strong { color: var(--text); font-weight: 700; }
+.chapter-body p em { color: var(--text); font-style: italic; }
+.chapter-body sup { font-size: 11px; margin-left: 1px; }
+.chapter-body sup a { color: var(--teal-d); text-decoration: none; font-weight: 700; }
+.chapter-body sup a:hover { text-decoration: underline; }
+
+.takeaway { background: var(--teal-l); border-left: 4px solid var(--teal); border-radius: 0 14px 14px 0; padding: 26px 30px; margin: 44px 0 8px; }
+.takeaway .tk-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 10px; }
+.takeaway p { color: var(--text); font-size: 16px; line-height: 1.75; margin-bottom: 0; font-weight: 500; }
+
+.sources { margin: 36px 0 8px; padding-top: 24px; border-top: 1px solid var(--border); }
+.sources .src-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 14px; }
+.sources ol { padding-left: 20px; }
+.sources li { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 10px; }
+.sources li a { color: var(--teal-d); text-decoration: none; margin-left: 4px; }
+.sources li a:hover { text-decoration: underline; }
+
+.chapter-nav { max-width: 760px; margin: 0 auto; padding: 8px 48px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cn-link { display: block; border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 22px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.cn-link:hover { border-color: var(--teal); transform: translateY(-2px); }
+.cn-link.next { text-align: right; }
+.cn-dir { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); margin-bottom: 6px; }
+.cn-title { font-size: 15px; font-weight: 700; color: var(--navy); line-height: 1.4; }
+.cn-empty { visibility: hidden; }
+
+/* ─── TRACK INDEX ─── */
+.track-wrap { max-width: 900px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapter-grid { display: flex; flex-direction: column; gap: 14px; }
+.chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
+.chap-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 15px; }
+.chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
+.chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+/* ─── ACADEMY SEARCH ─── */
+/* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
+   (built + verified 2026-07-18 by a concurrent session). Listing pages only
+   (Academy index + each track index) -- never on individual chapter pages. */
+.academy-search-wrap { max-width: 620px; margin: 0 auto; padding: 0 48px; position: relative; }
+.academy-search-box { position: relative; }
+.academy-search-box svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--light); pointer-events: none; }
+.academy-search-input { width: 100%; font-family: inherit; font-size: 16px; color: var(--text); background: #fff; border: 1.5px solid var(--border); border-radius: 12px; padding: 15px 18px 15px 48px; outline: none; transition: border-color .2s, box-shadow .2s; }
+.academy-search-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(15,168,188,0.12); }
+.search-results { margin-top: 14px; display: none; flex-direction: column; gap: 10px; }
+.search-results.open { display: flex; }
+.search-hit { display: block; border: 1.5px solid var(--border); border-radius: 12px; padding: 16px 18px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.search-hit:hover { border-color: var(--teal); transform: translateY(-1px); }
+.search-hit .sh-track { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 5px; }
+.search-hit .sh-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; line-height: 1.4; }
+.search-hit .sh-snippet { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.search-hit mark { background: var(--teal-l); color: var(--teal-d); border-radius: 3px; padding: 0 2px; font-weight: 700; }
+.search-empty { font-size: 14px; color: var(--light); text-align: center; padding: 18px 0; display: none; }
+.search-empty.open { display: block; }
+.search-count { font-size: 12px; color: var(--light); margin-top: 12px; text-align: center; display: none; }
+.search-count.open { display: block; }
+.track-search-wrap { max-width: 900px; margin: 32px auto 0; padding: 0 48px; }
+.track-search-wrap .academy-search-wrap { padding: 0; max-width: none; }
+
+@media (max-width: 768px) {
+  .page-header { padding: 44px 20px 36px; }
+  .crumb { padding: 0 20px; }
+  .chapter-wrap { padding: 32px 20px 16px; }
+  .chapter-nav { grid-template-columns: 1fr; padding: 8px 20px 48px; }
+  .cn-link.next { text-align: left; }
+  .track-wrap { padding: 40px 20px 64px; }
+  .academy-search-wrap { padding: 0 20px; }
+  .track-search-wrap { padding: 0 20px; }
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" alt="Plenee Navigator">
+  </a>
+  <div class="nav-links">
+    <a href="../../index.html#how">How it works</a>
+    <a href="../../index.html#features-start">Features</a>
+    <a href="../index.html" class="active">Academy</a>
+    <a href="../../index.html#fid">Our Promise</a>
+  </div>
+</nav>
+
+<div class="crumb">
+  <a href="../index.html">Academy</a>
+  <span>›</span>
+  <a href="index.html">Visibility</a>
+  <span>›</span>
+  <span>2.1</span>
+  <span style="margin-left:auto"></span>
+  <a href="../index.html#search">🔍 Search Academy</a>
+</div>
+
+<div class="chapter-wrap">
+  <div class="chapter-eyebrow">Track 2 · Chapter 2.1</div>
+  <h1>Why You Can't Plan What You Can't See: The Visibility Gap</h1>
+  <p class="chapter-disclaimer">This is financial information and education, not personalized financial advice.</p>
+
+  <div class="jump-list">
+      <div class="jl-title">In this chapter</div>
+      <ol>
+<li><a href="#the-400-nobody-decided-to-spend">The $400 nobody decided to spend</a></li>
+<li><a href="#the-scattered-picture">The scattered picture</a></li>
+<li><a href="#why-your-head-cant-hold-it">Why your head can't hold it</a></li>
+<li><a href="#what-the-gap-costs-scaled-to-whos-paying">What the gap costs — scaled to who's paying</a></li>
+<li><a href="#the-map-comes-first">The map comes first</a></li>
+      </ol>
+    </div>
+
+  <div class="chapter-body">
+<h2 id="the-400-nobody-decided-to-spend">The $400 nobody decided to spend</h2>
+<p>Nobody plans to pay $400 a year in fees. There's no line in anyone's budget that says <em>fees: $400</em>, no January morning where someone sits down with coffee and decides that this year, like last year, they'll hand a few hundred dollars to their bank for nothing. Nobody rationally chooses to keep $12,000 earning zero in a checking account while a credit card two tabs over charges them 24% on a balance half that size. Written out on paper, side by side, these are decisions no one would make.</p>
+<p>And yet they happen — constantly, in most households, at every income level. They happen because they were never decisions at all. They happened <em>haphazardly</em>, or they just "happened," in the passive voice people instinctively reach for when describing their own finances: the fee got charged, the balance built up, the subscription renewed. Nobody did these things. They occurred, somewhere offscreen, while everyone was busy.</p>
+<p>That word — busy — is doing more work than it seems. The standard explanation for financial drift is some flavor of personal failing: not disciplined enough, not organized enough, not serious enough about money. This track begins from a different premise, one that the rest of this curriculum depends on: <strong>most financial underperformance is not a character problem. It's a visibility problem.</strong> Almost everyone is too busy to spend the hours it would genuinely take to plan and continuously reconcile a modern financial life — to track what's coming, what might be coming, what's quietly recurring, and what all of it adds up to. The people who seem "good with money" are rarely more virtuous. They usually just have better visibility — sometimes through obsessive effort, sometimes through simpler finances, and increasingly through tools that do the watching for them.</p>
+<p>Surprises, meanwhile, can be very costly. Not because any single surprise is large, but because a surprise, by definition, meets you unprepared — and unprepared is the most expensive condition in personal finance.</p>
+<h2 id="the-scattered-picture">The scattered picture</h2>
+<p>Start with an inventory of where a typical American financial life actually lives. There's a checking account — maybe two, if an old one never quite got closed. A savings account at the same bank, probably earning close to nothing, opened because the banker suggested it. Two or three credit cards across different issuers, each with its own login, statement cycle, and due date. A 401k at the current employer, and — for a majority of people who've changed jobs — at least one retirement account still sitting at a <em>former</em> employer, checked roughly never. A car loan serviced by a company you didn't choose and may not remember. Maybe a mortgage. Maybe a brokerage account someone opened during a market craze, holding whatever seemed exciting at the time. A half-dozen or more separate logins, each showing its own fragment.</p>
+<p>Here is the crucial fact about that arrangement: <strong>no single one of those screens shows the whole picture.</strong> The checking account shows your daily pulse but knows nothing of your debts. Each card shows its own balance but not the others', and certainly not the pattern across all three. The 401k shows a number that feels abstract and far away. The car lender shows a payoff amount that never seems to shrink. Every login is honest about its fragment and silent about everything else.</p>
+<p>And a picture you can't see is a picture you can't plan against. This is worth being concrete about, because "you need visibility" sounds like a platitude until you list what its absence actually prevents:</p>
+<p><strong>You can't balance saving against spending if you don't know what either number actually is.</strong> Ask most people what they spend per month and they'll give you a figure; ask them to verify it and the real number routinely comes in higher — not because they lied, but because nobody's mental accounting includes the forgotten, the seasonal, and the automatic. A plan built on an estimated number inherits the estimate's error, compounded monthly.</p>
+<p><strong>You can't time a major purchase if you don't know what next month's cash reserves look like — much less six months from now.</strong> Timing is where money is quietly won and lost: buying the car when your cash position supports it versus financing it at the worst moment; scheduling the home repair for the month after the insurance payment clears rather than the month it collides with three other obligations. Without a forward view, every major purchase is scheduled by desire or emergency — the two worst schedulers available.</p>
+<p><strong>You can't manage debt efficiently if the debts live on four different websites.</strong> Efficient debt management is fundamentally comparative: which balance costs the most, which card is nearest its limit, which payment order saves the most interest without damaging your credit position (a genuinely subtle question — <a href="../track6-stop-the-bleeding/6-2-intelligent-avalanche-why-highest-apr-first-isnt-always-right.html">Chapter 6.2</a> is devoted to it). Comparison requires seeing everything at once. Four separate logins means the comparison never actually happens; payments get sized by habit and due-date order instead, and habit is indifferent to interest rates.</p>
+<p>This is the <strong>Visibility Gap</strong>, and the essential claim of this whole track is about <em>sequence</em>: the gap comes <strong>before</strong> every other financial problem. Before the overspending — which is usually unnoticed spending. Before the fees — which survive on not being totaled. Before the missed opportunities — which were invisible at the moment they were missable. Financial advice traditionally starts downstream: budget better, spend less, pay down debt. All fine. But every one of those actions presupposes that you can see what you're acting on. Poor financial decisions aren't usually a math failure. They're a missing-information failure — and no amount of discipline fixes an input problem.</p>
+<h2 id="why-your-head-cant-hold-it">Why your head can't hold it</h2>
+<p>It's tempting to believe that a sufficiently organized person could simply keep all this in mind. It's worth taking a moment to be honest about why that's false — not as consolation, but as an engineering fact.</p>
+<p>A moderately complex household — two earners, a mortgage, two cars, three cards, two retirement accounts, fifteen recurring subscriptions and services — is running something like forty to sixty financially meaningful events per month: paychecks landing, autopays firing, statements closing on their own cycles, due dates arriving in their own order, balances accruing interest at their own rates. These events interact. The card statement that closes on the 14th determines the payment due on the 11th of the next month, which lands three days before the mortgage, which is four days before the second paycheck. Whether that sequence works, or produces an overdraft, depends on the running cash position across all of it simultaneously.</p>
+<p>The math and the decision tree are simply too complicated to run mentally — not for lack of intelligence, but for lack of working memory and attention. Nobody balances a sixty-event monthly system in their head, any more than an air-traffic controller works from memory. And the human fallback strategies for unmanageable complexity are exactly the two failure modes visible in most households' finances:</p>
+<p><strong>Being too cautious</strong> — keeping an oversized pile of idle cash "to be safe," because without a real forward view of obligations, safety means padding. The padding has a real cost (<a href="../track4-extraction-economy/4-5-idle-cash-the-invisible-fee-you-pay-yourself.html">Chapter 4.5</a> prices it), and it's a direct symptom of not knowing: people who can see their actual low-water mark keep a right-sized buffer; people who can't, over-insure with idle dollars.</p>
+<p><strong>Being too optimistic</strong> — assuming it'll all work out this month because it mostly did last month, until the quarter when the insurance premium, the annual subscription renewal, and the car registration all land together and cascade into an overdraft, a carried balance, and a late fee. Optimism is what the mind substitutes when it can't actually verify.</p>
+<p>Both failure modes are rational responses to unmanageable complexity, and both are expensive. Highly inefficient outcomes — money idling while debt compounds, surprises hitting unprepared positions — are what "too cautious" and "too optimistic" cost in practice.</p>
+<h2 id="what-the-gap-costs-scaled-to-whos-paying">What the gap costs — scaled to who's paying</h2>
+<p>Now the numbers — with a framing rule this curriculum applies everywhere: <strong>a cost is only meaningful relative to the disposable income of the person paying it.</strong> The same dollar figure can be a rounding error in one life and a real loss in another, and pretending otherwise is how financial writing ends up either alarmist or dismissive.</p>
+<p>A single forgotten $14.99 subscription costs about $180 a year. A card that quietly slipped past its due date costs a fee, plus interest that could have been entirely avoided if paid on time. An old 401k left at a former employer might sit in a high-fee default fund for years, unwatched, quietly underperforming what the same balance would earn a few clicks away. Call the visible, first-order cost of a leaky-but-normal financial picture somewhere in the range of $500 to $2,000 a year, before counting idle-cash costs or mistimed decisions.</p>
+<p>For a household with several hundred thousand in income, that's real but genuinely negligible — the cost of one dinner out, misplaced monthly. If that's you, the Visibility Gap's cost isn't mainly these small leaks; it's the <em>scaled-up</em> versions — idle cash in five figures, a suboptimal payoff order across large balances, the time cost of <a href="2-7-the-time-cost-of-money-management-hours-are-dollars.html">Chapter 2.7</a> — and those grow with wealth rather than shrinking.</p>
+<p>For a household at $50,000 with essentially no slack, the same $500 to $2,000 is a different object entirely. It's the difference between having something left at the end of the year — a modest trip, new clothes for the kids, a first real emergency buffer — and having nothing. The leaks aren't an efficiency problem at that income; they're consuming the entire margin that any financial progress would have been built from.</p>
+<p>And then there's compounding, which turns both versions into larger numbers than intuition expects. Money leaked isn't just gone; it's <em>un-invested</em>. A steady $1,500-a-year leak, redirected instead into anything earning a long-run return, is on the order of $20,000 across a decade and a small fortune across a working life. Most mistakes and missed opportunities are invisible in the moment — that is exactly why they persist long enough to compound. Nobody defends a leak they can see; the leaks survive on darkness.</p>
+<h2 id="the-map-comes-first">The map comes first</h2>
+<p>Everything Plenee does begins from this diagnosis, which is why visibility is the product's first job — before any guidance, any optimization, any advice. Every account in one picture: bank, cards, loans, investments, and the accounts that can't be linked electronically, tracked manually so the picture is <em>complete</em> rather than merely convenient. Updated automatically, because a picture you must maintain by hand is a picture that goes stale the first busy week (<a href="2-7-the-time-cost-of-money-management-hours-are-dollars.html">Chapter 2.7</a> counts that cost properly).</p>
+<p>The order matters. A tool that starts with advice is guessing; a tool that starts with the map can actually ground what it says in your numbers. The map comes first. Everything else — the fee accounting, the cash projection, the payoff ordering, the budget — is built on it. That's not a product slogan; it's the same sequence this chapter has been arguing all along: seeing precedes planning, and planning built on partial sight is the expensive kind.</p>
+  </div>
+
+  <div class="takeaway">
+      <div class="tk-label">The takeaway</div>
+      <p>You don't have a planning problem until you've solved your seeing problem. The discipline everyone assumes they lack is mostly downstream of information they've never had in one place. Solve the seeing — genuinely solve it, everything, one picture, kept current without your effort — and the plan gets dramatically easier, because most of what looked like hard choices were actually just invisible ones.</p>
+    </div>
+</div>
+
+<div class="chapter-nav">
+  <a class="cn-link prev" href="index.html">
+      <div class="cn-dir">Previous</div>
+      <div class="cn-title">Back to Visibility</div>
+    </a>
+  <a class="cn-link next" href="2-2-mapping-every-account-checking-savings-cards-loans-brokerage-retirement.html">
+      <div class="cn-dir">Next</div>
+      <div class="cn-title">Mapping Every Account: Checking, Savings, Cards, Loans, Brokerage, Retirement</div>
+    </a>
+</div>
+
+<div id="disclaimer-strip">
+  <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. <a href="../../plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
+</div>
+
+<footer>
+  <a href="../../index.html" style="display:block;line-height:0">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" height="44" alt="Plenee Navigator">
+  </a>
+  <p>© 2026 Plenee Co. All rights reserved.</p>
+  <div class="fl"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a><a href="../../plenee_legal.html" style="color:var(--teal)">Legal</a><a href="../../contact.html">Contact</a></div>
+</footer>
+
+</body>
+</html>
