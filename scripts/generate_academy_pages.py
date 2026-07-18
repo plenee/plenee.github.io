@@ -30,22 +30,27 @@ What this does, per chapter:
     too, since every existing chapter page's breadcrumb already links to it
     and it doesn't exist on disk yet).
 
-Scope: only handles the `# Chapter N.M -- Title` boundary onward -- it does
-not (yet) generate the top-level Academy landing page. Covers every track in
-both volumes (Volume 1's plain `N.M` chapter ids and Volume 2's `PMN.M` ids,
-the latter displayed to readers with the "PM" shorthand stripped per
+Scope: handles the `# Chapter N.M -- Title` boundary onward, plus the
+top-level Academy landing page (academy/index.html, per
+ACADEMY_PUBLISHING_INSTRUCTIONS.md §6 -- one section per track, grouped by
+Volume, in academy_curriculum.md's reading order, which is discovered at
+generation time, never hardcoded). Covers every track in both volumes
+(Volume 1's plain `N.M` chapter ids and Volume 2's `PMN.M` ids, the latter
+displayed to readers with the "PM" shorthand stripped per
 ACADEMY_PUBLISHING_INSTRUCTIONS.md §7).
 
 Usage:
     python3 generate_academy_pages.py track2_visibility_expanded.md
         Regenerates one track's chapter pages + its own index.html, from the
         CURRENT source file. Fast, but that index.html's search box will only
-        cover this track's chapters until --all is next run.
+        cover this track's chapters until --all is next run, and the landing
+        page (academy/index.html) is untouched.
 
     python3 generate_academy_pages.py --all
-        Regenerates every track from current source and embeds one shared,
-        cross-track search index on every track's index.html. Run this after
-        any content change so "Search Academy" stays corpus-wide accurate.
+        Regenerates every track from current source, embeds one shared,
+        cross-track search index on every track's index.html AND the landing
+        page, and rebuilds the landing page itself. Run this after any
+        content change so "Search Academy" stays corpus-wide accurate.
 
 No third-party dependencies -- stdlib only.
 """
@@ -61,12 +66,42 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from resolve_academy_refs import (  # noqa: E402
     ACADEMY_SRC,
+    PLENEE_ROOT,
     WEBSITE_DIR,
     build_index,
     slugify_title,
     track_slug_and_num_from_filename,
     resolve_token,
 )
+
+CURRICULUM_PATH = PLENEE_ROOT / "plenee_app" / "docs" / "academy_curriculum.md"
+TRACK_HEADER_RE = re.compile(r"^TRACK\s+(\d+)\s*—", re.MULTILINE)
+VOLUME2_MARKER_RE = re.compile(r"^VOLUME 2\s*—", re.MULTILINE)
+
+# Hand-authored, one sentence per track -- not mechanically extracted (per
+# ACADEMY_PUBLISHING_INSTRUCTIONS.md §5's "write a new sentence, don't lift
+# verbatim" spirit), but informed by each track's own subtitle in
+# academy_curriculum.md. Keyed by track_slug so re-running --all never
+# silently drops a teaser if a track gets renumbered -- only renamed/removed.
+TRACK_TEASERS = {
+    "track1-language-of-money": "The vocabulary everything else builds on — FLOW, NET, and NEST, in plain English.",
+    "track2-visibility": "Map every account, transaction, and recurring charge before you try to change anything.",
+    "track4-extraction-economy": "How banks, funds, and insurers profit from your inattention — and how to stop paying for it.",
+    "track5-the-debt-trap": "A century of marketing and easy credit conditioned Americans into debt — see the strings before you feel them.",
+    "track6-stop-the-bleeding": "Flywheel Stage 1 — eliminate the fees and cash leaks that don't require earning a dollar more.",
+    "track7-free-up-cash-flow": "Flywheel Stage 2 — free up the cash flow that's already yours.",
+    "track8-build-wealth": "Flywheel Stage 3 — put compounding to work, on purpose.",
+    "track9-earn-dont-pay": "Flywheel Stage 4 — flip the equation from paying interest to earning it.",
+    "track3-credit-mastery": "How credit scores actually work, and how to build or rebuild yours.",
+    "track10-taxes-efficiency": "Keep more of what you earn — bracket mechanics, account sequencing, and withholding done right.",
+    "track11-life-events": "Applied efficiency for the big transitions — cars, homes, marriage, kids, job changes.",
+    "track12-retirement-decumulation": "Spending your NEST well — decumulation without the guilt.",
+    "track13-protection": "Insurance, estate basics, fraud, and data privacy — insure catastrophes, not inconveniences.",
+    "track14-high-wealth-efficiency": "The invisible fleecing at high net worth — fees, incentives, and what you're really paying for.",
+    "track15-when-preparation-isnt-enough": "What preparation doesn't cover — sizing real exposure, and navigating the system after a shock.",
+    "volume2-track1-your-built-in-wiring": "Why the mind misfires on money — the wiring behind every financial mistake, not a character flaw.",
+    "volume2-track2-what-money-is-for": "What money is actually for — meaning, identity, and knowing when enough is enough.",
+}
 
 CHAPTER_SPLIT_RE = re.compile(r"^#\s*Chapter\s+(\S+)\s*—\s*(.+)$", re.MULTILINE)
 SUBHEAD_RE = re.compile(r"^##\s+(.+)$", re.MULTILINE)
@@ -217,7 +252,22 @@ footer p { color: #2E4A60; font-size: 13px; }
 .track-search-wrap { max-width: 900px; margin: 32px auto 0; padding: 0 48px; }
 .track-search-wrap .academy-search-wrap { padding: 0; max-width: none; }
 
+/* ─── ACADEMY LANDING PAGE ─── */
+.academy-pullquote { text-align: center; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 19px; color: var(--navy); max-width: 560px; margin: 28px auto 0; padding: 0 48px; line-height: 1.5; }
+.volume-section { margin-top: 56px; }
+.volume-h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(22px,3vw,30px); font-weight: 700; color: var(--navy); letter-spacing: -.4px; margin-bottom: 8px; }
+.volume-sub { color: var(--muted); font-size: 15px; margin-bottom: 24px; max-width: 640px; }
+.track-grid { display: flex; flex-direction: column; gap: 14px; }
+.track-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.track-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
+.track-num { flex-shrink: 0; width: 56px; height: 56px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.track-num .tn-label { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .85; }
+.track-num .tn-num { font-family: Georgia, serif; font-weight: 700; font-size: 20px; line-height: 1.2; }
+.track-info h3 { font-size: 18px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
+.track-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
 @media (max-width: 768px) {
+  .academy-pullquote { padding: 0 20px; }
   .page-header { padding: 44px 20px 36px; }
   .crumb { padding: 0 20px; }
   .chapter-wrap { padding: 32px 20px 16px; }
@@ -323,34 +373,40 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 <body>
 
 <nav>
-  <a href="../../index.html" class="nav-logo">
-    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" alt="Plenee Navigator">
+  <a href="{root}index.html" class="nav-logo">
+    <img src="{root}Logo%20-%20Plenee_Navigator_v2.svg" alt="Plenee Navigator">
   </a>
   <div class="nav-links">
-    <a href="../../index.html#how">How it works</a>
-    <a href="../../index.html#features-start">Features</a>
-    <a href="../index.html" class="active">Academy</a>
-    <a href="../../index.html#fid">Our Promise</a>
+    <a href="{root}index.html#how">How it works</a>
+    <a href="{root}index.html#features-start">Features</a>
+    <a href="{ac_root}index.html" class="active">Academy</a>
+    <a href="{root}index.html#fid">Our Promise</a>
   </div>
 </nav>
 
 {body}
 
 <div id="disclaimer-strip">
-  <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. <a href="../../plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
+  <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. <a href="{root}plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
 </div>
 
 <footer>
-  <a href="../../index.html" style="display:block;line-height:0">
-    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" height="44" alt="Plenee Navigator">
+  <a href="{root}index.html" style="display:block;line-height:0">
+    <img src="{root}Logo%20-%20Plenee_Navigator_v2.svg" height="44" alt="Plenee Navigator">
   </a>
   <p>© 2026 Plenee Co. All rights reserved.</p>
-  <div class="fl"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a><a href="../../plenee_legal.html" style="color:var(--teal)">Legal</a><a href="../../contact.html">Contact</a></div>
+  <div class="fl"><a href="{root}privacy.html">Privacy</a><a href="{root}terms.html">Terms</a><a href="{root}plenee_legal.html" style="color:var(--teal)">Legal</a><a href="{root}contact.html">Contact</a></div>
 </footer>
 
 </body>
 </html>
 """
+
+# Nesting-depth prefixes for PAGE_TEMPLATE's {root}/{ac_root}: chapter and track
+# pages live 2 levels under the site root (academy/<track>/*.html); the Academy
+# landing page lives 1 level under it (academy/index.html).
+DEPTH_CHAPTER_OR_TRACK = {"root": "../../", "ac_root": "../"}
+DEPTH_LANDING = {"root": "../", "ac_root": ""}
 
 
 SEARCH_SNIPPET_CAP = 30000  # chars of plain text indexed per chapter -- see
@@ -368,6 +424,38 @@ def strip_tags(rendered_html: str) -> str:
     text = re.sub(r"<[^>]+>", " ", rendered_html)
     text = text.replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
     return re.sub(r"\s+", " ", text).strip()
+
+
+MINOR_WORDS = {"a", "an", "and", "as", "at", "but", "by", "for", "in", "nor",
+               "of", "on", "or", "per", "the", "to", "vs", "via"}
+
+
+def _case_hyphenated(word: str) -> str:
+    """Capitalize each hyphen-separated segment's first letter only -- NOT
+    every letter-run, so an apostrophe doesn't start a new "word"
+    ("isn't" -> "Isn't", not "Isn'T" the way naive per-run capitalization or
+    Python's own .title() both get wrong)."""
+    return "-".join(seg[:1].upper() + seg[1:] for seg in word.split("-"))
+
+
+def smart_title(raw: str) -> str:
+    """Track titles come from an ALL-CAPS source header (`TRACK N: THE DEBT
+    TRAP ...`), sometimes followed by an already-correctly-cased parenthetical
+    subtitle. Python's bare .title() over-capitalizes minor words ("Of",
+    "The" mid-title) AND corrupts contractions ("don't".title() -> "Don'T")
+    -- this replaces it."""
+    words = raw.split(" ")
+    out = []
+    for i, w in enumerate(words):
+        if w != w.upper():
+            out.append(w)  # already has real casing (e.g. inside a parenthetical) -- keep as-is
+            continue
+        cased = _case_hyphenated(w.lower())
+        bare = re.sub(r"[^A-Za-z]", "", w).lower()
+        if 0 < i < len(words) - 1 and bare in MINOR_WORDS:
+            cased = cased.lower()
+        out.append(cased)
+    return " ".join(out)
 
 
 def display_chapter_id(chapter_id: str) -> str:
@@ -592,7 +680,8 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
   {next_html}
 </div>"""
 
-    page_html = PAGE_TEMPLATE.format(page_title=esc(chapter["title"]), style=STYLE_BLOCK, body=body)
+    page_html = PAGE_TEMPLATE.format(page_title=esc(chapter["title"]), style=STYLE_BLOCK, body=body,
+                                      **DEPTH_CHAPTER_OR_TRACK)
 
     search_entry = {
         "t": chapter["title"],
@@ -642,7 +731,93 @@ def render_index_page(track_info, track_title: str, chapters: list[dict], search
 <script type="application/json" id="academy-search-data">{search_json}</script>
 <script>{SEARCH_JS}</script>"""
 
-    return PAGE_TEMPLATE.format(page_title=esc(track_title), style=STYLE_BLOCK, body=body)
+    return PAGE_TEMPLATE.format(page_title=esc(track_title), style=STYLE_BLOCK, body=body,
+                                 **DEPTH_CHAPTER_OR_TRACK)
+
+
+def parse_curriculum_track_order(idx) -> list:
+    """Reading order + volume grouping, discovered from academy_curriculum.md
+    at generation time (never hardcoded here -- ACADEMY_PUBLISHING_INSTRUCTIONS.md
+    §6 explicitly warns this order has changed twice in one day already).
+    Returns a list of TrackInfo in reading order (Volume 1 tracks, then Volume 2)."""
+    text = CURRICULUM_PATH.read_text(encoding="utf-8")
+    v2_marker = VOLUME2_MARKER_RE.search(text)
+    v1_text, v2_text = (text[: v2_marker.start()], text[v2_marker.start():]) if v2_marker else (text, "")
+
+    v1_nums = TRACK_HEADER_RE.findall(v1_text)
+    v2_nums = TRACK_HEADER_RE.findall(v2_text)
+
+    by_volume2_num = {t.display_num: t for t in idx.tracks_by_slug.values() if t.volume == 2}
+
+    order = [idx.tracks[num] for num in v1_nums]
+    order += [by_volume2_num[num] for num in v2_nums]
+    return order
+
+
+def render_landing_page(track_order: list, search_index: list[dict]) -> str:
+    def cards_html(tracks: list) -> str:
+        parts = []
+        for t in tracks:
+            teaser = TRACK_TEASERS.get(t.track_slug, "")
+            parts.append(
+                f'  <a class="track-card" href="{t.track_slug}/index.html">\n'
+                '    <div class="track-num"><span class="tn-label">Track</span>'
+                f'<span class="tn-num">{esc(t.display_num)}</span></div>\n'
+                '    <div class="track-info">\n'
+                f'      <h3>{esc(smart_title(t.title))}</h3>\n'
+                f'      <p>{esc(teaser)}</p>\n'
+                "    </div>\n"
+                "  </a>"
+            )
+        return "\n".join(parts)
+
+    v1_tracks = [t for t in track_order if t.volume == 1]
+    v2_tracks = [t for t in track_order if t.volume == 2]
+
+    search_json = json.dumps(search_index, ensure_ascii=False).replace("</script", "<\\/script")
+
+    body = f"""<div class="page-header">
+  <div class="page-kicker">Plenee Academy</div>
+  <h1>A Guide for Wealth</h1>
+  <p>Free financial education grounded in real research, not sales pitches — a reference library for every decision, and a psychology track for the biases quietly running your money. Education, never personalized advice.</p>
+</div>
+
+<p class="academy-pullquote">&ldquo;Rich is what people see. Wealth is what they don't.&rdquo;</p>
+
+<div class="track-search-wrap">
+{search_html('academy')}
+</div>
+
+<div class="track-wrap">
+  <div class="volume-section">
+    <h2 class="volume-h2">Volume 1 — A Guide for Wealth</h2>
+    <p class="volume-sub">Reference material — read any track, in any order, whenever a decision comes up.</p>
+    <div class="track-grid">
+{cards_html(v1_tracks)}
+    </div>
+  </div>
+
+  <div class="volume-section">
+    <h2 class="volume-h2">Volume 2 — The Psychology of Money</h2>
+    <p class="volume-sub">A cumulative, narrative read on the mental wiring behind every money decision.</p>
+    <div class="track-grid">
+{cards_html(v2_tracks)}
+    </div>
+  </div>
+</div>
+
+<script type="application/json" id="academy-search-data">{search_json}</script>
+<script>{SEARCH_JS}</script>"""
+
+    return PAGE_TEMPLATE.format(page_title="Plenee Academy", style=STYLE_BLOCK, body=body, **DEPTH_LANDING)
+
+
+def generate_landing_page(idx, global_search_index: list[dict]) -> None:
+    track_order = parse_curriculum_track_order(idx)
+    html_out = render_landing_page(track_order, global_search_index)
+    outfile = WEBSITE_DIR / "academy" / "index.html"
+    outfile.write_text(html_out, encoding="utf-8")
+    print(f"  wrote {outfile.relative_to(WEBSITE_DIR)}")
 
 
 def generate_track_pages(source_filename: str, idx) -> dict:
@@ -658,7 +833,7 @@ def generate_track_pages(source_filename: str, idx) -> dict:
     stem = path.name.removesuffix("_expanded.md")
     track_slug, _ = track_slug_and_num_from_filename(stem)
     track_info = idx.tracks_by_slug[track_slug]
-    track_title = track_info.title.title()
+    track_title = smart_title(track_info.title)
 
     text = path.read_text(encoding="utf-8")
     raw_chapters = parse_chapters(text)
@@ -705,13 +880,16 @@ def generate(source_filename: str) -> None:
 
 
 def generate_all() -> None:
-    """Regenerate every track from current source and embed one shared,
-    cross-track search index on every track's index.html."""
+    """Regenerate every track from current source, embed one shared cross-track
+    search index on every track's index.html, and rebuild the Academy landing
+    page (its reading order/grouping comes from academy_curriculum.md, not from
+    file-discovery order)."""
     idx = build_index()
     files = sorted(ACADEMY_SRC.glob("*_expanded.md"))
     results = [generate_track_pages(str(f), idx) for f in files]
     global_search_index = [e for r in results for e in r["search_entries"]]
     write_index_pages(results, global_search_index)
+    generate_landing_page(idx, global_search_index)
     print(f"\nDone: {len(results)} tracks, {len(global_search_index)} chapters indexed for search.")
 
 

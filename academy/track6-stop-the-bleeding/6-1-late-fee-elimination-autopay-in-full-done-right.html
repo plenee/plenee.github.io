@@ -142,7 +142,22 @@ footer p { color: #2E4A60; font-size: 13px; }
 .track-search-wrap { max-width: 900px; margin: 32px auto 0; padding: 0 48px; }
 .track-search-wrap .academy-search-wrap { padding: 0; max-width: none; }
 
+/* ─── ACADEMY LANDING PAGE ─── */
+.academy-pullquote { text-align: center; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 19px; color: var(--navy); max-width: 560px; margin: 28px auto 0; padding: 0 48px; line-height: 1.5; }
+.volume-section { margin-top: 56px; }
+.volume-h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(22px,3vw,30px); font-weight: 700; color: var(--navy); letter-spacing: -.4px; margin-bottom: 8px; }
+.volume-sub { color: var(--muted); font-size: 15px; margin-bottom: 24px; max-width: 640px; }
+.track-grid { display: flex; flex-direction: column; gap: 14px; }
+.track-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.track-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
+.track-num { flex-shrink: 0; width: 56px; height: 56px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.track-num .tn-label { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .85; }
+.track-num .tn-num { font-family: Georgia, serif; font-weight: 700; font-size: 20px; line-height: 1.2; }
+.track-info h3 { font-size: 18px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
+.track-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
 @media (max-width: 768px) {
+  .academy-pullquote { padding: 0 20px; }
   .page-header { padding: 44px 20px 36px; }
   .crumb { padding: 0 20px; }
   .chapter-wrap { padding: 32px 20px 16px; }
@@ -172,7 +187,7 @@ footer p { color: #2E4A60; font-size: 13px; }
 <div class="crumb">
   <a href="../index.html">Academy</a>
   <span>›</span>
-  <a href="index.html">Stop The Bleeding</a>
+  <a href="index.html">Stop the Bleeding</a>
   <span>›</span>
   <span>6.1</span>
   <span style="margin-left:auto"></span>
@@ -235,7 +250,7 @@ footer p { color: #2E4A60; font-size: 13px; }
 <div class="chapter-nav">
   <a class="cn-link prev" href="index.html">
       <div class="cn-dir">Previous</div>
-      <div class="cn-title">Back to Stop The Bleeding</div>
+      <div class="cn-title">Back to Stop the Bleeding</div>
     </a>
   <a class="cn-link next" href="6-2-intelligent-avalanche-why-highest-apr-first-isnt-always-right.html">
       <div class="cn-dir">Next</div>
