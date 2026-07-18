@@ -105,6 +105,85 @@ TRACK_TEASERS = {
     "volume2-track2-what-money-is-for": "What money is actually for — meaning, identity, and knowing when enough is enough.",
 }
 
+# Two-paragraph overviews for the landing page and each track's own index
+# page. Hand-written per Rob's direction (2026-07-18): consumer voice, not
+# academic/textbook framing -- avoid "teach"/"taught"/"curriculum"/"lesson".
+ACADEMY_OVERVIEW = (
+    "Most people never got a straight explanation of how money actually works — why a credit score moves the way it does, what a 1% fee really costs over 30 years, or who benefits when a bank waives one fee and not another. Plenee Academy fills that in: plain-English explanations of the systems, incentives, and numbers behind everyday financial decisions, written the way a sharp, financially literate friend would explain it — not the way a disclosure page does.",
+    "It's organized in two parts. Volume 1 is something you dip into as decisions come up — reading a credit report, sizing an emergency fund, deciding whether refinancing helps or hurts — read whatever's relevant today and ignore the rest until you need it. Volume 2 turns the lens inward, on the mental shortcuts that make smart people mishandle money anyway, and why seeing them changes what happens next. Neither one tells you what to do with your specific numbers — that's what the rest of Plenee is for — but both make the decision in front of you easier to see clearly.",
+)
+
+TRACK_OVERVIEWS = {
+    "track1-language-of-money": (
+        "Most financial confusion isn't about math — it's about vocabulary. Terms like “net income,” “cash flow,” and “net worth” get thrown around constantly, but few people could define them precisely enough to use them, and fewer still were ever shown how the concepts connect. This track builds that vocabulary from the ground up, using Plenee's own plain-English versions of the ideas — FLOW, NET, and NEST — instead of the jargon that usually gets in the way.",
+        "It covers what money actually moving through your life looks like (FLOW), whether you're coming out ahead over any given stretch of time (NET), and what you actually own once everything's netted out (NEST) — plus the more useful distinctions hiding underneath those three ideas, like the difference between debt that changes your financial position and debt that just pays for spending, or between money you're obligated to spend and money you're choosing to. It closes on a distinction that reframes a lot of what follows: being rich is what other people see; being wealthy is what they don't.",
+    ),
+    "track2-visibility": (
+        "You can't fix what you can't see, and most people's financial picture is scattered across four or five logins, a stack of statements they don't read closely, and a credit report they've never actually opened. This track is about closing that gap — not about telling you what to change yet, just making sure you actually know where things stand before you try.",
+        "It walks through mapping every account you hold, actually reading a transaction history instead of skimming it, understanding what's really in a credit report and how VantageScore and FICO differ, and finding the recurring charges that quietly outlive their usefulness. It also names something rarely said out loud: not having visibility costs real time and creates its own kind of stress — a “stress tax” that compounds the original problem. Everything after this track assumes the picture this one builds.",
+    ),
+    "track4-extraction-economy": (
+        "A meaningful share of what flows out of the average household's accounts every year isn't the cost of a product or service — it's the cost of not looking closely. Overdraft fees, idle cash earning nothing, a 1% advisory fee compounding away decades of returns, whole life insurance sold instead of bought: none of it is illegal, and all of it depends on inattention to work.",
+        "This track names the mechanisms one at a time — how credit card interest actually compounds, what a “free” app is really monetizing, how BNPL and payday lending price the true cost of easy payments, and where advisor incentives quietly diverge from client interest. It ends with a genuinely useful reframe: the people whose spending seems designed to impress others are, more often than not, impressing nobody in particular — the accumulation everyone assumes is happening usually isn't.",
+    ),
+    "track5-the-debt-trap": (
+        "A century ago, financing a purchase on credit was considered shameful. Today it's the default. That shift wasn't an accident of changing values — it was manufactured, deliberately, by companies solving their own sales problem, from the first mass-mailed credit card to the advertising industry's discovery that manufactured desire sells better than need.",
+        "This track traces that history: the marketing campaigns that made debt normal, the built-in obsolescence that keeps replacing what still works, and how buy-now-pay-later and influencer culture are simply the latest version of a very old playbook. It also corrects a few widely-repeated myths along the way — about who actually owns homes, and what's really behind housing-wealth concentration — before landing on the point underneath all of it: the real cost of carrying debt you don't need isn't just the interest, it's the freedom it quietly takes off the table.",
+    ),
+    "track6-stop-the-bleeding": (
+        "Before anything else — before investing, before optimizing, before earning more — there's a simpler question: is money leaking out through fees, missed payments, and small recurring costs that don't need to exist? This track is entirely about closing those leaks, the fastest and least glamorous way to improve a financial position.",
+        "It covers paying credit cards in full without triggering late fees or losing idle cash to prepayment, a smarter alternative to the usual “highest interest rate first” payoff advice, how big an emergency buffer actually needs to be before more savings stops helping, and the mechanics of credit utilization that most people get slightly wrong. None of it requires earning another dollar — it's just stopping the ones already earned from quietly disappearing.",
+    ),
+    "track7-free-up-cash-flow": (
+        "Once the leaks are closed, the next question is where the money that's already coming in should actually go — not a rigid percentage-based budget copied from somewhere else, but targets built from your own real spending history.",
+        "This track covers building a budget around what's a true obligation versus what's a real choice, timing cash against paycheck cycles and due dates so nothing arrives late by accident, right-sizing how much sits in checking versus savings versus investments, and the genuinely useful (and commonly misused) cases for debt consolidation, refinancing, and a HELOC held in reserve rather than spent down. The theme underneath: cash flow that's actually managed on purpose, instead of just reacting to whatever hits the account first.",
+    ),
+    "track8-build-wealth": (
+        "Building wealth has very little to do with picking the right stock and almost everything to do with consistency held over a long enough stretch of time. That's a less exciting story than the one usually sold, but it's the one that's actually true.",
+        "This track covers the mechanics that make consistency pay off: automating savings so it happens before spending gets the chance to compete, the order investment accounts should actually be funded in, why an employer 401k match is the one guaranteed high return most people leave unclaimed, and the real evidence on index funds versus active management. It also draws a distinction that matters more than it sounds like it should: getting wealthy and staying wealthy call for almost opposite instincts — optimism to build it, a healthy dose of paranoia to keep it.",
+    ),
+    "track9-earn-dont-pay": (
+        "There's a specific moment worth naming in anyone's financial life: the day the interest, dividends, and rent coming in start to matter more than the interest going out. Everything before that day is about survival and stability; everything after it is about the equation flipping in your favor.",
+        "This track covers what it actually looks like once lending starts beating borrowing — high-yield savings, T-bills, and money markets explained without the jargon — plus the assets that pay you directly (dividends, interest, rent) and a simple baseline for credit card rewards that beats chasing points and category bonuses for most people. The underlying move is the same throughout: stop paying to borrow and start getting paid to lend.",
+    ),
+    "track3-credit-mastery": (
+        "A credit score is one of the most consequential numbers in anyone's financial life, and one of the least explained. Most people know roughly what raises or lowers it, but not the actual weighting behind the five factors, or why the common advice — “carry a small balance, it helps your score” — is simply wrong.",
+        "This track breaks down exactly how a score is built, the difference between per-card and overall utilization (and why statement timing matters more than most people realize), how to build credit from nothing or rebuild it after damage, and when closing a card actually helps versus quietly hurts. It ends with the specific runway a mortgage application deserves — the twelve months before applying where small, avoidable mistakes do the most damage.",
+    ),
+    "track10-taxes-efficiency": (
+        "Taxes are one of the largest recurring costs in anyone's financial life, and one of the most within a person's own control to reduce — not through anything aggressive, just through sequencing and placement decisions that are easy to get right once someone explains them clearly.",
+        "This track covers the difference between the tax bracket a person thinks they're in and the one they're actually paying, which account a given dollar should go into first, how account placement and turnover quietly drag on investment returns, and why a large tax refund is closer to an interest-free loan to the government than a windfall. It closes on the withdrawal order that preserves the most value once money starts coming back out in retirement.",
+    ),
+    "track11-life-events": (
+        "Most of the biggest financial decisions in a person's life don't happen on a schedule — they happen around specific events: a car purchase, a home, a marriage, a new job, a loss. Each one comes with its own traps, most of them well-documented but rarely explained at the moment they'd actually help.",
+        "This track walks through the real total cost of owning a car versus what a monthly payment implies, the gap between what a lender approves and what a household can actually afford in a home, merging finances (and visibility) after marriage, what 529s and other education costs actually require, the rollover sales machine that targets a 401k the moment someone changes jobs, and the six-month rule worth following before acting on a windfall or inheritance. The common denominator: these decisions are big enough that a small amount of preparation changes the outcome substantially.",
+    ),
+    "track12-retirement-decumulation": (
+        "Retirement flips the entire financial mindset that got someone there — for decades, the goal was accumulating and staying net-positive; in retirement, spending down is the plan working as intended, not a sign something's gone wrong.",
+        "This track covers what that shift actually looks like: thinking in time-buckets rather than a single number, the real cost of over-saving (money that bought no freedom because it was never used), how sequence-of-returns risk changes withdrawal strategy, and the genuinely non-obvious math behind Social Security claiming age. It ends on the highest-return spending decade most people underrate — using both time and money deliberately once there's finally enough of both.",
+    ),
+    "track13-protection": (
+        "Protection is the least exciting part of a financial plan and the part most likely to matter enormously exactly once. The right approach isn't insuring against every possible inconvenience — it's covering the handful of outcomes large enough to actually be catastrophic.",
+        "This track covers what's worth insuring against versus what isn't, why the commission structure behind whole life insurance tells you most of what you need to know about who it's really designed for, the fraud and identity threats that have gotten more sophisticated as more of daily life moved online, and the estate basics — beneficiaries, wills, the paperwork nobody enjoys filling out — that determine what actually happens to everything else once it's no longer a person's to manage directly.",
+    ),
+    "track14-high-wealth-efficiency": (
+        "Fees that look small as a percentage stop looking small once there's real money behind them — 1% a year on three million dollars is thirty thousand dollars, every year, and the question worth asking is simple: what, exactly, is being bought for that.",
+        "This track covers the actual difference between fee-only, AUM-based, and commission-based advisors and how their incentives diverge, the activity bias that leads some advisors to trade more than a portfolio needs, the layered fees hidden inside structured products, and the tax cost of sitting on a concentrated position out of inertia rather than a decision. It closes on something easy to skip past at this level of wealth: passing on not just money to the next generation, but the visibility and habits that kept it intact.",
+    ),
+    "track15-when-preparation-isnt-enough": (
+        "Job loss, a medical crisis, divorce, disability — by the actual numbers, these are common events, not rare ones, and “it won't happen to me” isn't a plan so much as a bet most people eventually lose at least once. This track exists for what happens after preparation runs out.",
+        "It covers sizing a true worst-case gap rather than an optimistic one, the real difference between Chapter 7 and Chapter 13 bankruptcy (and a documented disparity in how filers are steered and treated), negotiating medical debt before it becomes a collections problem, the first ninety days after a job loss, and the early-warning window where acting in week one beats waiting until month six on a foreclosure or eviction. It ends where recovery does — rebuilding credit and re-establishing the visibility habits that make the next crisis, if there is one, easier to see coming.",
+    ),
+    "volume2-track1-your-built-in-wiring": (
+        "Nobody makes money decisions on a blank slate — every one is filtered through wiring built for scarcity and survival, not for managing a 401k across four decades. That wiring isn't a flaw to be ashamed of; it's standard equipment, present in essentially everyone, and it's exploitable mostly by people who've studied it more carefully than their customers have.",
+        "This track maps the specific patterns that do most of the damage — loss aversion, present bias, mental accounting, anchoring, the stories that move money faster than statistics do, and the scarcity mindset that narrows decision-making under real pressure rather than reflecting a lack of discipline. It ends with something practical: concrete ways to route around each pattern instead of just knowing it's there.",
+    ),
+    "volume2-track2-what-money-is-for": (
+        "After the mechanics of how money moves and the wiring behind why it gets mismanaged, there's a more personal question left: what any of it is actually for. Spending is rarely just a transaction — it's usually a small statement about identity, whether or not that's ever said out loud.",
+        "This track covers what a spending pattern reveals about self-image, the case for spending to satisfy a person's own sense of joy rather than someone else's formula for what's worth having, why time consistently outperforms luxury as a return on money spent, and “enough” — arguably the hardest concept in personal finance to define, and the one that determines when the rest of it stops being about accumulation and starts being about living.",
+    ),
+}
+
 CHAPTER_SPLIT_RE = re.compile(r"^#\s*Chapter\s+(\S+)\s*—\s*(.+)$", re.MULTILINE)
 SUBHEAD_RE = re.compile(r"^##\s+(.+)$", re.MULTILINE)
 TOKEN_RE = re.compile(r"\{\{ref:([A-Za-z0-9.]+)\}\}")
@@ -256,6 +335,11 @@ a.ref-link:hover { text-decoration: underline; }
 .track-search-wrap { max-width: 900px; margin: 32px auto 0; padding: 0 48px; }
 .track-search-wrap .academy-search-wrap { padding: 0; max-width: none; }
 
+/* ─── OVERVIEW (landing page + track index pages) ─── */
+.overview-wrap { max-width: 720px; margin: 0 auto; padding: 32px 48px 8px; }
+.overview-wrap p { font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 18px; }
+.overview-wrap p:last-child { margin-bottom: 0; }
+
 /* ─── ACADEMY LANDING PAGE ─── */
 .academy-pullquote { text-align: center; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 19px; color: var(--navy); max-width: 560px; margin: 28px auto 0; padding: 0 48px; line-height: 1.5; }
 .volume-section { margin-top: 56px; }
@@ -280,6 +364,7 @@ a.ref-link:hover { text-decoration: underline; }
   .track-wrap { padding: 40px 20px 64px; }
   .academy-search-wrap { padding: 0 20px; }
   .track-search-wrap { padding: 0 20px; }
+  .overview-wrap { padding: 24px 20px 8px; }
 }
 """
 
@@ -668,6 +753,11 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
     return page_html, search_entry
 
 
+def overview_html(paragraphs: tuple[str, str]) -> str:
+    paras = "\n".join(f"  <p>{esc(p)}</p>" for p in paragraphs)
+    return f'<div class="overview-wrap">\n{paras}\n</div>'
+
+
 def render_index_page(track_info, track_title: str, chapters: list[dict], search_index: list[dict]) -> str:
     cards = []
     for c in chapters:
@@ -692,6 +782,8 @@ def render_index_page(track_info, track_title: str, chapters: list[dict], search
   <span>›</span>
   <span>{esc(track_title)}</span>
 </div>
+
+{overview_html(TRACK_OVERVIEWS[track_info.track_slug])}
 
 <div class="track-search-wrap">
 {search_html('track')}
@@ -758,6 +850,8 @@ def render_landing_page(track_order: list, search_index: list[dict]) -> str:
 </div>
 
 <p class="academy-pullquote">&ldquo;Rich is what people see. Wealth is what they don't.&rdquo;</p>
+
+{overview_html(ACADEMY_OVERVIEW)}
 
 <div class="track-search-wrap">
 {search_html('academy')}
