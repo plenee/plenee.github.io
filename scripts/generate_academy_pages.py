@@ -184,6 +184,42 @@ TRACK_OVERVIEWS = {
     ),
 }
 
+# One simple line-icon per track (24x24 viewBox, stroke-only, inherits color
+# via `currentColor` -- no per-track color, just a per-track silhouette).
+# Shown at ~16px in the chapter-card badge on each track's index page, so
+# each is a single recognizable shape, not a detailed illustration.
+TRACK_ICON_PATHS: dict[str, str] = {
+    "track1-language-of-money": '<rect x="4" y="5" width="16" height="12" rx="2"/><path d="M9 17l-2 3v-3"/>',
+    "track2-visibility": '<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>',
+    "track3-credit-mastery": '<rect x="3" y="6" width="18" height="12" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/>',
+    "track4-extraction-economy": '<path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/>',
+    "track5-the-debt-trap": '<rect x="2" y="7" width="11" height="10" rx="5"/><rect x="11" y="7" width="11" height="10" rx="5"/>',
+    "track6-stop-the-bleeding": '<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',
+    "track7-free-up-cash-flow": '<path d="M2 13c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/>',
+    "track8-build-wealth": '<line x1="5" y1="20" x2="5" y2="14"/><line x1="12" y1="20" x2="12" y2="9"/><line x1="19" y1="20" x2="19" y2="4"/>',
+    "track9-earn-dont-pay": '<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.7c0-1.5 1.1-2.7 2.5-2.7s2.5 1 2.5 2.1-1 1.9-2.5 1.9-2.5 1-2.5 2.1 1.1 2.1 2.5 2.1 2.5-1.2 2.5-2.7"/>',
+    "track10-taxes-efficiency": '<circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/><line x1="5" y1="19" x2="19" y2="5"/>',
+    "track11-life-events": '<rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/>',
+    "track12-retirement-decumulation": '<path d="M6 3h12M6 21h12M7 3c0 5 5 7 5 9s-5 4-5 9M17 3c0 5-5 7-5 9s5 4 5 9"/>',
+    "track13-protection": '<path d="M12 3l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V6l7-3z"/>',
+    "track14-high-wealth-efficiency": '<path d="M6 9l6-6 6 6-6 12z"/><path d="M6 9h12M9 9l3 12M15 9l-3 12"/>',
+    "track15-when-preparation-isnt-enough": '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="21"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="21" y2="12"/>',
+    "volume2-track1-your-built-in-wiring": '<circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/>',
+    "volume2-track2-what-money-is-for": '<circle cx="12" cy="12" r="9"/><path d="M14.5 9.5l-1.2 4.3-4.3 1.2 1.2-4.3z"/>',
+}
+
+
+def render_track_icon(track_slug: str, size: int = 16) -> str:
+    inner = TRACK_ICON_PATHS.get(track_slug)
+    if inner is None:
+        return ""
+    return (
+        f'<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" '
+        'stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+        f'stroke-linejoin="round" aria-hidden="true">{inner}</svg>'
+    )
+
+
 CHAPTER_SPLIT_RE = re.compile(r"^#\s*Chapter\s+(\S+)\s*—\s*(.+)$", re.MULTILINE)
 SUBHEAD_RE = re.compile(r"^##\s+(.+)$", re.MULTILINE)
 TOKEN_RE = re.compile(r"\{\{ref:([A-Za-z0-9.]+)\}\}")
@@ -261,7 +297,8 @@ footer p { color: #2E4A60; font-size: 13px; }
 /* ─── CHAPTER PAGE ─── */
 .chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
 .chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
-.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 28px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 14px; }
+.chapter-accent { width: 56px; height: 3px; border-radius: 2px; background: var(--teal); margin-bottom: 28px; }
 
 .jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
 .jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
@@ -304,7 +341,9 @@ a.ref-link:hover { text-decoration: underline; }
 .chapter-grid { display: flex; flex-direction: column; gap: 14px; }
 .chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
 .chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
-.chap-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 15px; }
+.chap-num { flex-shrink: 0; width: 48px; height: 52px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
+.chap-num .cn-icon { line-height: 0; }
+.chap-num .cn-digits { font-family: Georgia, serif; font-weight: 700; font-size: 13px; }
 .chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
 .chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
 
@@ -868,6 +907,7 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
 <div class="chapter-wrap">
   <div class="chapter-eyebrow">Volume {track_info.volume} · T.{track_info.display_num} · Chapter {esc(display_chapter_id(chapter["id"]))}</div>
   <h1>{esc(chapter["title"])}</h1>
+  <div class="chapter-accent"></div>
 {jump_list_html}
   <div class="chapter-body">
 {chapter_body_html}
@@ -909,7 +949,9 @@ def render_index_page(track_info, track_title: str, chapters: list[dict], search
         )
         cards.append(
             f'  <a class="chap-card" href="{c["slug"]}.html">\n'
-            f'    <div class="chap-num">{esc(display_chapter_id(c["id"]))}</div>\n'
+            '    <div class="chap-num">'
+            f'<span class="cn-icon">{render_track_icon(track_info.track_slug)}</span>'
+            f'<span class="cn-digits">{esc(display_chapter_id(c["id"]))}</span></div>\n'
             '    <div class="chap-info">\n'
             f'      <h3>{headline}</h3>{subtitle_html}\n'
             "    </div>\n"

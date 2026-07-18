@@ -72,7 +72,8 @@ footer p { color: #2E4A60; font-size: 13px; }
 /* ─── CHAPTER PAGE ─── */
 .chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
 .chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
-.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 28px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 14px; }
+.chapter-accent { width: 56px; height: 3px; border-radius: 2px; background: var(--teal); margin-bottom: 28px; }
 
 .jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
 .jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
@@ -115,7 +116,9 @@ a.ref-link:hover { text-decoration: underline; }
 .chapter-grid { display: flex; flex-direction: column; gap: 14px; }
 .chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
 .chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
-.chap-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 15px; }
+.chap-num { flex-shrink: 0; width: 48px; height: 52px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
+.chap-num .cn-icon { line-height: 0; }
+.chap-num .cn-digits { font-family: Georgia, serif; font-weight: 700; font-size: 13px; }
 .chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
 .chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
 
@@ -251,76 +254,76 @@ a.ref-link:hover { text-decoration: underline; }
 <div class="track-wrap">
   <div class="chapter-grid">
   <a class="chap-card" href="4-1-the-quarter-trillion-fleecing-how-institutions-profit-from-your-inattention.html">
-    <div class="chap-num">4.1</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.1</span></div>
     <div class="chap-info">
       <h3>The Quarter-Trillion Fleecing</h3>
       <p class="chap-subtitle">How Institutions Profit From Your Inattention</p>
     </div>
   </a>
   <a class="chap-card" href="4-2-overdraft-nsf-and-late-fees-the-poverty-premium.html">
-    <div class="chap-num">4.2</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.2</span></div>
     <div class="chap-info">
       <h3>Overdraft, NSF, and Late Fees</h3>
       <p class="chap-subtitle">The Poverty Premium</p>
     </div>
   </a>
   <a class="chap-card" href="4-3-credit-card-interest-mechanics-daily-compounding-grace-periods-trailing-interest.html">
-    <div class="chap-num">4.3</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.3</span></div>
     <div class="chap-info">
       <h3>Credit Card Interest Mechanics</h3>
       <p class="chap-subtitle">Daily Compounding, Grace Periods, Trailing Interest</p>
     </div>
   </a>
   <a class="chap-card" href="4-4-bnpl-and-payday-traps-the-true-apr-of-easy-payments.html">
-    <div class="chap-num">4.4</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.4</span></div>
     <div class="chap-info">
       <h3>BNPL and Payday Traps</h3>
       <p class="chap-subtitle">The True APR of "Easy Payments"</p>
     </div>
   </a>
   <a class="chap-card" href="4-5-idle-cash-the-invisible-fee-you-pay-yourself.html">
-    <div class="chap-num">4.5</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.5</span></div>
     <div class="chap-info">
       <h3>Idle Cash</h3>
       <p class="chap-subtitle">The Invisible Fee You Pay Yourself</p>
     </div>
   </a>
   <a class="chap-card" href="4-6-aum-fees-what-1-really-costs-over-30-years.html">
-    <div class="chap-num">4.6</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.6</span></div>
     <div class="chap-info">
       <h3>AUM Fees</h3>
       <p class="chap-subtitle">What 1% Really Costs Over 30 Years</p>
     </div>
   </a>
   <a class="chap-card" href="4-7-account-churning-commissions-and-advisor-conflicts-of-interest.html">
-    <div class="chap-num">4.7</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.7</span></div>
     <div class="chap-info">
       <h3>Account Churning, Commissions, and Advisor Conflicts of Interest</h3>
     </div>
   </a>
   <a class="chap-card" href="4-8-high-commission-insurance-products-when-whole-life-is-sold-not-bought.html">
-    <div class="chap-num">4.8</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.8</span></div>
     <div class="chap-info">
       <h3>High-Commission Insurance Products</h3>
       <p class="chap-subtitle">When Whole Life Is Sold, Not Bought</p>
     </div>
   </a>
   <a class="chap-card" href="4-9-hidden-and-layered-fees-fund-expense-ratios-401k-plan-fees-closing-costs.html">
-    <div class="chap-num">4.9</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.9</span></div>
     <div class="chap-info">
       <h3>Hidden and Layered Fees</h3>
       <p class="chap-subtitle">Fund Expense Ratios, 401k Plan Fees, Closing Costs</p>
     </div>
   </a>
   <a class="chap-card" href="4-10-how-free-apps-monetize-you-referral-engines-data-sale-lead-generation.html">
-    <div class="chap-num">4.10</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.10</span></div>
     <div class="chap-info">
       <h3>How "Free" Apps Monetize You</h3>
       <p class="chap-subtitle">Referral Engines, Data Sale, Lead Generation</p>
     </div>
   </a>
   <a class="chap-card" href="4-11-the-man-in-the-car-paradox-who-youre-actually-impressing-nobody.html">
-    <div class="chap-num">4.11</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.11</span></div>
     <div class="chap-info">
       <h3>The Man in the Car Paradox</h3>
       <p class="chap-subtitle">Who You're Actually Impressing (Nobody)</p>

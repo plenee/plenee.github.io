@@ -72,7 +72,8 @@ footer p { color: #2E4A60; font-size: 13px; }
 /* ─── CHAPTER PAGE ─── */
 .chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
 .chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
-.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 28px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 14px; }
+.chapter-accent { width: 56px; height: 3px; border-radius: 2px; background: var(--teal); margin-bottom: 28px; }
 
 .jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
 .jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
@@ -115,7 +116,9 @@ a.ref-link:hover { text-decoration: underline; }
 .chapter-grid { display: flex; flex-direction: column; gap: 14px; }
 .chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
 .chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
-.chap-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 15px; }
+.chap-num { flex-shrink: 0; width: 48px; height: 52px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
+.chap-num .cn-icon { line-height: 0; }
+.chap-num .cn-digits { font-family: Georgia, serif; font-weight: 700; font-size: 13px; }
 .chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
 .chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
 
@@ -251,74 +254,74 @@ a.ref-link:hover { text-decoration: underline; }
 <div class="track-wrap">
   <div class="chapter-grid">
   <a class="chap-card" href="1-1-your-money-history-shapes-your-money-behavior.html">
-    <div class="chap-num">1.1</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.1</span></div>
     <div class="chap-info">
       <h3>Your Money History Shapes Your Money Behavior</h3>
     </div>
   </a>
   <a class="chap-card" href="1-2-loss-aversion-present-bias-mental-accounting-anchoring.html">
-    <div class="chap-num">1.2</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.2</span></div>
     <div class="chap-info">
       <h3>Loss Aversion, Present Bias, Mental Accounting, Anchoring</h3>
     </div>
   </a>
   <a class="chap-card" href="1-3-expectations-vs-circumstances-the-happiness-equation.html">
-    <div class="chap-num">1.3</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.3</span></div>
     <div class="chap-info">
       <h3>Expectations vs. Circumstances</h3>
       <p class="chap-subtitle">The Happiness Equation</p>
     </div>
   </a>
   <a class="chap-card" href="1-4-stories-beat-statistics-how-narratives-and-marketers-move-your-money.html">
-    <div class="chap-num">1.4</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.4</span></div>
     <div class="chap-info">
       <h3>Stories Beat Statistics</h3>
       <p class="chap-subtitle">How Narratives and Marketers Move Your Money</p>
     </div>
   </a>
   <a class="chap-card" href="1-5-status-quo-salience-and-denial-the-spending-patterns-hiding-in-plain-sight.html">
-    <div class="chap-num">1.5</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.5</span></div>
     <div class="chap-info">
       <h3>Status Quo, Salience, and Denial</h3>
       <p class="chap-subtitle">The Spending Patterns Hiding in Plain Sight</p>
     </div>
   </a>
   <a class="chap-card" href="1-6-optimism-restraint-and-the-cost-of-compounding-the-debt-patterns.html">
-    <div class="chap-num">1.6</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.6</span></div>
     <div class="chap-info">
       <h3>Optimism, Restraint, and the Cost of Compounding</h3>
       <p class="chap-subtitle">The Debt Patterns</p>
     </div>
   </a>
   <a class="chap-card" href="1-7-sunk-cost-and-the-ostrich-effect-the-career-blind-spots.html">
-    <div class="chap-num">1.7</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.7</span></div>
     <div class="chap-info">
       <h3>Sunk Cost and the Ostrich Effect</h3>
       <p class="chap-subtitle">The Career Blind Spots</p>
     </div>
   </a>
   <a class="chap-card" href="1-8-five-ways-to-outsmart-yourself.html">
-    <div class="chap-num">1.8</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.8</span></div>
     <div class="chap-info">
       <h3>Five Ways to Outsmart Yourself</h3>
     </div>
   </a>
   <a class="chap-card" href="1-9-the-cashless-effect-and-the-framing-effect-how-money-leaves-before-you-feel-it.html">
-    <div class="chap-num">1.9</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.9</span></div>
     <div class="chap-info">
       <h3>The Cashless Effect and the Framing Effect</h3>
       <p class="chap-subtitle">How Money Leaves Before You Feel It</p>
     </div>
   </a>
   <a class="chap-card" href="1-10-scarcity-mindset-when-short-term-survival-costs-you-the-long-term.html">
-    <div class="chap-num">1.10</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.10</span></div>
     <div class="chap-info">
       <h3>Scarcity Mindset</h3>
       <p class="chap-subtitle">When Short-Term Survival Costs You the Long Term</p>
     </div>
   </a>
   <a class="chap-card" href="1-11-the-endowment-effect-why-your-own-stuff-is-worth-more-to-you-than-to-anyone-else.html">
-    <div class="chap-num">1.11</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.11</span></div>
     <div class="chap-info">
       <h3>The Endowment Effect</h3>
       <p class="chap-subtitle">Why Your Own Stuff Is Worth More to You Than to Anyone Else</p>

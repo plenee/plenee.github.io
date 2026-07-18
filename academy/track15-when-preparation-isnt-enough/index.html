@@ -72,7 +72,8 @@ footer p { color: #2E4A60; font-size: 13px; }
 /* ─── CHAPTER PAGE ─── */
 .chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
 .chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
-.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 28px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 14px; }
+.chapter-accent { width: 56px; height: 3px; border-radius: 2px; background: var(--teal); margin-bottom: 28px; }
 
 .jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
 .jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
@@ -115,7 +116,9 @@ a.ref-link:hover { text-decoration: underline; }
 .chapter-grid { display: flex; flex-direction: column; gap: 14px; }
 .chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
 .chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
-.chap-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 15px; }
+.chap-num { flex-shrink: 0; width: 48px; height: 52px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
+.chap-num .cn-icon { line-height: 0; }
+.chap-num .cn-digits { font-family: Georgia, serif; font-weight: 700; font-size: 13px; }
 .chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
 .chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
 
@@ -251,55 +254,55 @@ a.ref-link:hover { text-decoration: underline; }
 <div class="track-wrap">
   <div class="chapter-grid">
   <a class="chap-card" href="15-1-why-it-wont-happen-to-me-fails-as-a-plan.html">
-    <div class="chap-num">15.1</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="21"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="21" y2="12"/></svg></span><span class="cn-digits">15.1</span></div>
     <div class="chap-info">
       <h3>Why "It Won't Happen to Me" Fails as a Plan</h3>
     </div>
   </a>
   <a class="chap-card" href="15-2-sizing-your-real-exposure-the-true-worst-case-gap.html">
-    <div class="chap-num">15.2</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="21"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="21" y2="12"/></svg></span><span class="cn-digits">15.2</span></div>
     <div class="chap-info">
       <h3>Sizing Your Real Exposure</h3>
       <p class="chap-subtitle">The True Worst-Case Gap</p>
     </div>
   </a>
   <a class="chap-card" href="15-3-the-bankruptcy-decision-chapter-7-vs-chapter-13-and-a-disparity-worth-knowing.html">
-    <div class="chap-num">15.3</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="21"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="21" y2="12"/></svg></span><span class="cn-digits">15.3</span></div>
     <div class="chap-info">
       <h3>The Bankruptcy Decision</h3>
       <p class="chap-subtitle">Chapter 7 vs. Chapter 13, and a Disparity Worth Knowing</p>
     </div>
   </a>
   <a class="chap-card" href="15-4-who-actually-files-the-fragile-middle-class.html">
-    <div class="chap-num">15.4</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="21"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="21" y2="12"/></svg></span><span class="cn-digits">15.4</span></div>
     <div class="chap-info">
       <h3>Who Actually Files</h3>
       <p class="chap-subtitle">The Fragile Middle Class</p>
     </div>
   </a>
   <a class="chap-card" href="15-5-medical-debt-negotiating-before-it-becomes-a-collections-problem.html">
-    <div class="chap-num">15.5</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="21"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="21" y2="12"/></svg></span><span class="cn-digits">15.5</span></div>
     <div class="chap-info">
       <h3>Medical Debt</h3>
       <p class="chap-subtitle">Negotiating Before It Becomes a Collections Problem</p>
     </div>
   </a>
   <a class="chap-card" href="15-6-job-loss-navigation-the-first-90-days.html">
-    <div class="chap-num">15.6</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="21"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="21" y2="12"/></svg></span><span class="cn-digits">15.6</span></div>
     <div class="chap-info">
       <h3>Job Loss Navigation</h3>
       <p class="chap-subtitle">The First 90 Days</p>
     </div>
   </a>
   <a class="chap-card" href="15-7-foreclosure-and-eviction-why-week-one-beats-month-six.html">
-    <div class="chap-num">15.7</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="21"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="21" y2="12"/></svg></span><span class="cn-digits">15.7</span></div>
     <div class="chap-info">
       <h3>Foreclosure and Eviction</h3>
       <p class="chap-subtitle">Why Week One Beats Month Six</p>
     </div>
   </a>
   <a class="chap-card" href="15-8-rebuilding-after-the-road-back.html">
-    <div class="chap-num">15.8</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="21"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="21" y2="12"/></svg></span><span class="cn-digits">15.8</span></div>
     <div class="chap-info">
       <h3>Rebuilding After</h3>
       <p class="chap-subtitle">The Road Back</p>

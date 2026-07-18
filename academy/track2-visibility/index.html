@@ -72,7 +72,8 @@ footer p { color: #2E4A60; font-size: 13px; }
 /* ─── CHAPTER PAGE ─── */
 .chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
 .chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
-.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 28px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 14px; }
+.chapter-accent { width: 56px; height: 3px; border-radius: 2px; background: var(--teal); margin-bottom: 28px; }
 
 .jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
 .jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
@@ -115,7 +116,9 @@ a.ref-link:hover { text-decoration: underline; }
 .chapter-grid { display: flex; flex-direction: column; gap: 14px; }
 .chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
 .chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
-.chap-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 15px; }
+.chap-num { flex-shrink: 0; width: 48px; height: 52px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
+.chap-num .cn-icon { line-height: 0; }
+.chap-num .cn-digits { font-family: Georgia, serif; font-weight: 700; font-size: 13px; }
 .chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
 .chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
 
@@ -251,56 +254,56 @@ a.ref-link:hover { text-decoration: underline; }
 <div class="track-wrap">
   <div class="chapter-grid">
   <a class="chap-card" href="2-1-why-you-cant-plan-what-you-cant-see-the-visibility-gap.html">
-    <div class="chap-num">2.1</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="cn-digits">2.1</span></div>
     <div class="chap-info">
       <h3>Why You Can't Plan What You Can't See</h3>
       <p class="chap-subtitle">The Visibility Gap</p>
     </div>
   </a>
   <a class="chap-card" href="2-2-mapping-every-account-checking-savings-cards-loans-brokerage-retirement.html">
-    <div class="chap-num">2.2</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="cn-digits">2.2</span></div>
     <div class="chap-info">
       <h3>Mapping Every Account</h3>
       <p class="chap-subtitle">Checking, Savings, Cards, Loans, Brokerage, Retirement</p>
     </div>
   </a>
   <a class="chap-card" href="2-3-reading-your-own-transactions-categories-transfers-vs-spending-splits.html">
-    <div class="chap-num">2.3</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="cn-digits">2.3</span></div>
     <div class="chap-info">
       <h3>Reading Your Own Transactions</h3>
       <p class="chap-subtitle">Categories, Transfers vs. Spending, Splits</p>
     </div>
   </a>
   <a class="chap-card" href="2-4-your-credit-report-and-score-whats-actually-in-it-vantagescore-vs-fico.html">
-    <div class="chap-num">2.4</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="cn-digits">2.4</span></div>
     <div class="chap-info">
       <h3>Your Credit Report and Score</h3>
       <p class="chap-subtitle">What's Actually in It, VantageScore vs. FICO</p>
     </div>
   </a>
   <a class="chap-card" href="2-5-finding-your-recurring-charges-subscriptions-you-forgot-you-pay.html">
-    <div class="chap-num">2.5</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="cn-digits">2.5</span></div>
     <div class="chap-info">
       <h3>Finding Your Recurring Charges</h3>
       <p class="chap-subtitle">Subscriptions You Forgot You Pay</p>
     </div>
   </a>
   <a class="chap-card" href="2-6-the-stress-tax-when-money-problems-outrun-your-time-and-skills.html">
-    <div class="chap-num">2.6</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="cn-digits">2.6</span></div>
     <div class="chap-info">
       <h3>The Stress Tax</h3>
       <p class="chap-subtitle">When Money Problems Outrun Your Time and Skills</p>
     </div>
   </a>
   <a class="chap-card" href="2-7-the-time-cost-of-money-management-hours-are-dollars.html">
-    <div class="chap-num">2.7</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="cn-digits">2.7</span></div>
     <div class="chap-info">
       <h3>The Time Cost of Money Management</h3>
       <p class="chap-subtitle">Hours Are Dollars</p>
     </div>
   </a>
   <a class="chap-card" href="2-8-statements-decoded-what-your-bank-and-card-statement-is-really-telling-you.html">
-    <div class="chap-num">2.8</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="cn-digits">2.8</span></div>
     <div class="chap-info">
       <h3>Statements Decoded</h3>
       <p class="chap-subtitle">What Your Bank and Card Statement Is Really Telling You</p>

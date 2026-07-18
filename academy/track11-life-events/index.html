@@ -72,7 +72,8 @@ footer p { color: #2E4A60; font-size: 13px; }
 /* ─── CHAPTER PAGE ─── */
 .chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
 .chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
-.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 28px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 14px; }
+.chapter-accent { width: 56px; height: 3px; border-radius: 2px; background: var(--teal); margin-bottom: 28px; }
 
 .jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
 .jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
@@ -115,7 +116,9 @@ a.ref-link:hover { text-decoration: underline; }
 .chapter-grid { display: flex; flex-direction: column; gap: 14px; }
 .chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
 .chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
-.chap-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 15px; }
+.chap-num { flex-shrink: 0; width: 48px; height: 52px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
+.chap-num .cn-icon { line-height: 0; }
+.chap-num .cn-digits { font-family: Georgia, serif; font-weight: 700; font-size: 13px; }
 .chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
 .chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
 
@@ -251,49 +254,49 @@ a.ref-link:hover { text-decoration: underline; }
 <div class="track-wrap">
   <div class="chapter-grid">
   <a class="chap-card" href="11-1-buying-a-car-total-cost-of-ownership-financing-traps-depreciation.html">
-    <div class="chap-num">11.1</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg></span><span class="cn-digits">11.1</span></div>
     <div class="chap-info">
       <h3>Buying a Car</h3>
       <p class="chap-subtitle">Total Cost of Ownership, Financing Traps, Depreciation</p>
     </div>
   </a>
   <a class="chap-card" href="11-2-buying-a-home-what-you-can-afford-vs-what-youre-approved-for.html">
-    <div class="chap-num">11.2</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg></span><span class="cn-digits">11.2</span></div>
     <div class="chap-info">
       <h3>Buying a Home</h3>
       <p class="chap-subtitle">What You Can Afford vs. What You're Approved For</p>
     </div>
   </a>
   <a class="chap-card" href="11-3-marriage-and-money-merging-flows-joint-accounts-household-visibility.html">
-    <div class="chap-num">11.3</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg></span><span class="cn-digits">11.3</span></div>
     <div class="chap-info">
       <h3>Marriage and Money</h3>
       <p class="chap-subtitle">Merging FLOWs, Joint Accounts, Household Visibility</p>
     </div>
   </a>
   <a class="chap-card" href="11-4-kids-and-college-529s-education-costs-and-honest-trade-offs.html">
-    <div class="chap-num">11.4</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg></span><span class="cn-digits">11.4</span></div>
     <div class="chap-info">
       <h3>Kids and College</h3>
       <p class="chap-subtitle">529s, Education Costs, and Honest Trade-offs</p>
     </div>
   </a>
   <a class="chap-card" href="11-5-job-change-401k-rollovers-and-the-rollover-sales-machine-targeting-yours.html">
-    <div class="chap-num">11.5</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg></span><span class="cn-digits">11.5</span></div>
     <div class="chap-info">
       <h3>Job Change</h3>
       <p class="chap-subtitle">401k Rollovers (and the Rollover Sales Machine Targeting Yours)</p>
     </div>
   </a>
   <a class="chap-card" href="11-6-divorce-loss-and-financial-resets-rebuilding-visibility-first.html">
-    <div class="chap-num">11.6</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg></span><span class="cn-digits">11.6</span></div>
     <div class="chap-info">
       <h3>Divorce, Loss, and Financial Resets</h3>
       <p class="chap-subtitle">Rebuilding Visibility First</p>
     </div>
   </a>
   <a class="chap-card" href="11-7-windfall-or-inheritance-the-6-month-rule-before-big-decisions.html">
-    <div class="chap-num">11.7</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg></span><span class="cn-digits">11.7</span></div>
     <div class="chap-info">
       <h3>Windfall or Inheritance</h3>
       <p class="chap-subtitle">The 6-Month Rule Before Big Decisions</p>

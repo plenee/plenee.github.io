@@ -72,7 +72,8 @@ footer p { color: #2E4A60; font-size: 13px; }
 /* ─── CHAPTER PAGE ─── */
 .chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
 .chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
-.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 28px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 14px; }
+.chapter-accent { width: 56px; height: 3px; border-radius: 2px; background: var(--teal); margin-bottom: 28px; }
 
 .jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
 .jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
@@ -115,7 +116,9 @@ a.ref-link:hover { text-decoration: underline; }
 .chapter-grid { display: flex; flex-direction: column; gap: 14px; }
 .chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
 .chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
-.chap-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 15px; }
+.chap-num { flex-shrink: 0; width: 48px; height: 52px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
+.chap-num .cn-icon { line-height: 0; }
+.chap-num .cn-digits { font-family: Georgia, serif; font-weight: 700; font-size: 13px; }
 .chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
 .chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
 
@@ -251,49 +254,49 @@ a.ref-link:hover { text-decoration: underline; }
 <div class="track-wrap">
   <div class="chapter-grid">
   <a class="chap-card" href="12-1-net-minus-is-normal-retirement-means-spending-down-thats-the-plan-working.html">
-    <div class="chap-num">12.1</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12M6 21h12M7 3c0 5 5 7 5 9s-5 4-5 9M17 3c0 5-5 7-5 9s5 4 5 9"/></svg></span><span class="cn-digits">12.1</span></div>
     <div class="chap-info">
       <h3>Net Minus Is Normal</h3>
       <p class="chap-subtitle">Retirement Means Spending Down — That's the Plan Working</p>
     </div>
   </a>
   <a class="chap-card" href="12-2-die-with-zero-thinking-time-buckets-experiences-and-giving-while-alive.html">
-    <div class="chap-num">12.2</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12M6 21h12M7 3c0 5 5 7 5 9s-5 4-5 9M17 3c0 5-5 7-5 9s5 4 5 9"/></svg></span><span class="cn-digits">12.2</span></div>
     <div class="chap-info">
       <h3>Die With Zero Thinking</h3>
       <p class="chap-subtitle">Time-Buckets, Experiences, and Giving While Alive</p>
     </div>
   </a>
   <a class="chap-card" href="12-3-the-over-saving-trap-freedom-you-bought-but-never-used.html">
-    <div class="chap-num">12.3</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12M6 21h12M7 3c0 5 5 7 5 9s-5 4-5 9M17 3c0 5-5 7-5 9s5 4 5 9"/></svg></span><span class="cn-digits">12.3</span></div>
     <div class="chap-info">
       <h3>The Over-Saving Trap</h3>
       <p class="chap-subtitle">Freedom You Bought But Never Used</p>
     </div>
   </a>
   <a class="chap-card" href="12-4-safe-withdrawal-thinking-sequence-risk-in-plain-language.html">
-    <div class="chap-num">12.4</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12M6 21h12M7 3c0 5 5 7 5 9s-5 4-5 9M17 3c0 5-5 7-5 9s5 4 5 9"/></svg></span><span class="cn-digits">12.4</span></div>
     <div class="chap-info">
       <h3>Safe Withdrawal Thinking</h3>
       <p class="chap-subtitle">Sequence Risk in Plain Language</p>
     </div>
   </a>
   <a class="chap-card" href="12-5-social-security-timing-the-break-even-nobody-explains-simply.html">
-    <div class="chap-num">12.5</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12M6 21h12M7 3c0 5 5 7 5 9s-5 4-5 9M17 3c0 5-5 7-5 9s5 4 5 9"/></svg></span><span class="cn-digits">12.5</span></div>
     <div class="chap-info">
       <h3>Social Security Timing</h3>
       <p class="chap-subtitle">The Break-Even Nobody Explains Simply</p>
     </div>
   </a>
   <a class="chap-card" href="12-6-the-advisor-decision-in-retirement-whats-worth-paying-for-what-isnt.html">
-    <div class="chap-num">12.6</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12M6 21h12M7 3c0 5 5 7 5 9s-5 4-5 9M17 3c0 5-5 7-5 9s5 4 5 9"/></svg></span><span class="cn-digits">12.6</span></div>
     <div class="chap-info">
       <h3>The Advisor Decision in Retirement</h3>
       <p class="chap-subtitle">What's Worth Paying For, What Isn't</p>
     </div>
   </a>
   <a class="chap-card" href="12-7-buy-time-and-memories-the-highest-roi-spending-of-your-last-decades.html">
-    <div class="chap-num">12.7</div>
+    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12M6 21h12M7 3c0 5 5 7 5 9s-5 4-5 9M17 3c0 5-5 7-5 9s5 4 5 9"/></svg></span><span class="cn-digits">12.7</span></div>
     <div class="chap-info">
       <h3>Buy Time and Memories</h3>
       <p class="chap-subtitle">The Highest-ROI Spending of Your Last Decades</p>
