@@ -10,5 +10,11 @@
 !contact.html
 !RAM.svg
 !CNAME
+!SECURITY.md
 !Logo - Plenee_Navigator.svg
 !Logo - Plenee_Navigator_v2.svg
+
+# Plenee Academy — local-only for now, not yet deployed; git-ignore rules can't negate into an
+# already-excluded directory without first un-ignoring the directory itself, hence both lines.
+!academy/
+!academy/**
