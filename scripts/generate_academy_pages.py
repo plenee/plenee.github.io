@@ -348,9 +348,7 @@ a.ref-link:hover { text-decoration: underline; }
 .track-grid { display: flex; flex-direction: column; gap: 14px; }
 .track-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
 .track-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
-.track-num { flex-shrink: 0; width: 56px; height: 56px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.track-num .tn-label { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .85; }
-.track-num .tn-num { font-family: Georgia, serif; font-weight: 700; font-size: 20px; line-height: 1.2; }
+.track-num { flex-shrink: 0; width: 56px; height: 56px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 17px; }
 .track-info h3 { font-size: 18px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
 .track-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
 
@@ -725,7 +723,7 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
 </div>
 
 <div class="chapter-wrap">
-  <div class="chapter-eyebrow">Volume {track_info.volume} · Track {track_info.display_num} · Chapter {esc(display_chapter_id(chapter["id"]))}</div>
+  <div class="chapter-eyebrow">Volume {track_info.volume} · T.{track_info.display_num} · Chapter {esc(display_chapter_id(chapter["id"]))}</div>
   <h1>{esc(chapter["title"])}</h1>
   <p class="chapter-disclaimer">{DISCLAIMER}</p>
 {jump_list_html}
@@ -773,7 +771,7 @@ def render_index_page(track_info, track_title: str, chapters: list[dict], search
     search_json = json.dumps(search_index, ensure_ascii=False).replace("</script", "<\\/script")
 
     body = f"""<div class="page-header">
-  <div class="page-kicker">Volume {track_info.volume} · Track {track_info.display_num}</div>
+  <div class="page-kicker">Volume {track_info.volume} · T.{track_info.display_num}</div>
   <h1>{esc(track_title)}</h1>
 </div>
 
@@ -828,8 +826,7 @@ def render_landing_page(track_order: list, search_index: list[dict]) -> str:
             teaser = TRACK_TEASERS.get(t.track_slug, "")
             parts.append(
                 f'  <a class="track-card" href="{t.track_slug}/index.html">\n'
-                '    <div class="track-num"><span class="tn-label">Track</span>'
-                f'<span class="tn-num">{esc(t.display_num)}</span></div>\n'
+                f'    <div class="track-num">T.{esc(t.display_num)}</div>\n'
                 '    <div class="track-info">\n'
                 f'      <h3>{esc(smart_title(t.title))}</h3>\n'
                 f'      <p>{esc(teaser)}</p>\n'
