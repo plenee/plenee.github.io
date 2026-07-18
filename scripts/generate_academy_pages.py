@@ -190,8 +190,6 @@ TOKEN_RE = re.compile(r"\{\{ref:([A-Za-z0-9.]+)\}\}")
 FOOTNOTE_MARKER_RE = re.compile(r"\[\^([A-Za-z0-9.\-]+)\]")
 FOOTNOTE_DEF_RE = re.compile(r"^\[\^([A-Za-z0-9.\-]+)\]:\s*(.+)$", re.MULTILINE)
 
-DISCLAIMER = "This is financial information and education, not personalized financial advice."
-
 # ---------------------------------------------------------------------------
 # Shared template pieces, lifted verbatim from the hand-built track2 pages
 # (see website/academy/track2-visibility/*.html) plus new footnote CSS.
@@ -264,7 +262,6 @@ footer p { color: #2E4A60; font-size: 13px; }
 .chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
 .chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
 .chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 28px; }
-.chapter-disclaimer { font-size: 12px; color: var(--light); line-height: 1.6; margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
 
 .jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
 .jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
@@ -871,7 +868,6 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
 <div class="chapter-wrap">
   <div class="chapter-eyebrow">Volume {track_info.volume} · T.{track_info.display_num} · Chapter {esc(display_chapter_id(chapter["id"]))}</div>
   <h1>{esc(chapter["title"])}</h1>
-  <p class="chapter-disclaimer">{DISCLAIMER}</p>
 {jump_list_html}
   <div class="chapter-body">
 {chapter_body_html}
