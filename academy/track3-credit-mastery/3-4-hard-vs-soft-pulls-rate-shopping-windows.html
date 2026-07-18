@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hard vs. Soft Pulls; Rate-Shopping Windows — Plenee Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:    #0C1929;
+  --navy2:   #152236;
+  --teal:    #0FA8BC;
+  --teal-d:  #0A8A9E;
+  --teal-l:  #E6F7FA;
+  --orange:  #E87722;
+  --orange-l:#FFF4EC;
+  --white:   #FFFFFF;
+  --off:     #F6F9FB;
+  --text:    #0C1929;
+  --muted:   #4E6175;
+  --light:   #8A9EB0;
+  --border:  #DDE8F0;
+  --green:   #1E9E5E;
+  --green-l: #E8FAF2;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+nav {
+  position: sticky; top: 0; z-index: 300;
+  background: #0C1929;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  height: 72px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+}
+.nav-logo { display: flex; align-items: center; height: 100%; line-height: 0; }
+.nav-logo img { height: 100%; display: block; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { color: #B6C6D6; text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--teal); }
+.nav-links a.active { color: var(--teal); }
+
+footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.07); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+footer p { color: #2E4A60; font-size: 13px; }
+.fl a { color: #2E4A60; font-size: 13px; text-decoration: none; margin-left: 24px; transition: color .2s; }
+.fl a:hover { color: var(--teal); }
+
+#disclaimer-strip { background: var(--off); border-top: 1px solid var(--border); padding: 16px 48px; text-align: center; }
+#disclaimer-strip p { font-size: 12px; color: var(--light); line-height: 1.6; max-width: 900px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 56px; }
+  .nav-links { display: none; }
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .fl a { margin-left: 0; margin-right: 20px; }
+}
+
+
+/* ─── PAGE HEADER ─── */
+.page-header { background: var(--navy); padding: 64px 48px 52px; text-align: center; }
+.page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
+.page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
+.page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+
+/* ─── BREADCRUMB ─── */
+.crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
+.crumb a { color: var(--muted); text-decoration: none; }
+.crumb a:hover { color: var(--teal); }
+
+/* ─── CHAPTER PAGE ─── */
+.chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
+.chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 28px; }
+.chapter-disclaimer { font-size: 12px; color: var(--light); line-height: 1.6; margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+
+.jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
+.jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.jump-list ol { padding-left: 18px; }
+.jump-list li { margin-bottom: 6px; }
+.jump-list a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
+.jump-list a:hover { color: var(--teal); }
+
+.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 18px; }
+.chapter-body p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 20px; }
+.chapter-body p strong { color: var(--text); font-weight: 700; }
+.chapter-body p em { color: var(--text); font-style: italic; }
+.chapter-body sup { font-size: 11px; margin-left: 1px; }
+.chapter-body sup a { color: var(--teal-d); text-decoration: none; font-weight: 700; }
+.chapter-body sup a:hover { text-decoration: underline; }
+
+.takeaway { background: var(--teal-l); border-left: 4px solid var(--teal); border-radius: 0 14px 14px 0; padding: 26px 30px; margin: 44px 0 8px; }
+.takeaway .tk-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 10px; }
+.takeaway p { color: var(--text); font-size: 16px; line-height: 1.75; margin-bottom: 0; font-weight: 500; }
+
+.sources { margin: 36px 0 8px; padding-top: 24px; border-top: 1px solid var(--border); }
+.sources .src-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 14px; }
+.sources ol { padding-left: 20px; }
+.sources li { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 10px; }
+.sources li a { color: var(--teal-d); text-decoration: none; margin-left: 4px; }
+.sources li a:hover { text-decoration: underline; }
+
+.chapter-nav { max-width: 760px; margin: 0 auto; padding: 8px 48px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cn-link { display: block; border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 22px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.cn-link:hover { border-color: var(--teal); transform: translateY(-2px); }
+.cn-link.next { text-align: right; }
+.cn-dir { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); margin-bottom: 6px; }
+.cn-title { font-size: 15px; font-weight: 700; color: var(--navy); line-height: 1.4; }
+.cn-empty { visibility: hidden; }
+
+/* ─── TRACK INDEX ─── */
+.track-wrap { max-width: 900px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapter-grid { display: flex; flex-direction: column; gap: 14px; }
+.chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
+.chap-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 15px; }
+.chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
+.chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+/* ─── ACADEMY SEARCH ─── */
+/* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
+   (built + verified 2026-07-18 by a concurrent session). Listing pages only
+   (Academy index + each track index) -- never on individual chapter pages. */
+.academy-search-wrap { max-width: 620px; margin: 0 auto; padding: 0 48px; position: relative; }
+.academy-search-box { position: relative; }
+.academy-search-box svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--light); pointer-events: none; }
+.academy-search-input { width: 100%; font-family: inherit; font-size: 16px; color: var(--text); background: #fff; border: 1.5px solid var(--border); border-radius: 12px; padding: 15px 18px 15px 48px; outline: none; transition: border-color .2s, box-shadow .2s; }
+.academy-search-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(15,168,188,0.12); }
+.search-results { margin-top: 14px; display: none; flex-direction: column; gap: 10px; }
+.search-results.open { display: flex; }
+.search-hit { display: block; border: 1.5px solid var(--border); border-radius: 12px; padding: 16px 18px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.search-hit:hover { border-color: var(--teal); transform: translateY(-1px); }
+.search-hit .sh-track { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 5px; }
+.search-hit .sh-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; line-height: 1.4; }
+.search-hit .sh-snippet { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.search-hit mark { background: var(--teal-l); color: var(--teal-d); border-radius: 3px; padding: 0 2px; font-weight: 700; }
+.search-empty { font-size: 14px; color: var(--light); text-align: center; padding: 18px 0; display: none; }
+.search-empty.open { display: block; }
+.search-count { font-size: 12px; color: var(--light); margin-top: 12px; text-align: center; display: none; }
+.search-count.open { display: block; }
+.track-search-wrap { max-width: 900px; margin: 32px auto 0; padding: 0 48px; }
+.track-search-wrap .academy-search-wrap { padding: 0; max-width: none; }
+
+@media (max-width: 768px) {
+  .page-header { padding: 44px 20px 36px; }
+  .crumb { padding: 0 20px; }
+  .chapter-wrap { padding: 32px 20px 16px; }
+  .chapter-nav { grid-template-columns: 1fr; padding: 8px 20px 48px; }
+  .cn-link.next { text-align: left; }
+  .track-wrap { padding: 40px 20px 64px; }
+  .academy-search-wrap { padding: 0 20px; }
+  .track-search-wrap { padding: 0 20px; }
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" alt="Plenee Navigator">
+  </a>
+  <div class="nav-links">
+    <a href="../../index.html#how">How it works</a>
+    <a href="../../index.html#features-start">Features</a>
+    <a href="../index.html" class="active">Academy</a>
+    <a href="../../index.html#fid">Our Promise</a>
+  </div>
+</nav>
+
+<div class="crumb">
+  <a href="../index.html">Academy</a>
+  <span>›</span>
+  <a href="index.html">Credit Mastery</a>
+  <span>›</span>
+  <span>3.4</span>
+  <span style="margin-left:auto"></span>
+  <a href="../index.html#search">🔍 Search Academy</a>
+</div>
+
+<div class="chapter-wrap">
+  <div class="chapter-eyebrow">Volume 1 · Track 3 · Chapter 3.4</div>
+  <h1>Hard vs. Soft Pulls; Rate-Shopping Windows</h1>
+  <p class="chapter-disclaimer">This is financial information and education, not personalized financial advice.</p>
+
+  <div class="jump-list">
+      <div class="jl-title">In this chapter</div>
+      <ol>
+<li><a href="#the-question-that-costs-thousands">The question that costs thousands</a></li>
+<li><a href="#the-two-kinds-of-inquiry">The two kinds of inquiry</a></li>
+<li><a href="#the-window-that-solves-shopping">The window that solves shopping</a></li>
+<li><a href="#the-arithmetic-of-the-fear">The arithmetic of the fear</a></li>
+<li><a href="#where-plenee-fits">Where Plenee fits</a></li>
+      </ol>
+    </div>
+
+  <div class="chapter-body">
+<h2 id="the-question-that-costs-thousands">The question that costs thousands</h2>
+<p>"Will checking this hurt my credit?" It's the question that stops people from comparison-shopping a mortgage — a hesitation that can cost tens of thousands of dollars over a loan's life, in defense of a handful of temporary points. The two-sentence answer: checking never hurts; <em>applying</em> barely does; and multiple applications for the same loan type, made inside a window, count as one. This chapter unpacks those sentences precisely, because the myth in the middle is expensive.</p>
+<h2 id="the-two-kinds-of-inquiry">The two kinds of inquiry</h2>
+<p><strong>Soft pulls</strong> happen when you check your own score or report, when you use pre-qualification tools, when an employer screens you, or when issuers pre-screen you for offers. Soft pulls are <em>invisible to scoring</em> — they cost exactly nothing, no matter how many, forever. Checking your own credit daily for a decade would cost zero points (<a href="../track2-visibility/2-4-your-credit-report-and-score-whats-actually-in-it-vantagescore-vs-fico.html">Chapter 2.4</a>'s weekly free reports exist to be used).</p>
+<p><strong>Hard pulls</strong> happen when you actually apply for credit. The real cost: typically about <strong>5 points</strong>, temporarily — the impact stops affecting the score after 12 months and the inquiry drops off the report entirely after 24.<sup id="fnref-3.4-1"><a href="#fn-3.4-1">1</a></sup> Real, small, and short-lived: the least consequential negative event in the entire scoring system, and the most feared.</p>
+<h2 id="the-window-that-solves-shopping">The window that solves shopping</h2>
+<p>The trap is the myth between the two: people avoid <em>shopping</em> because they fear <em>checking</em> — as if five mortgage quotes meant five wounds. Scoring models solved this decades ago with the <strong>rate-shopping window</strong>: multiple hard inquiries for the <em>same type</em> of installment loan — mortgage, auto, student — made within a set window are counted as a <strong>single inquiry</strong>, precisely so borrowers can compare lenders without penalty. The window varies by model — 14 days under FICO 8 and VantageScore, 45 days under FICO 9 and newer<sup id="fnref-3.4-2"><a href="#fn-3.4-2">2</a></sup> — so the practical rule is simple: <strong>keep the shopping sprint inside two weeks and you're safe under every model in use.</strong></p>
+<p>Note the boundary, because it's where the window's logic ends: the dedup covers installment-loan <em>shopping</em> — comparing lenders for one loan. Five credit <em>card</em> applications in a month is not shopping; it's five separate hard pulls and a new-credit red flag (<a href="3-7-preparing-your-credit-for-a-mortgage-the-12-month-runway.html">Chapter 3.7</a>'s freeze rule). The models forgive comparison; they don't forgive appetite.</p>
+<h2 id="the-arithmetic-of-the-fear">The arithmetic of the fear</h2>
+<p>Price the myth against the reality. The fear: a hard pull might cost ~5 points for a few months. The cost of obeying the fear: failing to shop a $400,000 mortgage and accepting a rate 0.25% higher costs roughly <strong>$65 a month — over $23,000 across thirty years.</strong> That is the most expensive five points in finance, paid voluntarily, in defense of nothing: the five points recover within months; the quarter-point premium compounds for decades. In income context: the $23,000 is real at every income, but for the household that stretched to qualify at all, the monthly $65 is the difference between a comfortable payment and a tight one — for the life of the loan.</p>
+<h2 id="where-plenee-fits">Where Plenee fits</h2>
+<p>Rate-shopping is a cash-flow event too: each candidate loan carries a payment, and the honest comparison includes what that payment does to your month. Plenee's projections place each candidate's payment into your real forward calendar (<a href="../track7-free-up-cash-flow/7-3-timing-is-everything-paycheck-cycles-due-dates-and-daily-cash-position.html">Chapter 7.3</a>), so lender comparisons happen in your actual numbers — rate, payment, and trough effect together — rather than on rate alone.</p>
+  </div>
+
+  <div class="takeaway">
+      <div class="tk-label">The takeaway</div>
+      <p>Check your own credit freely, forever — self-checks are invisible. When you borrow, shop hard and shop <em>fast</em>: same loan type, tight window, every lender you can reach in two weeks, counted as one inquiry. And never pay a quarter-point premium to protect five temporary points — it's the worst trade the folklore ever invented.</p>
+    </div>
+  <div class="sources">
+      <div class="src-title">Sources</div>
+      <ol>
+<li id="fn-3.4-1">Hard-inquiry scoring impact: typically about 5 points, no longer affecting the score after 12 months, and dropping off the credit report entirely after 24 months. <a href="#fnref-3.4-1">↩</a></li>
+<li id="fn-3.4-2">Rate-shopping deduplication window: 14 days under FICO 8 and VantageScore models, 45 days under FICO 9 and newer. <a href="#fnref-3.4-2">↩</a></li>
+      </ol>
+    </div>
+</div>
+
+<div class="chapter-nav">
+  <a class="cn-link prev" href="3-3-building-credit-from-nothing-and-rebuilding-after-damage.html">
+      <div class="cn-dir">Previous</div>
+      <div class="cn-title">Building Credit From Nothing (and Rebuilding After Damage)</div>
+    </a>
+  <a class="cn-link next" href="3-5-when-to-close-a-card-rarely-and-when-not-to.html">
+      <div class="cn-dir">Next</div>
+      <div class="cn-title">When to Close a Card (Rarely) and When Not To</div>
+    </a>
+</div>
+
+<div id="disclaimer-strip">
+  <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. <a href="../../plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
+</div>
+
+<footer>
+  <a href="../../index.html" style="display:block;line-height:0">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" height="44" alt="Plenee Navigator">
+  </a>
+  <p>© 2026 Plenee Co. All rights reserved.</p>
+  <div class="fl"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a><a href="../../plenee_legal.html" style="color:var(--teal)">Legal</a><a href="../../contact.html">Contact</a></div>
+</footer>
+
+</body>
+</html>

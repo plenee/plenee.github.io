@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The HELOC as a Buffer: A Standby Credit Line Against Home Equity — Plenee Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:    #0C1929;
+  --navy2:   #152236;
+  --teal:    #0FA8BC;
+  --teal-d:  #0A8A9E;
+  --teal-l:  #E6F7FA;
+  --orange:  #E87722;
+  --orange-l:#FFF4EC;
+  --white:   #FFFFFF;
+  --off:     #F6F9FB;
+  --text:    #0C1929;
+  --muted:   #4E6175;
+  --light:   #8A9EB0;
+  --border:  #DDE8F0;
+  --green:   #1E9E5E;
+  --green-l: #E8FAF2;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+nav {
+  position: sticky; top: 0; z-index: 300;
+  background: #0C1929;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  height: 72px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+}
+.nav-logo { display: flex; align-items: center; height: 100%; line-height: 0; }
+.nav-logo img { height: 100%; display: block; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { color: #B6C6D6; text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--teal); }
+.nav-links a.active { color: var(--teal); }
+
+footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.07); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+footer p { color: #2E4A60; font-size: 13px; }
+.fl a { color: #2E4A60; font-size: 13px; text-decoration: none; margin-left: 24px; transition: color .2s; }
+.fl a:hover { color: var(--teal); }
+
+#disclaimer-strip { background: var(--off); border-top: 1px solid var(--border); padding: 16px 48px; text-align: center; }
+#disclaimer-strip p { font-size: 12px; color: var(--light); line-height: 1.6; max-width: 900px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 56px; }
+  .nav-links { display: none; }
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .fl a { margin-left: 0; margin-right: 20px; }
+}
+
+
+/* ─── PAGE HEADER ─── */
+.page-header { background: var(--navy); padding: 64px 48px 52px; text-align: center; }
+.page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
+.page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
+.page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+
+/* ─── BREADCRUMB ─── */
+.crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
+.crumb a { color: var(--muted); text-decoration: none; }
+.crumb a:hover { color: var(--teal); }
+
+/* ─── CHAPTER PAGE ─── */
+.chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
+.chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 28px; }
+.chapter-disclaimer { font-size: 12px; color: var(--light); line-height: 1.6; margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+
+.jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
+.jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.jump-list ol { padding-left: 18px; }
+.jump-list li { margin-bottom: 6px; }
+.jump-list a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
+.jump-list a:hover { color: var(--teal); }
+
+.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 18px; }
+.chapter-body p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 20px; }
+.chapter-body p strong { color: var(--text); font-weight: 700; }
+.chapter-body p em { color: var(--text); font-style: italic; }
+.chapter-body sup { font-size: 11px; margin-left: 1px; }
+.chapter-body sup a { color: var(--teal-d); text-decoration: none; font-weight: 700; }
+.chapter-body sup a:hover { text-decoration: underline; }
+
+.takeaway { background: var(--teal-l); border-left: 4px solid var(--teal); border-radius: 0 14px 14px 0; padding: 26px 30px; margin: 44px 0 8px; }
+.takeaway .tk-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 10px; }
+.takeaway p { color: var(--text); font-size: 16px; line-height: 1.75; margin-bottom: 0; font-weight: 500; }
+
+.sources { margin: 36px 0 8px; padding-top: 24px; border-top: 1px solid var(--border); }
+.sources .src-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 14px; }
+.sources ol { padding-left: 20px; }
+.sources li { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 10px; }
+.sources li a { color: var(--teal-d); text-decoration: none; margin-left: 4px; }
+.sources li a:hover { text-decoration: underline; }
+
+.chapter-nav { max-width: 760px; margin: 0 auto; padding: 8px 48px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cn-link { display: block; border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 22px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.cn-link:hover { border-color: var(--teal); transform: translateY(-2px); }
+.cn-link.next { text-align: right; }
+.cn-dir { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); margin-bottom: 6px; }
+.cn-title { font-size: 15px; font-weight: 700; color: var(--navy); line-height: 1.4; }
+.cn-empty { visibility: hidden; }
+
+/* ─── TRACK INDEX ─── */
+.track-wrap { max-width: 900px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapter-grid { display: flex; flex-direction: column; gap: 14px; }
+.chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
+.chap-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 15px; }
+.chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
+.chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+/* ─── ACADEMY SEARCH ─── */
+/* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
+   (built + verified 2026-07-18 by a concurrent session). Listing pages only
+   (Academy index + each track index) -- never on individual chapter pages. */
+.academy-search-wrap { max-width: 620px; margin: 0 auto; padding: 0 48px; position: relative; }
+.academy-search-box { position: relative; }
+.academy-search-box svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--light); pointer-events: none; }
+.academy-search-input { width: 100%; font-family: inherit; font-size: 16px; color: var(--text); background: #fff; border: 1.5px solid var(--border); border-radius: 12px; padding: 15px 18px 15px 48px; outline: none; transition: border-color .2s, box-shadow .2s; }
+.academy-search-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(15,168,188,0.12); }
+.search-results { margin-top: 14px; display: none; flex-direction: column; gap: 10px; }
+.search-results.open { display: flex; }
+.search-hit { display: block; border: 1.5px solid var(--border); border-radius: 12px; padding: 16px 18px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.search-hit:hover { border-color: var(--teal); transform: translateY(-1px); }
+.search-hit .sh-track { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 5px; }
+.search-hit .sh-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; line-height: 1.4; }
+.search-hit .sh-snippet { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.search-hit mark { background: var(--teal-l); color: var(--teal-d); border-radius: 3px; padding: 0 2px; font-weight: 700; }
+.search-empty { font-size: 14px; color: var(--light); text-align: center; padding: 18px 0; display: none; }
+.search-empty.open { display: block; }
+.search-count { font-size: 12px; color: var(--light); margin-top: 12px; text-align: center; display: none; }
+.search-count.open { display: block; }
+.track-search-wrap { max-width: 900px; margin: 32px auto 0; padding: 0 48px; }
+.track-search-wrap .academy-search-wrap { padding: 0; max-width: none; }
+
+@media (max-width: 768px) {
+  .page-header { padding: 44px 20px 36px; }
+  .crumb { padding: 0 20px; }
+  .chapter-wrap { padding: 32px 20px 16px; }
+  .chapter-nav { grid-template-columns: 1fr; padding: 8px 20px 48px; }
+  .cn-link.next { text-align: left; }
+  .track-wrap { padding: 40px 20px 64px; }
+  .academy-search-wrap { padding: 0 20px; }
+  .track-search-wrap { padding: 0 20px; }
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" alt="Plenee Navigator">
+  </a>
+  <div class="nav-links">
+    <a href="../../index.html#how">How it works</a>
+    <a href="../../index.html#features-start">Features</a>
+    <a href="../index.html" class="active">Academy</a>
+    <a href="../../index.html#fid">Our Promise</a>
+  </div>
+</nav>
+
+<div class="crumb">
+  <a href="../index.html">Academy</a>
+  <span>›</span>
+  <a href="index.html">Free Up Cash Flow</a>
+  <span>›</span>
+  <span>7.7</span>
+  <span style="margin-left:auto"></span>
+  <a href="../index.html#search">🔍 Search Academy</a>
+</div>
+
+<div class="chapter-wrap">
+  <div class="chapter-eyebrow">Volume 1 · Track 7 · Chapter 7.7</div>
+  <h1>The HELOC as a Buffer: A Standby Credit Line Against Home Equity</h1>
+  <p class="chapter-disclaimer">This is financial information and education, not personalized financial advice.</p>
+
+  <div class="jump-list">
+      <div class="jl-title">In this chapter</div>
+      <ol>
+<li><a href="#arrange-the-valve-while-the-pipes-are-dry">Arrange the valve while the pipes are dry</a></li>
+<li><a href="#the-buffer-logic">The buffer logic</a></li>
+<li><a href="#the-catch-given-equal-billing">The catch, given equal billing</a></li>
+<li><a href="#the-two-disciplines">The two disciplines</a></li>
+<li><a href="#where-plenee-fits">Where Plenee fits</a></li>
+      </ol>
+    </div>
+
+  <div class="chapter-body">
+<h2 id="arrange-the-valve-while-the-pipes-are-dry">Arrange the valve while the pipes are dry</h2>
+<p>The best time to arrange access to emergency money is precisely when you don't need it. The worst time is when you do — which is, predictably, when most people first try. Lenders extend credit on the strength of your <em>current</em> income and equity; the newly desperate, by definition, are applying with neither at its best. The result is a cruel timing asymmetry: emergency credit is cheapest and most available exactly when it looks unnecessary.</p>
+<p>The HELOC — home equity line of credit — is the instrument that exploits that asymmetry deliberately: arranged in calm, standing by for shock. Used as designed, it's among the most efficient safety valves a homeowner can hold. Used as a wallet, it converts home equity into consumption with your house as the security deposit. This chapter is about the design, the catch, and the two disciplines that keep the one from becoming the other.</p>
+<h2 id="the-buffer-logic">The buffer logic</h2>
+<p>A HELOC is a standby borrowing line secured by your home's equity, and its buffer logic rests on one property: <strong>it costs (almost) nothing while unused.</strong> No interest accrues on an untapped line — some lenders charge an annual fee (commonly $0–$250, and many major lenders now waive it entirely) or an origination fee, but the standing capacity itself is nearly free.<sup id="fnref-7.7-1"><a href="#fn-7.7-1">1</a></sup></p>
+<p>Then the shock arrives — the roof, the transmission, the medical bill — and the comparison does the arguing. A $10,000 emergency carried six months: on a card at 24%, roughly $1,200 of interest; on a HELOC at a current rate around 7–8.5%, roughly $350–$425<sup id="fnref-7.7-2"><a href="#fn-7.7-2">2</a></sup> — <em>and only if drawn</em>. Against the other things people actually reach for in a cash crunch — overdrafts at absurd effective rates (<a href="../track4-extraction-economy/4-2-overdraft-nsf-and-late-fees-the-poverty-premium.html">Chapter 4.2</a>), or panic-selling investments at exactly the wrong moment (the double loss <a href="../track6-stop-the-bleeding/6-4-emergency-buffer-sizing-room-for-error.html">Chapter 6.4</a> warned about) — the standby line is dramatically cheaper still. It doesn't replace the cash buffer of <a href="../track6-stop-the-bleeding/6-4-emergency-buffer-sizing-room-for-error.html">Chapter 6.4</a>; it <em>backstops</em> it, covering the tail of shocks bigger than cash should reasonably sit idle for. Layered: cash for the common shocks, the line for the rare large ones — which lets the cash buffer stay right-sized instead of bloated.</p>
+<h2 id="the-catch-given-equal-billing">The catch, given equal billing</h2>
+<p>The catch deserves equal billing, and it's threefold. <strong>The collateral is your house</strong> — this is not a credit card; the downside of sustained failure to repay is not a score, it's the roof. <strong>The rate is typically variable</strong> — tied to the prime rate plus a margin, so the cost of a drawn balance moves with the Fed, upward included. <strong>And the structure rewards reading</strong>: the standard shape is a roughly 10-year <em>draw period</em> during which interest-only payments are allowed, followed by a 10–20 year fully amortizing <em>repayment period</em><sup id="fnref-7.7-3"><a href="#fn-7.7-3">3</a></sup> — and the payment jump at that boundary surprises people who treated interest-only as the permanent price. Read the terms before signing; the structure is standard but not self-explanatory.</p>
+<h2 id="the-two-disciplines">The two disciplines</h2>
+<p>What separates the safety valve from the debt habit is not the instrument — it's two disciplines, both cheap, both done in advance.</p>
+<p><strong>Open it before you need it.</strong> Approval depends on the income and equity you have <em>now</em>; lenders don't extend lines to the newly desperate. The calm-weather application is the whole trick — the valve must be installed while the pipes are dry.</p>
+<p><strong>Define "emergency" in writing, in advance.</strong> A roof failure is an emergency. A vacation is not. A renovation impulse is not. "The holidays" are not. The line's danger is precisely its convenience — standby capacity feels like spendable money, and home equity drawn for consumption is the Man in the Car (<a href="../track4-extraction-economy/4-11-the-man-in-the-car-paradox-who-youre-actually-impressing-nobody.html">Chapter 4.11</a>) with your house as the stake. A written definition, made before any draw is tempting, is the boundary that holds when the moment's reasoning won't. (This is <a href="../volume2-track1-your-built-in-wiring/1-2-loss-aversion-present-bias-mental-accounting-anchoring.html">Chapter 1.2</a>'s systems-beat-willpower, applied to five figures of temptation.)</p>
+<p>Income context: the HELOC is a homeowner's instrument by definition, and its value scales with the gap between card rates and secured rates — but the <em>discipline</em> requirement is universal: the same convenience that makes it a cheap valve for the disciplined makes it an equity-drain for the improvising. The instrument doesn't decide which; the written definition does.</p>
+<h2 id="where-plenee-fits">Where Plenee fits</h2>
+<p>A HELOC appears in your Plenee account map with its limit and balance — standby capacity made visible as part of the full picture (<a href="../track2-visibility/2-2-mapping-every-account-checking-savings-cards-loans-brokerage-retirement.html">Chapter 2.2</a>'s completeness rule: unlisted capacity is unmanaged capacity). Any draw shows up in the cash-flow picture as the scheduled obligation it creates, with its variable-rate cost visible — so the valve's use, if it comes, happens inside the same forward calendar as everything else, not off the books.</p>
+  </div>
+
+  <div class="takeaway">
+      <div class="tk-label">The takeaway</div>
+      <p>Arrange the safety valve while you're safe: open the line in calm weather, read the draw-and-repayment structure, and write down — in advance — what counts as an emergency. Undrawn, it costs almost nothing and makes your whole buffer strategy more robust; drawn for a true shock, it beats every alternative people actually reach for. Just never confuse standby capacity with spendable money. The line is for shocks; your house is the stake.</p>
+    </div>
+  <div class="sources">
+      <div class="src-title">Sources</div>
+      <ol>
+<li id="fn-7.7-1">HELOC fees: $0-250 annual fee (many major lenders now waive it entirely), $0-~1% origination fee, $350-800 appraisal (often replaced by a free automated valuation model). <a href="#fnref-7.7-1">↩</a></li>
+<li id="fn-7.7-2">HELOC rates recently averaged roughly 7.4-7.5% nationally (Bankrate, Curinos), up to about 8.2% (LendingTree) — figures move with the broader rate environment. <a href="#fnref-7.7-2">↩</a></li>
+<li id="fn-7.7-3">HELOC structure per CFPB: roughly a 10-year draw period (interest-only payments allowed), followed by a 10-20 year fully amortizing repayment period, at a variable rate (prime plus a margin). <a href="#fnref-7.7-3">↩</a></li>
+      </ol>
+    </div>
+</div>
+
+<div class="chapter-nav">
+  <a class="cn-link prev" href="7-6-windfalls-tax-refunds-bonuses-and-the-allocation-decision.html">
+      <div class="cn-dir">Previous</div>
+      <div class="cn-title">Windfalls: Tax Refunds, Bonuses, and the Allocation Decision</div>
+    </a>
+  <a class="cn-link next" href="index.html">
+      <div class="cn-dir">Next</div>
+      <div class="cn-title">Back to Free Up Cash Flow</div>
+    </a>
+</div>
+
+<div id="disclaimer-strip">
+  <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. <a href="../../plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
+</div>
+
+<footer>
+  <a href="../../index.html" style="display:block;line-height:0">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" height="44" alt="Plenee Navigator">
+  </a>
+  <p>© 2026 Plenee Co. All rights reserved.</p>
+  <div class="fl"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a><a href="../../plenee_legal.html" style="color:var(--teal)">Legal</a><a href="../../contact.html">Contact</a></div>
+</footer>
+
+</body>
+</html>

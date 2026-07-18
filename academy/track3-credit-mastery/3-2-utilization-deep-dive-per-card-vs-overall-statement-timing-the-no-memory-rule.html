@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Utilization Deep-Dive: Per-Card vs. Overall, Statement Timing, the No-Memory Rule — Plenee Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:    #0C1929;
+  --navy2:   #152236;
+  --teal:    #0FA8BC;
+  --teal-d:  #0A8A9E;
+  --teal-l:  #E6F7FA;
+  --orange:  #E87722;
+  --orange-l:#FFF4EC;
+  --white:   #FFFFFF;
+  --off:     #F6F9FB;
+  --text:    #0C1929;
+  --muted:   #4E6175;
+  --light:   #8A9EB0;
+  --border:  #DDE8F0;
+  --green:   #1E9E5E;
+  --green-l: #E8FAF2;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+nav {
+  position: sticky; top: 0; z-index: 300;
+  background: #0C1929;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  height: 72px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+}
+.nav-logo { display: flex; align-items: center; height: 100%; line-height: 0; }
+.nav-logo img { height: 100%; display: block; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { color: #B6C6D6; text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--teal); }
+.nav-links a.active { color: var(--teal); }
+
+footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.07); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+footer p { color: #2E4A60; font-size: 13px; }
+.fl a { color: #2E4A60; font-size: 13px; text-decoration: none; margin-left: 24px; transition: color .2s; }
+.fl a:hover { color: var(--teal); }
+
+#disclaimer-strip { background: var(--off); border-top: 1px solid var(--border); padding: 16px 48px; text-align: center; }
+#disclaimer-strip p { font-size: 12px; color: var(--light); line-height: 1.6; max-width: 900px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 56px; }
+  .nav-links { display: none; }
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .fl a { margin-left: 0; margin-right: 20px; }
+}
+
+
+/* ─── PAGE HEADER ─── */
+.page-header { background: var(--navy); padding: 64px 48px 52px; text-align: center; }
+.page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
+.page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
+.page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+
+/* ─── BREADCRUMB ─── */
+.crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
+.crumb a { color: var(--muted); text-decoration: none; }
+.crumb a:hover { color: var(--teal); }
+
+/* ─── CHAPTER PAGE ─── */
+.chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
+.chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 28px; }
+.chapter-disclaimer { font-size: 12px; color: var(--light); line-height: 1.6; margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+
+.jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
+.jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.jump-list ol { padding-left: 18px; }
+.jump-list li { margin-bottom: 6px; }
+.jump-list a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
+.jump-list a:hover { color: var(--teal); }
+
+.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 18px; }
+.chapter-body p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 20px; }
+.chapter-body p strong { color: var(--text); font-weight: 700; }
+.chapter-body p em { color: var(--text); font-style: italic; }
+.chapter-body sup { font-size: 11px; margin-left: 1px; }
+.chapter-body sup a { color: var(--teal-d); text-decoration: none; font-weight: 700; }
+.chapter-body sup a:hover { text-decoration: underline; }
+
+.takeaway { background: var(--teal-l); border-left: 4px solid var(--teal); border-radius: 0 14px 14px 0; padding: 26px 30px; margin: 44px 0 8px; }
+.takeaway .tk-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 10px; }
+.takeaway p { color: var(--text); font-size: 16px; line-height: 1.75; margin-bottom: 0; font-weight: 500; }
+
+.sources { margin: 36px 0 8px; padding-top: 24px; border-top: 1px solid var(--border); }
+.sources .src-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 14px; }
+.sources ol { padding-left: 20px; }
+.sources li { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 10px; }
+.sources li a { color: var(--teal-d); text-decoration: none; margin-left: 4px; }
+.sources li a:hover { text-decoration: underline; }
+
+.chapter-nav { max-width: 760px; margin: 0 auto; padding: 8px 48px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cn-link { display: block; border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 22px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.cn-link:hover { border-color: var(--teal); transform: translateY(-2px); }
+.cn-link.next { text-align: right; }
+.cn-dir { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); margin-bottom: 6px; }
+.cn-title { font-size: 15px; font-weight: 700; color: var(--navy); line-height: 1.4; }
+.cn-empty { visibility: hidden; }
+
+/* ─── TRACK INDEX ─── */
+.track-wrap { max-width: 900px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapter-grid { display: flex; flex-direction: column; gap: 14px; }
+.chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
+.chap-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 15px; }
+.chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
+.chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+/* ─── ACADEMY SEARCH ─── */
+/* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
+   (built + verified 2026-07-18 by a concurrent session). Listing pages only
+   (Academy index + each track index) -- never on individual chapter pages. */
+.academy-search-wrap { max-width: 620px; margin: 0 auto; padding: 0 48px; position: relative; }
+.academy-search-box { position: relative; }
+.academy-search-box svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--light); pointer-events: none; }
+.academy-search-input { width: 100%; font-family: inherit; font-size: 16px; color: var(--text); background: #fff; border: 1.5px solid var(--border); border-radius: 12px; padding: 15px 18px 15px 48px; outline: none; transition: border-color .2s, box-shadow .2s; }
+.academy-search-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(15,168,188,0.12); }
+.search-results { margin-top: 14px; display: none; flex-direction: column; gap: 10px; }
+.search-results.open { display: flex; }
+.search-hit { display: block; border: 1.5px solid var(--border); border-radius: 12px; padding: 16px 18px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.search-hit:hover { border-color: var(--teal); transform: translateY(-1px); }
+.search-hit .sh-track { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 5px; }
+.search-hit .sh-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; line-height: 1.4; }
+.search-hit .sh-snippet { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.search-hit mark { background: var(--teal-l); color: var(--teal-d); border-radius: 3px; padding: 0 2px; font-weight: 700; }
+.search-empty { font-size: 14px; color: var(--light); text-align: center; padding: 18px 0; display: none; }
+.search-empty.open { display: block; }
+.search-count { font-size: 12px; color: var(--light); margin-top: 12px; text-align: center; display: none; }
+.search-count.open { display: block; }
+.track-search-wrap { max-width: 900px; margin: 32px auto 0; padding: 0 48px; }
+.track-search-wrap .academy-search-wrap { padding: 0; max-width: none; }
+
+@media (max-width: 768px) {
+  .page-header { padding: 44px 20px 36px; }
+  .crumb { padding: 0 20px; }
+  .chapter-wrap { padding: 32px 20px 16px; }
+  .chapter-nav { grid-template-columns: 1fr; padding: 8px 20px 48px; }
+  .cn-link.next { text-align: left; }
+  .track-wrap { padding: 40px 20px 64px; }
+  .academy-search-wrap { padding: 0 20px; }
+  .track-search-wrap { padding: 0 20px; }
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" alt="Plenee Navigator">
+  </a>
+  <div class="nav-links">
+    <a href="../../index.html#how">How it works</a>
+    <a href="../../index.html#features-start">Features</a>
+    <a href="../index.html" class="active">Academy</a>
+    <a href="../../index.html#fid">Our Promise</a>
+  </div>
+</nav>
+
+<div class="crumb">
+  <a href="../index.html">Academy</a>
+  <span>›</span>
+  <a href="index.html">Credit Mastery</a>
+  <span>›</span>
+  <span>3.2</span>
+  <span style="margin-left:auto"></span>
+  <a href="../index.html#search">🔍 Search Academy</a>
+</div>
+
+<div class="chapter-wrap">
+  <div class="chapter-eyebrow">Volume 1 · Track 3 · Chapter 3.2</div>
+  <h1>Utilization Deep-Dive: Per-Card vs. Overall, Statement Timing, the No-Memory Rule</h1>
+  <p class="chapter-disclaimer">This is financial information and education, not personalized financial advice.</p>
+
+  <div class="jump-list">
+      <div class="jl-title">In this chapter</div>
+      <ol>
+<li><a href="#same-debt-different-scores">Same debt, different scores</a></li>
+<li><a href="#dial-one-per-card-and-overall-simultaneously">Dial one: per-card and overall, simultaneously</a></li>
+<li><a href="#dial-two-the-snapshot-and-when-the-camera-clicks">Dial two: the snapshot, and when the camera clicks</a></li>
+<li><a href="#the-folklore-audit">The folklore audit</a></li>
+<li><a href="#the-mercy-rule">The mercy rule</a></li>
+<li><a href="#where-plenee-fits">Where Plenee fits</a></li>
+      </ol>
+    </div>
+
+  <div class="chapter-body">
+<h2 id="same-debt-different-scores">Same debt, different scores</h2>
+<p>Two people each owe $3,000 on credit cards. Same debt, same income, same flawless payment history. One scores fine; the other is bleeding points. The difference is <em>distribution and timing</em> — the two utilization dials that decide what the bureaus actually see, and that almost nobody explains. <a href="../track6-stop-the-bleeding/6-7-credit-utilization-mechanics-the-no-memory-rule-statement-timing-limit-management.html">Chapter 6.7</a> introduced the mechanics from the debt-payoff side; this is the practitioner's layer.</p>
+<h2 id="dial-one-per-card-and-overall-simultaneously">Dial one: per-card and overall, simultaneously</h2>
+<p>Scoring reads utilization at two levels at once — <strong>overall</strong> (all balances ÷ all limits) and <strong>per card</strong> — and a single near-maxed card hurts even when the overall ratio is low. <em>Where</em> a balance sits matters as much as its size.</p>
+<p>The worked contrast: $3,000 spread as $1,000 across three cards with $5,000 limits each reads as 20% per card, 20% overall — unremarkable, invisible. The same $3,000 concentrated on one $3,500-limit card reads as 86% on that card — a specific flag, despite identical total debt. Distribution alone moved the score. This is why the Intelligent Avalanche (<a href="../track6-stop-the-bleeding/6-2-intelligent-avalanche-why-highest-apr-first-isnt-always-right.html">Chapter 6.2</a>) triages near-maxed cards before running rate order, and why "how much card debt do I have?" is the wrong question for scoring purposes — the right one is "does any single card look distressed?"</p>
+<h2 id="dial-two-the-snapshot-and-when-the-camera-clicks">Dial two: the snapshot, and when the camera clicks</h2>
+<p>Issuers report your balance as of the <strong>statement closing date</strong> — not the due date. The consequence catches precisely the most diligent people: a card used heavily but paid in full by the due date, every month without fail, can <em>report</em> high utilization all year — because the snapshot was always taken at the peak, before the payment. Heavy-spending full-payers are routinely surprised to learn their file shows them as high-utilization borrowers.</p>
+<p>The countermove is timing, not money: <strong>pay down before the close</strong>, not just before the due date. The same dollars, moved a week earlier in the cycle, change what gets reported. Worked: a card at $3,000 of a $3,500 limit, paid to $500 five days before its closing date, reports 14% instead of 86% — in a single cycle. (This is the one legitimate exception to <a href="../track6-stop-the-bleeding/6-1-late-fee-elimination-autopay-in-full-done-right.html">Chapter 6.1</a>'s pay-on-the-due-date float rule: when the reported ratio matters — before a mortgage application, say — the donated float is buying something real.)</p>
+<h2 id="the-folklore-audit">The folklore audit</h2>
+<p><strong>"Keep utilization under 30%"</strong> is repeated everywhere as if 30% were a cliff. Scoring is closer to continuous: lower is simply better, crossing 30% costs a modest dip, and the sharpest penalties concentrate at the extremes — maxed or near-maxed cards can cost 50–100+ points. The 30% folklore isn't wrong so much as coarse; the real geometry is a slope that steepens brutally near the top.</p>
+<p><strong>And the strange corner: 0% everywhere isn't quite optimal either.</strong> Reporting $0 on every card can trigger a small "no recent revolving activity" penalty — so some small reported balance can score marginally better than an all-zero file.<sup id="fnref-3.2-1"><a href="#fn-3.2-1">1</a></sup> Read that carefully, because a profitable myth lives one misreading away (<a href="3-6-credit-myths-carrying-a-balance-does-not-help-your-score.html">Chapter 3.6</a>): this is <em>not</em> license to carry a balance and pay interest. Paying in full by the due date, while letting the statement balance simply post at closing, gets the identical effect for free — the file shows activity, the wallet pays nothing. The distinction is between <em>reported</em> balance (snapshot at close — free) and <em>carried</em> balance (unpaid after the due date — 24%). The score can't tell them apart. Your wallet certainly can.</p>
+<h2 id="the-mercy-rule">The mercy rule</h2>
+<p>Worth repeating from <a href="../track6-stop-the-bleeding/6-7-credit-utilization-mechanics-the-no-memory-rule-statement-timing-limit-management.html">Chapter 6.7</a> because it changes strategy: <strong>utilization has no memory.</strong> The moment lower balances report, the penalty evaporates — no probation period, no scar tissue, no waiting out a clock. Last year's maxed card is invisible today if the balance is gone. Combined with the snapshot mechanics, this means your reported utilization is substantially <em>controllable, this month</em>: distribution across cards, payment timing against closing dates, denominator management (<a href="../track6-stop-the-bleeding/6-7-credit-utilization-mechanics-the-no-memory-rule-statement-timing-limit-management.html">Chapter 6.7</a>'s limit levers) — three dials, all responsive within a cycle or two.</p>
+<h2 id="where-plenee-fits">Where Plenee fits</h2>
+<p>The dials require information most people never see assembled: every card's balance, its limit, <em>and its statement closing date</em> — the date that actually decides what the bureaus see. Plenee tracks all three together, so "which card is near a flag threshold" and "which closing date lands before the application" are visible facts rather than fine-print archaeology.</p>
+  </div>
+
+  <div class="takeaway">
+      <div class="tk-label">The takeaway</div>
+      <p>Manage utilization per card, not just in total — one distressed-looking card flags a file that's fine in aggregate. And manage it to the <em>closing</em> date, not the due date: the reported number is a snapshot, and once you know when the camera clicks, you control what it sees. Lower is better, extremes are expensive, zero-everywhere is very slightly worse than tiny-something — and none of it has memory, so this month's fix is this month's score.</p>
+    </div>
+  <div class="sources">
+      <div class="src-title">Sources</div>
+      <ol>
+<li id="fn-3.2-1">Utilization's non-linear scoring impact (crossing 30% costs a modest dip, maxed/near-maxed cards can cost 50-100+ points) and the all-zero-balance "no recent revolving activity" penalty: myFICO. <a href="#fnref-3.2-1">↩</a></li>
+      </ol>
+    </div>
+</div>
+
+<div class="chapter-nav">
+  <a class="cn-link prev" href="3-1-how-credit-scores-actually-work-the-five-factors-weighted.html">
+      <div class="cn-dir">Previous</div>
+      <div class="cn-title">How Credit Scores Actually Work: The Five Factors, Weighted</div>
+    </a>
+  <a class="cn-link next" href="3-3-building-credit-from-nothing-and-rebuilding-after-damage.html">
+      <div class="cn-dir">Next</div>
+      <div class="cn-title">Building Credit From Nothing (and Rebuilding After Damage)</div>
+    </a>
+</div>
+
+<div id="disclaimer-strip">
+  <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. <a href="../../plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
+</div>
+
+<footer>
+  <a href="../../index.html" style="display:block;line-height:0">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" height="44" alt="Plenee Navigator">
+  </a>
+  <p>© 2026 Plenee Co. All rights reserved.</p>
+  <div class="fl"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a><a href="../../plenee_legal.html" style="color:var(--teal)">Legal</a><a href="../../contact.html">Contact</a></div>
+</footer>
+
+</body>
+</html>

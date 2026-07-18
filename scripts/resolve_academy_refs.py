@@ -85,7 +85,9 @@ class ChapterInfo:
 
 @dataclass
 class TrackInfo:
-    track_num: str          # e.g. "4" — Volume 1 only (no Volume 2 track-level tokens exist)
+    track_num: str | None   # e.g. "4" for Volume 1 (has a {{ref:trackN}} shape); None for Volume 2
+    volume: int             # 1 or 2
+    display_num: str        # human-facing track number within its volume, e.g. "4" or "1"
     title: str
     track_slug: str
 
@@ -93,7 +95,8 @@ class TrackInfo:
 @dataclass
 class AcademyIndex:
     chapters: dict[str, ChapterInfo] = field(default_factory=dict)
-    tracks: dict[str, TrackInfo] = field(default_factory=dict)
+    tracks: dict[str, TrackInfo] = field(default_factory=dict)          # Volume-1 track_num -> info (ref-token resolution)
+    tracks_by_slug: dict[str, TrackInfo] = field(default_factory=dict)  # every track, both volumes -> info (page rendering)
     source_files: dict[str, Path] = field(default_factory=dict)  # track_slug -> source path
 
 
@@ -152,7 +155,16 @@ def build_index(academy_src: Path = ACADEMY_SRC) -> AcademyIndex:
         track_title = m.group(1).strip() if m else stem
 
         if t_num is not None:
-            idx.tracks[t_num] = TrackInfo(track_num=t_num, title=track_title, track_slug=t_slug)
+            volume, display_num = 1, t_num
+        else:
+            pm_m = re.match(r"pm_track(\d+)_", stem)
+            volume, display_num = 2, (pm_m.group(1) if pm_m else "?")
+
+        track_info = TrackInfo(track_num=t_num, volume=volume, display_num=display_num,
+                                title=track_title, track_slug=t_slug)
+        idx.tracks_by_slug[t_slug] = track_info
+        if t_num is not None:
+            idx.tracks[t_num] = track_info
 
         for cm in CHAPTER_RE.finditer(text):
             cid, ctitle = cm.group(1), cm.group(2).strip()
@@ -181,7 +193,10 @@ def resolve_token(token_id: str, current_track_slug: str, idx: AcademyIndex) -> 
         return None
     fname = f"{info.chapter_slug}.html"
     target = fname if info.track_slug == current_track_slug else f"../{info.track_slug}/{fname}"
-    return target, f"Chapter {token_id}"
+    # "PM" is internal shorthand only (ACADEMY_PUBLISHING_INSTRUCTIONS.md §7) --
+    # never show "Chapter PM1.2" to a reader, just "Chapter 1.2".
+    display_id = token_id[2:] if token_id.startswith("PM") else token_id
+    return target, f"Chapter {display_id}"
 
 
 def render(text: str, current_track_slug: str, idx: AcademyIndex) -> tuple[str, list[str]]:

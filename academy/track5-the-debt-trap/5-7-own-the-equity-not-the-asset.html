@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Own the Equity, Not the Asset — Plenee Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:    #0C1929;
+  --navy2:   #152236;
+  --teal:    #0FA8BC;
+  --teal-d:  #0A8A9E;
+  --teal-l:  #E6F7FA;
+  --orange:  #E87722;
+  --orange-l:#FFF4EC;
+  --white:   #FFFFFF;
+  --off:     #F6F9FB;
+  --text:    #0C1929;
+  --muted:   #4E6175;
+  --light:   #8A9EB0;
+  --border:  #DDE8F0;
+  --green:   #1E9E5E;
+  --green-l: #E8FAF2;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+nav {
+  position: sticky; top: 0; z-index: 300;
+  background: #0C1929;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  height: 72px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+}
+.nav-logo { display: flex; align-items: center; height: 100%; line-height: 0; }
+.nav-logo img { height: 100%; display: block; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { color: #B6C6D6; text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--teal); }
+.nav-links a.active { color: var(--teal); }
+
+footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.07); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+footer p { color: #2E4A60; font-size: 13px; }
+.fl a { color: #2E4A60; font-size: 13px; text-decoration: none; margin-left: 24px; transition: color .2s; }
+.fl a:hover { color: var(--teal); }
+
+#disclaimer-strip { background: var(--off); border-top: 1px solid var(--border); padding: 16px 48px; text-align: center; }
+#disclaimer-strip p { font-size: 12px; color: var(--light); line-height: 1.6; max-width: 900px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 56px; }
+  .nav-links { display: none; }
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .fl a { margin-left: 0; margin-right: 20px; }
+}
+
+
+/* ─── PAGE HEADER ─── */
+.page-header { background: var(--navy); padding: 64px 48px 52px; text-align: center; }
+.page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
+.page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
+.page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+
+/* ─── BREADCRUMB ─── */
+.crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
+.crumb a { color: var(--muted); text-decoration: none; }
+.crumb a:hover { color: var(--teal); }
+
+/* ─── CHAPTER PAGE ─── */
+.chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
+.chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 28px; }
+.chapter-disclaimer { font-size: 12px; color: var(--light); line-height: 1.6; margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+
+.jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
+.jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.jump-list ol { padding-left: 18px; }
+.jump-list li { margin-bottom: 6px; }
+.jump-list a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
+.jump-list a:hover { color: var(--teal); }
+
+.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 18px; }
+.chapter-body p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 20px; }
+.chapter-body p strong { color: var(--text); font-weight: 700; }
+.chapter-body p em { color: var(--text); font-style: italic; }
+.chapter-body sup { font-size: 11px; margin-left: 1px; }
+.chapter-body sup a { color: var(--teal-d); text-decoration: none; font-weight: 700; }
+.chapter-body sup a:hover { text-decoration: underline; }
+
+.takeaway { background: var(--teal-l); border-left: 4px solid var(--teal); border-radius: 0 14px 14px 0; padding: 26px 30px; margin: 44px 0 8px; }
+.takeaway .tk-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 10px; }
+.takeaway p { color: var(--text); font-size: 16px; line-height: 1.75; margin-bottom: 0; font-weight: 500; }
+
+.sources { margin: 36px 0 8px; padding-top: 24px; border-top: 1px solid var(--border); }
+.sources .src-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 14px; }
+.sources ol { padding-left: 20px; }
+.sources li { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 10px; }
+.sources li a { color: var(--teal-d); text-decoration: none; margin-left: 4px; }
+.sources li a:hover { text-decoration: underline; }
+
+.chapter-nav { max-width: 760px; margin: 0 auto; padding: 8px 48px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cn-link { display: block; border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 22px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.cn-link:hover { border-color: var(--teal); transform: translateY(-2px); }
+.cn-link.next { text-align: right; }
+.cn-dir { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); margin-bottom: 6px; }
+.cn-title { font-size: 15px; font-weight: 700; color: var(--navy); line-height: 1.4; }
+.cn-empty { visibility: hidden; }
+
+/* ─── TRACK INDEX ─── */
+.track-wrap { max-width: 900px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapter-grid { display: flex; flex-direction: column; gap: 14px; }
+.chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
+.chap-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 15px; }
+.chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
+.chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+/* ─── ACADEMY SEARCH ─── */
+/* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
+   (built + verified 2026-07-18 by a concurrent session). Listing pages only
+   (Academy index + each track index) -- never on individual chapter pages. */
+.academy-search-wrap { max-width: 620px; margin: 0 auto; padding: 0 48px; position: relative; }
+.academy-search-box { position: relative; }
+.academy-search-box svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--light); pointer-events: none; }
+.academy-search-input { width: 100%; font-family: inherit; font-size: 16px; color: var(--text); background: #fff; border: 1.5px solid var(--border); border-radius: 12px; padding: 15px 18px 15px 48px; outline: none; transition: border-color .2s, box-shadow .2s; }
+.academy-search-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(15,168,188,0.12); }
+.search-results { margin-top: 14px; display: none; flex-direction: column; gap: 10px; }
+.search-results.open { display: flex; }
+.search-hit { display: block; border: 1.5px solid var(--border); border-radius: 12px; padding: 16px 18px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.search-hit:hover { border-color: var(--teal); transform: translateY(-1px); }
+.search-hit .sh-track { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 5px; }
+.search-hit .sh-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; line-height: 1.4; }
+.search-hit .sh-snippet { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.search-hit mark { background: var(--teal-l); color: var(--teal-d); border-radius: 3px; padding: 0 2px; font-weight: 700; }
+.search-empty { font-size: 14px; color: var(--light); text-align: center; padding: 18px 0; display: none; }
+.search-empty.open { display: block; }
+.search-count { font-size: 12px; color: var(--light); margin-top: 12px; text-align: center; display: none; }
+.search-count.open { display: block; }
+.track-search-wrap { max-width: 900px; margin: 32px auto 0; padding: 0 48px; }
+.track-search-wrap .academy-search-wrap { padding: 0; max-width: none; }
+
+@media (max-width: 768px) {
+  .page-header { padding: 44px 20px 36px; }
+  .crumb { padding: 0 20px; }
+  .chapter-wrap { padding: 32px 20px 16px; }
+  .chapter-nav { grid-template-columns: 1fr; padding: 8px 20px 48px; }
+  .cn-link.next { text-align: left; }
+  .track-wrap { padding: 40px 20px 64px; }
+  .academy-search-wrap { padding: 0 20px; }
+  .track-search-wrap { padding: 0 20px; }
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" alt="Plenee Navigator">
+  </a>
+  <div class="nav-links">
+    <a href="../../index.html#how">How it works</a>
+    <a href="../../index.html#features-start">Features</a>
+    <a href="../index.html" class="active">Academy</a>
+    <a href="../../index.html#fid">Our Promise</a>
+  </div>
+</nav>
+
+<div class="crumb">
+  <a href="../index.html">Academy</a>
+  <span>›</span>
+  <a href="index.html">The Debt Trap (The Systemic Conditioning Of Americans)</a>
+  <span>›</span>
+  <span>5.7</span>
+  <span style="margin-left:auto"></span>
+  <a href="../index.html#search">🔍 Search Academy</a>
+</div>
+
+<div class="chapter-wrap">
+  <div class="chapter-eyebrow">Volume 1 · Track 5 · Chapter 5.7</div>
+  <h1>Own the Equity, Not the Asset</h1>
+  <p class="chapter-disclaimer">This is financial information and education, not personalized financial advice.</p>
+
+  <div class="jump-list">
+      <div class="jl-title">In this chapter</div>
+      <ol>
+<li><a href="#the-two-things-ownership-can-mean">The two things "ownership" can mean</a></li>
+<li><a href="#the-2000s-when-structure-replaced-affordability">The 2000s: when structure replaced affordability</a></li>
+<li><a href="#what-the-law-actually-did-about-it">What the law actually did about it</a></li>
+<li><a href="#the-car-version-rolling-backward-before-youve-moved-forward">The car version: rolling backward before you've moved forward</a></li>
+<li><a href="#where-plenee-fits">Where Plenee fits</a></li>
+      </ol>
+    </div>
+
+  <div class="chapter-body">
+<h2 id="the-two-things-ownership-can-mean">The two things "ownership" can mean</h2>
+<p>Say the word "ownership" about a financed home or car and it does a lot of unearned work. Your name is on the title; the bank's lien is also on the title; and the actual economic stake you hold is neither of those things — it's the difference between what the asset is worth and what you still owe. That number, not the paperwork, is what you actually own. This chapter is about a decades-long trend in how loans get built: not to help you own more, faster, but to let you borrow more while owning less, sometimes nothing, sometimes a number below zero.</p>
+<h2 id="the-2000s-when-structure-replaced-affordability">The 2000s: when structure replaced affordability</h2>
+<p>By the mid-2000s, the mortgage market had quietly shifted from asking "can this household afford this home" to asking "what loan structure makes this home fit this household's monthly payment" — a small-sounding distinction that turned out to matter enormously. Interest-only mortgages, where payments cover only the interest for an initial period and none of the principal, grew from under 10 percent of mortgage originations in 2003 to roughly 30 percent by 2005 — $400 billion of interest-only lending that year alone.<sup id="fnref-5.7-1"><a href="#fn-5.7-1">1</a></sup> A more extreme cousin, the "payment option" adjustable-rate mortgage, let borrowers choose a minimum payment lower than the interest actually accruing — meaning the shortfall got added to the loan balance instead of paid off. Roughly three-quarters of securitized option ARMs were actively growing their balances by 2006,<sup id="fnref-5.7-1"><a href="#fn-5.7-1">1</a></sup> and research on the loans made in 2007 found something genuinely striking: more than 90 percent of borrowers who took this option had a <em>larger</em> loan balance eight months in than they'd started with — a household paying every month and somehow owing more, on a loan that averaged $400,000 and grew by roughly $1,250 a month for those whose balance was rising.<sup id="fnref-5.7-2"><a href="#fn-5.7-2">2</a></sup></p>
+<p>Down payments eroded on the same timeline. By 2005, the median subprime home purchase was financed at 100 percent of the home's value, counting a first mortgage plus a "piggyback" second loan that eliminated the down payment entirely — these piggyback loans went from 7 percent of subprime originations in 2003 to 28 percent by 2006.<sup id="fnref-5.7-2"><a href="#fn-5.7-2">2</a></sup> A household buying this way owned nothing the day they moved in. Every one of these mechanisms did the same job: shrink the visible monthly number, so a bigger loan could fit inside it, while quietly minimizing or reversing the equity the buyer was supposedly building.</p>
+<h2 id="what-the-law-actually-did-about-it">What the law actually did about it</h2>
+<p>After 2008, Dodd-Frank's Ability-to-Repay rule — enforced through the Consumer Financial Protection Bureau's "Qualified Mortgage" standard, effective 2014 — didn't outlaw negative amortization or interest-only mortgages.<sup id="fnref-5.7-3"><a href="#fn-5.7-3">3</a></sup> It's more precise, and more interesting, than that: the rule strips those features of "qualified mortgage" status, which removes the legal safe harbor that protects a lender from certain liability. Lenders can still write these loans; almost none choose to, because the legal exposure isn't worth it for mainstream volume. The features didn't get banned. They got priced out of the market by making them legally radioactive — which is a different, more fragile kind of protection than a law that simply prohibits something, and worth knowing the difference. A smaller "non-QM" market persists today — roughly 5 to 9 percent of originations, up from about 3 percent in 2019 — but recent industry data shows negative amortization and balloon payments have largely disappeared even from that riskier tier, with interest-only's share within it roughly halved from 2020 to 2024.<sup id="fnref-5.7-4"><a href="#fn-5.7-4">4</a></sup> The mechanism was contained, not eliminated: the CFPB flagged in January 2025 that a newer product, marketed as a "home equity contract" rather than a loan, carries features — no monthly payments, a large balloon-style settlement later — that the agency itself says "echo" the pre-2008 structures.<sup id="fnref-5.7-5"><a href="#fn-5.7-5">5</a></sup> The packaging changes faster than the underlying idea does.</p>
+<h2 id="the-car-version-rolling-backward-before-youve-moved-forward">The car version: rolling backward before you've moved forward</h2>
+<p>The same structural erosion runs, in miniature, through every car lot in the country. When a trade-in is worth less than what's still owed on it, that shortfall — negative equity — routinely gets rolled into the new loan rather than paid off in cash. A Consumer Financial Protection Bureau study of 34 million auto loan originations found 11.7 percent financed rolled-over negative equity, averaging $5,073 on new-vehicle purchases; loans carrying that negative equity averaged a loan-to-value ratio of 119 percent — meaning the buyer owed 19 percent more than the car was worth before driving it off the lot. Even loans with no trade-in at all averaged 101.7 percent loan-to-value, once taxes, fees, and title costs got folded in — auto financing routinely starts a buyer underwater by design, negative equity or not. The consequence is measurable: loans carrying rolled-over negative equity were more than twice as likely to end in repossession within two years as loans with a positive-equity trade-in.<sup id="fnref-5.7-6"><a href="#fn-5.7-6">6</a></sup> And the trend is worsening, not improving — the most recent industry data puts nearly 31 percent of trade-ins carrying negative equity, averaging $7,183, near an all-time high, with longer loan terms showing up disproportionately among the loans carrying the most negative equity.<sup id="fnref-5.7-7"><a href="#fn-5.7-7">7</a></sup></p>
+<h2 id="where-plenee-fits">Where Plenee fits</h2>
+<p>None of this requires a new tool to defend against — it requires one number, checked before signing anything: the loan-to-value ratio, the actual gap between what's owed and what the asset is worth, on day one and over the life of the loan. A negative-amortization feature, a piggyback second loan, or a rolled-forward trade-in balance all show up in that one number if you look for it. Plenee's role is making that number visible against the asset's real market value — the same Zestimate-style honesty <a href="../track8-build-wealth/8-9-home-equity-asset-liability-or-both.html">Chapter 8.9</a> applies to home equity — so "what do I actually own here" has a real answer instead of an assumed one. Every dollar of negative equity is a claim on income you haven't earned yet, attached before you've taken possession of anything; seeing it clearly is the entire defense.</p>
+  </div>
+
+  <div class="takeaway">
+      <div class="tk-label">The takeaway</div>
+      <p>Ownership under the wrong financing structure can be a legal fiction: your name on a title while your actual equity stake sits at zero or below. The 2008 mortgage crisis was built substantially from loans engineered to make this invisible — interest-only payments, growing balances, vanishing down payments — and while the riskiest of those features got priced out of the mainstream market rather than banned outright, the underlying instinct to shrink the visible payment at the cost of the buyer's real stake never went away; it just moved to auto loans, and to newer products regulators are already flagging as familiar. Check the loan-to-value ratio before you sign anything. It's the one number that tells you whether you're building equity or renting the title.</p>
+    </div>
+  <div class="sources">
+      <div class="src-title">Sources</div>
+      <ol>
+<li id="fn-5.7-1">U.S. Government Accountability Office, <em>Alternative Mortgage Products: Impact on Defaults Remains Unclear</em>, GAO-06-1021 (Sept. 2006). https://www.gao.gov/assets/gao-06-1021.pdf <a href="#fnref-5.7-1">↩</a></li>
+<li id="fn-5.7-2">Mayer, Pence &amp; Sherlund, "The Rise in Mortgage Defaults," Federal Reserve Finance and Economics Discussion Series 2008-59 (Nov. 2008). https://www.federalreserve.gov/pubs/feds/2008/200859/200859pap.pdf <a href="#fnref-5.7-2">↩</a></li>
+<li id="fn-5.7-3">Consumer Financial Protection Bureau, "Summary of the Ability-to-Repay and Qualified Mortgage Rule" (Jan. 2013). https://files.consumerfinance.gov/f/201301_cfpb_ability-to-repay-summary.pdf <a href="#fnref-5.7-3">↩</a></li>
+<li id="fn-5.7-4">CoreLogic, 2024 analysis of the Non-QM mortgage market, cited via industry reporting. <a href="#fnref-5.7-4">↩</a></li>
+<li id="fn-5.7-5">Consumer Financial Protection Bureau, "Issue Spotlight: Home Equity Contracts Market Overview" (Jan. 2025). https://www.consumerfinance.gov/data-research/research-reports/issue-spotlight-home-equity-contracts-market-overview/ <a href="#fnref-5.7-5">↩</a></li>
+<li id="fn-5.7-6">Consumer Financial Protection Bureau, "Negative Equity in Auto Lending" (June 2024), based on the CFPB's Auto Finance Data Pilot (~34 million loan originations, 2018-2022). https://files.consumerfinance.gov/f/documents/cfpb_negative-equity-in-auto-lending-report_2024-06.pdf <a href="#fnref-5.7-6">↩</a></li>
+<li id="fn-5.7-7">Edmunds industry data, Q1 2026, as reported via CNBC (Mar. 2026). Note: this measures negative equity as a share of trade-ins specifically; the CFPB's pilot data above measures it as a share of all originations — different denominators, not directly comparable at face value, though recalculating the CFPB data to the same trade-in-only basis (~27% for 2018-2022) shows a consistent upward trend into Edmunds' more recent figures. <a href="#fnref-5.7-7">↩</a></li>
+      </ol>
+    </div>
+</div>
+
+<div class="chapter-nav">
+  <a class="cn-link prev" href="5-6-who-profits-from-your-debt-following-the-money.html">
+      <div class="cn-dir">Previous</div>
+      <div class="cn-title">Who Profits From Your Debt: Following the Money</div>
+    </a>
+  <a class="cn-link next" href="5-8-the-renter-society.html">
+      <div class="cn-dir">Next</div>
+      <div class="cn-title">The Renter Society</div>
+    </a>
+</div>
+
+<div id="disclaimer-strip">
+  <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. <a href="../../plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
+</div>
+
+<footer>
+  <a href="../../index.html" style="display:block;line-height:0">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" height="44" alt="Plenee Navigator">
+  </a>
+  <p>© 2026 Plenee Co. All rights reserved.</p>
+  <div class="fl"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a><a href="../../plenee_legal.html" style="color:var(--teal)">Legal</a><a href="../../contact.html">Contact</a></div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wealth vs. Richness: "Rich Is What People See. Wealth Is What They Don't." — Plenee Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:    #0C1929;
+  --navy2:   #152236;
+  --teal:    #0FA8BC;
+  --teal-d:  #0A8A9E;
+  --teal-l:  #E6F7FA;
+  --orange:  #E87722;
+  --orange-l:#FFF4EC;
+  --white:   #FFFFFF;
+  --off:     #F6F9FB;
+  --text:    #0C1929;
+  --muted:   #4E6175;
+  --light:   #8A9EB0;
+  --border:  #DDE8F0;
+  --green:   #1E9E5E;
+  --green-l: #E8FAF2;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+nav {
+  position: sticky; top: 0; z-index: 300;
+  background: #0C1929;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  height: 72px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+}
+.nav-logo { display: flex; align-items: center; height: 100%; line-height: 0; }
+.nav-logo img { height: 100%; display: block; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { color: #B6C6D6; text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--teal); }
+.nav-links a.active { color: var(--teal); }
+
+footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.07); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+footer p { color: #2E4A60; font-size: 13px; }
+.fl a { color: #2E4A60; font-size: 13px; text-decoration: none; margin-left: 24px; transition: color .2s; }
+.fl a:hover { color: var(--teal); }
+
+#disclaimer-strip { background: var(--off); border-top: 1px solid var(--border); padding: 16px 48px; text-align: center; }
+#disclaimer-strip p { font-size: 12px; color: var(--light); line-height: 1.6; max-width: 900px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 56px; }
+  .nav-links { display: none; }
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .fl a { margin-left: 0; margin-right: 20px; }
+}
+
+
+/* ─── PAGE HEADER ─── */
+.page-header { background: var(--navy); padding: 64px 48px 52px; text-align: center; }
+.page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
+.page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
+.page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+
+/* ─── BREADCRUMB ─── */
+.crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
+.crumb a { color: var(--muted); text-decoration: none; }
+.crumb a:hover { color: var(--teal); }
+
+/* ─── CHAPTER PAGE ─── */
+.chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
+.chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 28px; }
+.chapter-disclaimer { font-size: 12px; color: var(--light); line-height: 1.6; margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+
+.jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
+.jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.jump-list ol { padding-left: 18px; }
+.jump-list li { margin-bottom: 6px; }
+.jump-list a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
+.jump-list a:hover { color: var(--teal); }
+
+.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 18px; }
+.chapter-body p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 20px; }
+.chapter-body p strong { color: var(--text); font-weight: 700; }
+.chapter-body p em { color: var(--text); font-style: italic; }
+.chapter-body sup { font-size: 11px; margin-left: 1px; }
+.chapter-body sup a { color: var(--teal-d); text-decoration: none; font-weight: 700; }
+.chapter-body sup a:hover { text-decoration: underline; }
+
+.takeaway { background: var(--teal-l); border-left: 4px solid var(--teal); border-radius: 0 14px 14px 0; padding: 26px 30px; margin: 44px 0 8px; }
+.takeaway .tk-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 10px; }
+.takeaway p { color: var(--text); font-size: 16px; line-height: 1.75; margin-bottom: 0; font-weight: 500; }
+
+.sources { margin: 36px 0 8px; padding-top: 24px; border-top: 1px solid var(--border); }
+.sources .src-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 14px; }
+.sources ol { padding-left: 20px; }
+.sources li { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 10px; }
+.sources li a { color: var(--teal-d); text-decoration: none; margin-left: 4px; }
+.sources li a:hover { text-decoration: underline; }
+
+.chapter-nav { max-width: 760px; margin: 0 auto; padding: 8px 48px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cn-link { display: block; border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 22px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.cn-link:hover { border-color: var(--teal); transform: translateY(-2px); }
+.cn-link.next { text-align: right; }
+.cn-dir { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); margin-bottom: 6px; }
+.cn-title { font-size: 15px; font-weight: 700; color: var(--navy); line-height: 1.4; }
+.cn-empty { visibility: hidden; }
+
+/* ─── TRACK INDEX ─── */
+.track-wrap { max-width: 900px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapter-grid { display: flex; flex-direction: column; gap: 14px; }
+.chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
+.chap-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 15px; }
+.chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
+.chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+/* ─── ACADEMY SEARCH ─── */
+/* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
+   (built + verified 2026-07-18 by a concurrent session). Listing pages only
+   (Academy index + each track index) -- never on individual chapter pages. */
+.academy-search-wrap { max-width: 620px; margin: 0 auto; padding: 0 48px; position: relative; }
+.academy-search-box { position: relative; }
+.academy-search-box svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--light); pointer-events: none; }
+.academy-search-input { width: 100%; font-family: inherit; font-size: 16px; color: var(--text); background: #fff; border: 1.5px solid var(--border); border-radius: 12px; padding: 15px 18px 15px 48px; outline: none; transition: border-color .2s, box-shadow .2s; }
+.academy-search-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(15,168,188,0.12); }
+.search-results { margin-top: 14px; display: none; flex-direction: column; gap: 10px; }
+.search-results.open { display: flex; }
+.search-hit { display: block; border: 1.5px solid var(--border); border-radius: 12px; padding: 16px 18px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.search-hit:hover { border-color: var(--teal); transform: translateY(-1px); }
+.search-hit .sh-track { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 5px; }
+.search-hit .sh-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; line-height: 1.4; }
+.search-hit .sh-snippet { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.search-hit mark { background: var(--teal-l); color: var(--teal-d); border-radius: 3px; padding: 0 2px; font-weight: 700; }
+.search-empty { font-size: 14px; color: var(--light); text-align: center; padding: 18px 0; display: none; }
+.search-empty.open { display: block; }
+.search-count { font-size: 12px; color: var(--light); margin-top: 12px; text-align: center; display: none; }
+.search-count.open { display: block; }
+.track-search-wrap { max-width: 900px; margin: 32px auto 0; padding: 0 48px; }
+.track-search-wrap .academy-search-wrap { padding: 0; max-width: none; }
+
+@media (max-width: 768px) {
+  .page-header { padding: 44px 20px 36px; }
+  .crumb { padding: 0 20px; }
+  .chapter-wrap { padding: 32px 20px 16px; }
+  .chapter-nav { grid-template-columns: 1fr; padding: 8px 20px 48px; }
+  .cn-link.next { text-align: left; }
+  .track-wrap { padding: 40px 20px 64px; }
+  .academy-search-wrap { padding: 0 20px; }
+  .track-search-wrap { padding: 0 20px; }
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" alt="Plenee Navigator">
+  </a>
+  <div class="nav-links">
+    <a href="../../index.html#how">How it works</a>
+    <a href="../../index.html#features-start">Features</a>
+    <a href="../index.html" class="active">Academy</a>
+    <a href="../../index.html#fid">Our Promise</a>
+  </div>
+</nav>
+
+<div class="crumb">
+  <a href="../index.html">Academy</a>
+  <span>›</span>
+  <a href="index.html">The Language Of Money</a>
+  <span>›</span>
+  <span>1.7</span>
+  <span style="margin-left:auto"></span>
+  <a href="../index.html#search">🔍 Search Academy</a>
+</div>
+
+<div class="chapter-wrap">
+  <div class="chapter-eyebrow">Volume 1 · Track 1 · Chapter 1.7</div>
+  <h1>Wealth vs. Richness: "Rich Is What People See. Wealth Is What They Don't."</h1>
+  <p class="chapter-disclaimer">This is financial information and education, not personalized financial advice.</p>
+
+  <div class="jump-list">
+      <div class="jl-title">In this chapter</div>
+      <ol>
+<li><a href="#two-words-the-language-confuses-on-purpose">Two words the language confuses on purpose</a></li>
+<li><a href="#why-the-confusion-persists">Why the confusion persists</a></li>
+<li><a href="#where-plenee-fits">Where Plenee fits</a></li>
+      </ol>
+    </div>
+
+  <div class="chapter-body">
+<h2 id="two-words-the-language-confuses-on-purpose">Two words the language confuses on purpose</h2>
+<p>English treats "rich" and "wealthy" as synonyms, and the confusion isn't harmless — it's load-bearing for entire industries. This chapter installs the distinction the rest of the curriculum leans on, in Morgan Housel's formulation: <strong>richness is what people see; wealth is what they don't.</strong><sup id="fnref-1.7-1"><a href="#fn-1.7-1">1</a></sup></p>
+<p>Richness is the visible layer: the car, the watch, the renovation, the vacation feed. It's produced by <em>spending</em> — every unit of visible richness is money that has already left. Wealth is the invisible layer: the assets <em>not</em> spent — the NEST (<a href="1-4-nest-what-you-actually-own.html">Chapter 1.4</a>), quietly compounding into security, options, and time. The two aren't points on one scale; they're <strong>competitors for the same dollars</strong>. Every dollar can buy visibility or accumulation, never both — which means the enviable-looking life and the actually-secure life are, dollar by dollar, often opposite allocations.</p>
+<h2 id="why-the-confusion-persists">Why the confusion persists</h2>
+<p>The visible layer is the only one anyone else can observe — nobody's NEST drives past you — so the culture's entire imagery of "having money" is built from spending evidence, which is actually <em>dis</em>-having evidence. The high earner with the leased everything and no margin photographs identically to wealth; the unremarkable-looking household with decades of Net Plus quietly banked photographs like nothing at all. Volume 1's <a href="../track4-extraction-economy/4-11-the-man-in-the-car-paradox-who-youre-actually-impressing-nobody.html">Chapter 4.11</a> showed who exploits the gap — the extraction economy's aspirational wing, converting future wealth into present richness on financed terms — and Volume 2's Man in the Car paradox showed the punchline: the audience the richness was purchased for isn't even watching.</p>
+<p>The vocabulary is the defense. A household that has <em>words</em> for the two layers can finally ask the diagnostic question: is this dollar buying richness or wealth? Neither answer is forbidden — <a href="../volume2-track2-what-money-is-for/2-2-spend-to-impress-yourself-personal-joy-over-universal-formulas.html">Chapter 2.2</a> defends genuinely loved spending vigorously — but the question was literally unaskable while one word covered both.</p>
+<h2 id="where-plenee-fits">Where Plenee fits</h2>
+<p>Plenee's headline number is the invisible layer — the NEST — not a spending score or a lifestyle grade. The scoreboard choice is deliberate: what gets displayed daily is what gets optimized, and Plenee displays the layer that compounds.</p>
+  </div>
+
+  <div class="takeaway">
+      <div class="tk-label">The takeaway</div>
+      <p>Rich is what people see — money already spent. Wealth is what they don't — money kept and compounding. Same dollars, opposite destinations, and the language that merges the two words serves the industries that profit from the confusion. Keep the words separate and the daily allocation question becomes visible: seen, or kept?</p>
+    </div>
+  <div class="sources">
+      <div class="src-title">Sources</div>
+      <ol>
+<li id="fn-1.7-1">Morgan Housel, <em>The Psychology of Money</em> (2020), Chapter 9, "Wealth Is What You Don't See." <a href="#fnref-1.7-1">↩</a></li>
+      </ol>
+    </div>
+</div>
+
+<div class="chapter-nav">
+  <a class="cn-link prev" href="1-6-coreflow-vs-lifeflow-obligations-vs-choices.html">
+      <div class="cn-dir">Previous</div>
+      <div class="cn-title">coreFLOW vs. lifeFLOW: Obligations vs. Choices</div>
+    </a>
+  <a class="cn-link next" href="1-8-the-two-statements-every-business-runs-on-and-why-you-are-a-business.html">
+      <div class="cn-dir">Next</div>
+      <div class="cn-title">The Two Statements Every Business Runs On — and Why You Are a Business</div>
+    </a>
+</div>
+
+<div id="disclaimer-strip">
+  <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. <a href="../../plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
+</div>
+
+<footer>
+  <a href="../../index.html" style="display:block;line-height:0">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" height="44" alt="Plenee Navigator">
+  </a>
+  <p>© 2026 Plenee Co. All rights reserved.</p>
+  <div class="fl"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a><a href="../../plenee_legal.html" style="color:var(--teal)">Legal</a><a href="../../contact.html">Contact</a></div>
+</footer>
+
+</body>
+</html>

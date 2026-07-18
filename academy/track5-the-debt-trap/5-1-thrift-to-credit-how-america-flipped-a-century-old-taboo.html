@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thrift to Credit: How America Flipped a Century-Old Taboo — Plenee Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:    #0C1929;
+  --navy2:   #152236;
+  --teal:    #0FA8BC;
+  --teal-d:  #0A8A9E;
+  --teal-l:  #E6F7FA;
+  --orange:  #E87722;
+  --orange-l:#FFF4EC;
+  --white:   #FFFFFF;
+  --off:     #F6F9FB;
+  --text:    #0C1929;
+  --muted:   #4E6175;
+  --light:   #8A9EB0;
+  --border:  #DDE8F0;
+  --green:   #1E9E5E;
+  --green-l: #E8FAF2;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+nav {
+  position: sticky; top: 0; z-index: 300;
+  background: #0C1929;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  height: 72px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+}
+.nav-logo { display: flex; align-items: center; height: 100%; line-height: 0; }
+.nav-logo img { height: 100%; display: block; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { color: #B6C6D6; text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--teal); }
+.nav-links a.active { color: var(--teal); }
+
+footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.07); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+footer p { color: #2E4A60; font-size: 13px; }
+.fl a { color: #2E4A60; font-size: 13px; text-decoration: none; margin-left: 24px; transition: color .2s; }
+.fl a:hover { color: var(--teal); }
+
+#disclaimer-strip { background: var(--off); border-top: 1px solid var(--border); padding: 16px 48px; text-align: center; }
+#disclaimer-strip p { font-size: 12px; color: var(--light); line-height: 1.6; max-width: 900px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 56px; }
+  .nav-links { display: none; }
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .fl a { margin-left: 0; margin-right: 20px; }
+}
+
+
+/* ─── PAGE HEADER ─── */
+.page-header { background: var(--navy); padding: 64px 48px 52px; text-align: center; }
+.page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
+.page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
+.page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+
+/* ─── BREADCRUMB ─── */
+.crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
+.crumb a { color: var(--muted); text-decoration: none; }
+.crumb a:hover { color: var(--teal); }
+
+/* ─── CHAPTER PAGE ─── */
+.chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
+.chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 28px; }
+.chapter-disclaimer { font-size: 12px; color: var(--light); line-height: 1.6; margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+
+.jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
+.jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.jump-list ol { padding-left: 18px; }
+.jump-list li { margin-bottom: 6px; }
+.jump-list a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
+.jump-list a:hover { color: var(--teal); }
+
+.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 18px; }
+.chapter-body p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 20px; }
+.chapter-body p strong { color: var(--text); font-weight: 700; }
+.chapter-body p em { color: var(--text); font-style: italic; }
+.chapter-body sup { font-size: 11px; margin-left: 1px; }
+.chapter-body sup a { color: var(--teal-d); text-decoration: none; font-weight: 700; }
+.chapter-body sup a:hover { text-decoration: underline; }
+
+.takeaway { background: var(--teal-l); border-left: 4px solid var(--teal); border-radius: 0 14px 14px 0; padding: 26px 30px; margin: 44px 0 8px; }
+.takeaway .tk-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 10px; }
+.takeaway p { color: var(--text); font-size: 16px; line-height: 1.75; margin-bottom: 0; font-weight: 500; }
+
+.sources { margin: 36px 0 8px; padding-top: 24px; border-top: 1px solid var(--border); }
+.sources .src-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 14px; }
+.sources ol { padding-left: 20px; }
+.sources li { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 10px; }
+.sources li a { color: var(--teal-d); text-decoration: none; margin-left: 4px; }
+.sources li a:hover { text-decoration: underline; }
+
+.chapter-nav { max-width: 760px; margin: 0 auto; padding: 8px 48px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cn-link { display: block; border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 22px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.cn-link:hover { border-color: var(--teal); transform: translateY(-2px); }
+.cn-link.next { text-align: right; }
+.cn-dir { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); margin-bottom: 6px; }
+.cn-title { font-size: 15px; font-weight: 700; color: var(--navy); line-height: 1.4; }
+.cn-empty { visibility: hidden; }
+
+/* ─── TRACK INDEX ─── */
+.track-wrap { max-width: 900px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapter-grid { display: flex; flex-direction: column; gap: 14px; }
+.chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
+.chap-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 15px; }
+.chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
+.chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+/* ─── ACADEMY SEARCH ─── */
+/* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
+   (built + verified 2026-07-18 by a concurrent session). Listing pages only
+   (Academy index + each track index) -- never on individual chapter pages. */
+.academy-search-wrap { max-width: 620px; margin: 0 auto; padding: 0 48px; position: relative; }
+.academy-search-box { position: relative; }
+.academy-search-box svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--light); pointer-events: none; }
+.academy-search-input { width: 100%; font-family: inherit; font-size: 16px; color: var(--text); background: #fff; border: 1.5px solid var(--border); border-radius: 12px; padding: 15px 18px 15px 48px; outline: none; transition: border-color .2s, box-shadow .2s; }
+.academy-search-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(15,168,188,0.12); }
+.search-results { margin-top: 14px; display: none; flex-direction: column; gap: 10px; }
+.search-results.open { display: flex; }
+.search-hit { display: block; border: 1.5px solid var(--border); border-radius: 12px; padding: 16px 18px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.search-hit:hover { border-color: var(--teal); transform: translateY(-1px); }
+.search-hit .sh-track { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 5px; }
+.search-hit .sh-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; line-height: 1.4; }
+.search-hit .sh-snippet { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.search-hit mark { background: var(--teal-l); color: var(--teal-d); border-radius: 3px; padding: 0 2px; font-weight: 700; }
+.search-empty { font-size: 14px; color: var(--light); text-align: center; padding: 18px 0; display: none; }
+.search-empty.open { display: block; }
+.search-count { font-size: 12px; color: var(--light); margin-top: 12px; text-align: center; display: none; }
+.search-count.open { display: block; }
+.track-search-wrap { max-width: 900px; margin: 32px auto 0; padding: 0 48px; }
+.track-search-wrap .academy-search-wrap { padding: 0; max-width: none; }
+
+@media (max-width: 768px) {
+  .page-header { padding: 44px 20px 36px; }
+  .crumb { padding: 0 20px; }
+  .chapter-wrap { padding: 32px 20px 16px; }
+  .chapter-nav { grid-template-columns: 1fr; padding: 8px 20px 48px; }
+  .cn-link.next { text-align: left; }
+  .track-wrap { padding: 40px 20px 64px; }
+  .academy-search-wrap { padding: 0 20px; }
+  .track-search-wrap { padding: 0 20px; }
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" alt="Plenee Navigator">
+  </a>
+  <div class="nav-links">
+    <a href="../../index.html#how">How it works</a>
+    <a href="../../index.html#features-start">Features</a>
+    <a href="../index.html" class="active">Academy</a>
+    <a href="../../index.html#fid">Our Promise</a>
+  </div>
+</nav>
+
+<div class="crumb">
+  <a href="../index.html">Academy</a>
+  <span>›</span>
+  <a href="index.html">The Debt Trap (The Systemic Conditioning Of Americans)</a>
+  <span>›</span>
+  <span>5.1</span>
+  <span style="margin-left:auto"></span>
+  <a href="../index.html#search">🔍 Search Academy</a>
+</div>
+
+<div class="chapter-wrap">
+  <div class="chapter-eyebrow">Volume 1 · Track 5 · Chapter 5.1</div>
+  <h1>Thrift to Credit: How America Flipped a Century-Old Taboo</h1>
+  <p class="chapter-disclaimer">This is financial information and education, not personalized financial advice.</p>
+
+  <div class="jump-list">
+      <div class="jl-title">In this chapter</div>
+      <ol>
+<li><a href="#the-taboo-that-vanished">The taboo that vanished</a></li>
+<li><a href="#before-cars-the-installment-habit-already-existed">Before cars: the installment habit already existed</a></li>
+<li><a href="#the-car-that-needed-a-loan">The car that needed a loan</a></li>
+<li><a href="#what-actually-flipped">What actually flipped</a></li>
+<li><a href="#where-plenee-fits">Where Plenee fits</a></li>
+      </ol>
+    </div>
+
+  <div class="chapter-body">
+<h2 id="the-taboo-that-vanished">The taboo that vanished</h2>
+<p>For most of American history, going into debt for anything beyond a home or a business was a source of shame, not a lifestyle. "Buy it if you have the money; do without it if you don't" was not a slogan — it was the working morality of most 19th-century households, business owners very much included. Henry Ford, arguably the most consequential American manufacturer of his era, held this belief so strongly that he built an alternative to consumer credit rather than compete with it. That taboo is now almost entirely gone. This chapter is the story of how — and of the fact that its disappearance was not an accident of changing tastes, but the product of specific companies solving a specific business problem: how to sell more than people could pay for in cash.</p>
+<h2 id="before-cars-the-installment-habit-already-existed">Before cars: the installment habit already existed</h2>
+<p>The instinct to imagine consumer debt as a mid-20th-century invention undersells how old the underlying mechanism actually is. The furniture retailer Cowperthwait &amp; Sons, founded in New York in 1807, is the earliest documented installment seller in American commercial history — offering furniture on time payments generations before "buy now, pay later" was a phrase anyone needed. Cyrus McCormick's reaper company financed farm equipment on installment as early as the 1850s: $35 down, the balance due after harvest, with credit losses reportedly under 5 percent — a genuinely well-run, low-risk lending operation dressed as a sales technique.<sup id="fnref-5.1-1"><a href="#fn-5.1-1">1</a></sup></p>
+<p>The most commonly repeated version of this story credits Isaac Singer, of Singer Sewing Machine fame, with inventing installment selling in the 1850s. That's not quite right: the actual innovation is credited to Edward Clark, Singer's co-founder and company lawyer, who structured the financing that let the company put sewing machines into homes that couldn't pay $100 upfront — a serious sum at the time.<sup id="fnref-5.1-2"><a href="#fn-5.1-2">2</a></sup> Singer didn't invent the installment plan — Cowperthwait predates it by half a century — but Clark's version was the first to scale it nationally, turning a regional retailing trick into a business model other industries would eventually copy. Installment purchase of farm machinery, pianos, and sewing machines was well established by the 1880s<sup id="fnref-5.1-3"><a href="#fn-5.1-3">3</a></sup> — though it remained a working- and middle-class tool, not yet a mainstream respectable practice, until one industry made it impossible to ignore: automobiles.</p>
+<h2 id="the-car-that-needed-a-loan">The car that needed a loan</h2>
+<p>A car in 1919 cost roughly what a house down payment costs today, relative to income — genuinely unaffordable to most households in cash. General Motors solved this in 1919 by founding the General Motors Acceptance Corporation (GMAC), at the direction of GM president William Durant and finance-committee chairman John Raskob — not, as the story is often anachronistically told, Alfred Sloan, who sat on the executive committee but wouldn't become GM's president until 1923.<sup id="fnref-5.1-4"><a href="#fn-5.1-4">4</a></sup> GMAC didn't lend directly to buyers; it bought the financing contracts dealers had already written, giving dealers the cash to keep selling while GMAC collected the payments over time. Terms standardized quickly: roughly a third down, twelve months to pay, formalized industry-wide by 1924. The finance-company industry serving this demand exploded from about 25 companies in 1917 to roughly 1,700 by 1925.<sup id="fnref-5.1-5"><a href="#fn-5.1-5">5</a></sup></p>
+<p>Ford refused to play. Henry Ford considered installment debt morally corrosive, and in 1923 built an alternative: the Ford Weekly Purchase Plan, in which customers deposited five to ten dollars a week into a dealer-held account until they'd saved the full price, then took delivery — installment buying with the loan part surgically removed.<sup id="fnref-5.1-6"><a href="#fn-5.1-6">6</a></sup> It failed. Customers could get the same result, with more flexibility, simply by saving at any bank, and Ford's market share bled to GM through the decade. By 1928, with the new Model A on the line, Ford's own son Edsel and executive Ernest Kanzler overruled the founder and built Universal Credit Corporation — Ford's answer to GMAC, five years after refusing to need one.<sup id="fnref-5.1-7"><a href="#fn-5.1-7">7</a></sup></p>
+<p>Exactly how much of 1920s America bought cars on credit is a genuinely contested number, and the contest is worth knowing about, because it's an early instance of a pattern that recurs throughout this track: the industry that benefits from a statistic is often the industry that produced it. The commonly repeated figure — that 60 to 75 percent of new cars were sold on installment by the mid-1920s — traces in part to a 1927 study, <em>The Economics of Installment Selling</em>, commissioned by GM executive John Raskob himself. A more rigorous, independently produced household-level estimate, from economic historian Martha Olney's peer-reviewed research, puts the real number at roughly 7 percent of households financing a car purchase in 1919, rising to about 18 percent by 1925 — a real and fast-growing trend, but a much smaller one than the industry's own promotional number implied.<sup id="fnref-5.1-8"><a href="#fn-5.1-8">8</a></sup> Both figures can be true at once: unit sales financed and households ever financing a car measure different things. The gap between them is a useful early lesson for anything else this track will ever cite: ask who counted, and why they wanted the number to be big.</p>
+<h2 id="what-actually-flipped">What actually flipped</h2>
+<p>The mechanism itself — pay a fraction now, the rest later, at a price — isn't new information by 1919; it's a century-old sales technique by then. What's new is the moral reframing required to sell it at automobile scale. A furniture buyer on an installment plan in 1850 was still, culturally, doing something a little embarrassing — the kind of thing you didn't advertise to your neighbors. A car buyer on a GMAC contract in 1925 was doing something aspirational, modern, and entirely respectable — marketed, in fact, as the mark of a forward-looking household rather than a financially strained one. That's the actual hinge this chapter is about: not the invention of consumer credit, which is far older than most people assume, but the industry-led project of making it socially normal to use it — a project this track will trace forward through the credit card, the advertising industry's deliberate psychology, and the marketing playbooks still running today.</p>
+<h2 id="where-plenee-fits">Where Plenee fits</h2>
+<p>None of this history changes the arithmetic <a href="../track8-build-wealth/index.html">Track 8</a> and <a href="../track4-extraction-economy/index.html">Track 4</a> already taught: what matters is whether a specific debt is priced fairly and sized to what you can actually carry, not how old or how normalized the practice of financing is. Plenee's role here is what it's been throughout — visibility into your own numbers regardless of what the culture around you has normalized — but this chapter's job is different: knowing that "everyone finances everything" was manufactured, on purpose, by companies solving their own sales problem, is itself a form of visibility. It's harder to feel embarrassed by a fully-funded emergency buffer and a paid-off card, or pressured into carrying debt you don't need, once you've seen how deliberately the alternative was sold to you as normal.</p>
+  </div>
+
+  <div class="takeaway">
+      <div class="tk-label">The takeaway</div>
+      <p>Installment credit is far older than the automobile — furniture, farm equipment, and sewing machines were financed decades before cars were — but it took the automobile industry, and one company's need to move an unaffordable product at scale, to turn financing from a working-class embarrassment into a respectable, aspirational default. GMAC and Ford's competing responses — embrace credit, or build an alternative to it — set the template for a debate that's still running, and even the industry's own numbers about how fast this happened deserve a skeptical read, since some of them were produced by the industry itself. The taboo didn't erode on its own. It was dismantled, on purpose, by people who profited from its absence — the first and oldest example of a pattern this track will keep finding.</p>
+    </div>
+  <div class="sources">
+      <div class="src-title">Sources</div>
+      <ol>
+<li id="fn-5.1-1">Cowperthwait &amp; Sons (founded 1807) and Cyrus McCormick's reaper financing (1850s), per American Business History Center research and Stephen Hicks's compiled Forbes history of McCormick. https://americanbusinesshistory.org/the-sordid-saga-of-mr-singer-and-his-sewing-machine/ ; https://www.stephenhicks.org/wp-content/uploads/2012/01/forbes-mccormick.pdf <a href="#fnref-5.1-1">↩</a></li>
+<li id="fn-5.1-2">Edward Clark's role structuring Singer's installment financing (~1856), per American Business History Center and Smithsonian Magazine. https://americanbusinesshistory.org/the-sordid-saga-of-mr-singer-and-his-sewing-machine/ ; https://www.smithsonianmag.com/smithsonian-institution/how-singer-won-sewing-machine-war-180955919/ <a href="#fnref-5.1-2">↩</a></li>
+<li id="fn-5.1-3">Lendol Calder, <em>Financing the American Dream: A Cultural History of Consumer Credit</em> (Princeton University Press, 1999), reviewed at https://eh.net/book_reviews/financing-the-american-dream-a-cultural-history-of-consumer-credit/ <a href="#fnref-5.1-3">↩</a></li>
+<li id="fn-5.1-4">GMAC's founding (1919) under Durant and Raskob, not Sloan: Congressional Research Service report and Alfred Sloan's own memoir. https://www.everycrsreport.com/reports/R41846.html ; https://erenow.org/biographies/my-years-with-general-motors/18.php <a href="#fnref-5.1-4">↩</a></li>
+<li id="fn-5.1-5">Installment terms and finance-company growth (1917-1925): Harvard Business School Baker Library credit history and Martha Olney's peer-reviewed research in the <em>Journal of Economic History</em>. https://www.library.hbs.edu/hc/credit/credit4d.html ; https://www.cambridge.org/core/journals/journal-of-economic-history/article/abs/credit-as-a-productionsmoothing-device-the-case-of-automobiles-19131938/ACF2EEC3BFF107C3E387490B91D15151 <a href="#fnref-5.1-5">↩</a></li>
+<li id="fn-5.1-6">Ford Weekly Purchase Plan (1923), primary source materials. https://college.cengage.com/history/primary_sources/us/Ford_Weekly.htm ; https://www.thehenryford.org/collections/explore/artifact/355541 <a href="#fnref-5.1-6">↩</a></li>
+<li id="fn-5.1-7">Universal Credit Corporation (1928). https://en.wikipedia.org/wiki/Universal_Credit_Corporation <a href="#fnref-5.1-7">↩</a></li>
+<li id="fn-5.1-8">The contested "60-75%" figure traces partly to E.R.A. Seligman's 1927 <em>The Economics of Installment Selling</em>, commissioned by GM's John Raskob; the more rigorous independent estimate is Martha Olney, published in the <em>Journal of Economic History</em> (household-level financing data, archive copy at https://archive.org/details/buynowpaylaterad00olne). <a href="#fnref-5.1-8">↩</a></li>
+      </ol>
+    </div>
+</div>
+
+<div class="chapter-nav">
+  <a class="cn-link prev" href="index.html">
+      <div class="cn-dir">Previous</div>
+      <div class="cn-title">Back to The Debt Trap (The Systemic Conditioning Of Americans)</div>
+    </a>
+  <a class="cn-link next" href="5-2-the-card-that-started-it-all-mass-marketing-debt.html">
+      <div class="cn-dir">Next</div>
+      <div class="cn-title">The Card That Started It All: Mass-Marketing Debt</div>
+    </a>
+</div>
+
+<div id="disclaimer-strip">
+  <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. <a href="../../plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
+</div>
+
+<footer>
+  <a href="../../index.html" style="display:block;line-height:0">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" height="44" alt="Plenee Navigator">
+  </a>
+  <p>© 2026 Plenee Co. All rights reserved.</p>
+  <div class="fl"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a><a href="../../plenee_legal.html" style="color:var(--teal)">Legal</a><a href="../../contact.html">Contact</a></div>
+</footer>
+
+</body>
+</html>

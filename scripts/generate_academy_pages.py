@@ -31,13 +31,21 @@ What this does, per chapter:
     and it doesn't exist on disk yet).
 
 Scope: only handles the `# Chapter N.M -- Title` boundary onward -- it does
-not (yet) generate the top-level Academy landing page or other tracks' pages.
-Designed to be reusable for those later: pass any *_expanded.md file.
+not (yet) generate the top-level Academy landing page. Covers every track in
+both volumes (Volume 1's plain `N.M` chapter ids and Volume 2's `PMN.M` ids,
+the latter displayed to readers with the "PM" shorthand stripped per
+ACADEMY_PUBLISHING_INSTRUCTIONS.md §7).
 
 Usage:
     python3 generate_academy_pages.py track2_visibility_expanded.md
-        Regenerates every chapter page + the track's index.html under
-        website/academy/<track-slug>/, from the CURRENT source file.
+        Regenerates one track's chapter pages + its own index.html, from the
+        CURRENT source file. Fast, but that index.html's search box will only
+        cover this track's chapters until --all is next run.
+
+    python3 generate_academy_pages.py --all
+        Regenerates every track from current source and embeds one shared,
+        cross-track search index on every track's index.html. Run this after
+        any content change so "Search Academy" stays corpus-wide accurate.
 
 No third-party dependencies -- stdlib only.
 """
@@ -362,6 +370,12 @@ def strip_tags(rendered_html: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
+def display_chapter_id(chapter_id: str) -> str:
+    """'PM' is internal shorthand only -- never show "Chapter PM1.2" to a
+    reader, just "Chapter 1.2" (ACADEMY_PUBLISHING_INSTRUCTIONS.md §7)."""
+    return chapter_id[2:] if chapter_id.startswith("PM") else chapter_id
+
+
 def search_html(placement: str) -> str:
     """placement: 'academy' (root academy/index.html) or 'track' (a track's own
     index.html, one level deeper -- links need a '../' prefix)."""
@@ -457,7 +471,7 @@ def render_paragraphs(body: str, footnote_numbers: dict[str, int], track_slug: s
 
 
 def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[dict],
-                         track_num: str, track_title: str, track_slug: str, idx) -> tuple[str, dict]:
+                         track_info, track_title: str, track_slug: str, idx) -> tuple[str, dict]:
     sections, takeaway, footnote_defs = split_sections(chapter["raw"])
 
     footnote_order = list(footnote_defs.keys())  # dict preserves insertion order (definition order)
@@ -557,13 +571,13 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
   <span>›</span>
   <a href="index.html">{esc(track_title)}</a>
   <span>›</span>
-  <span>{esc(chapter["id"])}</span>
+  <span>{esc(display_chapter_id(chapter["id"]))}</span>
   <span style="margin-left:auto"></span>
   <a href="../index.html#search">🔍 Search Academy</a>
 </div>
 
 <div class="chapter-wrap">
-  <div class="chapter-eyebrow">Track {track_num} · Chapter {esc(chapter["id"])}</div>
+  <div class="chapter-eyebrow">Volume {track_info.volume} · Track {track_info.display_num} · Chapter {esc(display_chapter_id(chapter["id"]))}</div>
   <h1>{esc(chapter["title"])}</h1>
   <p class="chapter-disclaimer">{DISCLAIMER}</p>
 {jump_list_html}
@@ -582,20 +596,20 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
 
     search_entry = {
         "t": chapter["title"],
-        "trk": track_title,
-        "n": f'Chapter {chapter["id"]}',
+        "trk": f"Volume {track_info.volume} · {track_title}",
+        "n": f'Chapter {display_chapter_id(chapter["id"])}',
         "u": f'{track_slug}/{chapter["slug"]}.html',
         "x": " ".join(search_text_parts).strip()[:SEARCH_SNIPPET_CAP],
     }
     return page_html, search_entry
 
 
-def render_index_page(track_num: str, track_title: str, chapters: list[dict], search_index: list[dict]) -> str:
+def render_index_page(track_info, track_title: str, chapters: list[dict], search_index: list[dict]) -> str:
     cards = []
     for c in chapters:
         cards.append(
             f'  <a class="chap-card" href="{c["slug"]}.html">\n'
-            f'    <div class="chap-num">{esc(c["id"])}</div>\n'
+            f'    <div class="chap-num">{esc(display_chapter_id(c["id"]))}</div>\n'
             '    <div class="chap-info">\n'
             f'      <h3>{esc(c["title"])}</h3>\n'
             "    </div>\n"
@@ -605,7 +619,7 @@ def render_index_page(track_num: str, track_title: str, chapters: list[dict], se
     search_json = json.dumps(search_index, ensure_ascii=False).replace("</script", "<\\/script")
 
     body = f"""<div class="page-header">
-  <div class="page-kicker">Volume 1 · Track {track_num}</div>
+  <div class="page-kicker">Volume {track_info.volume} · Track {track_info.display_num}</div>
   <h1>{esc(track_title)}</h1>
 </div>
 
@@ -631,22 +645,22 @@ def render_index_page(track_num: str, track_title: str, chapters: list[dict], se
     return PAGE_TEMPLATE.format(page_title=esc(track_title), style=STYLE_BLOCK, body=body)
 
 
-def generate(source_filename: str) -> None:
+def generate_track_pages(source_filename: str, idx) -> dict:
+    """Writes one track's chapter HTML pages (not its index.html -- that needs
+    the full cross-track search index, assembled by the caller after every
+    track has run). Returns the metadata write_index_pages() needs."""
     path = Path(source_filename)
     if not path.is_absolute():
         path = ACADEMY_SRC / source_filename
     if not path.exists():
         raise FileNotFoundError(path)
 
-    idx = build_index()
     stem = path.name.removesuffix("_expanded.md")
-    track_slug, track_num = track_slug_and_num_from_filename(stem)
-    if track_num is None:
-        raise ValueError(f"{path.name}: track-level generation not yet supported for Volume 2 files")
+    track_slug, _ = track_slug_and_num_from_filename(stem)
+    track_info = idx.tracks_by_slug[track_slug]
+    track_title = track_info.title.title()
 
     text = path.read_text(encoding="utf-8")
-    track_title = idx.tracks[track_num].title.title()
-
     raw_chapters = parse_chapters(text)
     chapters = []
     for c in raw_chapters:
@@ -656,29 +670,59 @@ def generate(source_filename: str) -> None:
     outdir = WEBSITE_DIR / "academy" / track_slug
     outdir.mkdir(parents=True, exist_ok=True)
 
-    search_index = []
+    search_entries = []
     for i, chapter in enumerate(chapters):
-        html_out, search_entry = render_chapter_page(chapter, i, chapters, track_num, track_title, track_slug, idx)
-        search_index.append(search_entry)
+        html_out, search_entry = render_chapter_page(chapter, i, chapters, track_info, track_title, track_slug, idx)
+        search_entries.append(search_entry)
         outfile = outdir / f"{chapter['slug']}.html"
         outfile.write_text(html_out, encoding="utf-8")
         print(f"  wrote {outfile.relative_to(WEBSITE_DIR)}")
 
-    # NOTE: this only indexes the track currently being generated. A full
-    # cross-track "Search Academy" index requires running this generator for
-    # every track and merging their search_index lists before embedding --
-    # not yet done, since only this one track has published pages so far.
-    index_html = render_index_page(track_num, track_title, chapters, search_index)
-    index_path = outdir / "index.html"
-    index_path.write_text(index_html, encoding="utf-8")
-    print(f"  wrote {index_path.relative_to(WEBSITE_DIR)}")
+    return {
+        "track_info": track_info,
+        "track_title": track_title,
+        "chapters": chapters,
+        "search_entries": search_entries,
+        "outdir": outdir,
+    }
+
+
+def write_index_pages(track_results: list[dict], global_search_index: list[dict]) -> None:
+    for r in track_results:
+        index_html = render_index_page(r["track_info"], r["track_title"], r["chapters"], global_search_index)
+        index_path = r["outdir"] / "index.html"
+        index_path.write_text(index_html, encoding="utf-8")
+        print(f"  wrote {index_path.relative_to(WEBSITE_DIR)}")
+
+
+def generate(source_filename: str) -> None:
+    """Single-track regeneration -- fast for iterating on one file's content,
+    but its index.html search box will only cover THIS track's chapters until
+    --all is next run (which re-embeds the full cross-track index everywhere)."""
+    idx = build_index()
+    result = generate_track_pages(source_filename, idx)
+    write_index_pages([result], result["search_entries"])
+
+
+def generate_all() -> None:
+    """Regenerate every track from current source and embed one shared,
+    cross-track search index on every track's index.html."""
+    idx = build_index()
+    files = sorted(ACADEMY_SRC.glob("*_expanded.md"))
+    results = [generate_track_pages(str(f), idx) for f in files]
+    global_search_index = [e for r in results for e in r["search_entries"]]
+    write_index_pages(results, global_search_index)
+    print(f"\nDone: {len(results)} tracks, {len(global_search_index)} chapters indexed for search.")
 
 
 def main() -> int:
     if len(sys.argv) != 2:
         print(__doc__)
         return 1
-    generate(sys.argv[1])
+    if sys.argv[1] == "--all":
+        generate_all()
+    else:
+        generate(sys.argv[1])
     return 0
 
 

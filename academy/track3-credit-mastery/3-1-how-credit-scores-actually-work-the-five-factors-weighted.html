@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Credit Scores Actually Work: The Five Factors, Weighted — Plenee Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:    #0C1929;
+  --navy2:   #152236;
+  --teal:    #0FA8BC;
+  --teal-d:  #0A8A9E;
+  --teal-l:  #E6F7FA;
+  --orange:  #E87722;
+  --orange-l:#FFF4EC;
+  --white:   #FFFFFF;
+  --off:     #F6F9FB;
+  --text:    #0C1929;
+  --muted:   #4E6175;
+  --light:   #8A9EB0;
+  --border:  #DDE8F0;
+  --green:   #1E9E5E;
+  --green-l: #E8FAF2;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+nav {
+  position: sticky; top: 0; z-index: 300;
+  background: #0C1929;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  height: 72px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+}
+.nav-logo { display: flex; align-items: center; height: 100%; line-height: 0; }
+.nav-logo img { height: 100%; display: block; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { color: #B6C6D6; text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--teal); }
+.nav-links a.active { color: var(--teal); }
+
+footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.07); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+footer p { color: #2E4A60; font-size: 13px; }
+.fl a { color: #2E4A60; font-size: 13px; text-decoration: none; margin-left: 24px; transition: color .2s; }
+.fl a:hover { color: var(--teal); }
+
+#disclaimer-strip { background: var(--off); border-top: 1px solid var(--border); padding: 16px 48px; text-align: center; }
+#disclaimer-strip p { font-size: 12px; color: var(--light); line-height: 1.6; max-width: 900px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 56px; }
+  .nav-links { display: none; }
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .fl a { margin-left: 0; margin-right: 20px; }
+}
+
+
+/* ─── PAGE HEADER ─── */
+.page-header { background: var(--navy); padding: 64px 48px 52px; text-align: center; }
+.page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
+.page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
+.page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+
+/* ─── BREADCRUMB ─── */
+.crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
+.crumb a { color: var(--muted); text-decoration: none; }
+.crumb a:hover { color: var(--teal); }
+
+/* ─── CHAPTER PAGE ─── */
+.chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
+.chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 28px; }
+.chapter-disclaimer { font-size: 12px; color: var(--light); line-height: 1.6; margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+
+.jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
+.jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.jump-list ol { padding-left: 18px; }
+.jump-list li { margin-bottom: 6px; }
+.jump-list a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
+.jump-list a:hover { color: var(--teal); }
+
+.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 18px; }
+.chapter-body p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 20px; }
+.chapter-body p strong { color: var(--text); font-weight: 700; }
+.chapter-body p em { color: var(--text); font-style: italic; }
+.chapter-body sup { font-size: 11px; margin-left: 1px; }
+.chapter-body sup a { color: var(--teal-d); text-decoration: none; font-weight: 700; }
+.chapter-body sup a:hover { text-decoration: underline; }
+
+.takeaway { background: var(--teal-l); border-left: 4px solid var(--teal); border-radius: 0 14px 14px 0; padding: 26px 30px; margin: 44px 0 8px; }
+.takeaway .tk-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 10px; }
+.takeaway p { color: var(--text); font-size: 16px; line-height: 1.75; margin-bottom: 0; font-weight: 500; }
+
+.sources { margin: 36px 0 8px; padding-top: 24px; border-top: 1px solid var(--border); }
+.sources .src-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 14px; }
+.sources ol { padding-left: 20px; }
+.sources li { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 10px; }
+.sources li a { color: var(--teal-d); text-decoration: none; margin-left: 4px; }
+.sources li a:hover { text-decoration: underline; }
+
+.chapter-nav { max-width: 760px; margin: 0 auto; padding: 8px 48px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cn-link { display: block; border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 22px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.cn-link:hover { border-color: var(--teal); transform: translateY(-2px); }
+.cn-link.next { text-align: right; }
+.cn-dir { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); margin-bottom: 6px; }
+.cn-title { font-size: 15px; font-weight: 700; color: var(--navy); line-height: 1.4; }
+.cn-empty { visibility: hidden; }
+
+/* ─── TRACK INDEX ─── */
+.track-wrap { max-width: 900px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapter-grid { display: flex; flex-direction: column; gap: 14px; }
+.chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
+.chap-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 15px; }
+.chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
+.chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+/* ─── ACADEMY SEARCH ─── */
+/* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
+   (built + verified 2026-07-18 by a concurrent session). Listing pages only
+   (Academy index + each track index) -- never on individual chapter pages. */
+.academy-search-wrap { max-width: 620px; margin: 0 auto; padding: 0 48px; position: relative; }
+.academy-search-box { position: relative; }
+.academy-search-box svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--light); pointer-events: none; }
+.academy-search-input { width: 100%; font-family: inherit; font-size: 16px; color: var(--text); background: #fff; border: 1.5px solid var(--border); border-radius: 12px; padding: 15px 18px 15px 48px; outline: none; transition: border-color .2s, box-shadow .2s; }
+.academy-search-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(15,168,188,0.12); }
+.search-results { margin-top: 14px; display: none; flex-direction: column; gap: 10px; }
+.search-results.open { display: flex; }
+.search-hit { display: block; border: 1.5px solid var(--border); border-radius: 12px; padding: 16px 18px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.search-hit:hover { border-color: var(--teal); transform: translateY(-1px); }
+.search-hit .sh-track { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 5px; }
+.search-hit .sh-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; line-height: 1.4; }
+.search-hit .sh-snippet { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.search-hit mark { background: var(--teal-l); color: var(--teal-d); border-radius: 3px; padding: 0 2px; font-weight: 700; }
+.search-empty { font-size: 14px; color: var(--light); text-align: center; padding: 18px 0; display: none; }
+.search-empty.open { display: block; }
+.search-count { font-size: 12px; color: var(--light); margin-top: 12px; text-align: center; display: none; }
+.search-count.open { display: block; }
+.track-search-wrap { max-width: 900px; margin: 32px auto 0; padding: 0 48px; }
+.track-search-wrap .academy-search-wrap { padding: 0; max-width: none; }
+
+@media (max-width: 768px) {
+  .page-header { padding: 44px 20px 36px; }
+  .crumb { padding: 0 20px; }
+  .chapter-wrap { padding: 32px 20px 16px; }
+  .chapter-nav { grid-template-columns: 1fr; padding: 8px 20px 48px; }
+  .cn-link.next { text-align: left; }
+  .track-wrap { padding: 40px 20px 64px; }
+  .academy-search-wrap { padding: 0 20px; }
+  .track-search-wrap { padding: 0 20px; }
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" alt="Plenee Navigator">
+  </a>
+  <div class="nav-links">
+    <a href="../../index.html#how">How it works</a>
+    <a href="../../index.html#features-start">Features</a>
+    <a href="../index.html" class="active">Academy</a>
+    <a href="../../index.html#fid">Our Promise</a>
+  </div>
+</nav>
+
+<div class="crumb">
+  <a href="../index.html">Academy</a>
+  <span>›</span>
+  <a href="index.html">Credit Mastery</a>
+  <span>›</span>
+  <span>3.1</span>
+  <span style="margin-left:auto"></span>
+  <a href="../index.html#search">🔍 Search Academy</a>
+</div>
+
+<div class="chapter-wrap">
+  <div class="chapter-eyebrow">Volume 1 · Track 3 · Chapter 3.1</div>
+  <h1>How Credit Scores Actually Work: The Five Factors, Weighted</h1>
+  <p class="chapter-disclaimer">This is financial information and education, not personalized financial advice.</p>
+
+  <div class="jump-list">
+      <div class="jl-title">In this chapter</div>
+      <ol>
+<li><a href="#what-the-score-doesnt-know">What the score doesn't know</a></li>
+<li><a href="#the-recipe">The recipe</a></li>
+<li><a href="#the-two-readings-that-matter">The two readings that matter</a></li>
+<li><a href="#the-weights-translated-to-consequences">The weights, translated to consequences</a></li>
+<li><a href="#where-plenee-fits">Where Plenee fits</a></li>
+      </ol>
+    </div>
+
+  <div class="chapter-body">
+<h2 id="what-the-score-doesnt-know">What the score doesn't know</h2>
+<p>Your credit score doesn't know your salary. It doesn't know your savings, your degree, your job title, or your net worth. A millionaire can score 620 and a schoolteacher 810 — and the system is working as designed when they do, because the score measures exactly one thing: <strong>how you handle borrowed money.</strong> Not how much money you have. Not how virtuous you are. One narrow question, answered from one narrow file (<a href="../track2-visibility/2-4-your-credit-report-and-score-whats-actually-in-it-vantagescore-vs-fico.html">Chapter 2.4</a>'s biography), by a published formula.</p>
+<p>That narrowness is the most useful fact in this entire track, because a narrow formula is a <em>steerable</em> formula. This chapter lays out the recipe and the two readings of it that matter more than the percentages.</p>
+<h2 id="the-recipe">The recipe</h2>
+<p>FICO publishes the approximate weights, and they've been stable for years:<sup id="fnref-3.1-1"><a href="#fn-3.1-1">1</a></sup></p>
+<p><strong>Payment history — about 35%.</strong> Did you pay on time, every time? The heaviest factor by design: past repayment predicts future repayment better than anything else in the file. It's also the most asymmetric — years of on-time payments build slowly, while a single 30-day-late mark can outweigh much of that record at a stroke.</p>
+<p><strong>Amounts owed — about 30%.</strong> Dominated by utilization: your balances against your limits, per card and overall (<a href="../track6-stop-the-bleeding/6-7-credit-utilization-mechanics-the-no-memory-rule-statement-timing-limit-management.html">Chapter 6.7</a> and <a href="3-2-utilization-deep-dive-per-card-vs-overall-statement-timing-the-no-memory-rule.html">Chapter 3.2</a> give the full mechanics). Not how much you owe in dollars — how much you owe <em>relative to what you could</em>.</p>
+<p><strong>Length of history — about 15%.</strong> The age of your accounts, average and oldest. This is why your oldest card is quietly one of your most valuable financial possessions (<a href="3-5-when-to-close-a-card-rarely-and-when-not-to.html">Chapter 3.5</a>), doing nothing but existing and aging, like a good cellar.</p>
+<p><strong>New credit — about 10%.</strong> Recent applications and freshly opened accounts. A flurry of new credit reads as appetite — a mild, temporary flag (<a href="3-4-hard-vs-soft-pulls-rate-shopping-windows.html">Chapter 3.4</a> covers the mechanics and the myths).</p>
+<p><strong>Credit mix — about 10%.</strong> Evidence you can handle both revolving credit (cards) and installment loans (car, mortgage, student). The lightest factor, and the one least worth engineering deliberately — it mostly takes care of itself as life happens.</p>
+<h2 id="the-two-readings-that-matter">The two readings that matter</h2>
+<p><strong>Reading one: two behaviors are two-thirds of the score.</strong> Payment history (35%) plus amounts owed (30%) — paying on time and keeping balances low against limits — total 65%, and both are <em>behaviors, not circumstances</em>. You cannot quickly change your account ages or the applications already made; you can pay this month's bills on time and this month's balances down. The score is far more steerable, on far shorter timescales, than most people believe — a genuinely unusual property for a number this consequential.</p>
+<p><strong>Reading two: what's absent is as instructive as what's present.</strong> Income, assets, employer, education — none of it counts. Two consequences, both liberating in different directions: no raise or windfall will ever directly buy score points (only borrowing behavior moves the number), and no one is scored for being poor — only for how borrowing went. The score isn't a wealth grade or a character grade; it's a narrow prediction of repayment behavior. Treat it as exactly that, and the folklore (<a href="3-6-credit-myths-carrying-a-balance-does-not-help-your-score.html">Chapter 3.6</a> dismantles it) loses its grip.</p>
+<h2 id="the-weights-translated-to-consequences">The weights, translated to consequences</h2>
+<p>The practical translation: one missed payment — 35% territory — can cost roughly 60–100+ points from a good (700+) score, sometimes more, sometimes less depending on the starting point; the higher the score, the harder the fall.<sup id="fnref-3.1-2"><a href="#fn-3.1-2">2</a></sup> Meanwhile the difference between 20% and 90% utilization — 30% territory — commonly spans dozens of points, and unlike the late payment, reverses immediately when the balances do (the no-memory rule, <a href="../track6-stop-the-bleeding/6-7-credit-utilization-mechanics-the-no-memory-rule-statement-timing-limit-management.html">Chapter 6.7</a> and <a href="3-2-utilization-deep-dive-per-card-vs-overall-statement-timing-the-no-memory-rule.html">Chapter 3.2</a>). The two behaviors within your monthly control govern the majority of your number — which means most of "credit repair" is just these two behaviors, done consistently, with the file watched for errors (<a href="../track2-visibility/2-4-your-credit-report-and-score-whats-actually-in-it-vantagescore-vs-fico.html">Chapter 2.4</a>'s one-in-five error rate).</p>
+<p>Income context, per the curriculum's rule: the score's <em>financial</em> consequences scale with borrowing — the half-point of mortgage rate it moves (<a href="3-7-preparing-your-credit-for-a-mortgage-the-12-month-runway.html">Chapter 3.7</a>) is worth tens of thousands to a homebuyer and nothing to someone who'll never borrow. But for thin-margin households the score is also the gatekeeper to <em>escaping</em> the extraction economy's worst tier — the difference between 36%-adjacent credit and mainstream credit (<a href="../track4-extraction-economy/index.html">Track 4</a>'s predatory line) — which makes the two steerable behaviors disproportionately valuable exactly where money is tightest.</p>
+<h2 id="where-plenee-fits">Where Plenee fits</h2>
+<p>Plenee doesn't show a score — deliberately. It tracks the two heavyweight <em>inputs</em> you actually steer: payment timing (via due dates, projected cash, and autopay-in-full — <a href="../track6-stop-the-bleeding/6-1-late-fee-elimination-autopay-in-full-done-right.html">Chapter 6.1</a>'s architecture) and every card's balance against its limit, per card, with statement cycles attached (<a href="3-2-utilization-deep-dive-per-card-vs-overall-statement-timing-the-no-memory-rule.html">Chapter 3.2</a>'s dials). The score follows the behaviors; the behaviors are what a tool can genuinely help you run. Watch the inputs and the output takes care of itself.</p>
+  </div>
+
+  <div class="takeaway">
+      <div class="tk-label">The takeaway</div>
+      <p>Two behaviors are two-thirds of your score: pay on time, always; keep balances low against limits. The formula is narrow, published, and indifferent to your wealth or worth — which is precisely what makes it steerable. Master the two behaviors and the other third mostly takes care of itself, with time doing the heavy lifting.</p>
+    </div>
+  <div class="sources">
+      <div class="src-title">Sources</div>
+      <ol>
+<li id="fn-3.1-1">FICO score factor weights (payment history ~35%, amounts owed ~30%, length of history ~15%, new credit ~10%, credit mix ~10%): myFICO, "What's in your FICO Score." <a href="#fnref-3.1-1">↩</a></li>
+<li id="fn-3.1-2">A 30-day-late mark can cost roughly 60-100+ points, with the exact impact varying by starting score (real-world reports span a wider ~30-150 range depending on where the score started): myFICO. <a href="#fnref-3.1-2">↩</a></li>
+      </ol>
+    </div>
+</div>
+
+<div class="chapter-nav">
+  <a class="cn-link prev" href="index.html">
+      <div class="cn-dir">Previous</div>
+      <div class="cn-title">Back to Credit Mastery</div>
+    </a>
+  <a class="cn-link next" href="3-2-utilization-deep-dive-per-card-vs-overall-statement-timing-the-no-memory-rule.html">
+      <div class="cn-dir">Next</div>
+      <div class="cn-title">Utilization Deep-Dive: Per-Card vs. Overall, Statement Timing, the No-Memory Rule</div>
+    </a>
+</div>
+
+<div id="disclaimer-strip">
+  <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. <a href="../../plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
+</div>
+
+<footer>
+  <a href="../../index.html" style="display:block;line-height:0">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" height="44" alt="Plenee Navigator">
+  </a>
+  <p>© 2026 Plenee Co. All rights reserved.</p>
+  <div class="fl"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a><a href="../../plenee_legal.html" style="color:var(--teal)">Legal</a><a href="../../contact.html">Contact</a></div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The New Persuaders: Social Media, Influencers, and Buy Now Pay Later — Plenee Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:    #0C1929;
+  --navy2:   #152236;
+  --teal:    #0FA8BC;
+  --teal-d:  #0A8A9E;
+  --teal-l:  #E6F7FA;
+  --orange:  #E87722;
+  --orange-l:#FFF4EC;
+  --white:   #FFFFFF;
+  --off:     #F6F9FB;
+  --text:    #0C1929;
+  --muted:   #4E6175;
+  --light:   #8A9EB0;
+  --border:  #DDE8F0;
+  --green:   #1E9E5E;
+  --green-l: #E8FAF2;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+nav {
+  position: sticky; top: 0; z-index: 300;
+  background: #0C1929;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  height: 72px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+}
+.nav-logo { display: flex; align-items: center; height: 100%; line-height: 0; }
+.nav-logo img { height: 100%; display: block; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { color: #B6C6D6; text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--teal); }
+.nav-links a.active { color: var(--teal); }
+
+footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.07); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+footer p { color: #2E4A60; font-size: 13px; }
+.fl a { color: #2E4A60; font-size: 13px; text-decoration: none; margin-left: 24px; transition: color .2s; }
+.fl a:hover { color: var(--teal); }
+
+#disclaimer-strip { background: var(--off); border-top: 1px solid var(--border); padding: 16px 48px; text-align: center; }
+#disclaimer-strip p { font-size: 12px; color: var(--light); line-height: 1.6; max-width: 900px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 56px; }
+  .nav-links { display: none; }
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .fl a { margin-left: 0; margin-right: 20px; }
+}
+
+
+/* ─── PAGE HEADER ─── */
+.page-header { background: var(--navy); padding: 64px 48px 52px; text-align: center; }
+.page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
+.page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
+.page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+
+/* ─── BREADCRUMB ─── */
+.crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
+.crumb a { color: var(--muted); text-decoration: none; }
+.crumb a:hover { color: var(--teal); }
+
+/* ─── CHAPTER PAGE ─── */
+.chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
+.chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 28px; }
+.chapter-disclaimer { font-size: 12px; color: var(--light); line-height: 1.6; margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+
+.jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
+.jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.jump-list ol { padding-left: 18px; }
+.jump-list li { margin-bottom: 6px; }
+.jump-list a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
+.jump-list a:hover { color: var(--teal); }
+
+.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 18px; }
+.chapter-body p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 20px; }
+.chapter-body p strong { color: var(--text); font-weight: 700; }
+.chapter-body p em { color: var(--text); font-style: italic; }
+.chapter-body sup { font-size: 11px; margin-left: 1px; }
+.chapter-body sup a { color: var(--teal-d); text-decoration: none; font-weight: 700; }
+.chapter-body sup a:hover { text-decoration: underline; }
+
+.takeaway { background: var(--teal-l); border-left: 4px solid var(--teal); border-radius: 0 14px 14px 0; padding: 26px 30px; margin: 44px 0 8px; }
+.takeaway .tk-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 10px; }
+.takeaway p { color: var(--text); font-size: 16px; line-height: 1.75; margin-bottom: 0; font-weight: 500; }
+
+.sources { margin: 36px 0 8px; padding-top: 24px; border-top: 1px solid var(--border); }
+.sources .src-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 14px; }
+.sources ol { padding-left: 20px; }
+.sources li { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 10px; }
+.sources li a { color: var(--teal-d); text-decoration: none; margin-left: 4px; }
+.sources li a:hover { text-decoration: underline; }
+
+.chapter-nav { max-width: 760px; margin: 0 auto; padding: 8px 48px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cn-link { display: block; border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 22px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.cn-link:hover { border-color: var(--teal); transform: translateY(-2px); }
+.cn-link.next { text-align: right; }
+.cn-dir { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); margin-bottom: 6px; }
+.cn-title { font-size: 15px; font-weight: 700; color: var(--navy); line-height: 1.4; }
+.cn-empty { visibility: hidden; }
+
+/* ─── TRACK INDEX ─── */
+.track-wrap { max-width: 900px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapter-grid { display: flex; flex-direction: column; gap: 14px; }
+.chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
+.chap-num { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 15px; }
+.chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
+.chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+/* ─── ACADEMY SEARCH ─── */
+/* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
+   (built + verified 2026-07-18 by a concurrent session). Listing pages only
+   (Academy index + each track index) -- never on individual chapter pages. */
+.academy-search-wrap { max-width: 620px; margin: 0 auto; padding: 0 48px; position: relative; }
+.academy-search-box { position: relative; }
+.academy-search-box svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--light); pointer-events: none; }
+.academy-search-input { width: 100%; font-family: inherit; font-size: 16px; color: var(--text); background: #fff; border: 1.5px solid var(--border); border-radius: 12px; padding: 15px 18px 15px 48px; outline: none; transition: border-color .2s, box-shadow .2s; }
+.academy-search-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(15,168,188,0.12); }
+.search-results { margin-top: 14px; display: none; flex-direction: column; gap: 10px; }
+.search-results.open { display: flex; }
+.search-hit { display: block; border: 1.5px solid var(--border); border-radius: 12px; padding: 16px 18px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.search-hit:hover { border-color: var(--teal); transform: translateY(-1px); }
+.search-hit .sh-track { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 5px; }
+.search-hit .sh-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; line-height: 1.4; }
+.search-hit .sh-snippet { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.search-hit mark { background: var(--teal-l); color: var(--teal-d); border-radius: 3px; padding: 0 2px; font-weight: 700; }
+.search-empty { font-size: 14px; color: var(--light); text-align: center; padding: 18px 0; display: none; }
+.search-empty.open { display: block; }
+.search-count { font-size: 12px; color: var(--light); margin-top: 12px; text-align: center; display: none; }
+.search-count.open { display: block; }
+.track-search-wrap { max-width: 900px; margin: 32px auto 0; padding: 0 48px; }
+.track-search-wrap .academy-search-wrap { padding: 0; max-width: none; }
+
+@media (max-width: 768px) {
+  .page-header { padding: 44px 20px 36px; }
+  .crumb { padding: 0 20px; }
+  .chapter-wrap { padding: 32px 20px 16px; }
+  .chapter-nav { grid-template-columns: 1fr; padding: 8px 20px 48px; }
+  .cn-link.next { text-align: left; }
+  .track-wrap { padding: 40px 20px 64px; }
+  .academy-search-wrap { padding: 0 20px; }
+  .track-search-wrap { padding: 0 20px; }
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" alt="Plenee Navigator">
+  </a>
+  <div class="nav-links">
+    <a href="../../index.html#how">How it works</a>
+    <a href="../../index.html#features-start">Features</a>
+    <a href="../index.html" class="active">Academy</a>
+    <a href="../../index.html#fid">Our Promise</a>
+  </div>
+</nav>
+
+<div class="crumb">
+  <a href="../index.html">Academy</a>
+  <span>›</span>
+  <a href="index.html">The Debt Trap (The Systemic Conditioning Of Americans)</a>
+  <span>›</span>
+  <span>5.5</span>
+  <span style="margin-left:auto"></span>
+  <a href="../index.html#search">🔍 Search Academy</a>
+</div>
+
+<div class="chapter-wrap">
+  <div class="chapter-eyebrow">Volume 1 · Track 5 · Chapter 5.5</div>
+  <h1>The New Persuaders: Social Media, Influencers, and Buy Now Pay Later</h1>
+  <p class="chapter-disclaimer">This is financial information and education, not personalized financial advice.</p>
+
+  <div class="jump-list">
+      <div class="jl-title">In this chapter</div>
+      <ol>
+<li><a href="#the-same-playbook-sharper-tools">The same playbook, sharper tools</a></li>
+<li><a href="#influence-industrialized">Influence, industrialized</a></li>
+<li><a href="#buy-now-pay-later-friction-removed-by-design">Buy Now, Pay Later: friction removed by design</a></li>
+<li><a href="#where-plenee-fits">Where Plenee fits</a></li>
+      </ol>
+    </div>
+
+  <div class="chapter-body">
+<h2 id="the-same-playbook-sharper-tools">The same playbook, sharper tools</h2>
+<p>Nothing in the last decade of consumer marketing is conceptually new — <a href="5-3-manufacturing-desire-the-psychology-of-advertising.html">Chapter 5.3</a> already covered the psychology, <a href="5-4-built-to-break-planned-obsolescence.html">Chapter 5.4</a> already covered the manufactured replacement cycle. What's changed is precision and friction: today's tools can target an individual's specific insecurities rather than a demographic's general ones, and can convert a scroll into a purchase in fewer steps than any generation before this one ever faced. This chapter covers the newest version of an old pattern.</p>
+<h2 id="influence-industrialized">Influence, industrialized</h2>
+<p>Social media replaced the mass-market advertisement with something more targeted and more trusted: a recommendation that arrives wearing the appearance of a friend's genuine enthusiasm rather than a company's paid pitch. Algorithmic ad targeting lets that pitch be tuned to an individual's browsing history, purchase history, and even emotional state at a given moment, in a way no 1950s motivational researcher's small-sample depth interview could approach at scale. The underlying mechanism is still <a href="5-3-manufacturing-desire-the-psychology-of-advertising.html">Chapter 5.3</a>'s mechanism — manufactured desire, status comparison, resolving an anxiety with a purchase — but the targeting is now personal rather than demographic, and the volume is constant rather than seasonal.</p>
+<h2 id="buy-now-pay-later-friction-removed-by-design">Buy Now, Pay Later: friction removed by design</h2>
+<p>Buy Now Pay Later apps are this era's version of the installment plan and the mailed credit card at once: financing embedded directly at the point of sale, approved in seconds, requiring no separate application most users will notice as a credit decision. Usage has grown fast and real: Federal Reserve survey data puts BNPL use at 16 percent of US adults in the most recent 12-month period, up from 10 percent just a few years earlier — and the growth is not evenly distributed. Usage skews meaningfully younger (22 percent among 18-to-29-year-olds versus 9 percent for those 60 and older) and lower-income (18 percent for households under $25,000 versus 12 percent for those earning $100,000 or more), and by race — roughly 29 percent among Black adults and 26 percent among Hispanic adults, versus 11 to 12 percent among white and Asian adults.<sup id="fnref-5.5-1"><a href="#fn-5.5-1">1</a></sup> Regulators' own market data, drawn from several major providers, shows tens of millions of users and tens of billions of dollars in loan volume in a single recent year.<sup id="fnref-5.5-2"><a href="#fn-5.5-2">2</a></sup></p>
+<p>One honest limitation deserves stating plainly, because it's the kind of gap this track keeps finding: there is currently no reliable, industry-wide measure of how often BNPL loans go delinquent, because most BNPL lenders don't report loan performance to the three major credit bureaus the way credit card issuers do.<sup id="fnref-5.5-3"><a href="#fn-5.5-3">3</a></sup> Regulators have had to piece together partial estimates from individual lenders' own disclosures rather than pull a clean number the way they can for credit cards. That data gap is itself worth noticing: an entire category of consumer debt has scaled to tens of billions of dollars a year with less independent visibility into how it's actually performing than any comparable lending product carries.</p>
+<p>The regulatory story here is unusually current and unusually unresolved. In 2024, the federal consumer finance regulator issued a rule treating BNPL providers like credit card issuers under existing consumer-protection law — but that rule was formally withdrawn in 2025, with the regulator confirming it did not intend to replace it.<sup id="fnref-5.5-4"><a href="#fn-5.5-4">4</a></sup> Oversight, for now, has shifted to individual states rather than federal law. Whether "frictionless checkout" itself — as opposed to BNPL as a product generally — measurably increases impulse spending is a genuinely emerging research question, not yet a settled one; the honest answer today is that it's a well-reasoned hypothesis with real theoretical backing, not a proven causal finding.</p>
+<h2 id="where-plenee-fits">Where Plenee fits</h2>
+<p>The specific tools change every few years; the discipline that answers them doesn't. Visibility into every BNPL commitment alongside every other obligation — not siloed in a separate app most budgeting tools never see — is the direct answer to financing designed to feel disconnected from the rest of a household's picture. A BNPL payment is still a payment; coreFLOW doesn't care whether an obligation arrived through a bank statement or a checkout-page toggle.</p>
+  </div>
+
+  <div class="takeaway">
+      <div class="tk-label">The takeaway</div>
+      <p>Social media and BNPL are new distribution channels for an old strategy: manufacture the want, remove the friction between wanting and buying. The data on BNPL's actual growth and its skew toward younger, lower-income, and disproportionately Black and Hispanic users is real and well-sourced; the data on exactly how risky it is remains genuinely incomplete, since most lenders don't report performance the way older credit products do — a gap worth naming rather than papering over with an invented number.</p>
+    </div>
+  <div class="sources">
+      <div class="src-title">Sources</div>
+      <ol>
+<li id="fn-5.5-1">Federal Reserve Board, Survey of Household Economics and Decisionmaking (SHED 2025) — 16% of US adults used BNPL in the prior 12 months, up from 10% in 2021; demographic breakdown by age, income, and race. federalreserve.gov (exact report URL to confirm before publish). <a href="#fnref-5.5-1">↩</a></li>
+<li id="fn-5.5-2">Consumer Financial Protection Bureau, Buy Now, Pay Later market report (Dec. 2025, 2023 lender data covering 6 major providers): $45.2B across 335.8M loans to 53.6M users. files.consumerfinance.gov (exact report URL to confirm before publish). <a href="#fnref-5.5-2">↩</a></li>
+<li id="fn-5.5-3">Most BNPL lenders do not furnish loan-performance data to Equifax, Experian, or TransUnion the way credit card issuers are required to, per CFPB market monitoring — no industry-standard delinquency index currently exists for BNPL. <a href="#fnref-5.5-3">↩</a></li>
+<li id="fn-5.5-4">CFPB's May 2024 interpretive rule (Federal Register 2024-11800) treating BNPL providers as card issuers under Regulation Z was formally withdrawn May 12, 2025 (Federal Register 2025-08286), with the Bureau confirming no replacement rule is planned. <a href="#fnref-5.5-4">↩</a></li>
+      </ol>
+    </div>
+</div>
+
+<div class="chapter-nav">
+  <a class="cn-link prev" href="5-4-built-to-break-planned-obsolescence.html">
+      <div class="cn-dir">Previous</div>
+      <div class="cn-title">Built to Break: Planned Obsolescence</div>
+    </a>
+  <a class="cn-link next" href="5-6-who-profits-from-your-debt-following-the-money.html">
+      <div class="cn-dir">Next</div>
+      <div class="cn-title">Who Profits From Your Debt: Following the Money</div>
+    </a>
+</div>
+
+<div id="disclaimer-strip">
+  <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. <a href="../../plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
+</div>
+
+<footer>
+  <a href="../../index.html" style="display:block;line-height:0">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" height="44" alt="Plenee Navigator">
+  </a>
+  <p>© 2026 Plenee Co. All rights reserved.</p>
+  <div class="fl"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a><a href="../../plenee_legal.html" style="color:var(--teal)">Legal</a><a href="../../contact.html">Contact</a></div>
+</footer>
+
+</body>
+</html>
