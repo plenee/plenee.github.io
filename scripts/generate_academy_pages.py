@@ -506,7 +506,7 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
         sources_html = (
             '\n  <div class="sources">\n'
             '      <div class="src-title">Sources</div>\n'
-            f'      <ol>\n{"".join(items)}\n      </ol>\n'
+            f'      <ol>\n{chr(10).join(items)}\n      </ol>\n'
             "    </div>"
         )
 
