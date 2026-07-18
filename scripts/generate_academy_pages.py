@@ -298,6 +298,7 @@ footer p { color: #2E4A60; font-size: 13px; }
 .chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
 .chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
 .chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 14px; }
+.chapter-title-subtitle { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(16px,2vw,20px); font-weight: 400; color: var(--muted); line-height: 1.35; margin-bottom: 14px; }
 .chapter-accent { width: 56px; height: 3px; border-radius: 2px; background: var(--teal); margin-bottom: 28px; }
 
 .jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
@@ -798,6 +799,13 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
     footnote_order = list(footnote_defs.keys())  # dict preserves insertion order (definition order)
     footnote_numbers = {label: i + 1 for i, label in enumerate(footnote_order)}
 
+    title_parts = chapter["title"].split(":", 1)
+    title_headline = esc(title_parts[0].strip())
+    title_subtitle_html = (
+        f'\n  <p class="chapter-title-subtitle">{esc(title_parts[1].strip())}</p>'
+        if len(title_parts) > 1 else ""
+    )
+
     jump_items = []
     body_html_parts = []
     search_text_parts = []
@@ -908,7 +916,7 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
 
 <div class="chapter-wrap">
   <div class="chapter-eyebrow">Volume {track_info.volume} · T.{track_info.display_num} · Chapter {esc(display_chapter_id(chapter["id"]))}</div>
-  <h1>{esc(chapter["title"])}</h1>
+  <h1>{title_headline}</h1>{title_subtitle_html}
   <div class="chapter-accent"></div>
 {jump_list_html}
   <div class="chapter-body">
