@@ -178,25 +178,89 @@ def build_index(academy_src: Path = ACADEMY_SRC) -> AcademyIndex:
     return idx
 
 
+MINOR_WORDS = {"a", "an", "and", "as", "at", "but", "by", "for", "in", "nor",
+               "of", "on", "or", "per", "the", "to", "vs", "via"}
+
+
+def _case_hyphenated(word: str) -> str:
+    """Capitalize each hyphen-separated segment's first letter only -- NOT
+    every letter-run, so an apostrophe doesn't start a new "word"
+    ("isn't" -> "Isn't", not "Isn'T" the way naive per-run capitalization or
+    Python's own .title() both get wrong)."""
+    return "-".join(seg[:1].upper() + seg[1:] for seg in word.split("-"))
+
+
+def smart_title(raw: str) -> str:
+    """Track titles come from an ALL-CAPS source header (`TRACK N: THE DEBT
+    TRAP ...`), sometimes followed by an already-correctly-cased parenthetical
+    subtitle. Python's bare .title() over-capitalizes minor words ("Of",
+    "The" mid-title) AND corrupts contractions ("don't".title() -> "Don'T")
+    -- this replaces it."""
+    words = raw.split(" ")
+    out = []
+    for i, w in enumerate(words):
+        if w != w.upper():
+            out.append(w)  # already has real casing (e.g. inside a parenthetical) -- keep as-is
+            continue
+        cased = _case_hyphenated(w.lower())
+        bare = re.sub(r"[^A-Za-z]", "", w).lower()
+        if 0 < i < len(words) - 1 and bare in MINOR_WORDS:
+            cased = cased.lower()
+        out.append(cased)
+    return " ".join(out)
+
+
+def track_headline(title: str) -> str:
+    """Strip a trailing parenthetical subtitle for use as inline reference
+    text -- "Build Wealth (Flywheel Stage 3)" is a fine page H1 but too long
+    mid-sentence; "Build Wealth" is what a reader needs there."""
+    return re.sub(r"\s*\([^)]*\)\s*$", "", title).strip()
+
+
+def chapter_headline(title: str) -> str:
+    """First clause before a colon, if present -- most chapter titles run
+    "Headline: longer subtitle" (112 of 125 in the corpus), and only the
+    headline reads well as an inline reference; some full titles run 80+
+    characters."""
+    return title.split(":", 1)[0].strip()
+
+
+ARTICLES = {"the", "a", "an"}
+
+
+def dedupe_leading_article(preceding_text: str, link_text: str) -> str:
+    """Avoid "the The Extraction Economy" when prose already wrote the
+    article immediately before a token whose own resolved text starts with
+    one (a track title like "The Extraction Economy" or a chapter headline
+    like "The Quarter-Trillion Fleecing")."""
+    prev_word = re.search(r"[A-Za-z']+$", preceding_text.rstrip())
+    first_word = re.match(r"([A-Za-z']+)(\s+.*)?$", link_text)
+    if prev_word and first_word and prev_word.group(0).lower() in ARTICLES \
+            and first_word.group(1).lower() in ARTICLES:
+        return (first_word.group(2) or "").strip()
+    return link_text
+
+
 def resolve_token(token_id: str, current_track_slug: str, idx: AcademyIndex) -> tuple[str, str] | None:
-    """Returns (relative_url, default_display_text) or None if unresolvable."""
+    """Returns (relative_url, default_display_text) or None if unresolvable.
+    default_display_text is a bare descriptive name/headline -- never
+    "Track N" or "Chapter N.M" -- per Rob's direction (2026-07-18) that
+    inline references should say in words what they point to, not a bare
+    label."""
     if token_id.startswith("track") and token_id[len("track"):].isdigit():
         num = token_id[len("track"):]
         info = idx.tracks.get(num)
         if info is None:
             return None
         target = "index.html" if info.track_slug == current_track_slug else f"../{info.track_slug}/index.html"
-        return target, f"Track {num}"
+        return target, track_headline(smart_title(info.title))
 
     info = idx.chapters.get(token_id)
     if info is None:
         return None
     fname = f"{info.chapter_slug}.html"
     target = fname if info.track_slug == current_track_slug else f"../{info.track_slug}/{fname}"
-    # "PM" is internal shorthand only (ACADEMY_PUBLISHING_INSTRUCTIONS.md §7) --
-    # never show "Chapter PM1.2" to a reader, just "Chapter 1.2".
-    display_id = token_id[2:] if token_id.startswith("PM") else token_id
-    return target, f"Chapter {display_id}"
+    return target, chapter_headline(info.title)
 
 
 def render(text: str, current_track_slug: str, idx: AcademyIndex) -> tuple[str, list[str]]:
@@ -212,13 +276,7 @@ def render(text: str, current_track_slug: str, idx: AcademyIndex) -> tuple[str, 
             return m.group(0)  # leave the raw token in place — never guess wrong
 
         url, default_text = resolved
-        preceding = text[: m.start()].rstrip()
-        # avoid "Chapter Chapter 4.1" / "Chapters Chapter 4.1" when the prose
-        # already wrote the word "Chapter(s)" immediately before the token
-        if preceding.endswith("Chapter") or preceding.endswith("Chapters"):
-            link_text = token_id
-        else:
-            link_text = default_text
+        link_text = dedupe_leading_article(text[: m.start()], default_text)
         return f'<a href="{url}">{link_text}</a>'
 
     new_text = TOKEN_RE.sub(_sub, text)

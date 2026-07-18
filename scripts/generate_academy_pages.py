@@ -69,7 +69,9 @@ from resolve_academy_refs import (  # noqa: E402
     PLENEE_ROOT,
     WEBSITE_DIR,
     build_index,
+    dedupe_leading_article,
     slugify_title,
+    smart_title,
     track_slug_and_num_from_filename,
     resolve_token,
 )
@@ -199,6 +201,8 @@ footer p { color: #2E4A60; font-size: 13px; }
 .chapter-body sup { font-size: 11px; margin-left: 1px; }
 .chapter-body sup a { color: var(--teal-d); text-decoration: none; font-weight: 700; }
 .chapter-body sup a:hover { text-decoration: underline; }
+a.ref-link { color: inherit; font-weight: 700; text-decoration: none; }
+a.ref-link:hover { text-decoration: underline; }
 
 .takeaway { background: var(--teal-l); border-left: 4px solid var(--teal); border-radius: 0 14px 14px 0; padding: 26px 30px; margin: 44px 0 8px; }
 .takeaway .tk-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 10px; }
@@ -426,38 +430,6 @@ def strip_tags(rendered_html: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
-MINOR_WORDS = {"a", "an", "and", "as", "at", "but", "by", "for", "in", "nor",
-               "of", "on", "or", "per", "the", "to", "vs", "via"}
-
-
-def _case_hyphenated(word: str) -> str:
-    """Capitalize each hyphen-separated segment's first letter only -- NOT
-    every letter-run, so an apostrophe doesn't start a new "word"
-    ("isn't" -> "Isn't", not "Isn'T" the way naive per-run capitalization or
-    Python's own .title() both get wrong)."""
-    return "-".join(seg[:1].upper() + seg[1:] for seg in word.split("-"))
-
-
-def smart_title(raw: str) -> str:
-    """Track titles come from an ALL-CAPS source header (`TRACK N: THE DEBT
-    TRAP ...`), sometimes followed by an already-correctly-cased parenthetical
-    subtitle. Python's bare .title() over-capitalizes minor words ("Of",
-    "The" mid-title) AND corrupts contractions ("don't".title() -> "Don'T")
-    -- this replaces it."""
-    words = raw.split(" ")
-    out = []
-    for i, w in enumerate(words):
-        if w != w.upper():
-            out.append(w)  # already has real casing (e.g. inside a parenthetical) -- keep as-is
-            continue
-        cased = _case_hyphenated(w.lower())
-        bare = re.sub(r"[^A-Za-z]", "", w).lower()
-        if 0 < i < len(words) - 1 and bare in MINOR_WORDS:
-            cased = cased.lower()
-        out.append(cased)
-    return " ".join(out)
-
-
 def display_chapter_id(chapter_id: str) -> str:
     """'PM' is internal shorthand only -- never show "Chapter PM1.2" to a
     reader, just "Chapter 1.2" (ACADEMY_PUBLISHING_INSTRUCTIONS.md §7)."""
@@ -532,15 +504,14 @@ def render_paragraphs(body: str, footnote_numbers: dict[str, int], track_slug: s
     for p in paras:
         p_html = inline_markdown(p)
 
-        def _ref_sub(m: re.Match, _p=p) -> str:
+        def _ref_sub(m: re.Match, _text=p_html) -> str:
             token_id = m.group(1)
             resolved = resolve_token(token_id, track_slug, idx)
             if resolved is None:
                 return m.group(0)
             url, default_text = resolved
-            preceding = _p[: m.start()].rstrip()
-            link_text = token_id if (preceding.endswith("Chapter") or preceding.endswith("Chapters")) else default_text
-            return f'<a href="{esc(url)}">{esc(link_text)}</a>'
+            link_text = dedupe_leading_article(_text[: m.start()], default_text)
+            return f'<a class="ref-link" href="{esc(url)}">{esc(link_text)}</a>'
 
         # ref tokens survive esc() unchanged (braces/colons aren't escaped by html.escape
         # with quote=False), so substitute after inline_markdown.
@@ -595,12 +566,16 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
         for label in footnote_order:
             num = footnote_numbers[label]
             def_html = inline_markdown(footnote_defs[label])
-            def_html = TOKEN_RE.sub(
-                lambda m: (lambda r: f'<a href="{esc(r[0])}">{esc(r[1])}</a>' if r else m.group(0))(
-                    resolve_token(m.group(1), track_slug, idx)
-                ),
-                def_html,
-            )
+
+            def _def_ref_sub(m: re.Match, _text=def_html) -> str:
+                resolved = resolve_token(m.group(1), track_slug, idx)
+                if resolved is None:
+                    return m.group(0)
+                url, default_text = resolved
+                link_text = dedupe_leading_article(_text[: m.start()], default_text)
+                return f'<a class="ref-link" href="{esc(url)}">{esc(link_text)}</a>'
+
+            def_html = TOKEN_RE.sub(_def_ref_sub, def_html)
             items.append(
                 f'<li id="fn-{esc(label)}">{def_html} '
                 f'<a href="#fnref-{esc(label)}">↩</a></li>'
