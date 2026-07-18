@@ -149,6 +149,33 @@ a.ref-link:hover { text-decoration: underline; }
 .overview-wrap p { font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 18px; }
 .overview-wrap p:last-child { margin-bottom: 0; }
 
+/* ─── DATA CHART (ACADEMY_PUBLISHING_INSTRUCTIONS.md §8a) ─── */
+.data-chart { max-width: 720px; margin: 40px auto; padding: 0 48px; }
+.dc-headline { font-family: Georgia, 'Times New Roman', serif; font-size: 36px; font-weight: 700; color: var(--navy); letter-spacing: -.5px; }
+.dc-subtitle { font-size: 13px; color: var(--muted); margin-top: 4px; margin-bottom: 20px; }
+.dc-divider { border-top: 1px solid var(--border); margin: 16px 0; }
+.dc-rows { display: flex; flex-direction: column; gap: 16px; }
+.dc-row-top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 2px 12px; margin-bottom: 6px; }
+.dc-row-label { font-size: 14px; color: var(--navy); }
+.dc-row-value { font-size: 14px; font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dc-bar-track { height: 10px; border-radius: 5px; overflow: hidden; }
+.dc-bar-track.teal { background: var(--teal-l); }
+.dc-bar-track.orange { background: var(--orange-l); }
+.dc-bar-fill { height: 100%; border-radius: 5px; }
+.dc-bar-fill.teal { background: var(--teal); }
+.dc-bar-fill.orange { background: var(--orange); }
+.dc-legend { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 4px; }
+.dc-legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+.dc-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.dc-swatch.teal { background: var(--teal); }
+.dc-swatch.orange { background: var(--orange); }
+.dc-caption { font-size: 12px; color: var(--light); margin-top: 18px; line-height: 1.6; }
+
+/* ─── SHARED CONCEPT DIAGRAM (ACADEMY_PUBLISHING_INSTRUCTIONS.md §8b) ─── */
+.concept-diagram { max-width: 720px; margin: 32px auto; padding: 0 48px; }
+.concept-diagram svg { width: 100%; height: auto; display: block; }
+.cd-caption { font-size: 12px; color: var(--light); text-align: center; margin-top: 12px; }
+
 /* ─── ACADEMY LANDING PAGE ─── */
 .academy-pullquote { text-align: center; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 19px; color: var(--navy); max-width: 560px; margin: 28px auto 0; padding: 0 48px; line-height: 1.5; }
 .volume-section { margin-top: 56px; }
@@ -172,6 +199,8 @@ a.ref-link:hover { text-decoration: underline; }
   .academy-search-wrap { padding: 0 20px; }
   .track-search-wrap { padding: 0 20px; }
   .overview-wrap { padding: 24px 20px 8px; }
+  .data-chart { padding: 0 20px; }
+  .concept-diagram { padding: 0 20px; }
 }
 
 </style>
@@ -232,6 +261,35 @@ a.ref-link:hover { text-decoration: underline; }
 <p><strong>Revolving credit-card interest</strong>: $160 billion in 2024.<sup id="fnref-4.1-4"><a href="#fn-4.1-4">4</a></sup> This one requires care, because carrying a balance is legal, mainstream, and sometimes a considered choice — so why count all of it as extraction? Because of the specific sense established in <a class="ref-link" href="4-3-credit-card-interest-mechanics-daily-compounding-grace-periods-trailing-interest.html">Credit Card Interest Mechanics</a>: card interest is <em>avoidable</em> in a way no other major interest is. Pay the statement balance in full and the same card, the same purchases, the same convenience cost exactly zero. "Pays in full" and "carries a balance" aren't two prices for one product; they're two different products, one free and one at 24% — and the $160 billion is the toll collected from everyone on the wrong side of that switch, very often without their having ever understood the switch existed.</p>
 <p><strong>Card late fees</strong>: about $17 billion a year. <strong>Overdraft fees</strong>: about $12 billion.<sup id="fnref-4.1-5"><a href="#fn-4.1-5">5</a></sup> <strong>Account maintenance fees</strong> and their cousins, layered underneath. Each of these is a fee on a timing failure or an attention failure — not on risk, not on service rendered in any proportion to the charge.</p>
 <p>And here is the thing to understand about both layers together: none of this is conspiracy, and getting angry at it misses the point. It's a rational business model whose profits concentrate wherever customers aren't looking — which is precisely why the charges are engineered to be hard to see: fees in fine print, interest compounding quietly, "free" services paid for in ways that never appear on any statement (<a class="ref-link" href="4-10-how-free-apps-monetize-you-referral-engines-data-sale-lead-generation.html">How "Free" Apps Monetize You</a>). The system isn't broken. It's working exactly as designed; the design just isn't for you. The productive response isn't grievance. It's accounting.</p>
+<figure class="data-chart">
+  <div class="dc-headline">~$230B</div>
+  <div class="dc-subtitle">a year, extracted through inattention — not honest interest</div>
+  <div class="dc-divider"></div>
+  <div class="dc-rows">
+    <div class="dc-row">
+      <div class="dc-row-top"><span class="dc-row-label">Revolving credit-card interest</span><span class="dc-row-value">$160B · 70%</span></div>
+      <div class="dc-bar-track teal"><div class="dc-bar-fill teal" style="width:100%"></div></div>
+    </div>
+    <div class="dc-row">
+      <div class="dc-row-top"><span class="dc-row-label">Other predatory lending &amp; fees (remainder, est.)</span><span class="dc-row-value">$41B · 18%</span></div>
+      <div class="dc-bar-track orange"><div class="dc-bar-fill orange" style="width:26%"></div></div>
+    </div>
+    <div class="dc-row">
+      <div class="dc-row-top"><span class="dc-row-label">Card late fees</span><span class="dc-row-value">$17B · 7%</span></div>
+      <div class="dc-bar-track teal"><div class="dc-bar-fill teal" style="width:11%"></div></div>
+    </div>
+    <div class="dc-row">
+      <div class="dc-row-top"><span class="dc-row-label">Overdraft fees</span><span class="dc-row-value">$12B · 5%</span></div>
+      <div class="dc-bar-track teal"><div class="dc-bar-fill teal" style="width:8%"></div></div>
+    </div>
+  </div>
+  <div class="dc-divider"></div>
+  <div class="dc-legend">
+    <div class="dc-legend-item"><span class="dc-swatch teal"></span>avoidable through behavior — pay in full, on time, keep a buffer</div>
+    <div class="dc-legend-item"><span class="dc-swatch orange"></span>predatory/structural — priced beyond any honest cost of risk</div>
+  </div>
+  <figcaption class="dc-caption">Of the roughly $230 billion a year in extraction: $160B is avoidable credit-card interest, an estimated $41B is predatory lending and account fees not separately itemized here, $17B is late fees, and $12B is overdraft fees.</figcaption>
+</figure>
 <h2 id="who-actually-pays-the-stacks-not-the-spread">Who actually pays: the stacks, not the spread</h2>
 <p>Divide $230 billion by America's 130-odd million households and you get a tidy, useless number — under $2,000 each, annoying but survivable. That average is a lie of arithmetic, because <strong>the burden isn't spread; it's stacked</strong> — and the stacks are enormous.</p>
 <p>Roughly <strong>60 million households</strong> — 45% of families — revolve card balances, and they pay the $160 billion of card interest: about $2,700 a year each on average. But even inside that group the load is lopsided: the <em>median</em> revolver pays closer to $600, which means a heavy tail is carrying the weight — roughly the top fifth of revolvers, about <strong>12 million households</strong>, pays most of the $160 billion, plausibly on the order of $10,000 a year each.<sup id="fnref-4.1-6"><a href="#fn-4.1-6">6</a></sup> Ten thousand dollars. Per year. In card interest alone.</p>

@@ -340,6 +340,33 @@ a.ref-link:hover { text-decoration: underline; }
 .overview-wrap p { font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 18px; }
 .overview-wrap p:last-child { margin-bottom: 0; }
 
+/* ─── DATA CHART (ACADEMY_PUBLISHING_INSTRUCTIONS.md §8a) ─── */
+.data-chart { max-width: 720px; margin: 40px auto; padding: 0 48px; }
+.dc-headline { font-family: Georgia, 'Times New Roman', serif; font-size: 36px; font-weight: 700; color: var(--navy); letter-spacing: -.5px; }
+.dc-subtitle { font-size: 13px; color: var(--muted); margin-top: 4px; margin-bottom: 20px; }
+.dc-divider { border-top: 1px solid var(--border); margin: 16px 0; }
+.dc-rows { display: flex; flex-direction: column; gap: 16px; }
+.dc-row-top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 2px 12px; margin-bottom: 6px; }
+.dc-row-label { font-size: 14px; color: var(--navy); }
+.dc-row-value { font-size: 14px; font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dc-bar-track { height: 10px; border-radius: 5px; overflow: hidden; }
+.dc-bar-track.teal { background: var(--teal-l); }
+.dc-bar-track.orange { background: var(--orange-l); }
+.dc-bar-fill { height: 100%; border-radius: 5px; }
+.dc-bar-fill.teal { background: var(--teal); }
+.dc-bar-fill.orange { background: var(--orange); }
+.dc-legend { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 4px; }
+.dc-legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+.dc-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.dc-swatch.teal { background: var(--teal); }
+.dc-swatch.orange { background: var(--orange); }
+.dc-caption { font-size: 12px; color: var(--light); margin-top: 18px; line-height: 1.6; }
+
+/* ─── SHARED CONCEPT DIAGRAM (ACADEMY_PUBLISHING_INSTRUCTIONS.md §8b) ─── */
+.concept-diagram { max-width: 720px; margin: 32px auto; padding: 0 48px; }
+.concept-diagram svg { width: 100%; height: auto; display: block; }
+.cd-caption { font-size: 12px; color: var(--light); text-align: center; margin-top: 12px; }
+
 /* ─── ACADEMY LANDING PAGE ─── */
 .academy-pullquote { text-align: center; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 19px; color: var(--navy); max-width: 560px; margin: 28px auto 0; padding: 0 48px; line-height: 1.5; }
 .volume-section { margin-top: 56px; }
@@ -363,6 +390,8 @@ a.ref-link:hover { text-decoration: underline; }
   .academy-search-wrap { padding: 0 20px; }
   .track-search-wrap { padding: 0 20px; }
   .overview-wrap { padding: 24px 20px 8px; }
+  .data-chart { padding: 0 20px; }
+  .concept-diagram { padding: 0 20px; }
 }
 """
 
@@ -612,6 +641,119 @@ def render_paragraphs(body: str, footnote_numbers: dict[str, int], track_slug: s
     return "\n".join(out)
 
 
+def render_data_chart(headline: str, subtitle: str, rows: list[dict],
+                       legend: list[tuple[str, str]], caption: str) -> str:
+    """Reusable "data chart" component per ACADEMY_PUBLISHING_INSTRUCTIONS.md §8a:
+    a big headline figure, horizontal label/value rows over slim bars (largest
+    bar = 100% of track width), and a <=2-color legend where color encodes
+    meaning (teal = avoidable through behavior, orange = predatory/structural),
+    never sequence. Pure HTML/CSS -- no chart library, no JS. `rows` is a list
+    of {"label", "value", "fraction" (0-1, relative to the largest row),
+    "color": "teal"|"orange"}. `caption` is the accessible text alternative."""
+    row_html = "\n".join(
+        '    <div class="dc-row">\n'
+        f'      <div class="dc-row-top"><span class="dc-row-label">{esc(r["label"])}</span>'
+        f'<span class="dc-row-value">{esc(r["value"])}</span></div>\n'
+        f'      <div class="dc-bar-track {r["color"]}"><div class="dc-bar-fill {r["color"]}" '
+        f'style="width:{r["fraction"] * 100:.0f}%"></div></div>\n'
+        "    </div>"
+        for r in rows
+    )
+    legend_html = "\n".join(
+        f'    <div class="dc-legend-item"><span class="dc-swatch {color}"></span>{esc(text)}</div>'
+        for color, text in legend
+    )
+    return (
+        '<figure class="data-chart">\n'
+        f"  <div class=\"dc-headline\">{esc(headline)}</div>\n"
+        f'  <div class="dc-subtitle">{esc(subtitle)}</div>\n'
+        '  <div class="dc-divider"></div>\n'
+        f'  <div class="dc-rows">\n{row_html}\n  </div>\n'
+        '  <div class="dc-divider"></div>\n'
+        f'  <div class="dc-legend">\n{legend_html}\n  </div>\n'
+        f'  <figcaption class="dc-caption">{esc(caption)}</figcaption>\n'
+        "</figure>"
+    )
+
+
+# Pilot chart -- Chapter 4.1's own verified figures (see that chapter's Sources:
+# [^4.1-1] thru [^4.1-5]). $160B/$17B/$12B are independently sourced; the $41B
+# "remainder" is arithmetic (230 - 160 - 17 - 12), not a separately-cited total --
+# labeled honestly as an estimate per ACADEMY_PUBLISHING_INSTRUCTIONS.md §8a.
+EXTRACTION_CHART_HTML = render_data_chart(
+    headline="~$230B",
+    subtitle="a year, extracted through inattention — not honest interest",
+    rows=[
+        {"label": "Revolving credit-card interest", "value": "$160B · 70%", "fraction": 160 / 160, "color": "teal"},
+        {"label": "Other predatory lending & fees (remainder, est.)", "value": "$41B · 18%", "fraction": 41 / 160, "color": "orange"},
+        {"label": "Card late fees", "value": "$17B · 7%", "fraction": 17 / 160, "color": "teal"},
+        {"label": "Overdraft fees", "value": "$12B · 5%", "fraction": 12 / 160, "color": "teal"},
+    ],
+    legend=[
+        ("teal", "avoidable through behavior — pay in full, on time, keep a buffer"),
+        ("orange", "predatory/structural — priced beyond any honest cost of risk"),
+    ],
+    caption="Of the roughly $230 billion a year in extraction: $160B is avoidable "
+            "credit-card interest, an estimated $41B is predatory lending and account "
+            "fees not separately itemized here, $17B is late fees, and $12B is overdraft fees.",
+)
+
+# Maps a chapter id to (heading to insert after, lowercased; graphic html). The
+# heading match is case-insensitive against the chapter's own "## Heading" text.
+CHAPTER_GRAPHICS: dict[str, tuple[str, str]] = {
+    "4.1": ("the avoidable layer", EXTRACTION_CHART_HTML),
+}
+
+# Pilot diagram -- ACADEMY_PUBLISHING_INSTRUCTIONS.md §8b's "The Flywheel": the
+# 4-stage arc Tracks 6-9 walk through, in a reusable inline SVG (brand palette,
+# flat fills, no gradients). Single color ramp (teal) + navy + gray per the
+# "<=2 color ramps" rule -- sequence is shown by the numbered badges, not color.
+FLYWHEEL_DIAGRAM_HTML = """<figure class="concept-diagram">
+<svg viewBox="0 0 520 400" role="img" aria-label="The Flywheel: four stages in sequence -- Stop the Bleeding, Free Up Cash Flow, Build Wealth, and Earn, Don't Pay -- then back to Stop the Bleeding.">
+  <defs>
+    <marker id="fw-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--teal)"/>
+    </marker>
+  </defs>
+  <path d="M 220 55 Q 260 40 300 55" fill="none" stroke="var(--teal)" stroke-width="3" marker-end="url(#fw-arrow)"/>
+  <path d="M 400 90 Q 415 200 400 310" fill="none" stroke="var(--teal)" stroke-width="3" marker-end="url(#fw-arrow)"/>
+  <path d="M 300 345 Q 260 360 220 345" fill="none" stroke="var(--teal)" stroke-width="3" marker-end="url(#fw-arrow)"/>
+  <path d="M 120 310 Q 105 200 120 90" fill="none" stroke="var(--teal)" stroke-width="3" marker-end="url(#fw-arrow)"/>
+
+  <rect x="20" y="20" width="200" height="70" rx="14" fill="var(--teal-l)"/>
+  <circle cx="34" cy="34" r="14" fill="var(--navy)"/>
+  <text x="34" y="39" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="14" fill="var(--white)">1</text>
+  <text x="120" y="60" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="16" fill="var(--teal-d)">Stop the</text>
+  <text x="120" y="80" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="16" fill="var(--teal-d)">Bleeding</text>
+
+  <rect x="300" y="20" width="200" height="70" rx="14" fill="var(--teal-l)"/>
+  <circle cx="314" cy="34" r="14" fill="var(--navy)"/>
+  <text x="314" y="39" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="14" fill="var(--white)">2</text>
+  <text x="400" y="55" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="15" fill="var(--teal-d)">Free Up</text>
+  <text x="400" y="75" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="15" fill="var(--teal-d)">Cash Flow</text>
+
+  <rect x="300" y="310" width="200" height="70" rx="14" fill="var(--teal-l)"/>
+  <circle cx="314" cy="324" r="14" fill="var(--navy)"/>
+  <text x="314" y="329" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="14" fill="var(--white)">3</text>
+  <text x="400" y="352" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="16" fill="var(--teal-d)">Build Wealth</text>
+
+  <rect x="20" y="310" width="200" height="70" rx="14" fill="var(--teal-l)"/>
+  <circle cx="34" cy="324" r="14" fill="var(--navy)"/>
+  <text x="34" y="329" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="14" fill="var(--white)">4</text>
+  <text x="120" y="345" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="15" fill="var(--teal-d)">Earn,</text>
+  <text x="120" y="365" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="15" fill="var(--teal-d)">Don't Pay</text>
+</svg>
+<figcaption class="cd-caption">Four stages, in order — stop the bleeding, free up cash flow, build wealth, earn instead of pay — then the cycle repeats.</figcaption>
+</figure>"""
+
+# Maps a track_slug to a diagram shown on that track's own index page. Pilot:
+# the Flywheel appears on Track 6 (Stop the Bleeding), the arc's entry point;
+# Tracks 7-9 would get the same diagram once this scales past the pilot.
+TRACK_GRAPHICS: dict[str, str] = {
+    "track6-stop-the-bleeding": FLYWHEEL_DIAGRAM_HTML,
+}
+
+
 def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[dict],
                          track_info, track_title: str, track_slug: str, idx) -> tuple[str, dict]:
     sections, takeaway, footnote_defs = split_sections(chapter["raw"])
@@ -629,6 +771,10 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
         section_html = render_paragraphs(body, footnote_numbers, track_slug, idx)
         body_html_parts.append(section_html)
         search_text_parts.append(strip_tags(section_html))
+
+        graphic = CHAPTER_GRAPHICS.get(chapter["id"])
+        if graphic and graphic[0] == heading.strip().lower():
+            body_html_parts.append(graphic[1])
 
     chapter_body_html = "\n".join(body_html_parts)
 
@@ -786,6 +932,8 @@ def render_index_page(track_info, track_title: str, chapters: list[dict], search
 </div>
 
 {overview_html(TRACK_OVERVIEWS[track_info.track_slug])}
+
+{TRACK_GRAPHICS.get(track_info.track_slug, "")}
 
 <div class="track-wrap">
   <div class="chapter-grid">
