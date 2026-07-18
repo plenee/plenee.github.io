@@ -1498,7 +1498,10 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
     <input id="p0-input" placeholder="Type a question…" />
     <button id="p0-send">➤</button>
   </div>
-  <div id="p0-foot">Educational information only. <a href="#disclaimer-strip" style="color:inherit; text-decoration:underline;">See full disclosures ↓</a></div>
+  <div id="p0-foot">
+    <a id="p0-signup-link" href="#" style="color:var(--teal-d); font-weight:600; text-decoration:none;">Create free account</a>
+    &nbsp;·&nbsp; Educational information only. <a href="#disclaimer-strip" style="color:inherit; text-decoration:underline;">See full disclosures ↓</a>
+  </div>
 </div>
 
 <script>
@@ -1524,18 +1527,39 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
   }
   let sessionId = getSessionId();
 
-  // Debug reset button — local dev only, never rendered on the real domain. Must reassign the
-  // in-memory `sessionId` (not just clear localStorage) since it was captured once at load —
-  // otherwise every subsequent call keeps using the stale session behind the scenes.
+  // Signup CTA — carries the P0 session_id to the app's register page so the backend can merge
+  // this visitor's saved profile into the new account (backend/app/routers/auth.py). TODO: swap
+  // to https://app.plenee.com/register once this ships to production (local dev target for now,
+  // matching P0_API's own TODO above).
+  const APP_REGISTER_URL = 'http://localhost:5173/register';
+  function updateSignupLink(){
+    document.getElementById('p0-signup-link').href =
+      `${APP_REGISTER_URL}?p0_session=${encodeURIComponent(sessionId)}`;
+  }
+  updateSignupLink();
+
+  // Shared by the debug reset button and the ZIP/income "Apply" control below — both need to
+  // start a genuinely fresh session, not just clear the visible bubbles. Reassigning the
+  // in-memory `sessionId` (not just clearing localStorage) matters because it was captured once
+  // at load; without it, subsequent calls keep using the stale session behind the scenes. A new
+  // session_id is required (not just wiping msgs/chips) because history replay in openPanel()
+  // would otherwise pull the old session's messages right back — which were generated under the
+  // *previous* test context and would read oddly once income/ZIP context changes.
+  function resetConversation(){
+    localStorage.removeItem('plenee_p0_session');
+    sessionId = getSessionId();
+    updateSignupLink();
+    msgs.innerHTML = ''; chips.innerHTML = '';
+    currentTierChips = START_CHIPS_DEFAULT;
+    askedTexts = new Set();
+    loaded = false;
+    openPanel();
+  }
+
+  // Debug reset button — local dev only, never rendered on the real domain.
   const debugBtn = document.getElementById('p0-debug');
   if (isLocalDev) {
-    debugBtn.addEventListener('click', () => {
-      localStorage.removeItem('plenee_p0_session');
-      sessionId = getSessionId();
-      msgs.innerHTML = ''; chips.innerHTML = '';
-      loaded = false;
-      openPanel();
-    });
+    debugBtn.addEventListener('click', resetConversation);
   } else {
     debugBtn.remove();
   }
@@ -1553,12 +1577,16 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
     document.getElementById('p0-zip-go').addEventListener('click', () => {
       const z = zipInput.value.trim();
       if (z && !/^\d{5}$/.test(z)) { zipResult.textContent = 'Enter a 5-digit ZIP, or leave it blank.'; return; }
+      const changed = z !== (testZip || '') || incomeInput.value !== (testIncomeRange || '');
       testZip = z || null;
       testIncomeRange = incomeInput.value || null;
       const parts = [testZip && `ZIP ${testZip}`, testIncomeRange].filter(Boolean);
       zipResult.textContent = parts.length
-        ? `Sending ${parts.join(', ')} as test context with new messages.`
-        : 'Cleared — no test context will be sent.';
+        ? `Sending ${parts.join(', ')} as test context with a fresh conversation.`
+        : 'Cleared — no test context will be sent. Starting a fresh conversation.';
+      // Any actual change starts a new session — an ongoing conversation was built around the
+      // old ZIP/income context, and mixing contexts mid-thread would read inconsistently.
+      if (changed) resetConversation();
     });
   } else {
     devControls.remove();
@@ -1587,6 +1615,19 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
   function setInputEnabled(enabled){ input.disabled = !enabled; send.disabled = !enabled; }
 
   let loaded = false;
+
+  // Once a real conversation is underway, suggest_replies from the model is topic-specific by
+  // design (a natural next question about whatever's just being discussed) — but a visitor deep
+  // in one thread (e.g. subscriptions) can lose sight of the broader personalized topics they
+  // haven't brought up. currentTierChips holds this visitor's persona-tier set (same pool used
+  // for the first-open starter chips); every real turn appends up to 2 of these alongside the
+  // contextual ones so that personalized navigation stays available throughout the conversation,
+  // not just at the very start. Deliberately NOT excluded just because they were shown as starter
+  // chips earlier — a visitor who didn't tap one then may still want it later. Only excluded if
+  // it exactly duplicates this turn's contextual options, or something they've literally already
+  // asked (askedTexts).
+  let currentTierChips = [];
+  let askedTexts = new Set();
 
   // Starter chips shown once, right after the first-time opener — tailored by inferred
   // wealth-tier via GET /public/p0/persona (backend/app/services/geo_income.py), mirroring
@@ -1676,15 +1717,24 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
     const opener = OPENERS[Math.floor(Math.random() * OPENERS.length)];
     addMsg('p0-bot', opener);
     const chipsPromise = getStartChips();  // kicked off now, applied after the delay below
-    setTimeout(async () => setChips(await chipsPromise), 2000);
+    setTimeout(async () => {
+      const list = await chipsPromise;
+      currentTierChips = list;
+      setChips(list);
+    }, 2000);
   }
   launch.onclick = openPanel;
   document.getElementById('p0-close').onclick = () => {
     panel.classList.remove('open'); launch.style.display = 'flex';
   };
 
+  // Streamed as SSE frames (p0_chat.py's /chat) — fixes felt latency (2026-07-18): total
+  // generation still takes a few seconds, but text now appears within ~1-2s instead of the
+  // widget sitting on the typing indicator for the whole reply.
   async function sendMessage(text){
+    askedTexts.add(text);
     addMsg('p0-user', text); setChips([]); setInputEnabled(false); showTyping();
+    let botBubble = null, rawText = '';
     try {
       const res = await fetch(`${P0_API}/chat`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -1694,16 +1744,56 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
           ...(testIncomeRange ? { income_range: testIncomeRange } : {}),
         }),
       });
-      hideTyping();
       if (res.status === 429) {
+        hideTyping();
         addError("That's a lot of questions at once — give it a little while and try again.");
-      } else if (!res.ok) {
+      } else if (!res.ok || !res.body) {
+        hideTyping();
         addError("Something went wrong on my end — mind trying again in a moment?");
       } else {
-        const data = await res.json();
-        addMsg('p0-bot', data.reply);
-        const suggested = (data.actions || []).find(a => a.type === 'suggest_replies');
-        if (suggested) setChips(suggested.input.options);
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+        let readerDone = false;
+        while (!readerDone) {
+          const chunk = await reader.read();
+          readerDone = chunk.done;
+          if (chunk.value) buffer += decoder.decode(chunk.value, { stream: true });
+          let idx;
+          while ((idx = buffer.indexOf('\n\n')) !== -1) {
+            const frame = buffer.slice(0, idx);
+            buffer = buffer.slice(idx + 2);
+            if (!frame.startsWith('data: ')) continue;
+            const event = JSON.parse(frame.slice(6));
+            if (event.type === 'text') {
+              if (!botBubble) {
+                hideTyping();
+                botBubble = document.createElement('div');
+                botBubble.className = 'p0-m p0-bot';
+                msgs.appendChild(botBubble);
+              }
+              rawText += event.delta;
+              botBubble.innerHTML = rawText.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+              scroll();
+            } else if (event.type === 'done') {
+              const suggested = (event.actions || []).find(a => a.type === 'suggest_replies');
+              const contextual = suggested ? suggested.input.options : [];
+              // Always show something tappable, even on a turn where the model asked its own
+              // open-ended follow-up instead of calling suggest_replies (a valid choice per its
+              // prompt rules) — lean harder on the general/tier pool when there's no contextual
+              // set to top up. Only skip a chip that exactly duplicates a contextual option this
+              // turn, or something the visitor has already literally said — not ones shown earlier.
+              const general = currentTierChips
+                .filter(c => !contextual.includes(c) && !askedTexts.has(c))
+                .slice(0, contextual.length ? 2 : 4);
+              setChips(contextual.concat(general));
+            } else if (event.type === 'error') {
+              hideTyping();
+              addError(event.message);
+            }
+          }
+        }
+        if (!botBubble) hideTyping();
       }
     } catch (e) {
       hideTyping();
