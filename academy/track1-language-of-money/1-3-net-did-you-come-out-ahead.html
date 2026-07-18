@@ -82,14 +82,15 @@ footer p { color: #2E4A60; font-size: 13px; }
 .jump-list a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
 .jump-list a:hover { color: var(--teal); }
 
-.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 18px; }
+.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 6px; }
+.subhead-accent { width: 36px; height: 2px; border-radius: 2px; background: var(--teal); margin-bottom: 20px; }
 .chapter-body p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 20px; }
 .chapter-body p strong { color: var(--text); font-weight: 700; }
 .chapter-body p em { color: var(--text); font-style: italic; }
 .chapter-body sup { font-size: 11px; margin-left: 1px; }
 .chapter-body sup a { color: var(--teal-d); text-decoration: none; font-weight: 700; }
 .chapter-body sup a:hover { text-decoration: underline; }
-a.ref-link { color: inherit; font-weight: 700; text-decoration: none; }
+a.ref-link { color: var(--teal-d); font-weight: 400; text-decoration: none; }
 a.ref-link:hover { text-decoration: underline; }
 
 .takeaway { background: var(--teal-l); border-left: 4px solid var(--teal); border-radius: 0 14px 14px 0; padding: 26px 30px; margin: 44px 0 8px; }
@@ -248,16 +249,20 @@ a.ref-link:hover { text-decoration: underline; }
 
   <div class="chapter-body">
 <h2 id="the-second-word">The second word</h2>
+<div class="subhead-accent"></div>
 <p>FLOW watches money move. The second question is what the movement <em>amounted to</em>: over this window, did you come out ahead or behind? Accounting calls the answer "net income," via an "income statement" — terms so thoroughly professionalized that most households have never computed their own version of the number, despite it being arguably the single most consequential figure in their financial month.</p>
 <p>Plenee's word is <strong>NET</strong>: the period result — income versus expenses, resolved into one number. NET is FLOW's bottom line: after the motion stops for the month, what did it net out to?</p>
 <h2 id="the-three-states-of-net">The three states of NET</h2>
+<div class="subhead-accent"></div>
 <p><strong>Net Plus</strong> — income exceeded expenses for the period. You came out ahead; the surplus is real and went somewhere (reserves, debt paydown, investment — <a class="ref-link" href="1-5-loanflow-and-saveflow-money-that-changes-your-position-vs-money-you-spend.html">loanFLOW and saveFLOW</a>'s vocabulary tracks where). Net Plus is another name for net savings — the gap Volume 2's <a class="ref-link" href="../volume2-track1-your-built-in-wiring/1-3-expectations-vs-circumstances-the-happiness-equation.html">Expectations vs. Circumstances</a> calls the place wealth actually forms.</p>
 <p><strong>Net Minus</strong> — expenses exceeded income. Behind for the period — and, exactly like Negative Flow, this is a <em>description, not a shame word</em>. The spec-level point worth stating in the term's own definition: Net Minus is the normal, <em>expected</em> state in retirement — drawing down savings after decades of building them is the plan working, not the plan failing (<a class="ref-link" href="../track12-retirement-decumulation/12-1-net-minus-is-normal-retirement-means-spending-down-thats-the-plan-working.html">Net Minus Is Normal</a> is built on this single vocabulary choice). A word for "behind this period" that doesn't automatically mean "failing" is precisely what the old vocabulary lacked.</p>
 <p><strong>Net Zero</strong> — income exactly equaled expenses: break-even, the boundary case.</p>
 <h2 id="net-is-not-flow-and-the-difference-is-the-education">NET is not FLOW — and the difference is the education</h2>
+<div class="subhead-accent"></div>
 <p>The two words look similar enough that the distinction between them is, honestly, the hardest and most valuable idea in this track. FLOW counts <em>money movement</em>; NET counts <em>income versus expenses</em> — and movements aren't all income or expenses. <a class="ref-link" href="../track2-visibility/2-3-reading-your-own-transactions-categories-transfers-vs-spending-splits.html">Reading Your Own Transactions</a>'s mortgage example is the canonical case: the $2,000 payment is outFLOW in full (money moved out), but only the interest and escrow are <em>expenses</em> — the principal portion isn't an expense at all, so NET treats it differently than FLOW does. A household can run tight FLOW (lots of movement, thin margins, timing pressure) while being solidly Net Plus (much of that outFLOW was building equity, not consuming) — or the reverse: comfortable FLOW while quietly Net Minus, coasting on reserves.</p>
 <p>That's why Plenee maintains <strong>two budget instruments, not one</strong>: the FLOW Budget (<a class="ref-link" href="../track7-free-up-cash-flow/7-1-building-your-flow-budget-core-flow-vs-extra-flow.html">Building Your FLOW Budget</a>) manages whether the cash will be there — liquidity, timing, obligations on a calendar — while the NET Budget (<a class="ref-link" href="../track7-free-up-cash-flow/7-2-the-net-budget-category-targets-that-follow-your-real-history.html">The NET Budget</a>) manages whether the period comes out ahead — categories, targets, income versus expenses. They answer different questions and fail differently; the generic "budget" that conflates them inherits both failure modes, which is much of why generic budgets fail. Two words, two instruments, two questions — the vocabulary <em>is</em> the design.</p>
 <h2 id="where-plenee-fits">Where Plenee fits</h2>
+<div class="subhead-accent"></div>
 <p>Plenee computes NET per period from typed transactions (income and expenses only — transfers and principal excluded by the type system, <a class="ref-link" href="../track2-visibility/2-3-reading-your-own-transactions-categories-transfers-vs-spending-splits.html">Reading Your Own Transactions</a>), displays the state plainly — Net Plus, Net Minus, Net Zero — and runs the NET Budget on category targets built from your own history. The number most households have never computed becomes the number they see every month, named in words that don't require an accountant to parse.</p>
   </div>
 

@@ -82,14 +82,15 @@ footer p { color: #2E4A60; font-size: 13px; }
 .jump-list a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
 .jump-list a:hover { color: var(--teal); }
 
-.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 18px; }
+.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 6px; }
+.subhead-accent { width: 36px; height: 2px; border-radius: 2px; background: var(--teal); margin-bottom: 20px; }
 .chapter-body p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 20px; }
 .chapter-body p strong { color: var(--text); font-weight: 700; }
 .chapter-body p em { color: var(--text); font-style: italic; }
 .chapter-body sup { font-size: 11px; margin-left: 1px; }
 .chapter-body sup a { color: var(--teal-d); text-decoration: none; font-weight: 700; }
 .chapter-body sup a:hover { text-decoration: underline; }
-a.ref-link { color: inherit; font-weight: 700; text-decoration: none; }
+a.ref-link { color: var(--teal-d); font-weight: 400; text-decoration: none; }
 a.ref-link:hover { text-decoration: underline; }
 
 .takeaway { background: var(--teal-l); border-left: 4px solid var(--teal); border-radius: 0 14px 14px 0; padding: 26px 30px; margin: 44px 0 8px; }
@@ -248,11 +249,14 @@ a.ref-link:hover { text-decoration: underline; }
 
   <div class="chapter-body">
 <h2 id="containers-not-contents">Containers, not contents</h2>
+<div class="subhead-accent"></div>
 <p>Nothing confuses new investors more reliably than the alphabet of account types — 401k, IRA, Roth, HSA, taxable brokerage — and nothing is more clarifying than the one sentence that organizes it: <strong>these are containers, not contents.</strong> An IRA is not an investment; it's a <em>wrapper</em> with tax rules, into which investments go. This chapter is about the wrappers — what each does, and the commonly-taught order for filling them — and deliberately not about the contents: which investments anyone should hold is a decision for you or a registered adviser, not this lesson.</p>
 <h2 id="the-wrappers-plainly">The wrappers, plainly</h2>
+<div class="subhead-accent"></div>
 <p><strong>The workplace plan (401k/403b)</strong>: contributions typically pre-tax (lowering this year's taxable income), growth untaxed along the way, withdrawals taxed in retirement — with the decisive feature being the employer match where one exists (<a class="ref-link" href="8-4-the-401k-match-the-only-guaranteed-50-100-return-youll-ever-get.html">The 401k Match</a>). <strong>The traditional IRA</strong>: similar tax deal, individually opened, income-dependent deductibility. <strong>The Roth (IRA or 401k)</strong>: the mirror image — contributions from after-tax money, but growth and qualified withdrawals <em>untaxed forever</em>; the trade is paying tax at today's rate to never pay it again. <strong>The HSA</strong>: available with high-deductible health plans, and the tax code's strange masterpiece — deductible going in, untaxed growing, untaxed coming out for medical costs: the only triple-advantaged wrapper there is. <strong>The taxable brokerage</strong>: no special treatment, but no rules either — no contribution limits, no withdrawal ages; maximum flexibility at full tax.</p>
 <p>The differences compound: the same contents, held the same years, can end at meaningfully different after-tax values depending on the wrapper — which is why <a class="ref-link" href="8-8-tax-adjusted-net-worth-why-your-401k-isnt-all-yours.html">Tax-Adjusted Net Worth</a> will insist your NEST be read tax-adjusted, and why wrapper choice is among the few genuinely free lunches in finance.</p>
 <h2 id="the-commonly-taught-order">The commonly-taught order</h2>
+<div class="subhead-accent"></div>
 <p>A widely taught, non-personalized sequencing framework — presented here as the standard education, with the reminder that individual circumstances (income, plan quality, tax situation) move the answer, which is what advisers are for:</p>
 <p>1. <strong>Workplace plan up to the full employer match</strong> — the match's guaranteed return outranks everything (<a class="ref-link" href="8-4-the-401k-match-the-only-guaranteed-50-100-return-youll-ever-get.html">The 401k Match</a>).
 2. <strong>High-interest debt and the buffer</strong> — interrupting the investing order, because a 24% balance outearns any wrapper (<a class="ref-link" href="../track6-stop-the-bleeding/index.html">Stop the Bleeding</a>'s arithmetic).
@@ -262,6 +266,7 @@ a.ref-link:hover { text-decoration: underline; }
 6. <strong>Taxable brokerage</strong> — once the advantaged space is used.</p>
 <p>The logic underneath, which matters more than memorizing the list: fill the spaces with the biggest tax advantages first, never leave a match uncaptured, and let expensive debt interrupt the sequence — because the order is really just rate-comparison wearing account names.</p>
 <h2 id="where-plenee-fits">Where Plenee fits</h2>
+<div class="subhead-accent"></div>
 <p>Plenee's job is the visibility layer: every wrapper on the map (<a class="ref-link" href="../track2-visibility/2-2-mapping-every-account-checking-savings-cards-loans-brokerage-retirement.html">Mapping Every Account</a> — including the forgotten 401k problem), contributions tracked as saveFLOW, fees surfaced per account (<a class="ref-link" href="../track4-extraction-economy/4-9-hidden-and-layered-fees-fund-expense-ratios-401k-plan-fees-closing-costs.html">Hidden and Layered Fees</a>), and the tax-adjusted NEST view (<a class="ref-link" href="8-8-tax-adjusted-net-worth-why-your-401k-isnt-all-yours.html">Tax-Adjusted Net Worth</a>) that keeps the wrappers' different after-tax realities honest. What goes <em>inside</em> the wrappers stays your decision, or yours-with-an-adviser — Plenee shows the containers and their costs, never picks the contents.</p>
   </div>
 

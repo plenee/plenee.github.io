@@ -82,14 +82,15 @@ footer p { color: #2E4A60; font-size: 13px; }
 .jump-list a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
 .jump-list a:hover { color: var(--teal); }
 
-.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 18px; }
+.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 6px; }
+.subhead-accent { width: 36px; height: 2px; border-radius: 2px; background: var(--teal); margin-bottom: 20px; }
 .chapter-body p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 20px; }
 .chapter-body p strong { color: var(--text); font-weight: 700; }
 .chapter-body p em { color: var(--text); font-style: italic; }
 .chapter-body sup { font-size: 11px; margin-left: 1px; }
 .chapter-body sup a { color: var(--teal-d); text-decoration: none; font-weight: 700; }
 .chapter-body sup a:hover { text-decoration: underline; }
-a.ref-link { color: inherit; font-weight: 700; text-decoration: none; }
+a.ref-link { color: var(--teal-d); font-weight: 400; text-decoration: none; }
 a.ref-link:hover { text-decoration: underline; }
 
 .takeaway { background: var(--teal-l); border-left: 4px solid var(--teal); border-radius: 0 14px 14px 0; padding: 26px 30px; margin: 44px 0 8px; }
@@ -249,9 +250,11 @@ a.ref-link:hover { text-decoration: underline; }
 
   <div class="chapter-body">
 <h2 id="what-the-score-doesnt-know">What the score doesn't know</h2>
+<div class="subhead-accent"></div>
 <p>Your credit score doesn't know your salary. It doesn't know your savings, your degree, your job title, or your net worth. A millionaire can score 620 and a schoolteacher 810 — and the system is working as designed when they do, because the score measures exactly one thing: <strong>how you handle borrowed money.</strong> Not how much money you have. Not how virtuous you are. One narrow question, answered from one narrow file (<a class="ref-link" href="../track2-visibility/2-4-your-credit-report-and-score-whats-actually-in-it-vantagescore-vs-fico.html">Your Credit Report and Score</a>'s biography), by a published formula.</p>
 <p>That narrowness is the most useful fact in this entire track, because a narrow formula is a <em>steerable</em> formula. This chapter lays out the recipe and the two readings of it that matter more than the percentages.</p>
 <h2 id="the-recipe">The recipe</h2>
+<div class="subhead-accent"></div>
 <p>FICO publishes the approximate weights, and they've been stable for years:<sup id="fnref-3.1-1"><a href="#fn-3.1-1">1</a></sup></p>
 <p><strong>Payment history — about 35%.</strong> Did you pay on time, every time? The heaviest factor by design: past repayment predicts future repayment better than anything else in the file. It's also the most asymmetric — years of on-time payments build slowly, while a single 30-day-late mark can outweigh much of that record at a stroke.</p>
 <p><strong>Amounts owed — about 30%.</strong> Dominated by utilization: your balances against your limits, per card and overall (<a class="ref-link" href="../track6-stop-the-bleeding/6-7-credit-utilization-mechanics-the-no-memory-rule-statement-timing-limit-management.html">Credit Utilization Mechanics</a> and <a class="ref-link" href="3-2-utilization-deep-dive-per-card-vs-overall-statement-timing-the-no-memory-rule.html">Utilization Deep-Dive</a> give the full mechanics). Not how much you owe in dollars — how much you owe <em>relative to what you could</em>.</p>
@@ -259,12 +262,15 @@ a.ref-link:hover { text-decoration: underline; }
 <p><strong>New credit — about 10%.</strong> Recent applications and freshly opened accounts. A flurry of new credit reads as appetite — a mild, temporary flag (<a class="ref-link" href="3-4-hard-vs-soft-pulls-rate-shopping-windows.html">Hard vs. Soft Pulls; Rate-Shopping Windows</a> covers the mechanics and the myths).</p>
 <p><strong>Credit mix — about 10%.</strong> Evidence you can handle both revolving credit (cards) and installment loans (car, mortgage, student). The lightest factor, and the one least worth engineering deliberately — it mostly takes care of itself as life happens.</p>
 <h2 id="the-two-readings-that-matter">The two readings that matter</h2>
+<div class="subhead-accent"></div>
 <p><strong>Reading one: two behaviors are two-thirds of the score.</strong> Payment history (35%) plus amounts owed (30%) — paying on time and keeping balances low against limits — total 65%, and both are <em>behaviors, not circumstances</em>. You cannot quickly change your account ages or the applications already made; you can pay this month's bills on time and this month's balances down. The score is far more steerable, on far shorter timescales, than most people believe — a genuinely unusual property for a number this consequential.</p>
 <p><strong>Reading two: what's absent is as instructive as what's present.</strong> Income, assets, employer, education — none of it counts. Two consequences, both liberating in different directions: no raise or windfall will ever directly buy score points (only borrowing behavior moves the number), and no one is scored for being poor — only for how borrowing went. The score isn't a wealth grade or a character grade; it's a narrow prediction of repayment behavior. Treat it as exactly that, and the folklore (<a class="ref-link" href="3-6-credit-myths-carrying-a-balance-does-not-help-your-score.html">Credit Myths</a> dismantles it) loses its grip.</p>
 <h2 id="the-weights-translated-to-consequences">The weights, translated to consequences</h2>
+<div class="subhead-accent"></div>
 <p>The practical translation: one missed payment — 35% territory — can cost roughly 60–100+ points from a good (700+) score, sometimes more, sometimes less depending on the starting point; the higher the score, the harder the fall.<sup id="fnref-3.1-2"><a href="#fn-3.1-2">2</a></sup> Meanwhile the difference between 20% and 90% utilization — 30% territory — commonly spans dozens of points, and unlike the late payment, reverses immediately when the balances do (the no-memory rule, <a class="ref-link" href="../track6-stop-the-bleeding/6-7-credit-utilization-mechanics-the-no-memory-rule-statement-timing-limit-management.html">Credit Utilization Mechanics</a> and <a class="ref-link" href="3-2-utilization-deep-dive-per-card-vs-overall-statement-timing-the-no-memory-rule.html">Utilization Deep-Dive</a>). The two behaviors within your monthly control govern the majority of your number — which means most of "credit repair" is just these two behaviors, done consistently, with the file watched for errors (<a class="ref-link" href="../track2-visibility/2-4-your-credit-report-and-score-whats-actually-in-it-vantagescore-vs-fico.html">Your Credit Report and Score</a>'s one-in-five error rate).</p>
 <p>Income context, per the curriculum's rule: the score's <em>financial</em> consequences scale with borrowing — the half-point of mortgage rate it moves (<a class="ref-link" href="3-7-preparing-your-credit-for-a-mortgage-the-12-month-runway.html">Preparing Your Credit for a Mortgage</a>) is worth tens of thousands to a homebuyer and nothing to someone who'll never borrow. But for thin-margin households the score is also the gatekeeper to <em>escaping</em> the extraction economy's worst tier — the difference between 36%-adjacent credit and mainstream credit (<a class="ref-link" href="../track4-extraction-economy/index.html">The Extraction Economy</a>'s predatory line) — which makes the two steerable behaviors disproportionately valuable exactly where money is tightest.</p>
 <h2 id="where-plenee-fits">Where Plenee fits</h2>
+<div class="subhead-accent"></div>
 <p>Plenee doesn't show a score — deliberately. It tracks the two heavyweight <em>inputs</em> you actually steer: payment timing (via due dates, projected cash, and autopay-in-full — <a class="ref-link" href="../track6-stop-the-bleeding/6-1-late-fee-elimination-autopay-in-full-done-right.html">Late Fee Elimination</a>'s architecture) and every card's balance against its limit, per card, with statement cycles attached (<a class="ref-link" href="3-2-utilization-deep-dive-per-card-vs-overall-statement-timing-the-no-memory-rule.html">Utilization Deep-Dive</a>'s dials). The score follows the behaviors; the behaviors are what a tool can genuinely help you run. Watch the inputs and the output takes care of itself.</p>
   </div>
 

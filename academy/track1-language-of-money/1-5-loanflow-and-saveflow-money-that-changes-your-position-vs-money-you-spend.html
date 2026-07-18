@@ -82,14 +82,15 @@ footer p { color: #2E4A60; font-size: 13px; }
 .jump-list a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
 .jump-list a:hover { color: var(--teal); }
 
-.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 18px; }
+.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 6px; }
+.subhead-accent { width: 36px; height: 2px; border-radius: 2px; background: var(--teal); margin-bottom: 20px; }
 .chapter-body p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 20px; }
 .chapter-body p strong { color: var(--text); font-weight: 700; }
 .chapter-body p em { color: var(--text); font-style: italic; }
 .chapter-body sup { font-size: 11px; margin-left: 1px; }
 .chapter-body sup a { color: var(--teal-d); text-decoration: none; font-weight: 700; }
 .chapter-body sup a:hover { text-decoration: underline; }
-a.ref-link { color: inherit; font-weight: 700; text-decoration: none; }
+a.ref-link { color: var(--teal-d); font-weight: 400; text-decoration: none; }
 a.ref-link:hover { text-decoration: underline; }
 
 .takeaway { background: var(--teal-l); border-left: 4px solid var(--teal); border-radius: 0 14px 14px 0; padding: 26px 30px; margin: 44px 0 8px; }
@@ -250,21 +251,27 @@ a.ref-link:hover { text-decoration: underline; }
 
   <div class="chapter-body">
 <h2 id="the-refinement-the-totals-needed">The refinement the totals needed</h2>
+<div class="subhead-accent"></div>
 <p>The basic FLOW vocabulary (<a class="ref-link" href="1-2-flow-watching-your-money-move.html">FLOW</a>) treats all outFLOW alike — but two kinds of money movement are fundamentally different from spending, and mixing them into the general totals muddies every number downstream. Paying down a loan isn't spending — it changes what you <em>owe</em>. Moving money into savings or investments isn't spending — it changes what you <em>hold</em>. Both are position changes wearing outflow's clothes, and they deserve their own words.</p>
 <p><strong>loanFLOW</strong> and <strong>saveFLOW</strong> are those words: two signed, bidirectional metrics tracking money moving to and from debt and savings/investment positions — identified by the <em>counterparty account's type</em>, not by anyone's subjective judgment about the transaction. And one design rule makes the whole system clean: these flows are <strong>carved out of the generic inFLOW/outFLOW totals entirely</strong> — a loan- or savings-related dollar lives in loanFLOW or saveFLOW <em>only</em>, never double-counted in the generic figures. From this chapter forward, inFLOW and outFLOW mean "everything <em>except</em> loan and savings activity" — which is what makes all five numbers simultaneously meaningful.</p>
 <h2 id="loanflow-the-debt-dial">loanFLOW: the debt dial</h2>
+<div class="subhead-accent"></div>
 <p>loanFLOW's sign tracks your debt <em>position</em>, not the direction cash physically moved. <strong>Positive loanFLOW = borrowing</strong> — debt increasing: new loan proceeds arriving, a HELOC draw, new credit extended. <strong>Negative loanFLOW = paying back</strong> — debt decreasing: payments toward what you owe.</p>
 <p>One deliberate subtlety: a debt payment counts as negative loanFLOW whether the lender is <em>tracked</em> in Plenee (a linked loan account — where the payment is technically a transfer between your own tracked accounts) or <em>untracked</em> (an outside lender — where it's technically an expense-typed "debt payoff" transaction). Same real obligation either way; whether the lender happens to be on your map shouldn't change whether the payment counts. The vocabulary follows the economics, not the plumbing.</p>
 <h2 id="saveflow-the-building-dial">saveFLOW: the building dial</h2>
+<div class="subhead-accent"></div>
 <p>saveFLOW is loanFLOW's mirror — signed by whether your savings/investment <em>position</em> is improving, not by cash direction. <strong>Positive saveFLOW = contributing</strong>: money moving to savings, brokerage, retirement accounts — the position growing. <strong>Negative saveFLOW = drawing</strong>: money coming back out — the position shrinking.</p>
 <p>The mirror-image structure is the point: both dials answer "is my position in this category improving?" — so positive is always the building direction, even though the <em>cash</em> moves opposite ways (paying debt sends cash out; it's still the improving direction). One honest limitation, flagged in the spec and worth knowing: <strong>payroll-deducted retirement contributions are usually invisible</strong> to account linking — the data shows the paycheck <em>after</em> the 401k deduction — so saveFLOW captures the external, after-tax contributions you make as your own transactions, not the full picture of what's actually being saved. The dial understates builders with payroll deductions; the number is a floor, not a ceiling.</p>
 <h2 id="the-other-deliberate-exception">The other deliberate exception</h2>
+<div class="subhead-accent"></div>
 <p>The "carved out entirely, never double-counted" rule above has exactly one asterisk of its own — the mirror image of the coreFLOW/loanFLOW overlap <a class="ref-link" href="1-6-coreflow-vs-lifeflow-obligations-vs-choices.html">coreFLOW vs. lifeFLOW</a> explains in detail. Interest or dividends credited <em>directly inside</em> a savings or brokerage account and automatically reinvested — a HYSA's interest posting, a bond coupon, a reinvested dividend, with no cash ever touching checking — count as <strong>both inFLOW and saveFLOW-positive, on the same dollar.</strong> It isn't sloppy double-counting; it's the same dollar honestly answering two different questions. inFLOW captures that it's real income (omitting it would understate NET); saveFLOW-positive captures that the position grew through a contribution-shaped event, not organic market appreciation sitting untouched.</p>
 <p>Contrast this with an <em>ordinary</em> contribution — moving already-earned salary from checking into a brokerage account. That's saveFLOW-positive <em>only</em>, because the dollar was already counted as inFLOW once, back when it arrived as salary; tagging it inFLOW again would be the real double-count this whole vocabulary exists to prevent. The distinguishing question is simple: was this cash already counted as inFLOW through a separate, earlier transaction? If yes, saveFLOW alone. If no — income and its saving are one atomic event that never passes through checking — both tags apply.</p>
 <p>One honest gap, worth knowing rather than papering over: reinvested interest and dividends don't always arrive as a distinct, taggable transaction. Some custodians post a discrete "dividend reinvestment" line Plenee can see; others only report period-end holdings or NAV changes with no transaction generated at all — in which case this income is invisible to Plenee entirely, understating both inFLOW and saveFLOW silently. The same shape of gap as the payroll-deduction blind spot above, just living in a different account type.</p>
 <h2 id="what-the-two-dials-reveal">What the two dials reveal</h2>
+<div class="subhead-accent"></div>
 <p>With loanFLOW and saveFLOW separated out, a month's money story becomes properly legible for the first time. Ordinary outFLOW tells you what living cost. loanFLOW tells you which direction the debt moved, and how hard. saveFLOW tells you what got built. Two households with identical generic outFLOW can be in opposite financial lives — one with strong negative loanFLOW and positive saveFLOW (paying down, building up), one with positive loanFLOW and negative saveFLOW (borrowing to draw down) — and the basic vocabulary literally could not tell them apart. The refined vocabulary makes the difference two numbers you can watch move.</p>
 <h2 id="where-plenee-fits">Where Plenee fits</h2>
+<div class="subhead-accent"></div>
 <p>Plenee computes both dials from transaction typing and counterparty account types — automatically, since the identification rule is mechanical, not judgmental. The FLOW Budget's fuller architecture (<a class="ref-link" href="../track7-free-up-cash-flow/7-1-building-your-flow-budget-core-flow-vs-extra-flow.html">Building Your FLOW Budget</a>, and the planned loanFLOW/saveFLOW budget rows) is built on exactly this separation: obligations, ordinary spending, debt service, and building — each visible as its own stream.</p>
   </div>
 

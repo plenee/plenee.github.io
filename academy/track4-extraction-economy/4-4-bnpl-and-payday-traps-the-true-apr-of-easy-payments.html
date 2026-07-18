@@ -82,14 +82,15 @@ footer p { color: #2E4A60; font-size: 13px; }
 .jump-list a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
 .jump-list a:hover { color: var(--teal); }
 
-.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 18px; }
+.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 6px; }
+.subhead-accent { width: 36px; height: 2px; border-radius: 2px; background: var(--teal); margin-bottom: 20px; }
 .chapter-body p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 20px; }
 .chapter-body p strong { color: var(--text); font-weight: 700; }
 .chapter-body p em { color: var(--text); font-style: italic; }
 .chapter-body sup { font-size: 11px; margin-left: 1px; }
 .chapter-body sup a { color: var(--teal-d); text-decoration: none; font-weight: 700; }
 .chapter-body sup a:hover { text-decoration: underline; }
-a.ref-link { color: inherit; font-weight: 700; text-decoration: none; }
+a.ref-link { color: var(--teal-d); font-weight: 400; text-decoration: none; }
 a.ref-link:hover { text-decoration: underline; }
 
 .takeaway { background: var(--teal-l); border-left: 4px solid var(--teal); border-radius: 0 14px 14px 0; padding: 26px 30px; margin: 44px 0 8px; }
@@ -248,17 +249,21 @@ a.ref-link:hover { text-decoration: underline; }
 
   <div class="chapter-body">
 <h2 id="four-easy-payments-of-25">Four easy payments of $25</h2>
+<div class="subhead-accent"></div>
 <p>"Four easy payments of $25" sounds like $100. It's engineered to. The installment frame is one of the oldest discoveries in retail psychology: people who would flinch at $100 don't flinch at $25-four-times, even though the arithmetic is identical. Buy-now-pay-later — BNPL — industrialized that discovery, attached it to a checkout button, and grew into a genuine pillar of American consumer spending: over $100 billion a year in U.S. purchase volume [VERIFY-A: BP figure, Rob sourcing].</p>
 <p>And here's the honest opening position, because this chapter's credibility depends on it: <strong>used perfectly, many BNPL plans genuinely cost nothing.</strong> Four payments, zero interest, no fees, done. That's not a trap; that's a free installment loan, and refusing it on principle is just leaving float on the table. The extraction doesn't live in the product working as advertised. It lives in the <em>imperfections</em> — and in one structural feature that has nothing to do with any single plan.</p>
 <h2 id="where-the-costs-actually-live">Where the costs actually live</h2>
+<div class="subhead-accent"></div>
 <p><strong>Late fees on small balances.</strong> Miss one of the four easy payments and the fee arrives — modest in dollars, enormous as a percentage of the installment it attaches to. The model's economics quietly depend on a predictable fraction of payments not being on time.</p>
 <p><strong>Deferred interest — the retroactive bomb.</strong> The store-card cousin of BNPL: "no interest for 12 months!" — with a condition almost nobody reads. Miss the payoff deadline by a day, or leave $50 of the original balance unpaid, and interest is charged retroactively <strong>on the entire original amount, from day one</strong>, at rates commonly near 30%. Not interest on the remainder — on everything, backdated. A missed deferred-interest deadline on a $1,200 purchase at 27% can retroactively add roughly $300+ in a single stroke. It is one of the few structures in mainstream finance that can honestly be called a trap, in the mechanical sense: it's shaped to close.</p>
 <p><strong>And the structural problem: stacking.</strong> Each BNPL provider sees only its own plans. None of them sees that you're running five plans across four providers — and, critically, neither does anyone else. Credit-bureau reporting is changing fast (one of the largest providers now reports every plan, and FICO has introduced BNPL-inclusive scores), but several major pay-in-4 providers still report nothing, and the credit scores most lenders actually use today leave BNPL out entirely.<sup id="fnref-4.4-1"><a href="#fn-4.4-1">1</a></sup> The result is a category of debt that no single lender can fully see — <strong>and neither can you</strong>, unless you're doing the assembly yourself. Five small plans, individually trivial, sum to a real monthly obligation that exists nowhere as a total: not on any statement, not in any score, only in the collisions it causes on the days multiple installments land together.</p>
 <h2 id="payday-the-same-principle-without-the-disguise">Payday: the same principle without the disguise</h2>
+<div class="subhead-accent"></div>
 <p>Payday lending is the installment illusion's blunt older sibling — small sums, short terms, and a fee that sounds reasonable until it's annualized. A typical structure — $15–$20 per $100 borrowed for two weeks — works out to an annualized rate around 300–400% (Pew and CFPB research put typical payday APRs near 400%).<sup id="fnref-4.4-2"><a href="#fn-4.4-2">2</a></sup></p>
 <p>But the APR, shocking as it is, isn't actually the business model. <strong>The rollover is.</strong> Most borrowers can't clear the balloon in two weeks — the shortfall that sent them to the lender rarely resolves in fourteen days — so they re-borrow, and the fees repeat. CFPB research found 80% of payday loans are reborrowed within two weeks; the typical borrower spends about five months of the year in debt and pays roughly $520 in fees on a $375 loan.<sup id="fnref-4.4-3"><a href="#fn-4.4-3">3</a></sup> Read that again with the income-context rule: the population taking payday loans is overwhelmingly the thin-margin cohort from <a class="ref-link" href="4-2-overdraft-nsf-and-late-fees-the-poverty-premium.html">Overdraft, NSF, and Late Fees</a>, and $520 of fees against a $40,000 income — for <em>no net new money</em> beyond the original $375 — is more than one percent of gross income spent standing still. Twelve million people a year run some version of this loop.</p>
 <p>Run the loop's arithmetic once and it never looks reasonable again: a $300 payday loan at $45 per two-week term, rolled over five times, costs $270 in fees — 90% of the principal — <strong>with the $300 still owed</strong>.</p>
 <h2 id="the-common-thread-and-the-honest-defense">The common thread, and the honest defense</h2>
+<div class="subhead-accent"></div>
 <p>BNPL stacking, deferred-interest deadlines, payday rollovers — the common thread is <strong>debt that resists being seen as a total with dates</strong>. Each installment is small; each deadline is separate; each plan lives in its own app. The extraction depends on the fragments never being assembled.</p>
 <p>So the defense is assembly. In Plenee, every BNPL installment and loan payment appears in your projected cash calendar as an obligation with a date — five "invisible" plans become one visible schedule, the collision between them stops being a surprise, and a deferred-interest deadline can be treated as what it is: a cliff with a date, to be cleared with margin, never coasted toward. None of this requires refusing the products. It requires denying them the darkness their costs grow in.</p>
   </div>
