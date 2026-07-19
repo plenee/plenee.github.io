@@ -41,6 +41,7 @@ nav {
 .nav-links a { color: #B6C6D6; text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
 .nav-links a:hover { color: var(--teal); }
 .nav-links a.active { color: var(--teal); }
+.nav-toggle { display: none; background: none; border: none; color: #fff; cursor: pointer; padding: 8px; align-items: center; justify-content: center; }
 
 footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.07); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
 footer p { color: #2E4A60; font-size: 13px; }
@@ -52,7 +53,10 @@ footer p { color: #2E4A60; font-size: 13px; }
 
 @media (max-width: 768px) {
   nav { padding: 0 20px; height: 56px; }
-  .nav-links { display: none; }
+  .nav-toggle { display: flex; }
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 0; background: #0C1929; border-bottom: 1px solid rgba(255,255,255,.08); padding: 8px 20px 16px; }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
   footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
   .fl a { margin-left: 0; margin-right: 20px; }
 }
@@ -215,13 +219,33 @@ a.ref-link:hover { text-decoration: underline; }
   <a href="../../index.html" class="nav-logo">
     <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" alt="Plenee Navigator">
   </a>
-  <div class="nav-links">
+  <div class="nav-links" id="nav-links">
     <a href="../../index.html#how">How it works</a>
     <a href="../../index.html#features-start">Features</a>
     <a href="../index.html" class="active">Academy</a>
     <a href="../../index.html#fid">Our Promise</a>
   </div>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
 </nav>
+<script>
+(function(){
+  var toggle = document.getElementById('nav-toggle');
+  var links = document.getElementById('nav-links');
+  if (!toggle || !links) return;
+  toggle.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+})();
+</script>
 
 <div class="page-header">
   <div class="page-kicker">Volume 1 · T.10</div>
