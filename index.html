@@ -1530,19 +1530,21 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
 
 <script>
 (function(){
-  // Real backend — local dev target. TODO: swap to the deployed Render URL once P0 ships
-  // to production (this build's acceptance bar is local-only, per plan).
-  const P0_API = 'http://localhost:8000/public/p0';
-
-  const msgs = document.getElementById('p0-msgs'), chips = document.getElementById('p0-chips'),
-        input = document.getElementById('p0-input'), send = document.getElementById('p0-send'),
-        panel = document.getElementById('p0-panel'), launch = document.getElementById('p0-launch');
   // A file:// URL (opening index.html directly off disk) has an EMPTY hostname, not
   // "localhost" — include that case too, so dev-only controls still show. Note: real chat
   // calls still need the http:// server (localhost:7890) to work — the backend's CORS
   // allowlist doesn't include the null origin file:// sends, so fetches would be blocked there
   // even though this check now shows the controls.
   const isLocalDev = ['localhost', '127.0.0.1', ''].includes(location.hostname);
+
+  // Real backend — local dev vs. the deployed Render API, picked by isLocalDev so the live
+  // site never points at a visitor's own localhost (was hardcoded to localhost and shipped to
+  // production that way — fixed 2026-07-18 after a real visitor hit "Couldn't reach Plenee").
+  const P0_API = isLocalDev ? 'http://localhost:8000/public/p0' : 'https://api.plenee.com/public/p0';
+
+  const msgs = document.getElementById('p0-msgs'), chips = document.getElementById('p0-chips'),
+        input = document.getElementById('p0-input'), send = document.getElementById('p0-send'),
+        panel = document.getElementById('p0-panel'), launch = document.getElementById('p0-launch');
 
   function getSessionId(){
     let id = localStorage.getItem('plenee_p0_session');
@@ -1552,10 +1554,9 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
   let sessionId = getSessionId();
 
   // Signup CTA — carries the P0 session_id to the app's register page so the backend can merge
-  // this visitor's saved profile into the new account (backend/app/routers/auth.py). TODO: swap
-  // to https://app.plenee.com/register once this ships to production (local dev target for now,
-  // matching P0_API's own TODO above).
-  const APP_REGISTER_URL = 'http://localhost:5173/register';
+  // this visitor's saved profile into the new account (backend/app/routers/auth.py). Same
+  // local-vs-production split as P0_API above, fixed for the same reason.
+  const APP_REGISTER_URL = isLocalDev ? 'http://localhost:5173/register' : 'https://app.plenee.com/register';
   function updateSignupLink(){
     document.getElementById('p0-signup-link').href =
       `${APP_REGISTER_URL}?p0_session=${encodeURIComponent(sessionId)}`;
