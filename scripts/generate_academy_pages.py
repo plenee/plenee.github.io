@@ -736,10 +736,65 @@ EXTRACTION_CHART_HTML = render_data_chart(
             "fees not separately itemized here, $17B is late fees, and $12B is overdraft fees.",
 )
 
+# Chapter 5.7's own verified figures (see footnotes 5.7-6, 5.7-7): no
+# avoidable/predatory distinction applies here (it's a trend, not a
+# decomposition), so both rows use teal per §8a's "no distinction -> teal
+# alone" fallback.
+NEGATIVE_EQUITY_CHART_HTML = render_data_chart(
+    headline="31%",
+    subtitle="of vehicle trade-ins now carry negative equity into a new loan — near an all-time high",
+    rows=[
+        {"label": "2018–2022 average (CFPB, trade-in basis)", "value": "~27%", "fraction": 27 / 31, "color": "teal"},
+        {"label": "Most recent data (Edmunds, Q1 2026)", "value": "31%", "fraction": 31 / 31, "color": "teal"},
+    ],
+    legend=[("teal", "share of vehicle trade-ins carrying negative equity into the next loan")],
+    caption="Negative equity on vehicle trade-ins has climbed from roughly 27% in "
+            "2018–2022 (CFPB, recalculated to a comparable trade-in basis) to about "
+            "31% in the most recent data (Edmunds, Q1 2026) — averaging $7,183 per "
+            "affected loan, with roughly double the two-year repossession risk of a "
+            "positive-equity trade-in.",
+)
+
+# Chapter 5.8's own verified figures (footnote 5.8-1). Single color again --
+# this is a recovery trend, not an avoidable/predatory split.
+OWNERS_EQUITY_CHART_HTML = render_data_chart(
+    headline="71.6%",
+    subtitle="of home value is now owner equity — the highest sustained share in over a decade",
+    rows=[
+        {"label": "2026 (current)", "value": "71.6%", "fraction": 71.6 / 71.6, "color": "teal"},
+        {"label": "2009 (post-crash trough)", "value": "~37%", "fraction": 37 / 71.6, "color": "teal"},
+    ],
+    legend=[("teal", "owners' equity as a share of total home value")],
+    caption="Homeowners' equity share of total home value collapsed to roughly 37% "
+            "at the bottom of the 2008 crash and has since recovered to 71.6% as of "
+            "early 2026 — the highest sustained level in over a decade.",
+)
+
+# Chapter 8.5's own verified figures (footnotes 8.5-1, 8.5-2). Two independent
+# SPIVA/Persistence Scorecard stats, not parts of one total -- still teal
+# alone, no avoidable/predatory distinction applies.
+SPIVA_CHART_HTML = render_data_chart(
+    headline="85–95%",
+    subtitle="of actively managed US equity funds trailed their benchmark over 10–20 years",
+    rows=[
+        {"label": "Active funds underperforming their benchmark (10–20yr)", "value": "85–95%", "fraction": 1.0, "color": "teal"},
+        {"label": "Top-quartile funds still top-quartile 5 years later", "value": "0%", "fraction": 0.0, "color": "teal"},
+    ],
+    legend=[("teal", "S&P Dow Jones Indices — SPIVA / Persistence Scorecard")],
+    caption="S&P's SPIVA scorecards find 85–95% of actively managed US equity funds "
+            "underperformed their benchmark over 10, 15, and 20-year periods; "
+            "separately, its Persistence Scorecard found 0% of large-cap funds "
+            "ranking top-quartile in 2021 stayed top-quartile five years later — "
+            "worse than random chance would produce.",
+)
+
 # Maps a chapter id to (heading to insert after, lowercased; graphic html). The
 # heading match is case-insensitive against the chapter's own "## Heading" text.
 CHAPTER_GRAPHICS: dict[str, tuple[str, str]] = {
     "4.1": ("the avoidable layer", EXTRACTION_CHART_HTML),
+    "5.7": ("the car version: rolling backward before you've moved forward", NEGATIVE_EQUITY_CHART_HTML),
+    "5.8": ("the claim, and the honest version of it", OWNERS_EQUITY_CHART_HTML),
+    "8.5": ("why the pros lose to the average", SPIVA_CHART_HTML),
 }
 
 # Pilot diagram -- ACADEMY_PUBLISHING_INSTRUCTIONS.md §8b's "The Flywheel": the
@@ -784,12 +839,93 @@ FLYWHEEL_DIAGRAM_HTML = """<figure class="concept-diagram">
 <figcaption class="cd-caption">Four stages, in order — stop the bleeding, free up cash flow, build wealth, earn instead of pay — then the cycle repeats.</figcaption>
 </figure>"""
 
-# Maps a track_slug to a diagram shown on that track's own index page. Pilot:
-# the Flywheel appears on Track 6 (Stop the Bleeding), the arc's entry point;
-# Tracks 7-9 would get the same diagram once this scales past the pilot.
+# Maps a track_slug to a diagram shown on that track's own index page --
+# every track in the 4-stage Flywheel arc gets the same shared diagram.
 TRACK_GRAPHICS: dict[str, str] = {
     "track6-stop-the-bleeding": FLYWHEEL_DIAGRAM_HTML,
+    "track7-free-up-cash-flow": FLYWHEEL_DIAGRAM_HTML,
+    "track8-build-wealth": FLYWHEEL_DIAGRAM_HTML,
+    "track9-earn-dont-pay": FLYWHEEL_DIAGRAM_HTML,
 }
+
+# Shared diagram #2 -- the statement-cycle timeline (closing date -> statement
+# balance -> grace period -> due date), used by every chapter that discusses
+# grace periods or statement timing.
+STATEMENT_CYCLE_DIAGRAM_HTML = """<figure class="concept-diagram">
+<svg viewBox="0 0 600 170" role="img" aria-label="Statement-cycle timeline: the statement closes and sets your balance, then a grace period runs until the payment due date -- pay in full by then and no interest accrues.">
+  <defs>
+    <marker id="sc-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--border)"/>
+    </marker>
+  </defs>
+  <line x1="30" y1="85" x2="570" y2="85" stroke="var(--border)" stroke-width="2" marker-end="url(#sc-arrow)"/>
+  <rect x="130" y="75" width="340" height="20" rx="10" fill="var(--teal-l)"/>
+  <circle cx="130" cy="85" r="8" fill="var(--teal)"/>
+  <circle cx="470" cy="85" r="8" fill="var(--navy)"/>
+  <text x="130" y="55" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="14" fill="var(--navy)">Statement Closes</text>
+  <text x="130" y="128" text-anchor="middle" font-size="12" fill="var(--muted)">Balance is set</text>
+  <text x="300" y="70" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="13" fill="var(--teal-d)">Grace Period</text>
+  <text x="300" y="128" text-anchor="middle" font-size="12" fill="var(--muted)">No interest if paid in full</text>
+  <text x="470" y="55" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="14" fill="var(--navy)">Payment Due</text>
+  <text x="470" y="128" text-anchor="middle" font-size="12" fill="var(--muted)">Pay in full here</text>
+</svg>
+<figcaption class="cd-caption">The statement-cycle timeline: closing date sets the balance, a grace period follows, and paying in full by the due date is what keeps interest at zero.</figcaption>
+</figure>"""
+
+# Shared diagram #3 -- how FLOW, NET, and NEST connect (Track 1's own
+# vocabulary): FLOW is money moving in a period, NET is whether that period
+# came out ahead, NEST is the cumulative total across every period.
+FLOW_NET_NEST_DIAGRAM_HTML = """<figure class="concept-diagram">
+<svg viewBox="0 0 600 190" role="img" aria-label="How FLOW, NET, and NEST connect: FLOW is money moving in a period, NET is whether that period ended positive or negative, and NEST is the cumulative total across every period.">
+  <defs>
+    <marker id="fnn-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--teal)"/>
+    </marker>
+  </defs>
+  <path d="M185 95 L223 95" fill="none" stroke="var(--teal)" stroke-width="3" marker-end="url(#fnn-arrow)"/>
+  <path d="M395 95 L433 95" fill="none" stroke="var(--teal)" stroke-width="3" marker-end="url(#fnn-arrow)"/>
+  <rect x="20" y="60" width="165" height="70" rx="14" fill="var(--teal-l)"/>
+  <text x="102" y="103" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="20" fill="var(--teal-d)">FLOW</text>
+  <rect x="230" y="60" width="165" height="70" rx="14" fill="var(--teal-l)"/>
+  <text x="312" y="103" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="20" fill="var(--teal-d)">NET</text>
+  <rect x="440" y="60" width="140" height="70" rx="14" fill="var(--teal-l)"/>
+  <text x="510" y="103" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="20" fill="var(--teal-d)">NEST</text>
+  <text x="102" y="150" text-anchor="middle" font-size="13" fill="var(--muted)">Money moving in</text>
+  <text x="102" y="167" text-anchor="middle" font-size="13" fill="var(--muted)">a given period</text>
+  <text x="312" y="150" text-anchor="middle" font-size="13" fill="var(--muted)">Did that period end</text>
+  <text x="312" y="167" text-anchor="middle" font-size="13" fill="var(--muted)">positive or negative?</text>
+  <text x="510" y="150" text-anchor="middle" font-size="13" fill="var(--muted)">The cumulative total,</text>
+  <text x="510" y="167" text-anchor="middle" font-size="13" fill="var(--muted)">every period combined</text>
+</svg>
+<figcaption class="cd-caption">FLOW is money moving in a period; NET is whether that period came out ahead; NEST is the running total every period builds toward.</figcaption>
+</figure>"""
+
+# Shared diagram #4 -- credit utilization mechanics: balance divided by
+# limit, snapshotted at the moment the statement closes.
+UTILIZATION_DIAGRAM_HTML = """<figure class="concept-diagram">
+<svg viewBox="0 0 600 175" role="img" aria-label="Credit utilization: your balance divided by your limit, snapshotted at the moment your statement closes. Example: a $3,000 balance against a $10,000 limit is 30% utilization.">
+  <text x="20" y="28" font-family="Georgia, serif" font-weight="700" font-size="15" fill="var(--navy)">Credit Limit: $10,000</text>
+  <rect x="20" y="42" width="560" height="22" rx="11" fill="var(--border)"/>
+  <rect x="20" y="42" width="168" height="22" rx="11" fill="var(--teal)"/>
+  <text x="20" y="92" font-family="Georgia, serif" font-weight="700" font-size="15" fill="var(--navy)">Balance at Statement Close: $3,000</text>
+  <text x="20" y="124" font-size="14" fill="var(--muted)">Utilization = $3,000 ÷ $10,000 =</text>
+  <text x="255" y="124" font-family="Georgia, serif" font-weight="700" font-size="16" fill="var(--teal-d)">30%</text>
+  <text x="20" y="155" font-size="12" fill="var(--light)">This snapshot -- not what you pay off later -- is what gets reported to the bureaus.</text>
+</svg>
+<figcaption class="cd-caption">Utilization is balance divided by limit, measured at the moment your statement closes -- paying down the balance the next day doesn't change what already got reported.</figcaption>
+</figure>"""
+
+# Extends CHAPTER_GRAPHICS with the 3 diagrams above, placed in the chapters
+# that actually discuss each concept (checked against each chapter's own
+# content, not assumed from stale pre-reorg numbering).
+CHAPTER_GRAPHICS_DIAGRAMS: dict[str, tuple[str, str]] = {
+    "4.3": ("second mechanic: the grace period is conditional", STATEMENT_CYCLE_DIAGRAM_HTML),
+    "6.1": ("why \"on the due date\" — the float you're donating", STATEMENT_CYCLE_DIAGRAM_HTML),
+    "1.4": ("one number, built from the whole map", FLOW_NET_NEST_DIAGRAM_HTML),
+    "3.2": ("dial two: the snapshot, and when the camera clicks", UTILIZATION_DIAGRAM_HTML),
+    "6.7": ("mechanic three: the denominator", UTILIZATION_DIAGRAM_HTML),
+}
+CHAPTER_GRAPHICS.update(CHAPTER_GRAPHICS_DIAGRAMS)
 
 
 def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[dict],
