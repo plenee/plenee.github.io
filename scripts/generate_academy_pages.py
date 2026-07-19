@@ -831,6 +831,7 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
         takeaway_html = (
             '\n  <div class="takeaway">\n'
             '      <div class="tk-label">The takeaway</div>\n'
+            '      <div class="subhead-accent"></div>\n'
             f"      {takeaway_body_html}\n"
             "    </div>"
         )
