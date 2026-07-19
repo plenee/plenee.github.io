@@ -279,9 +279,9 @@ footer p { color: #2E4A60; font-size: 13px; }
 @media (max-width: 768px) {
   nav { padding: 0 20px; height: 56px; }
   .nav-toggle { display: flex; }
-  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 0; background: #0C1929; border-bottom: 1px solid rgba(255,255,255,.08); padding: 8px 20px 16px; }
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; background: #0C1929; border-bottom: 1px solid rgba(255,255,255,.08); padding: 4px 20px 10px; }
   .nav-links.open { display: flex; }
-  .nav-links a { padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
+  .nav-links a { padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,.06); font-size: 14px; white-space: nowrap; }
   footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
   .fl a { margin-left: 0; margin-right: 20px; }
 }
