@@ -1451,13 +1451,39 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
   animation: p0b 1.2s infinite; }
 .p0-typing span:nth-child(2) { animation-delay: .15s; }
 .p0-typing span:nth-child(3) { animation-delay: .3s; }
+/* Labor-illusion status text next to the dots during guided-track replies (2026-07-20, per the
+   Harvard flight-search finding in docs/YouTube Research Summaries.md — visible work increases
+   trust in the same answer). */
+.p0-typing-label { font-size: 11.5px; color: var(--light); margin-left: 6px; align-self: center; }
 @keyframes p0b { 0%,60%,100% { transform: translateY(0);} 30% { transform: translateY(-5px);} }
 
-#p0-chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 14px 10px; background: var(--off); }
-.p0-chip { background: #fff; border: 1px solid var(--teal); color: var(--teal-d); font-size: 12.5px;
-  font-weight: 600; padding: 7px 12px; border-radius: 999px; cursor: pointer; font-family: inherit;
+/* "What's your dream?" — big/bold words blurring into focus one at a time, per the guided-quiz
+   question's special emphasis (this exact string is verbatim from the P0 prompt, see
+   assistant_p0.py's "ALWAYS open with 'What's your dream?'" rule). A 1s pause before the first
+   word (baked into each word's animation-delay in the JS below) gives a beat of anticipation
+   before the reveal starts. Inline (not block/flex) since 2026-07-20 — the guided-quiz reply is
+   now a full multi-paragraph message with real text before/after the question, not the entire
+   bubble, so the animated words need to sit inline within normal paragraph flow. */
+.p0-dream-word { display: inline-block; font-size: 26px; font-weight: 800; opacity: 0;
+  color: var(--navy); margin-right: 0.28em; animation: p0-dream-in 1.1s cubic-bezier(.2,.7,.3,1) both; }
+.p0-dream-word.p0-dream-hl { color: var(--teal); }
+.p0-dream-word:last-child { margin-right: 0; }
+.p0-plenee-name { color: var(--teal-d); }
+@keyframes p0-dream-in {
+  0%   { opacity: 0; filter: blur(16px); transform: scale(1.14); }
+  45%  { opacity: 1; filter: blur(6px);  transform: scale(1.05); }
+  100% { opacity: 1; filter: blur(0);    transform: scale(1); }
+}
+
+#p0-chips { display: flex; flex-wrap: wrap; gap: 5px; padding: 0 14px 10px; background: var(--off); }
+.p0-chip { background: #fff; border: 1px solid var(--teal); color: var(--teal-d); font-size: 11px;
+  font-weight: 600; padding: 5px 9px; border-radius: 999px; cursor: pointer; font-family: inherit;
   transition: background .15s; }
 .p0-chip:hover { background: var(--teal-l); }
+/* "Start Quiz" — solid-teal fill instead of the outline style, so it visually stands apart from
+   the topic-question chips around it as a distinct kind of action (start guided mode). */
+.p0-chip-quiz { background: var(--teal); border-color: var(--teal); color: #fff; }
+.p0-chip-quiz:hover { background: var(--teal-d); }
 
 #p0-inputrow { display: flex; gap: 8px; padding: 10px 12px; border-top: 1px solid var(--border);
   background: #fff; }
@@ -1557,11 +1583,35 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
   // this visitor's saved profile into the new account (backend/app/routers/auth.py). Same
   // local-vs-production split as P0_API above, fixed for the same reason.
   const APP_REGISTER_URL = isLocalDev ? 'http://localhost:5173/register' : 'https://app.plenee.com/register';
+  const APP_LOGIN_URL = isLocalDev ? 'http://localhost:5173/login' : 'https://app.plenee.com/login';
   function updateSignupLink(){
     document.getElementById('p0-signup-link').href =
       `${APP_REGISTER_URL}?p0_session=${encodeURIComponent(sessionId)}`;
   }
   updateSignupLink();
+  // Triggered by the "Connect accounts" chip (assistant_p0.py's PROPOSE THE LINK rule always
+  // includes this exact label) — P0 has no real Plaid/account-linking capability of its own, so
+  // "connect accounts" always means leaving P0 for the real app. WHICH page depends on whether
+  // this exact P0 session already led to a registration (2026-07-20, GET /session-status —
+  // Prospect/User per docs/copilot_voice_spec.md §9: a visitor can be registered but still a
+  // Prospect until accounts are linked, and either way sending them back to /register would just
+  // fail with "Email already registered"): unregistered → register; already registered (whether
+  // still a Prospect or already a User) → login instead. Both carry link=1, relayed through
+  // RegisterPage → LoginPage → AccountsPage, which auto-opens Plaid Link on arrival — so this
+  // genuinely finishes the job instead of dropping the visitor on a bare dashboard. Falls back to
+  // register on any check failure — the safer default, since a genuinely new visitor is the
+  // overwhelmingly common case.
+  async function handleConnectAccounts(){
+    const registerUrl = `${APP_REGISTER_URL}?p0_session=${encodeURIComponent(sessionId)}&link=1`;
+    const loginUrl = `${APP_LOGIN_URL}?link=1`;
+    try {
+      const res = await fetch(`${P0_API}/session-status?session_id=${encodeURIComponent(sessionId)}`);
+      const data = res.ok ? await res.json() : null;
+      window.location.href = (data && data.registered) ? loginUrl : registerUrl;
+    } catch (e) {
+      window.location.href = registerUrl;
+    }
+  }
 
   // Shared by the debug reset button and the ZIP/income "Apply" control below — both need to
   // start a genuinely fresh session, not just clear the visible bubbles. Reassigning the
@@ -1577,6 +1627,9 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
     msgs.innerHTML = ''; chips.innerHTML = '';
     currentTierChips = START_CHIPS_DEFAULT;
     askedTexts = new Set();
+    inGuidedTrack = false;
+    dreamAnimPlayed = false;
+    input.placeholder = 'Type a question…';
     loaded = false;
     openPanel();
   }
@@ -1620,23 +1673,68 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
   // First-time-only branded opener — Rob's copy, shown once per session, ever. Once real
   // history exists, the widget replays that instead of ever showing this again.
   const OPENERS = [
-    "I'm your personal bookkeeper and financial navigator. I work ONLY - FOR - YOU. No ads and no recommendations for products unless it's something you can personally benefit from. I'm very smart, naturally. I'm built with Artificial Intelligence and I have a large body of knowledge. Most importantly, I help you Budget Forward — plan ahead instead of just looking back. Check out the Plenee Academy. But nobody's perfect, right? Let's get to work and see what we can achieve together.",
+    "You're probably losing money every month — fees, idle cash, quiet leaks — and you don't see it. If those losses were invested instead, they'd add up to hundreds of thousands of dollars over the years: real freedom, quietly gone. My job is to show you where, and stop it. I'm your personal bookkeeper and financial navigator. Plenee works EXCLUSIVELY FOR YOU: no ads, no product pitches unless something genuinely benefits you. Most importantly, I help you Budget Forward — plan ahead instead of just looking back — so money stops being a worry and starts being a plan. Let's see what we can do together.\n\nHow do you want to start? Chat directly, tap a button below, or start the quiz and let's map out your dream.",
   ];
+
+  // Small inline compass-mark icon — the needle + pivot from "Logo - Plenee_Navigator_v2.svg"'s
+  // 2026-07-20: dropped the inline compass-mark icon entirely — even the re-cropped
+  // needle+pivot-only version still didn't render cleanly inline at chat-text size. Every
+  // mention of "Plenee" in a bot reply now expands to "Plenee Navigator" (the full app name),
+  // bold and teal, no icon — \b...\b so "Plenee's" still matches just the word, not the
+  // trailing possessive ("Plenee's job" -> "Plenee Navigator's job").
+  const renderPlenee = html => html.replace(/\bPlenee\b/g, '<b class="p0-plenee-name">Plenee Navigator</b>');
 
   function scroll(){ msgs.scrollTop = msgs.scrollHeight; }
   function addMsg(cls, text){ const d = document.createElement('div');
-    d.className = 'p0-m ' + cls; d.innerHTML = text.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+    d.className = 'p0-m ' + cls;
+    const withBold = text.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+    d.innerHTML = cls === 'p0-bot' ? renderPlenee(withBold) : withBold;
     msgs.appendChild(d); scroll(); }
   function addError(text){ const d = document.createElement('div');
     d.className = 'p0-error'; d.textContent = text; msgs.appendChild(d); scroll(); }
+  // In-track: rotate short "visible work" labels next to the dots (labor illusion — the wait
+  // itself builds trust when the process is shown; see the CSS comment above). Outside the
+  // guided track the plain three-dot indicator is unchanged.
+  // Deliberately topic-neutral (2026-07-20, real failure: "thinking through your numbers" /
+  // "checking the math" showed up on replies with no numbers or math in them at all — a
+  // celebratory dream response, a lifestyle discovery question, etc. — reading as generic and
+  // wrong most of the time). The frontend has no signal for what a given reply is actually
+  // about, so these need to stay true regardless of topic, not just true for financial replies.
+  const TYPING_LABELS = ['thinking this through…', 'considering your answer…',
+                         'weighing the options…', 'putting it together…'];
+  let typingLabelTimer = null;
   function showTyping(){ const t = document.createElement('div'); t.className = 'p0-typing';
     t.id = 'p0-typing-indicator'; t.innerHTML = '<span></span><span></span><span></span>';
+    if (inGuidedTrack) {
+      const lbl = document.createElement('em');
+      lbl.className = 'p0-typing-label';
+      let i = 0;
+      lbl.textContent = TYPING_LABELS[0];
+      t.appendChild(lbl);
+      typingLabelTimer = setInterval(() => {
+        i = (i + 1) % TYPING_LABELS.length;
+        lbl.textContent = TYPING_LABELS[i];
+      }, 2200);
+    }
     msgs.appendChild(t); scroll(); }
-  function hideTyping(){ const t = document.getElementById('p0-typing-indicator'); if (t) t.remove(); }
+  function hideTyping(){ const t = document.getElementById('p0-typing-indicator'); if (t) t.remove();
+    if (typingLabelTimer) { clearInterval(typingLabelTimer); typingLabelTimer = null; } }
   function setChips(list){ chips.innerHTML = '';
     (list || []).forEach(label => { const b = document.createElement('button');
-      b.className = 'p0-chip'; b.textContent = label; b.onclick = () => sendMessage(label);
-      chips.appendChild(b); }); }
+      // "Connect accounts" is a real navigation action (see handleConnectAccounts above), not a
+      // chat reply — P0 is anonymous, so there's no accounts to actually connect without
+      // registering (or logging in, if already registered) first. Same solid-teal treatment as
+      // "Start Quiz": both are primary next-step actions, not topic chips.
+      const isConnect = label === 'Connect accounts';
+      b.className = (label === 'Start Quiz' || isConnect) ? 'p0-chip p0-chip-quiz' : 'p0-chip';
+      b.textContent = label;
+      b.onclick = isConnect ? handleConnectAccounts : () => sendMessage(label);
+      chips.appendChild(b); });
+    // Chips can wrap to 2-3 rows, shrinking #p0-msgs's available height within the fixed-height
+    // panel — re-sync scroll AFTER that layout change, or the last reply line ends up clipped
+    // under the now-taller chip row (scrollTop was set correctly for the shorter chip height
+    // at the last 'text' event, but never re-checked once chips grew).
+    scroll(); }
   function setInputEnabled(enabled){ input.disabled = !enabled; send.disabled = !enabled; }
 
   let loaded = false;
@@ -1653,55 +1751,72 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
   // asked (askedTexts).
   let currentTierChips = [];
   let askedTexts = new Set();
+  // Once the conversation enters a defined track (the guided quiz, or any topic-specific thread
+  // that follows it), the general/tier starter chips ("How Plenee works", "Is my data safe?",
+  // etc.) stop being relevant — appending them next to a specific question like "what's your
+  // debt landscape?" reads as a non-sequitur. Set true on "Start Quiz" and never reset for the
+  // rest of the session; from then on, chips come from the model's own suggest_replies only —
+  // no generic fallback, since a generic chip here is actively wrong, not just imperfect.
+  let inGuidedTrack = false;
+  // Safety net (2026-07-20, real failure: the model repeated "What's your dream?" verbatim as a
+  // second reply's closing line — the prompt now explicitly forbids this, but this flag keeps the
+  // ANIMATION itself a genuine one-time moment even if the prompt slips again: only the first
+  // guided-track reply is allowed to trigger it; a later match renders as plain bold text instead.
+  // Reset in resetConversation() along with inGuidedTrack, so a fresh session gets it back.
+  let dreamAnimPlayed = false;
 
   // Starter chips shown once, right after the first-time opener — tailored by inferred
   // wealth-tier via GET /public/p0/persona (backend/app/services/geo_income.py), mirroring
   // wave0_mockup.html's low/mid/high split. The tier is never shown or implied to the visitor —
   // it only picks which pre-written question set appears. Clicking one just sends its label
   // through the normal sendMessage() pipeline, same as if the visitor had typed it.
+  // Chip language (2026-07-20, per docs/YouTube Research Summaries.md — Life Force 8 / core-
+  // desire principle): the non-functional chips are phrased at the DESIRE level (stop worrying,
+  // get out from under, protect what I've built) rather than as topic labels — the desire
+  // underneath the outcome is what actually drives the tap. The three functional chips (how it
+  // works / data safety / cost) stay informational on purpose.
   const START_CHIPS_BY_TIER = {
     low: [
-      "How does Plenee work?",
-      "Is my bank data safe?",
-      "What does it cost?",
-      "I keep getting hit with fees",
-      "How do I stop overdrafting?",
-      "Which debt should I pay off first?",
-      "Can I get out of debt faster?",
-      "How much money do I actually have?",
+      "Start Quiz",
+      "How Plenee works",
+      "Is my data safe?",
+      "What's the cost?",
+      "Stop the fee bleeding",
+      "Stop overdraft stress",
+      "Get out of debt",
+      "Know where I stand",
     ],
     mid: [
-      "How does Plenee work?",
-      "Is my bank data safe?",
-      "What does it cost?",
-      "I never know where my money goes",
-      "Is my savings account earning enough?",
-      "What's actually costing me the most?",
-      "Am I on track for my goals?",
-      "Are my subscriptions worth it?",
+      "Start Quiz",
+      "How Plenee works",
+      "Is my data safe?",
+      "What's the cost?",
+      "Stop money leaks",
+      "Make my savings work",
+      "Worry less about money",
+      "Am I on track?",
     ],
     high: [
-      "How does Plenee work?",
-      "Is my bank data safe?",
-      "What does it cost?",
-      "Are my advisor fees worth it?",
-      "Am I overpaying in management fees?",
-      "How do I make my accounts more tax-efficient?",
-      "What's my time actually worth managing this?",
-      "Are my investments diversified enough?",
+      "Start Quiz",
+      "How Plenee works",
+      "Is my data safe?",
+      "What's the cost?",
+      "Stop overpaying fees",
+      "Keep more returns",
+      "Buy back my time",
+      "Protect what I've built",
     ],
   };
-  // Fallback when the tier can't be inferred (local dev, lookup failure, etc.) — the original
-  // generic set.
+  // Fallback when the tier can't be inferred (local dev, lookup failure, etc.).
   const START_CHIPS_DEFAULT = [
-    "How does Plenee work?",
-    "Is my bank data safe?",
-    "What does it cost?",
-    "I never know where my money goes",
-    "How much money do I actually have?",
-    "What's actually costing me the most?",
-    "Can I get out of debt faster?",
-    "Are my subscriptions worth it?",
+    "Start Quiz",
+    "How Plenee works",
+    "Is my data safe?",
+    "What's the cost?",
+    "Stop money leaks",
+    "Know where I stand",
+    "Get out from under debt",
+    "Worry less about money",
   ];
 
   async function getStartChips(){
@@ -1758,8 +1873,68 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
   // widget sitting on the typing indicator for the whole reply.
   async function sendMessage(text){
     askedTexts.add(text);
-    addMsg('p0-user', text); setChips([]); setInputEnabled(false); showTyping();
+    addMsg('p0-user', text); setChips([]); setInputEnabled(false);
     let botBubble = null, rawText = '';
+    let dreamAnimUntil = 0; // performance.now() timestamp the reveal finishes at, 0 = not playing
+                            // — chips (in the 'done' handler) wait until this passes.
+    // Guided-quiz replies are now full multi-paragraph messages (2026-07-20 brevity revision) —
+    // "What's your dream?" is ONE line inside a longer reply (intro before it, more after it),
+    // not the entire message. So this matches the phrase WHEREVER it lands in the streamed text
+    // (tolerating optional ** markdown around it) and animates just that span in place, rendering
+    // the surrounding text normally before/after — rather than the old exact-whole-message match.
+    // Tolerates a curly apostrophe (’/‘) as well as straight (') — the model's own text
+    // generation sometimes typographic-quotes "What's" even though the prompt itself is
+    // written with a straight apostrophe, which silently failed this match before (2026-07-20):
+    // the phrase never matched, so it fell through to plain **bold** markdown instead of the
+    // animated reveal — the whole message still rendered correctly, just without the animation.
+    const DREAM_RE = /\*{0,2}What['’‘]s your dream\?\*{0,2}/;
+    const DREAM_WORDS = 'WHAT IS YOUR DREAM ?'.split(' ');
+    // Base delay (2026-07-20) — the words stay at their 0%-keyframe opacity:0 state ("both" fill
+    // mode) for this long before the reveal begins, so when the surrounding text and these words
+    // land in the DOM in the same instant (see bufferUntilDone below), the plain text is visible
+    // right away and the animation only starts after a deliberate beat, not simultaneously.
+    const DREAM_ANIM_BASE_DELAY = 0.6;
+    const dreamAnimHtml = () => DREAM_WORDS.map((word, i) =>
+      `<span class="p0-dream-word${word === 'DREAM' ? ' p0-dream-hl' : ''}" style="animation-delay:${(DREAM_ANIM_BASE_DELAY + i * 0.6).toFixed(2)}s">${word}</span>`
+    ).join('');
+    const dreamAnimDurationMs = (DREAM_ANIM_BASE_DELAY + (DREAM_WORDS.length - 1) * 0.6 + 1.1) * 1000;
+    const mdBold = s => renderPlenee(s.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>'));
+    // Renders the accumulated rawText, splicing in the animated dream-question span in place of
+    // the matched phrase if/when it's fully present. Starts the animation clock the FIRST time
+    // it's spotted (dreamAnimUntil stays 0 — and gets reset — once the phrase is no longer newly
+    // appearing, so a later delta that only adds trailing text doesn't restart the reveal). Only
+    // matches at all while the session-wide dreamAnimPlayed flag is still false — see its
+    // declaration above — so a later message containing the same phrase (however that happened)
+    // renders as ordinary bold text instead of replaying the animation.
+    let dreamAnimStarted = false;
+    const renderMessage = () => {
+      if (!botBubble) { botBubble = document.createElement('div'); botBubble.className = 'p0-m p0-bot'; msgs.appendChild(botBubble); }
+      const m = !dreamAnimPlayed && rawText.match(DREAM_RE);
+      if (!m) {
+        botBubble.innerHTML = mdBold(rawText);
+        return;
+      }
+      if (!dreamAnimStarted) {
+        dreamAnimStarted = true;
+        dreamAnimPlayed = true;
+        dreamAnimUntil = performance.now() + dreamAnimDurationMs;
+      }
+      const before = mdBold(rawText.slice(0, m.index));
+      const after = mdBold(rawText.slice(m.index + m[0].length));
+      botBubble.innerHTML = before + dreamAnimHtml() + after;
+    };
+    // The guided-quiz opener now CLOSES with "What's your dream?" instead of opening with it
+    // (2026-07-20, per assistant_p0.py's revised structure) — so instead of rendering incrementally
+    // as tokens arrive (which would show the intro paragraph typing itself out ahead of the
+    // reveal), buffer this ONE reply silently and render it all at once once the full text is in:
+    // the intro appears INSTANTLY, then the animation plays after its own baked-in beat
+    // (DREAM_ANIM_BASE_DELAY above) — "display the text instantly, then show the animation."
+    const bufferUntilDone = text === 'Start Quiz';
+    if (bufferUntilDone) {
+      inGuidedTrack = true;
+      input.placeholder = 'Type your answer - include details';
+    }
+    showTyping();
     try {
       const res = await fetch(`${P0_API}/chat`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -1767,6 +1942,7 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
           session_id: sessionId, message: text,
           ...(testZip ? { zip: testZip } : {}),
           ...(testIncomeRange ? { income_range: testIncomeRange } : {}),
+          ...(inGuidedTrack ? { in_track: true } : {}),
         }),
       });
       if (res.status === 429) {
@@ -1791,27 +1967,43 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
             if (!frame.startsWith('data: ')) continue;
             const event = JSON.parse(frame.slice(6));
             if (event.type === 'text') {
-              if (!botBubble) {
-                hideTyping();
-                botBubble = document.createElement('div');
-                botBubble.className = 'p0-m p0-bot';
-                msgs.appendChild(botBubble);
-              }
               rawText += event.delta;
-              botBubble.innerHTML = rawText.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
-              scroll();
+              if (!bufferUntilDone) {
+                hideTyping();
+                renderMessage();
+                scroll();
+              }
+              // else: keep accumulating silently — typing indicator stays up until 'done'.
             } else if (event.type === 'done') {
+              if (bufferUntilDone) {
+                hideTyping();
+                renderMessage();
+                scroll();
+              }
               const suggested = (event.actions || []).find(a => a.type === 'suggest_replies');
-              const contextual = suggested ? suggested.input.options : [];
-              // Always show something tappable, even on a turn where the model asked its own
-              // open-ended follow-up instead of calling suggest_replies (a valid choice per its
-              // prompt rules) — lean harder on the general/tier pool when there's no contextual
-              // set to top up. Only skip a chip that exactly duplicates a contextual option this
-              // turn, or something the visitor has already literally said — not ones shown earlier.
-              const general = currentTierChips
+              // suggested.input.options can be missing entirely (the model calling
+              // suggest_replies with an empty input, e.g. {}) — fall back to [] rather than
+              // letting undefined reach .includes() below and crash the whole done-handler,
+              // which previously surfaced as a misleading "Couldn't reach Plenee" error even
+              // though the reply itself had streamed in fine.
+              const contextual = (suggested && suggested.input && suggested.input.options) || [];
+              // Once inside a defined track (post "Start Quiz"), the general/tier starter chips
+              // ("How Plenee works", "Is my data safe?", etc.) are no longer relevant next to a
+              // specific in-track question — showing them reads as a non-sequitur, so skip the
+              // fallback entirely there and show only whatever the model itself suggested (the
+              // real fix for a miss is the backend always calling suggest_replies in-track, not
+              // masking it with an irrelevant generic chip). Outside a track, keep the existing
+              // behavior: lean on the general/tier pool so there's always something tappable.
+              const general = inGuidedTrack ? [] : currentTierChips
                 .filter(c => !contextual.includes(c) && !askedTexts.has(c))
                 .slice(0, contextual.length ? 2 : 4);
-              setChips(contextual.concat(general));
+              // If the dream-question animation is still playing, wait for it to finish before
+              // the chips appear below it — otherwise they'd show up mid-reveal. dreamAnimUntil
+              // is an absolute timestamp set the moment the phrase was first spotted in the
+              // stream, so this only waits out whatever's left by the time 'done' fires.
+              const chipDelay = dreamAnimUntil ? Math.max(0, dreamAnimUntil - performance.now()) : 0;
+              if (chipDelay > 0) setTimeout(() => setChips(contextual.concat(general)), chipDelay);
+              else setChips(contextual.concat(general));
             } else if (event.type === 'error') {
               hideTyping();
               addError(event.message);
