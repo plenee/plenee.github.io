@@ -186,15 +186,60 @@ a.ref-link:hover { text-decoration: underline; }
 
 /* ─── ACADEMY LANDING PAGE ─── */
 .academy-pullquote { text-align: center; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 19px; color: var(--navy); max-width: 560px; margin: 28px auto 0; padding: 0 48px; line-height: 1.5; }
-.volume-section { margin-top: 56px; }
-.volume-h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(22px,3vw,30px); font-weight: 700; color: var(--navy); letter-spacing: -.4px; margin-bottom: 8px; }
-.volume-sub { color: var(--muted); font-size: 15px; margin-bottom: 24px; max-width: 640px; }
-.track-grid { display: flex; flex-direction: column; gap: 14px; }
-.track-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
-.track-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
-.track-num { flex-shrink: 0; width: 56px; height: 56px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 17px; }
-.track-info h3 { font-size: 18px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
-.track-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+.landing-overview {
+  max-width: 1080px; margin: 44px auto 0; padding: 0 48px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center;
+}
+.landing-overview-logo { display: flex; align-items: center; justify-content: center; }
+.landing-overview-logo svg { width: 100%; max-width: 224px; height: auto; display: block; }
+/* #overview-needle's rotation is applied as a native SVG transform attribute
+   (via JS), not a CSS transform -- that pivots reliably at SVG-space (0,0),
+   the pivot/hub position, matching how the source logo's own static
+   transform="rotate(43)" already worked. CSS transform-origin tricks on SVG
+   (transform-box: view-box, etc.) proved inconsistent across browsers. */
+.landing-overview p { font-size: 16px; color: var(--muted); line-height: 1.75; margin: 0; }
+
+.volume-section { max-width: 1080px; margin: 0 auto; padding: 64px 48px 8px; }
+.volume-section + .volume-section { padding-top: 12px; }
+.volume-kicker { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+.volume-section.v1 .volume-kicker { color: var(--teal-d); }
+.volume-section.v2 .volume-kicker { color: #17434F; }
+.volume-h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(26px,3.2vw,36px); font-weight: 700; color: var(--navy); letter-spacing: -.5px; margin-bottom: 8px; }
+.volume-sub { color: var(--muted); font-size: 16px; margin-bottom: 40px; max-width: 620px; }
+
+/* Each card sets its own --hue/--hue-l/--hue-d inline (see TRACK_HUES: the 6
+   thematic groups -- Foundations=teal, Know-your-opponent=orange,
+   Flywheel=gold, Life admin=slate, Protection/crisis=rose, Psychology=indigo). */
+.track-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 8px; }
+.track-card {
+  --hue: var(--teal); --hue-l: var(--teal-l); --hue-d: var(--teal-d);
+  display: flex; flex-direction: column;
+  border: 1.5px solid var(--border); border-radius: 18px; overflow: hidden;
+  text-decoration: none; background: #fff;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.track-card:hover { border-color: var(--hue); transform: translateY(-3px); box-shadow: 0 14px 34px rgba(12,25,41,.09); }
+
+.tc-tile { height: 108px; display: flex; align-items: center; justify-content: center; position: relative; background: var(--hue-l); }
+.tc-tile svg { width: 44px; height: 44px; color: var(--hue-d); }
+.tc-num {
+  position: absolute; top: 14px; right: 16px;
+  font-family: Georgia, serif; font-weight: 700; font-size: 13px;
+  padding: 3px 10px; border-radius: 100px; background: rgba(255,255,255,.6);
+  color: var(--hue-d);
+}
+
+.tc-body { padding: 24px 26px 22px; display: flex; flex-direction: column; flex: 1; }
+.tc-body h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 19px; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 10px; }
+.tc-body p { font-size: 14.5px; color: var(--muted); line-height: 1.65; margin-bottom: 18px; flex: 1; }
+.tc-cta { font-size: 13px; font-weight: 700; letter-spacing: .2px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--hue-d); }
+.tc-cta svg { width: 14px; height: 14px; transition: transform .2s; }
+.track-card:hover .tc-cta svg { transform: translateX(3px); }
+
+@media (max-width: 860px) {
+  .track-grid { grid-template-columns: 1fr; }
+}
 
 @media (max-width: 768px) {
   .academy-pullquote { padding: 0 20px; }
@@ -209,6 +254,9 @@ a.ref-link:hover { text-decoration: underline; }
   .overview-wrap { padding: 24px 20px 8px; }
   .data-chart { padding: 0 20px; }
   .concept-diagram { padding: 0 20px; }
+  .landing-overview { padding: 0 20px; grid-template-columns: 1fr; text-align: center; }
+  .landing-overview-logo svg { max-width: 96px; }
+  .volume-section { padding: 48px 20px 8px; }
 }
 
 </style>
@@ -258,7 +306,7 @@ a.ref-link:hover { text-decoration: underline; }
 </div>
 
 <div class="chapter-wrap">
-  <div class="chapter-eyebrow">Volume 1 · T.10 · Chapter 10.3</div>
+  <div class="chapter-eyebrow">T.10 · Chapter 10.3</div>
   <h1>Tax Drag on Investments</h1>
   <p class="chapter-title-subtitle">Placement, Turnover, and Harvesting Basics</p>
   <div class="chapter-accent"></div>

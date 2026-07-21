@@ -80,37 +80,11 @@ CURRICULUM_PATH = PLENEE_ROOT / "plenee_app" / "docs" / "academy_curriculum.md"
 TRACK_HEADER_RE = re.compile(r"^TRACK\s+(\d+)\s*—", re.MULTILINE)
 VOLUME2_MARKER_RE = re.compile(r"^VOLUME 2\s*—", re.MULTILINE)
 
-# Hand-authored, one sentence per track -- not mechanically extracted (per
-# ACADEMY_PUBLISHING_INSTRUCTIONS.md §5's "write a new sentence, don't lift
-# verbatim" spirit), but informed by each track's own subtitle in
-# academy_curriculum.md. Keyed by track_slug so re-running --all never
-# silently drops a teaser if a track gets renumbered -- only renamed/removed.
-TRACK_TEASERS = {
-    "track1-language-of-money": "The vocabulary everything else builds on — FLOW, NET, and NEST, in plain English.",
-    "track2-visibility": "Map every account, transaction, and recurring charge before you try to change anything.",
-    "track4-extraction-economy": "How banks, funds, and insurers profit from your inattention — and how to stop paying for it.",
-    "track5-the-debt-trap": "A century of marketing and easy credit conditioned Americans into debt — see the strings before you feel them.",
-    "track6-stop-the-bleeding": "Flywheel Stage 1 — eliminate the fees and cash leaks that don't require earning a dollar more.",
-    "track7-free-up-cash-flow": "Flywheel Stage 2 — free up the cash flow that's already yours.",
-    "track8-build-wealth": "Flywheel Stage 3 — put compounding to work, on purpose.",
-    "track9-earn-dont-pay": "Flywheel Stage 4 — flip the equation from paying interest to earning it.",
-    "track3-credit-mastery": "How credit scores actually work, and how to build or rebuild yours.",
-    "track10-taxes-efficiency": "Keep more of what you earn — bracket mechanics, account sequencing, and withholding done right.",
-    "track11-life-events": "Applied efficiency for the big transitions — cars, homes, marriage, kids, job changes.",
-    "track12-retirement-decumulation": "Spending your NEST well — decumulation without the guilt.",
-    "track13-protection": "Insurance, estate basics, fraud, and data privacy — insure catastrophes, not inconveniences.",
-    "track14-high-wealth-efficiency": "The invisible fleecing at high net worth — fees, incentives, and what you're really paying for.",
-    "track15-when-preparation-isnt-enough": "What preparation doesn't cover — sizing real exposure, and navigating the system after a shock.",
-    "volume2-track1-your-built-in-wiring": "Why the mind misfires on money — the wiring behind every financial mistake, not a character flaw.",
-    "volume2-track2-what-money-is-for": "What money is actually for — meaning, identity, and knowing when enough is enough.",
-}
-
 # Two-paragraph overviews for the landing page and each track's own index
 # page. Hand-written per Rob's direction (2026-07-18): consumer voice, not
 # academic/textbook framing -- avoid "teach"/"taught"/"curriculum"/"lesson".
 ACADEMY_OVERVIEW = (
-    "Most people never got a straight explanation of how money actually works — why a credit score moves the way it does, what a 1% fee really costs over 30 years, or who benefits when a bank waives one fee and not another. Plenee Academy fills that in: plain-English explanations of the systems, incentives, and numbers behind everyday financial decisions, written the way a sharp, financially literate friend would explain it — not the way a disclosure page does.",
-    "It's organized in two parts. Volume 1 is something you dip into as decisions come up — reading a credit report, sizing an emergency fund, deciding whether refinancing helps or hurts — read whatever's relevant today and ignore the rest until you need it. Volume 2 turns the lens inward, on the mental shortcuts that make smart people mishandle money anyway, and why seeing them changes what happens next. Neither one tells you what to do with your specific numbers — that's what the rest of Plenee is for — but both make the decision in front of you easier to see clearly.",
+    "Most people never got a straight explanation of how money actually works — why a credit score moves the way it does, what a 1% fee really costs over 30 years, or who benefits when a bank waives one fee and not another. Plenee Academy fills that in: plain-English explanations of the systems, incentives, and numbers behind everyday financial decisions, written the way a sharp, financially literate friend would explain it — not the way a disclosure page does."
 )
 
 TRACK_OVERVIEWS = {
@@ -182,6 +156,31 @@ TRACK_OVERVIEWS = {
         "After the mechanics of how money moves and the wiring behind why it gets mismanaged, there's a more personal question left: what any of it is actually for. Spending is rarely just a transaction — it's usually a small statement about identity, whether or not that's ever said out loud.",
         "This track covers what a spending pattern reveals about self-image, the case for spending to satisfy a person's own sense of joy rather than someone else's formula for what's worth having, why time consistently outperforms luxury as a return on money spent, and “enough” — arguably the hardest concept in personal finance to define, and the one that determines when the rest of it stops being about accumulation and starts being about living.",
     ),
+}
+
+# Six thematic color groups for the landing page's track cards (extends
+# Plenee's existing navy/teal/orange brand rather than an arbitrary rainbow;
+# each is a (base, tint, dark) hex triple applied per-card via inline CSS
+# custom properties --hue/--hue-l/--hue-d). Chosen 2026-07-20 during the
+# academy_landing_mockup.html iteration.
+TRACK_HUES: dict[str, tuple[str, str, str]] = {
+    "track1-language-of-money": ("#0FA8BC", "#E6F7FA", "#0A8A9E"),
+    "track2-visibility": ("#0FA8BC", "#E6F7FA", "#0A8A9E"),
+    "track4-extraction-economy": ("#E87722", "#FFF4EC", "#C7630F"),
+    "track5-the-debt-trap": ("#E87722", "#FFF4EC", "#C7630F"),
+    "track6-stop-the-bleeding": ("#C9971F", "#FBF4E1", "#A67D15"),
+    "track7-free-up-cash-flow": ("#C9971F", "#FBF4E1", "#A67D15"),
+    "track8-build-wealth": ("#C9971F", "#FBF4E1", "#A67D15"),
+    "track9-earn-dont-pay": ("#C9971F", "#FBF4E1", "#A67D15"),
+    "track3-credit-mastery": ("#5B7A99", "#EAF1F6", "#46607A"),
+    "track10-taxes-efficiency": ("#5B7A99", "#EAF1F6", "#46607A"),
+    "track11-life-events": ("#5B7A99", "#EAF1F6", "#46607A"),
+    "track12-retirement-decumulation": ("#5B7A99", "#EAF1F6", "#46607A"),
+    "track13-protection": ("#A8506B", "#FAEBEF", "#8C3F54"),
+    "track14-high-wealth-efficiency": ("#A8506B", "#FAEBEF", "#8C3F54"),
+    "track15-when-preparation-isnt-enough": ("#A8506B", "#FAEBEF", "#8C3F54"),
+    "volume2-track1-your-built-in-wiring": ("#1F5A6B", "#E7F3F5", "#17434F"),
+    "volume2-track2-what-money-is-for": ("#1F5A6B", "#E7F3F5", "#17434F"),
 }
 
 # One simple line-icon per track (24x24 viewBox, stroke-only, inherits color
@@ -411,15 +410,60 @@ a.ref-link:hover { text-decoration: underline; }
 
 /* ─── ACADEMY LANDING PAGE ─── */
 .academy-pullquote { text-align: center; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 19px; color: var(--navy); max-width: 560px; margin: 28px auto 0; padding: 0 48px; line-height: 1.5; }
-.volume-section { margin-top: 56px; }
-.volume-h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(22px,3vw,30px); font-weight: 700; color: var(--navy); letter-spacing: -.4px; margin-bottom: 8px; }
-.volume-sub { color: var(--muted); font-size: 15px; margin-bottom: 24px; max-width: 640px; }
-.track-grid { display: flex; flex-direction: column; gap: 14px; }
-.track-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
-.track-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
-.track-num { flex-shrink: 0; width: 56px; height: 56px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-weight: 700; font-size: 17px; }
-.track-info h3 { font-size: 18px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
-.track-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+.landing-overview {
+  max-width: 1080px; margin: 44px auto 0; padding: 0 48px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center;
+}
+.landing-overview-logo { display: flex; align-items: center; justify-content: center; }
+.landing-overview-logo svg { width: 100%; max-width: 224px; height: auto; display: block; }
+/* #overview-needle's rotation is applied as a native SVG transform attribute
+   (via JS), not a CSS transform -- that pivots reliably at SVG-space (0,0),
+   the pivot/hub position, matching how the source logo's own static
+   transform="rotate(43)" already worked. CSS transform-origin tricks on SVG
+   (transform-box: view-box, etc.) proved inconsistent across browsers. */
+.landing-overview p { font-size: 16px; color: var(--muted); line-height: 1.75; margin: 0; }
+
+.volume-section { max-width: 1080px; margin: 0 auto; padding: 64px 48px 8px; }
+.volume-section + .volume-section { padding-top: 12px; }
+.volume-kicker { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+.volume-section.v1 .volume-kicker { color: var(--teal-d); }
+.volume-section.v2 .volume-kicker { color: #17434F; }
+.volume-h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(26px,3.2vw,36px); font-weight: 700; color: var(--navy); letter-spacing: -.5px; margin-bottom: 8px; }
+.volume-sub { color: var(--muted); font-size: 16px; margin-bottom: 40px; max-width: 620px; }
+
+/* Each card sets its own --hue/--hue-l/--hue-d inline (see TRACK_HUES: the 6
+   thematic groups -- Foundations=teal, Know-your-opponent=orange,
+   Flywheel=gold, Life admin=slate, Protection/crisis=rose, Psychology=indigo). */
+.track-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 8px; }
+.track-card {
+  --hue: var(--teal); --hue-l: var(--teal-l); --hue-d: var(--teal-d);
+  display: flex; flex-direction: column;
+  border: 1.5px solid var(--border); border-radius: 18px; overflow: hidden;
+  text-decoration: none; background: #fff;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.track-card:hover { border-color: var(--hue); transform: translateY(-3px); box-shadow: 0 14px 34px rgba(12,25,41,.09); }
+
+.tc-tile { height: 108px; display: flex; align-items: center; justify-content: center; position: relative; background: var(--hue-l); }
+.tc-tile svg { width: 44px; height: 44px; color: var(--hue-d); }
+.tc-num {
+  position: absolute; top: 14px; right: 16px;
+  font-family: Georgia, serif; font-weight: 700; font-size: 13px;
+  padding: 3px 10px; border-radius: 100px; background: rgba(255,255,255,.6);
+  color: var(--hue-d);
+}
+
+.tc-body { padding: 24px 26px 22px; display: flex; flex-direction: column; flex: 1; }
+.tc-body h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 19px; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 10px; }
+.tc-body p { font-size: 14.5px; color: var(--muted); line-height: 1.65; margin-bottom: 18px; flex: 1; }
+.tc-cta { font-size: 13px; font-weight: 700; letter-spacing: .2px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--hue-d); }
+.tc-cta svg { width: 14px; height: 14px; transition: transform .2s; }
+.track-card:hover .tc-cta svg { transform: translateX(3px); }
+
+@media (max-width: 860px) {
+  .track-grid { grid-template-columns: 1fr; }
+}
 
 @media (max-width: 768px) {
   .academy-pullquote { padding: 0 20px; }
@@ -434,6 +478,9 @@ a.ref-link:hover { text-decoration: underline; }
   .overview-wrap { padding: 24px 20px 8px; }
   .data-chart { padding: 0 20px; }
   .concept-diagram { padding: 0 20px; }
+  .landing-overview { padding: 0 20px; grid-template-columns: 1fr; text-align: center; }
+  .landing-overview-logo svg { max-width: 96px; }
+  .volume-section { padding: 48px 20px 8px; }
 }
 """
 
@@ -1076,7 +1123,7 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
 </div>
 
 <div class="chapter-wrap">
-  <div class="chapter-eyebrow">Volume {track_info.volume} · T.{track_info.display_num} · Chapter {esc(display_chapter_id(chapter["id"]))}</div>
+  <div class="chapter-eyebrow">T.{track_info.display_num} · Chapter {esc(display_chapter_id(chapter["id"]))}</div>
   <h1>{title_headline}</h1>{title_subtitle_html}
   <div class="chapter-accent"></div>
 {jump_list_html}
@@ -1096,7 +1143,7 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
 
     search_entry = {
         "t": chapter["title"],
-        "trk": f"Volume {track_info.volume} · {track_title}",
+        "trk": track_title,
         "n": f'Chapter {display_chapter_id(chapter["id"])}',
         "u": f'{track_slug}/{chapter["slug"]}.html',
         "x": " ".join(search_text_parts).strip()[:SEARCH_SNIPPET_CAP],
@@ -1107,6 +1154,101 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
 def overview_html(paragraphs: tuple[str, str]) -> str:
     paras = "\n".join(f"  <p>{esc(p)}</p>" for p in paragraphs)
     return f'<div class="overview-wrap">\n{paras}\n</div>'
+
+
+# Landing-page-only overview: rotating compass/logo mark beside the single
+# ACADEMY_OVERVIEW paragraph. Deliberately a separate renderer from
+# overview_html() above -- that one's still used unchanged by every track
+# index page with TRACK_OVERVIEWS's two-paragraph tuples.
+LANDING_COMPASS_SVG = """<svg class="landing-overview-logo-mark" viewBox="-210 -210 420 420" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="needle-bright" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFD08A"/>
+      <stop offset="100%" stop-color="#F9AE4C"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Compass face -- fixed, does not rotate -->
+  <g class="compass-face">
+    <circle cx="0" cy="0" r="192" fill="none" stroke="#DDE8F0" stroke-width="3"/>
+    <line x1="0" y1="-192" x2="0" y2="-176" stroke="#DDE8F0" stroke-width="3"/>
+    <line x1="0" y1="192" x2="0" y2="176" stroke="#DDE8F0" stroke-width="3"/>
+    <line x1="-192" y1="0" x2="-176" y2="0" stroke="#DDE8F0" stroke-width="3"/>
+    <line x1="192" y1="0" x2="176" y2="0" stroke="#DDE8F0" stroke-width="3"/>
+    <g font-family="Georgia, 'Times New Roman', serif" font-weight="700" text-anchor="middle">
+      <text x="0" y="-155" dominant-baseline="middle" font-size="34" fill="#0C1929">N</text>
+      <text x="0" y="155" dominant-baseline="middle" font-size="28" fill="#8A9EB0">S</text>
+      <text x="155" y="0" dominant-baseline="middle" font-size="28" fill="#8A9EB0">E</text>
+      <text x="-155" y="0" dominant-baseline="middle" font-size="28" fill="#8A9EB0">W</text>
+    </g>
+  </g>
+
+  <!-- Needle assembly -- JS-animated, oscillates randomly within the NW-to-NE arc -->
+  <g id="overview-needle" fill="none" stroke-linecap="round">
+    <line x1="-152" y1="0" x2="-50" y2="0" stroke="#8A9EB0" stroke-width="7.5" opacity="0.55"/>
+    <line x1="50" y1="0" x2="152" y2="0" stroke="#8A9EB0" stroke-width="7.5" opacity="0.55"/>
+    <path d="M -23,-12 Q -52,42 -80,137" stroke="#0FA8BC" stroke-width="8.5" opacity="0.72"/>
+    <path d="M  23,-12 Q  52,42  80,137" stroke="#0FA8BC" stroke-width="8.5" opacity="0.72"/>
+    <path d="M -23,-12 Q -61,52 -105,168" stroke="#0FA8BC" stroke-width="4.2" opacity="0.34"/>
+    <path d="M  23,-12 Q  61,52  105,168" stroke="#0FA8BC" stroke-width="4.2" opacity="0.34"/>
+    <path d="M -23,-12 Q -70,63 -126,200" stroke="#0FA8BC" stroke-width="1.8" opacity="0.16"/>
+    <path d="M  23,-12 Q  70,63  126,200" stroke="#0FA8BC" stroke-width="1.8" opacity="0.16"/>
+    <polygon points="0,-172 -25,-39 7,-32" fill="url(#needle-bright)" stroke="none"/>
+    <polygon points="0,-172 7,-32 25,-39" fill="#C0822F" stroke="none"/>
+    <circle cx="0" cy="0" r="20" fill="#fff" stroke="#FFB256" stroke-width="7"/>
+    <circle cx="0" cy="0" r="10" fill="#FFB256" stroke="none"/>
+  </g>
+</svg>"""
+
+LANDING_COMPASS_JS = r"""(function(){
+  var needle = document.getElementById('overview-needle');
+  if (!needle) return;
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  needle.setAttribute('transform', 'rotate(0)');
+  if (reduceMotion) return;
+
+  var current = 0;
+
+  function easeInOutCubic(t){
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function animateTo(target, duration){
+    var start = current;
+    var startTime = null;
+    function frame(ts){
+      if (startTime === null) startTime = ts;
+      var t = Math.min((ts - startTime) / duration, 1);
+      var angle = start + (target - start) * easeInOutCubic(t);
+      needle.setAttribute('transform', 'rotate(' + angle.toFixed(2) + ')');
+      if (t < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        current = target;
+        setTimeout(swing, 500 + Math.random() * 900);
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function swing(){
+    // Stay pointing generally north: random angle within NW (-45deg) to NE (+45deg).
+    var target = Math.random() * 90 - 45;
+    var duration = 1600 + Math.random() * 1600;
+    animateTo(target, duration);
+  }
+  swing();
+})();"""
+
+
+def landing_overview_html(paragraph: str) -> str:
+    return (
+        '<div class="landing-overview">\n'
+        f'  <div class="landing-overview-logo">\n{LANDING_COMPASS_SVG}\n  </div>\n'
+        f'  <p>{esc(paragraph)}</p>\n'
+        "</div>\n"
+        f"<script>{LANDING_COMPASS_JS}</script>"
+    )
 
 
 def render_index_page(track_info, track_title: str, chapters: list[dict], search_index: list[dict]) -> str:
@@ -1132,7 +1274,7 @@ def render_index_page(track_info, track_title: str, chapters: list[dict], search
     search_json = json.dumps(search_index, ensure_ascii=False).replace("</script", "<\\/script")
 
     body = f"""<div class="page-header">
-  <div class="page-kicker">Volume {track_info.volume} · T.{track_info.display_num}</div>
+  <div class="page-kicker">T.{track_info.display_num}</div>
   <h1>{esc(track_title)}</h1>
 </div>
 
@@ -1186,13 +1328,20 @@ def render_landing_page(track_order: list, search_index: list[dict]) -> str:
     def cards_html(tracks: list) -> str:
         parts = []
         for t in tracks:
-            teaser = TRACK_TEASERS.get(t.track_slug, "")
+            hue, hue_l, hue_d = TRACK_HUES[t.track_slug]
+            overview_p1 = TRACK_OVERVIEWS[t.track_slug][0]
             parts.append(
-                f'  <a class="track-card" href="{t.track_slug}/index.html">\n'
-                f'    <div class="track-num">T.{esc(t.display_num)}</div>\n'
-                '    <div class="track-info">\n'
+                f'  <a class="track-card" href="{t.track_slug}/index.html" '
+                f'style="--hue:{hue};--hue-l:{hue_l};--hue-d:{hue_d};">\n'
+                f'    <div class="tc-tile"><span class="tc-num">{esc(t.display_num)}</span>\n'
+                f'      {render_track_icon(t.track_slug, size=44)}\n'
+                "    </div>\n"
+                '    <div class="tc-body">\n'
                 f'      <h3>{esc(smart_title(t.title))}</h3>\n'
-                f'      <p>{esc(teaser)}</p>\n'
+                f'      <p>{esc(overview_p1)}</p>\n'
+                '      <span class="tc-cta">Start reading '
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" '
+                'stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>\n'
                 "    </div>\n"
                 "  </a>"
             )
@@ -1215,23 +1364,23 @@ def render_landing_page(track_order: list, search_index: list[dict]) -> str:
 {search_html('academy')}
 </div>
 
-{overview_html(ACADEMY_OVERVIEW)}
+{landing_overview_html(ACADEMY_OVERVIEW)}
 
-<div class="track-wrap">
-  <div class="volume-section">
-    <h2 class="volume-h2">Volume 1 — A Guide for Wealth</h2>
-    <p class="volume-sub">Reference material — read any track, in any order, whenever a decision comes up.</p>
-    <div class="track-grid">
+<div class="volume-section v1">
+  <div class="volume-kicker">Reference Library</div>
+  <h2 class="volume-h2">A Guide for Wealth</h2>
+  <p class="volume-sub">Fifteen tracks, read in any order — pick whatever's relevant to the decision in front of you right now.</p>
+  <div class="track-grid">
 {cards_html(v1_tracks)}
-    </div>
   </div>
+</div>
 
-  <div class="volume-section">
-    <h2 class="volume-h2">Volume 2 — The Psychology of Money</h2>
-    <p class="volume-sub">A cumulative, narrative read on the mental wiring behind every money decision.</p>
-    <div class="track-grid">
+<div class="volume-section v2">
+  <div class="volume-kicker">A Narrative Read</div>
+  <h2 class="volume-h2">The Psychology of Money</h2>
+  <p class="volume-sub">Two tracks, meant to be read in order — the mental wiring behind every money decision.</p>
+  <div class="track-grid">
 {cards_html(v2_tracks)}
-    </div>
   </div>
 </div>
 
