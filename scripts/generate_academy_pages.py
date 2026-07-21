@@ -1355,7 +1355,7 @@ def render_landing_page(track_order: list, search_index: list[dict]) -> str:
     body = f"""<div class="page-header">
   <div class="page-kicker">Plenee Academy</div>
   <h1>A Guide for Wealth</h1>
-  <p>Free financial education grounded in real research, not sales pitches — a reference library for every decision, and a psychology track for the biases quietly running your money. Education, never personalized advice.</p>
+  <p>Free financial education grounded in real research, not sales pitches — a reference library for every decision, and a psychology track for the biases quietly running your money.</p>
 </div>
 
 <p class="academy-pullquote">&ldquo;Rich is what people see. Wealth is what they don't.&rdquo;</p>
