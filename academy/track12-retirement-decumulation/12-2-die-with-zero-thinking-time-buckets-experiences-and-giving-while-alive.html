@@ -175,10 +175,17 @@ a.ref-link:hover { text-decoration: underline; }
 .track-search-wrap { max-width: 720px; margin: 32px auto 0; padding: 0 48px; }
 .track-search-wrap .academy-search-wrap { padding: 0; max-width: none; }
 
-/* ─── OVERVIEW (landing page + track index pages) ─── */
-.overview-wrap { max-width: 720px; margin: 0 auto; padding: 32px 48px 8px; }
+/* ─── OVERVIEW (track index pages) ─── */
+/* Widened to match the chapter-card grid below it (.track-wrap, 1080px) and
+   split its two paragraphs into side-by-side columns when there's room;
+   collapses to a single stacked column at the same breakpoint the card grid
+   itself collapses at, so the two never disagree about "narrow." */
+.overview-wrap { max-width: 1080px; margin: 0 auto; padding: 32px 48px 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 40px; }
 .overview-wrap p { font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 18px; }
 .overview-wrap p:last-child { margin-bottom: 0; }
+@media (max-width: 860px) {
+  .overview-wrap { grid-template-columns: 1fr; }
+}
 
 /* ─── DATA CHART (ACADEMY_PUBLISHING_INSTRUCTIONS.md §8a) ─── */
 .data-chart { max-width: 720px; margin: 40px auto; padding: 0 48px; }
@@ -340,7 +347,7 @@ a.ref-link:hover { text-decoration: underline; }
       <ol>
 <li><a href="#the-optimization-nobody-runs">The optimization nobody runs</a></li>
 <li><a href="#time-buckets-and-the-experience-curve">Time-buckets and the experience curve</a></li>
-<li><a href="#the-honest-tension-with-12-3-and-12-4">The honest tension with 12.3 and 12.4</a></li>
+<li><a href="#the-honest-tension-between-safety-margin-and-unlived-experience">The honest tension between safety margin and unlived experience</a></li>
       </ol>
     </div>
 
@@ -352,7 +359,7 @@ a.ref-link:hover { text-decoration: underline; }
 <div class="subhead-accent"></div>
 <p>The practical tool is <strong>time-bucketing</strong>: instead of one undifferentiated "retirement," list the experiences that matter (<a class="ref-link" href="../volume2-track2-what-money-is-for/2-1-spending-as-a-mirror-what-your-transactions-say-about-your-identity.html">Spending as a Mirror</a>'s honest audit, pointed at the future), and assign each to the age bucket in which it's actually live — the physically demanding ones early, the sedentary ones late. The exercise routinely reveals a planning inversion: conventional retirement saving treats all future years as interchangeable, while the experience list is heavily front-loaded — which argues (within a professional-reviewed plan's constraints) for spending <em>earlier</em> in retirement than level-drawdown instinct suggests, in the "go-go years" before the "slow-go" and "no-go" phases — a framework popularized by financial planner Michael Stein's 1998 book <em>The Prosperous Retirement</em>.<sup id="fnref-12.2-2"><a href="#fn-12.2-2">2</a></sup> Separate empirical research points the same direction: David Blanchett's study (<em>Journal of Financial Planning</em>, 2014) found real household spending declines roughly 1% a year on average through retirement in a "spending smile" shape — slower decline early and late, steepest in the middle.<sup id="fnref-12.2-3"><a href="#fn-12.2-3">3</a></sup></p>
 <p><strong>Giving while alive</strong> follows the same conversion logic: the planned bequest, delivered decades early — to children at 30 buying first homes rather than at 60 — or to causes seen working rather than named in documents — converts at dramatically better life-rates, for giver and recipient both (with gift-and-estate mechanics as professional terrain). The memory dividend rounds it out: experiences purchased early pay recall-interest for every remaining year — the one asset whose return <em>increases</em> with age.</p>
-<h2 id="the-honest-tension-with-12-3-and-12-4">The honest tension with 12.3 and 12.4</h2>
+<h2 id="the-honest-tension-between-safety-margin-and-unlived-experience">The honest tension between safety margin and unlived experience</h2>
 <div class="subhead-accent"></div>
 <p>Die With Zero thinking deliberately tensions against the security instinct — and the tension is the point, not a flaw: <a class="ref-link" href="12-4-safe-withdrawal-thinking-sequence-risk-in-plain-language.html">Safe Withdrawal Thinking</a>'s sequence risk argues for margin; Perkins argues margin has a cost paid in unlived experiences. The resolution isn't choosing a winner — it's <em>pricing both sides</em> (annuity-like income floors and longevity-risk tools exist precisely to make deliberate spending safe, though the specific structures are a professional's terrain) and making the margin a chosen size rather than an unexamined maximum. <a class="ref-link" href="../volume2-track2-what-money-is-for/2-4-enough-the-hardest-financial-concept.html">Enough</a>'s "enough" question, asked one last time, now about the ending.</p>
   </div>
