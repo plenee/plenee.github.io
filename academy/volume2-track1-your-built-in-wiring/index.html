@@ -67,6 +67,10 @@ footer p { color: #2E4A60; font-size: 13px; }
 .page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
 .page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
 .page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+/* Landing-page-only: "Plenee" set large (matching the h1 below), the
+   "Academy" pill sitting underneath it rather than "Plenee Academy" both
+   inside one small chip. */
+.landing-brand { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 18px; }
 
 /* ─── BREADCRUMB ─── */
 .crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
@@ -118,15 +122,30 @@ a.ref-link:hover { text-decoration: underline; }
 .cn-empty { visibility: hidden; }
 
 /* ─── TRACK INDEX ─── */
-.track-wrap { max-width: 720px; margin: 0 auto; padding: 56px 48px 88px; }
-.chapter-grid { display: flex; flex-direction: column; gap: 14px; }
-.chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
-.chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
-.chap-num { flex-shrink: 0; width: 48px; height: 52px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
-.chap-num .cn-icon { line-height: 0; }
-.chap-num .cn-digits { font-family: Georgia, serif; font-weight: 700; font-size: 13px; }
-.chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
-.chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+.track-wrap { max-width: 1080px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapters-heading { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 18px; }
+.chapter-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.chap-card {
+  --hue: var(--teal); --hue-l: var(--teal-l); --hue-d: var(--teal-d);
+  display: flex; flex-direction: column;
+  border: 1.5px solid var(--border); border-radius: 18px; overflow: hidden;
+  text-decoration: none; background: #fff;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.chap-card:hover { border-color: var(--hue); transform: translateY(-3px); box-shadow: 0 14px 34px rgba(12,25,41,.09); }
+.cc-tile { height: 132px; position: relative; overflow: hidden; background: var(--hue-l); }
+.cc-art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cc-art .grain { mix-blend-mode: multiply; opacity: .5; }
+.cc-body { padding: 22px 24px 20px; display: flex; flex-direction: column; flex: 1; }
+.cc-body h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 18px; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 10px; }
+.cc-body p { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; flex: 1; }
+.cc-cta { font-size: 13px; font-weight: 700; letter-spacing: .2px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--hue-d); }
+.cc-cta svg { width: 14px; height: 14px; transition: transform .2s; }
+.chap-card:hover .cc-cta svg { transform: translateX(3px); }
+
+@media (max-width: 860px) {
+  .chapter-grid { grid-template-columns: 1fr; }
+}
 
 /* ─── ACADEMY SEARCH ─── */
 /* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
@@ -325,80 +344,258 @@ a.ref-link:hover { text-decoration: underline; }
 
 
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="artBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="softBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="grainFilter" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0"/>
+    </filter>
+  </defs>
+</svg>
+
 <div class="track-wrap">
+  <div class="chapters-heading">11 Chapters</div>
   <div class="chapter-grid">
-  <a class="chap-card" href="1-1-your-money-history-shapes-your-money-behavior.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.1</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="1-1-your-money-history-shapes-your-money-behavior.html" style="--hue:#1F5A6B;--hue-l:#E7F3F5;--hue-d:#17434F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g style="stroke:var(--hue-d);" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="18" x2="400" y2="18"/>
+    <line x1="0" y1="36" x2="400" y2="36"/>
+    <line x1="0" y1="54" x2="400" y2="54"/>
+    <line x1="0" y1="72" x2="400" y2="72"/>
+    <line x1="0" y1="90" x2="400" y2="90"/>
+    <line x1="0" y1="108" x2="400" y2="108"/>
+  </g>
+  <line x1="0" y1="120" x2="400" y2="120" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.35"/>
+  <line x1="80" y1="0" x2="80" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="220" y1="0" x2="220" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="340" y1="0" x2="340" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <path d="M0,105 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L400,25" fill="none" style="stroke:var(--hue);" stroke-width="3" opacity="0.75" filter="url(#softBlur)"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Your Money History Shapes Your Money Behavior</h3>
+      <p>The envelope budgeter, the day-trader, the spouse who won't look at the retirement account during downturns — each pattern looks irrational from outside and felt sensible from inside, because it was, once, in the world where it got learned. Naming why a habit formed doesn't excuse it, but it does tell you exactly where to intervene, which is more than shame ever manages.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="1-2-loss-aversion-present-bias-mental-accounting-anchoring.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.2</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="1-2-loss-aversion-present-bias-mental-accounting-anchoring.html" style="--hue:#1F5A6B;--hue-l:#E7F3F5;--hue-d:#17434F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g style="stroke:var(--hue-d);" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="18" x2="400" y2="18"/>
+    <line x1="0" y1="36" x2="400" y2="36"/>
+    <line x1="0" y1="54" x2="400" y2="54"/>
+    <line x1="0" y1="72" x2="400" y2="72"/>
+    <line x1="0" y1="90" x2="400" y2="90"/>
+    <line x1="0" y1="108" x2="400" y2="108"/>
+  </g>
+  <line x1="0" y1="120" x2="400" y2="120" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.35"/>
+  <line x1="80" y1="0" x2="80" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="220" y1="0" x2="220" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="340" y1="0" x2="340" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <path d="M0,105 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L400,25" fill="none" style="stroke:var(--hue);" stroke-width="3" opacity="0.75" filter="url(#softBlur)"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Loss Aversion, Present Bias, Mental Accounting, Anchoring</h3>
+      <p>Four pieces of ancient mental wiring quietly run financial decisions: losses hurt twice as hard as gains feel good, today always outbids tomorrow, identical dollars get filed into imaginary buckets, and the first number seen reframes everything after it. None of it can be uninstalled — but naming the pattern in the moment weakens its pull, and automating the decisions it corrupts removes it from the negotiation entirely.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="1-3-expectations-vs-circumstances-the-happiness-equation.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.3</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="1-3-expectations-vs-circumstances-the-happiness-equation.html" style="--hue:#1F5A6B;--hue-l:#E7F3F5;--hue-d:#17434F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tickerFade-volume2-track1-your-built-in-wiring-PM1-3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:var(--hue);stop-opacity:0.55"/>
+      <stop offset="100%" style="stop-color:var(--hue);stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45 L400,132 L0,132 Z" fill="url(#tickerFade-volume2-track1-your-built-in-wiring-PM1-3)" filter="url(#softBlur)"/>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45" fill="none" style="stroke:var(--hue-d);" stroke-width="2.5" opacity="0.7" filter="url(#softBlur)"/>
+  <circle cx="160" cy="50" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <circle cx="320" cy="30" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Expectations vs. Circumstances</h3>
-      <p class="chap-subtitle">The Happiness Equation</p>
+      <p>Satisfaction equals what you have minus what you expected, and a raise quietly inflates the second number as fast as the first — which is how a household can double its income and feel exactly as stretched as before. The real win was never the raise; it's the gap between what you could spend and what you do, and it only survives if something deliberately interrupts the upgrade.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="1-4-stories-beat-statistics-how-narratives-and-marketers-move-your-money.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.4</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="1-4-stories-beat-statistics-how-narratives-and-marketers-move-your-money.html" style="--hue:#1F5A6B;--hue-l:#E7F3F5;--hue-d:#17434F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g style="stroke:var(--hue-d);" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="18" x2="400" y2="18"/>
+    <line x1="0" y1="36" x2="400" y2="36"/>
+    <line x1="0" y1="54" x2="400" y2="54"/>
+    <line x1="0" y1="72" x2="400" y2="72"/>
+    <line x1="0" y1="90" x2="400" y2="90"/>
+    <line x1="0" y1="108" x2="400" y2="108"/>
+  </g>
+  <line x1="0" y1="120" x2="400" y2="120" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.35"/>
+  <line x1="80" y1="0" x2="80" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="220" y1="0" x2="220" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="340" y1="0" x2="340" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <path d="M0,105 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L400,25" fill="none" style="stroke:var(--hue);" stroke-width="3" opacity="0.75" filter="url(#softBlur)"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Stories Beat Statistics</h3>
-      <p class="chap-subtitle">How Narratives and Marketers Move Your Money</p>
+      <p>Nobody ever refinanced a house because of a spreadsheet — they did it because of a story, and a vivid story beats a table of statistics almost every time, which is exactly why every extraction pitch in finance arrives dressed as one. The defense isn't cynicism, it's a habit: when a story pushes you toward a transaction, ask it for the total cost, the base rate, and who profits if you believe it.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="1-5-status-quo-salience-and-denial-the-spending-patterns-hiding-in-plain-sight.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.5</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="1-5-status-quo-salience-and-denial-the-spending-patterns-hiding-in-plain-sight.html" style="--hue:#1F5A6B;--hue-l:#E7F3F5;--hue-d:#17434F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g style="stroke:var(--hue-d);" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="18" x2="400" y2="18"/>
+    <line x1="0" y1="36" x2="400" y2="36"/>
+    <line x1="0" y1="54" x2="400" y2="54"/>
+    <line x1="0" y1="72" x2="400" y2="72"/>
+    <line x1="0" y1="90" x2="400" y2="90"/>
+    <line x1="0" y1="108" x2="400" y2="108"/>
+  </g>
+  <line x1="0" y1="120" x2="400" y2="120" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.35"/>
+  <line x1="80" y1="0" x2="80" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="220" y1="0" x2="220" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="340" y1="0" x2="340" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <path d="M0,105 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L400,25" fill="none" style="stroke:var(--hue);" stroke-width="3" opacity="0.75" filter="url(#softBlur)"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Status Quo, Salience, and Denial</h3>
-      <p class="chap-subtitle">The Spending Patterns Hiding in Plain Sight</p>
+      <p>The unused gym membership isn't costing willpower to keep — it's costing nothing to not cancel, and that's the whole trap. Status quo bias, salience bias, and denial all run on the same lever: the relevant number is effortful to see. Make it ambient instead — automatic, assembled, always current — and all three patterns lose the darkness they operate in.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="1-6-optimism-restraint-and-the-cost-of-compounding-the-debt-patterns.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.6</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="1-6-optimism-restraint-and-the-cost-of-compounding-the-debt-patterns.html" style="--hue:#1F5A6B;--hue-l:#E7F3F5;--hue-d:#17434F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tickerFade-volume2-track1-your-built-in-wiring-PM1-6" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:var(--hue);stop-opacity:0.55"/>
+      <stop offset="100%" style="stop-color:var(--hue);stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45 L400,132 L0,132 Z" fill="url(#tickerFade-volume2-track1-your-built-in-wiring-PM1-6)" filter="url(#softBlur)"/>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45" fill="none" style="stroke:var(--hue-d);" stroke-width="2.5" opacity="0.7" filter="url(#softBlur)"/>
+  <circle cx="160" cy="50" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <circle cx="320" cy="30" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Optimism, Restraint, and the Cost of Compounding</h3>
-      <p class="chap-subtitle">The Debt Patterns</p>
+      <p>"I'll definitely be earning more by then" and "I can definitely stop whenever I want" share the same bad track record. Optimism bias sizes debt against the best case, restraint bias treats a credit limit as harmless just because you intend not to use it, and exponential growth bias hides how long a minimum payment can lose to its own interest — sometimes for years before the balance visibly moves.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="1-7-sunk-cost-and-the-ostrich-effect-the-career-blind-spots.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.7</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="1-7-sunk-cost-and-the-ostrich-effect-the-career-blind-spots.html" style="--hue:#1F5A6B;--hue-l:#E7F3F5;--hue-d:#17434F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#artBlur)" opacity="0.65">
+    <rect x="20" y="105" width="34" height="27" style="fill:var(--hue-d);"/>
+    <rect x="70" y="90" width="34" height="42" style="fill:var(--hue);"/>
+    <rect x="120" y="95" width="34" height="37" style="fill:var(--hue-d);"/>
+    <rect x="170" y="70" width="34" height="62" style="fill:var(--hue);"/>
+    <rect x="220" y="55" width="34" height="77" style="fill:var(--hue-d);"/>
+    <rect x="270" y="60" width="34" height="72" style="fill:var(--hue);"/>
+    <rect x="320" y="30" width="34" height="102" style="fill:var(--hue-d);"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Sunk Cost and the Ostrich Effect</h3>
-      <p class="chap-subtitle">The Career Blind Spots</p>
+      <p>Five years into a job you've outgrown, the wiring asks "haven't I already invested too much to leave?" when the only useful question is "would I take this today, knowing what I know now?" Sunk cost keeps people stuck defending past years that can't be recovered anyway, while the ostrich effect keeps the market-rate comparison unchecked — together they can hold someone in place for a decade.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="1-8-five-ways-to-outsmart-yourself.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.8</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="1-8-five-ways-to-outsmart-yourself.html" style="--hue:#1F5A6B;--hue-l:#E7F3F5;--hue-d:#17434F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g style="stroke:var(--hue-d);" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="18" x2="400" y2="18"/>
+    <line x1="0" y1="36" x2="400" y2="36"/>
+    <line x1="0" y1="54" x2="400" y2="54"/>
+    <line x1="0" y1="72" x2="400" y2="72"/>
+    <line x1="0" y1="90" x2="400" y2="90"/>
+    <line x1="0" y1="108" x2="400" y2="108"/>
+  </g>
+  <line x1="0" y1="120" x2="400" y2="120" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.35"/>
+  <line x1="80" y1="0" x2="80" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="220" y1="0" x2="220" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="340" y1="0" x2="340" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <path d="M0,105 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L400,25" fill="none" style="stroke:var(--hue);" stroke-width="3" opacity="0.75" filter="url(#softBlur)"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Five Ways to Outsmart Yourself</h3>
+      <p>You don't beat these patterns by trying harder — you beat them with small structures that don't need willpower at all. Wait 48 hours before non-essential purchases, look at every account on one screen, calendar the subscription audit, price big purchases in hours of work instead of dollars, and bring another person into the numbers. None of it asks you to be better; it just changes what the moment contains.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="1-9-the-cashless-effect-and-the-framing-effect-how-money-leaves-before-you-feel-it.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.9</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="1-9-the-cashless-effect-and-the-framing-effect-how-money-leaves-before-you-feel-it.html" style="--hue:#1F5A6B;--hue-l:#E7F3F5;--hue-d:#17434F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g style="stroke:var(--hue-d);" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="18" x2="400" y2="18"/>
+    <line x1="0" y1="36" x2="400" y2="36"/>
+    <line x1="0" y1="54" x2="400" y2="54"/>
+    <line x1="0" y1="72" x2="400" y2="72"/>
+    <line x1="0" y1="90" x2="400" y2="90"/>
+    <line x1="0" y1="108" x2="400" y2="108"/>
+  </g>
+  <line x1="0" y1="120" x2="400" y2="120" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.35"/>
+  <line x1="80" y1="0" x2="80" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="220" y1="0" x2="220" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="340" y1="0" x2="340" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <path d="M0,105 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L400,25" fill="none" style="stroke:var(--hue);" stroke-width="3" opacity="0.75" filter="url(#softBlur)"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>The Cashless Effect and the Framing Effect</h3>
-      <p class="chap-subtitle">How Money Leaves Before You Feel It</p>
+      <p>A $40 tap and a $40 cash handover cost the same but feel nothing alike — the tap is weightless, and that missing friction is exactly why cashless spending runs higher on identical budgets. Framing plays the same trick from the other side: "$1 a day" and "$365 a year" are the same number wearing different clothes. The fix for both is the same habit — annualize the wording, and keep a running total visible.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="1-10-scarcity-mindset-when-short-term-survival-costs-you-the-long-term.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.10</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="1-10-scarcity-mindset-when-short-term-survival-costs-you-the-long-term.html" style="--hue:#1F5A6B;--hue-l:#E7F3F5;--hue-d:#17434F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tickerFade-volume2-track1-your-built-in-wiring-PM1-10" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:var(--hue);stop-opacity:0.55"/>
+      <stop offset="100%" style="stop-color:var(--hue);stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45 L400,132 L0,132 Z" fill="url(#tickerFade-volume2-track1-your-built-in-wiring-PM1-10)" filter="url(#softBlur)"/>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45" fill="none" style="stroke:var(--hue-d);" stroke-width="2.5" opacity="0.7" filter="url(#softBlur)"/>
+  <circle cx="160" cy="50" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <circle cx="320" cy="30" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Scarcity Mindset</h3>
-      <p class="chap-subtitle">When Short-Term Survival Costs You the Long Term</p>
+      <p>Buying $15 shoes that fall apart in a month instead of a $60 pair that lasts five years isn't a math failure — it's what genuine scarcity does to anyone's attention, narrowing focus onto this week's number until everything else, including the cheaper long-run option, becomes hard to even see. More financial advice doesn't help a tunneled mind; fewer competing decisions and a bigger buffer do.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="1-11-the-endowment-effect-why-your-own-stuff-is-worth-more-to-you-than-to-anyone-else.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/></svg></span><span class="cn-digits">1.11</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="1-11-the-endowment-effect-why-your-own-stuff-is-worth-more-to-you-than-to-anyone-else.html" style="--hue:#1F5A6B;--hue-l:#E7F3F5;--hue-d:#17434F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g style="stroke:var(--hue-d);" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="18" x2="400" y2="18"/>
+    <line x1="0" y1="36" x2="400" y2="36"/>
+    <line x1="0" y1="54" x2="400" y2="54"/>
+    <line x1="0" y1="72" x2="400" y2="72"/>
+    <line x1="0" y1="90" x2="400" y2="90"/>
+    <line x1="0" y1="108" x2="400" y2="108"/>
+  </g>
+  <line x1="0" y1="120" x2="400" y2="120" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.35"/>
+  <line x1="80" y1="0" x2="80" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="220" y1="0" x2="220" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="340" y1="0" x2="340" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <path d="M0,105 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L400,25" fill="none" style="stroke:var(--hue);" stroke-width="3" opacity="0.75" filter="url(#softBlur)"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>The Endowment Effect</h3>
-      <p class="chap-subtitle">Why Your Own Stuff Is Worth More to You Than to Anyone Else</p>
+      <p>List your own car next to an identical stranger's car and you'll price yours higher — not from dishonesty, just ownership. The endowment effect quietly inflates the value of the home with the marks on the doorframe, the inherited stock, the position that once won, and it costs real money whenever an honest valuation actually matters. The antidote is simple to state: at decision time, price it like a stranger would.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
   </div>

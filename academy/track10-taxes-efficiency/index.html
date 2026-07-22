@@ -67,6 +67,10 @@ footer p { color: #2E4A60; font-size: 13px; }
 .page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
 .page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
 .page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+/* Landing-page-only: "Plenee" set large (matching the h1 below), the
+   "Academy" pill sitting underneath it rather than "Plenee Academy" both
+   inside one small chip. */
+.landing-brand { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 18px; }
 
 /* ─── BREADCRUMB ─── */
 .crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
@@ -118,15 +122,30 @@ a.ref-link:hover { text-decoration: underline; }
 .cn-empty { visibility: hidden; }
 
 /* ─── TRACK INDEX ─── */
-.track-wrap { max-width: 720px; margin: 0 auto; padding: 56px 48px 88px; }
-.chapter-grid { display: flex; flex-direction: column; gap: 14px; }
-.chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
-.chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
-.chap-num { flex-shrink: 0; width: 48px; height: 52px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
-.chap-num .cn-icon { line-height: 0; }
-.chap-num .cn-digits { font-family: Georgia, serif; font-weight: 700; font-size: 13px; }
-.chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
-.chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+.track-wrap { max-width: 1080px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapters-heading { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 18px; }
+.chapter-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.chap-card {
+  --hue: var(--teal); --hue-l: var(--teal-l); --hue-d: var(--teal-d);
+  display: flex; flex-direction: column;
+  border: 1.5px solid var(--border); border-radius: 18px; overflow: hidden;
+  text-decoration: none; background: #fff;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.chap-card:hover { border-color: var(--hue); transform: translateY(-3px); box-shadow: 0 14px 34px rgba(12,25,41,.09); }
+.cc-tile { height: 132px; position: relative; overflow: hidden; background: var(--hue-l); }
+.cc-art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cc-art .grain { mix-blend-mode: multiply; opacity: .5; }
+.cc-body { padding: 22px 24px 20px; display: flex; flex-direction: column; flex: 1; }
+.cc-body h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 18px; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 10px; }
+.cc-body p { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; flex: 1; }
+.cc-cta { font-size: 13px; font-weight: 700; letter-spacing: .2px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--hue-d); }
+.cc-cta svg { width: 14px; height: 14px; transition: transform .2s; }
+.chap-card:hover .cc-cta svg { transform: translateX(3px); }
+
+@media (max-width: 860px) {
+  .chapter-grid { grid-template-columns: 1fr; }
+}
 
 /* ─── ACADEMY SEARCH ─── */
 /* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
@@ -325,41 +344,131 @@ a.ref-link:hover { text-decoration: underline; }
 
 
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="artBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="softBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="grainFilter" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0"/>
+    </filter>
+  </defs>
+</svg>
+
 <div class="track-wrap">
+  <div class="chapters-heading">5 Chapters</div>
   <div class="chapter-grid">
-  <a class="chap-card" href="10-1-marginal-vs-effective-tax-rates-what-bracket-youre-actually-in.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/><line x1="5" y1="19" x2="19" y2="5"/></svg></span><span class="cn-digits">10.1</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="10-1-marginal-vs-effective-tax-rates-what-bracket-youre-actually-in.html" style="--hue:#5B7A99;--hue-l:#EAF1F6;--hue-d:#46607A;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Marginal vs. Effective Tax Rates</h3>
-      <p class="chap-subtitle">What Bracket You're Actually In</p>
+      <p>Most people think their tax bracket is the rate the government takes from all their income — it isn't. Brackets are a staircase: only your last dollar hits the top rate, so your marginal rate (what the next dollar costs) and your effective rate (what you actually pay overall) are two very different numbers. Getting this straight kills the raise-will-cost-me-money myth for good.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="10-2-tax-advantaged-account-sequencing-which-dollar-goes-where-first.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/><line x1="5" y1="19" x2="19" y2="5"/></svg></span><span class="cn-digits">10.2</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="10-2-tax-advantaged-account-sequencing-which-dollar-goes-where-first.html" style="--hue:#5B7A99;--hue-l:#EAF1F6;--hue-d:#46607A;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g style="stroke:var(--hue-d);" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="18" x2="400" y2="18"/>
+    <line x1="0" y1="36" x2="400" y2="36"/>
+    <line x1="0" y1="54" x2="400" y2="54"/>
+    <line x1="0" y1="72" x2="400" y2="72"/>
+    <line x1="0" y1="90" x2="400" y2="90"/>
+    <line x1="0" y1="108" x2="400" y2="108"/>
+  </g>
+  <line x1="0" y1="120" x2="400" y2="120" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.35"/>
+  <line x1="80" y1="0" x2="80" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="220" y1="0" x2="220" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="340" y1="0" x2="340" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <path d="M0,105 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L400,25" fill="none" style="stroke:var(--hue);" stroke-width="3" opacity="0.75" filter="url(#softBlur)"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Tax-Advantaged Account Sequencing</h3>
-      <p class="chap-subtitle">Which Dollar Goes Where First</p>
+      <p>Every dollar you save gets taxed now, later, or never, and the order you fill your accounts in is one of the few guaranteed efficiency wins in personal finance. Match the employer match first, then never-taxed space, then other advantaged accounts, then flexible taxable — with debt and your buffer still cutting the line ahead of all of it.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="10-3-tax-drag-on-investments-placement-turnover-and-harvesting-basics.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/><line x1="5" y1="19" x2="19" y2="5"/></svg></span><span class="cn-digits">10.3</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="10-3-tax-drag-on-investments-placement-turnover-and-harvesting-basics.html" style="--hue:#5B7A99;--hue-l:#EAF1F6;--hue-d:#46607A;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#softBlur)" opacity="0.6">
+    <line x1="30" y1="30" x2="30" y2="95" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="22" y="45" width="16" height="35" style="fill:var(--hue-d);"/>
+    <line x1="70" y1="20" x2="70" y2="70" style="stroke:var(--hue);" stroke-width="1.5"/>
+    <rect x="62" y="35" width="16" height="25" style="fill:var(--hue);"/>
+    <line x1="110" y1="50" x2="110" y2="110" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="102" y="60" width="16" height="40" style="fill:var(--hue-d);"/>
+    <line x1="150" y1="15" x2="150" y2="60" style="stroke:var(--hue);" stroke-width="1.5"/>
+    <rect x="142" y="25" width="16" height="25" style="fill:var(--hue);"/>
+    <line x1="190" y1="40" x2="190" y2="100" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="182" y="55" width="16" height="35" style="fill:var(--hue-d);"/>
+    <line x1="230" y1="10" x2="230" y2="55" style="stroke:var(--hue);" stroke-width="1.5"/>
+    <rect x="222" y="18" width="16" height="28" style="fill:var(--hue);"/>
+    <line x1="270" y1="35" x2="270" y2="90" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="262" y="45" width="16" height="32" style="fill:var(--hue-d);"/>
+    <line x1="310" y1="5" x2="310" y2="45" style="stroke:var(--hue);" stroke-width="1.5"/>
+    <rect x="302" y="12" width="16" height="22" style="fill:var(--hue);"/>
+    <line x1="350" y1="25" x2="350" y2="80" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="342" y="35" width="16" height="30" style="fill:var(--hue-d);"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Tax Drag on Investments</h3>
-      <p class="chap-subtitle">Placement, Turnover, and Harvesting Basics</p>
+      <p>Fees aren't the only drag on your investments — taxes on dividends and realized gains quietly compound against you too. Three structural habits manage most of it: put tax-noisy holdings in sheltered accounts, let low turnover defer gains so they keep compounding, and know that losses on paper have real salvage value within the wash-sale rules.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="10-4-withholding-done-right-why-a-big-refund-is-a-fleecing-you-did-to-yourself.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/><line x1="5" y1="19" x2="19" y2="5"/></svg></span><span class="cn-digits">10.4</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="10-4-withholding-done-right-why-a-big-refund-is-a-fleecing-you-did-to-yourself.html" style="--hue:#5B7A99;--hue-l:#EAF1F6;--hue-d:#46607A;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Withholding Done Right</h3>
-      <p class="chap-subtitle">Why a Big Refund Is a Fleecing You Did to Yourself</p>
+      <p>That big spring tax refund people celebrate isn't a windfall — it's proof you gave the government an interest-free loan all year while your own credit card balance compounded at 24% in the meantime. The fix isn't minimizing withholding, it's accuracy: get your paycheck closer to right so your money works for you all year instead of showing up months late.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="10-5-retirement-withdrawals-the-tax-order-that-preserves-your-nest.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/><line x1="5" y1="19" x2="19" y2="5"/></svg></span><span class="cn-digits">10.5</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="10-5-retirement-withdrawals-the-tax-order-that-preserves-your-nest.html" style="--hue:#5B7A99;--hue-l:#EAF1F6;--hue-d:#46607A;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tickerFade-track10-taxes-efficiency-10-5" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:var(--hue);stop-opacity:0.55"/>
+      <stop offset="100%" style="stop-color:var(--hue);stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45 L400,132 L0,132 Z" fill="url(#tickerFade-track10-taxes-efficiency-10-5)" filter="url(#softBlur)"/>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45" fill="none" style="stroke:var(--hue-d);" stroke-width="2.5" opacity="0.7" filter="url(#softBlur)"/>
+  <circle cx="160" cy="50" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <circle cx="320" cy="30" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Retirement Withdrawals</h3>
-      <p class="chap-subtitle">The Tax Order That Preserves Your NEST</p>
+      <p>After decades of building your nest egg, the order you draw it down in changes how much of it survives taxes. Since brackets reset every year, spreading withdrawals across accounts and years thoughtfully — rather than dumping it all as taxable income at once — can be worth real money, and it's exactly the kind of plannable decision a professional should help execute.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
   </div>

@@ -67,6 +67,10 @@ footer p { color: #2E4A60; font-size: 13px; }
 .page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
 .page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
 .page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+/* Landing-page-only: "Plenee" set large (matching the h1 below), the
+   "Academy" pill sitting underneath it rather than "Plenee Academy" both
+   inside one small chip. */
+.landing-brand { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 18px; }
 
 /* ─── BREADCRUMB ─── */
 .crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
@@ -118,15 +122,30 @@ a.ref-link:hover { text-decoration: underline; }
 .cn-empty { visibility: hidden; }
 
 /* ─── TRACK INDEX ─── */
-.track-wrap { max-width: 720px; margin: 0 auto; padding: 56px 48px 88px; }
-.chapter-grid { display: flex; flex-direction: column; gap: 14px; }
-.chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
-.chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
-.chap-num { flex-shrink: 0; width: 48px; height: 52px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
-.chap-num .cn-icon { line-height: 0; }
-.chap-num .cn-digits { font-family: Georgia, serif; font-weight: 700; font-size: 13px; }
-.chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
-.chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+.track-wrap { max-width: 1080px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapters-heading { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 18px; }
+.chapter-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.chap-card {
+  --hue: var(--teal); --hue-l: var(--teal-l); --hue-d: var(--teal-d);
+  display: flex; flex-direction: column;
+  border: 1.5px solid var(--border); border-radius: 18px; overflow: hidden;
+  text-decoration: none; background: #fff;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.chap-card:hover { border-color: var(--hue); transform: translateY(-3px); box-shadow: 0 14px 34px rgba(12,25,41,.09); }
+.cc-tile { height: 132px; position: relative; overflow: hidden; background: var(--hue-l); }
+.cc-art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cc-art .grain { mix-blend-mode: multiply; opacity: .5; }
+.cc-body { padding: 22px 24px 20px; display: flex; flex-direction: column; flex: 1; }
+.cc-body h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 18px; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 10px; }
+.cc-body p { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; flex: 1; }
+.cc-cta { font-size: 13px; font-weight: 700; letter-spacing: .2px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--hue-d); }
+.cc-cta svg { width: 14px; height: 14px; transition: transform .2s; }
+.chap-card:hover .cc-cta svg { transform: translateX(3px); }
+
+@media (max-width: 860px) {
+  .chapter-grid { grid-template-columns: 1fr; }
+}
 
 /* ─── ACADEMY SEARCH ─── */
 /* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
@@ -325,41 +344,118 @@ a.ref-link:hover { text-decoration: underline; }
 
 
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="artBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="softBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="grainFilter" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0"/>
+    </filter>
+  </defs>
+</svg>
+
 <div class="track-wrap">
+  <div class="chapters-heading">5 Chapters</div>
   <div class="chapter-grid">
-  <a class="chap-card" href="13-1-insurance-done-right-insure-catastrophes-not-inconveniences.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V6l7-3z"/></svg></span><span class="cn-digits">13.1</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="13-1-insurance-done-right-insure-catastrophes-not-inconveniences.html" style="--hue:#A8506B;--hue-l:#FAEBEF;--hue-d:#8C3F54;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Insurance Done Right</h3>
-      <p class="chap-subtitle">Insure Catastrophes, Not Inconveniences</p>
+      <p>Insurance is a losing bet on average by design, which makes it rational for exactly one thing: covering losses big enough to break you, not ones you could easily absorb. Insure the catastrophes — liability, income, life, health, dwelling — and let your buffer self-insure the small stuff, raising deductibles as that buffer grows instead of paying retail for inconvenience coverage.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="13-2-term-vs-whole-life-the-commission-tells-the-story.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V6l7-3z"/></svg></span><span class="cn-digits">13.2</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="13-2-term-vs-whole-life-the-commission-tells-the-story.html" style="--hue:#A8506B;--hue-l:#FAEBEF;--hue-d:#8C3F54;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Term vs. Whole Life</h3>
-      <p class="chap-subtitle">The Commission Tells the Story</p>
+      <p>Life insurance exists for exactly one scenario: people depend on your income, and your death would turn grief into financial ruin. Term insurance fits that finite dependency window cheaply and honestly, while whole life gets pushed hard mainly because it pays a commission — if a permanent-insurance pitch shows up with a persuader attached, that's the whole story right there.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="13-3-fraud-scams-and-identity-modern-threats-to-your-accounts.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V6l7-3z"/></svg></span><span class="cn-digits">13.3</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="13-3-fraud-scams-and-identity-modern-threats-to-your-accounts.html" style="--hue:#A8506B;--hue-l:#FAEBEF;--hue-d:#8C3F54;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Fraud, Scams, and Identity</h3>
-      <p class="chap-subtitle">Modern Threats to Your Accounts</p>
+      <p>Fraud and scams run on the same fuel as legal financial extraction — inattention, urgency, and a good story — just without any disclosure rules to constrain them. The same visibility and structure that beats legitimate fee extraction beats most criminal schemes too: freeze your credit files, use two-factor everywhere, watch your transaction feed, and give every unsolicited urgent request 48 hours it can't survive.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="13-4-estate-basics-beneficiaries-wills-and-the-paperwork-that-protects-your-nest.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V6l7-3z"/></svg></span><span class="cn-digits">13.4</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="13-4-estate-basics-beneficiaries-wills-and-the-paperwork-that-protects-your-nest.html" style="--hue:#A8506B;--hue-l:#FAEBEF;--hue-d:#8C3F54;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Estate Basics</h3>
-      <p class="chap-subtitle">Beneficiaries, Wills, and the Paperwork That Protects Your NEST</p>
+      <p>Estate planning sounds like a wealthy person's luxury, so it gets endlessly deferred, but it's really just the paperwork that decides whether your savings reach the people you meant them for. The single highest-leverage fact nobody explains: beneficiary designations override your will entirely, so that stale form from twenty years ago can hand your account to an ex-spouse no matter what you wrote elsewhere.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="13-5-data-privacy-who-sees-your-financial-data-and-who-profits-from-it.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V6l7-3z"/></svg></span><span class="cn-digits">13.5</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="13-5-data-privacy-who-sees-your-financial-data-and-who-profits-from-it.html" style="--hue:#A8506B;--hue-l:#FAEBEF;--hue-d:#8C3F54;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Data Privacy</h3>
-      <p class="chap-subtitle">Who Sees Your Financial Data and Who Profits From It</p>
+      <p>Your financial data is an asset, and you're leaking a lot of it for free to bureaus, banks, brokers, and every app you've ever connected. Real privacy isn't achievable, but the discretionary leakage is containable in an afternoon: freeze your files, exercise your opt-outs, audit connected apps, and ask of every free tool the one question that never retires — who profits from this, and is it worth the price?</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
   </div>

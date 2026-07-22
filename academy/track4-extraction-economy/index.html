@@ -67,6 +67,10 @@ footer p { color: #2E4A60; font-size: 13px; }
 .page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
 .page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
 .page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+/* Landing-page-only: "Plenee" set large (matching the h1 below), the
+   "Academy" pill sitting underneath it rather than "Plenee Academy" both
+   inside one small chip. */
+.landing-brand { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 18px; }
 
 /* ─── BREADCRUMB ─── */
 .crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
@@ -118,15 +122,30 @@ a.ref-link:hover { text-decoration: underline; }
 .cn-empty { visibility: hidden; }
 
 /* ─── TRACK INDEX ─── */
-.track-wrap { max-width: 720px; margin: 0 auto; padding: 56px 48px 88px; }
-.chapter-grid { display: flex; flex-direction: column; gap: 14px; }
-.chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
-.chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
-.chap-num { flex-shrink: 0; width: 48px; height: 52px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
-.chap-num .cn-icon { line-height: 0; }
-.chap-num .cn-digits { font-family: Georgia, serif; font-weight: 700; font-size: 13px; }
-.chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
-.chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+.track-wrap { max-width: 1080px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapters-heading { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 18px; }
+.chapter-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.chap-card {
+  --hue: var(--teal); --hue-l: var(--teal-l); --hue-d: var(--teal-d);
+  display: flex; flex-direction: column;
+  border: 1.5px solid var(--border); border-radius: 18px; overflow: hidden;
+  text-decoration: none; background: #fff;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.chap-card:hover { border-color: var(--hue); transform: translateY(-3px); box-shadow: 0 14px 34px rgba(12,25,41,.09); }
+.cc-tile { height: 132px; position: relative; overflow: hidden; background: var(--hue-l); }
+.cc-art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cc-art .grain { mix-blend-mode: multiply; opacity: .5; }
+.cc-body { padding: 22px 24px 20px; display: flex; flex-direction: column; flex: 1; }
+.cc-body h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 18px; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 10px; }
+.cc-body p { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; flex: 1; }
+.cc-cta { font-size: 13px; font-weight: 700; letter-spacing: .2px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--hue-d); }
+.cc-cta svg { width: 14px; height: 14px; transition: transform .2s; }
+.chap-card:hover .cc-cta svg { transform: translateX(3px); }
+
+@media (max-width: 860px) {
+  .chapter-grid { grid-template-columns: 1fr; }
+}
 
 /* ─── ACADEMY SEARCH ─── */
 /* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
@@ -325,82 +344,242 @@ a.ref-link:hover { text-decoration: underline; }
 
 
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="artBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="softBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="grainFilter" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0"/>
+    </filter>
+  </defs>
+</svg>
+
 <div class="track-wrap">
+  <div class="chapters-heading">11 Chapters</div>
   <div class="chapter-grid">
-  <a class="chap-card" href="4-1-the-quarter-trillion-fleecing-how-institutions-profit-from-your-inattention.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.1</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="4-1-the-quarter-trillion-fleecing-how-institutions-profit-from-your-inattention.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>The Quarter-Trillion Fleecing</h3>
-      <p class="chap-subtitle">How Institutions Profit From Your Inattention</p>
+      <p>American households pay a trillion dollars a year in interest, and most of it is honest — the fair price of a mortgage or an auto loan. The real fleecing is the roughly $230 billion that isn't: predatory lending priced far beyond any real risk, plus avoidable fees and interest that exist only where attention lapses. It doesn't spread evenly either — it stacks on the same tens of millions of households, year after year.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="4-2-overdraft-nsf-and-late-fees-the-poverty-premium.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.2</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="4-2-overdraft-nsf-and-late-fees-the-poverty-premium.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Overdraft, NSF, and Late Fees</h3>
-      <p class="chap-subtitle">The Poverty Premium</p>
+      <p>A $35 overdraft fee on a $6 purchase is nearly six times the price of the thing you bought, and these fees are stunningly concentrated: roughly 9% of accounts generate almost 80% of all overdraft revenue, disproportionately among working households with thin margins, not the very poorest. They aren't character failures — they're timing failures, caused by rent and payday landing on the wrong days, and timing is exactly the kind of problem visibility solves.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="4-3-credit-card-interest-mechanics-daily-compounding-grace-periods-trailing-interest.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.3</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="4-3-credit-card-interest-mechanics-daily-compounding-grace-periods-trailing-interest.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tickerFade-track4-extraction-economy-4-3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:var(--hue);stop-opacity:0.55"/>
+      <stop offset="100%" style="stop-color:var(--hue);stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45 L400,132 L0,132 Z" fill="url(#tickerFade-track4-extraction-economy-4-3)" filter="url(#softBlur)"/>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45" fill="none" style="stroke:var(--hue-d);" stroke-width="2.5" opacity="0.7" filter="url(#softBlur)"/>
+  <circle cx="160" cy="50" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <circle cx="320" cy="30" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Credit Card Interest Mechanics</h3>
-      <p class="chap-subtitle">Daily Compounding, Grace Periods, Trailing Interest</p>
+      <p>Credit cards have a switch almost nobody's told about: pay your statement in full and purchases are interest-free for weeks; carry even one dollar and interest starts at the register, on everything, immediately. Carrying and paying in full aren't two prices for one product — they're two entirely different products, one free and one running around 24%. Even paying off a balance mid-cycle can leave a trailing-interest charge waiting on the next statement.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="4-4-bnpl-and-payday-traps-the-true-apr-of-easy-payments.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.4</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="4-4-bnpl-and-payday-traps-the-true-apr-of-easy-payments.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>BNPL and Payday Traps</h3>
-      <p class="chap-subtitle">The True APR of "Easy Payments"</p>
+      <p>'Four easy payments of $25' is engineered to not sound like $100, and buy-now-pay-later industrialized that trick. Used perfectly, it's genuinely free credit — the damage lives in the imperfections: late fees on tiny balances, deferred-interest deadlines that retroactively charge the entire original amount, and installments spread across providers that never see each other's plans, so the real monthly total exists nowhere until you add it up yourself.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="4-5-idle-cash-the-invisible-fee-you-pay-yourself.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.5</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="4-5-idle-cash-the-invisible-fee-you-pay-yourself.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tickerFade-track4-extraction-economy-4-5" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:var(--hue);stop-opacity:0.55"/>
+      <stop offset="100%" style="stop-color:var(--hue);stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45 L400,132 L0,132 Z" fill="url(#tickerFade-track4-extraction-economy-4-5)" filter="url(#softBlur)"/>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45" fill="none" style="stroke:var(--hue-d);" stroke-width="2.5" opacity="0.7" filter="url(#softBlur)"/>
+  <circle cx="160" cy="50" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <circle cx="320" cy="30" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Idle Cash</h3>
-      <p class="chap-subtitle">The Invisible Fee You Pay Yourself</p>
+      <p>There's a fee nobody bills you for: money sitting idle in checking, earning nothing, while a high-yield savings account down the street pays real interest for zero extra risk. It gets brutal when idle cash coexists with high-interest debt — a 24-point spread running against you, silently, every single day. Unlike almost everything else in this track, fixing it requires no discipline at all, just twenty minutes and a login.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="4-6-aum-fees-what-1-really-costs-over-30-years.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.6</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="4-6-aum-fees-what-1-really-costs-over-30-years.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>AUM Fees</h3>
-      <p class="chap-subtitle">What 1% Really Costs Over 30 Years</p>
+      <p>'Just one percent' is the most expensive phrase in wealth management, because an annual asset-under-management fee is paid from your strongest compounding dollars, year after year, for decades. Run the math on $500,000 over 25 years and that one percent can cost more than the original principal. Reframe the fee against your actual returns, not your assets, and the true cost — often a sizable share of your entire gain — comes into focus.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="4-7-account-churning-commissions-and-advisor-conflicts-of-interest.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.7</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="4-7-account-churning-commissions-and-advisor-conflicts-of-interest.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Account Churning, Commissions, and Advisor Conflicts of Interest</h3>
+      <p>The single most useful question to ask anyone managing your money is simply how they're paid, because compensation shapes advice even through decent, well-meaning people. Commission structures reward transactions; asset-based fees quietly discourage anything that shrinks the fee base, like paying off a mortgage. The advisors worth keeping are the ones who sometimes recommend doing nothing — advice against their own interest is the single most reliable signal that exists.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="4-8-high-commission-insurance-products-when-whole-life-is-sold-not-bought.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.8</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="4-8-high-commission-insurance-products-when-whole-life-is-sold-not-bought.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>High-Commission Insurance Products</h3>
-      <p class="chap-subtitle">When Whole Life Is Sold, Not Bought</p>
+      <p>Whole life insurance gets sold hard at kitchen tables while term insurance gets bought quietly on comparison sites, and the gap explains the entire pattern: permanent policies carry large upfront commissions that term doesn't. Term answers the actual need — replacing income if people depend on you — directly and cheaply; whole life bundles that need with an expensive savings vehicle whose economics favor the seller most in exactly the years most buyers quit.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="4-9-hidden-and-layered-fees-fund-expense-ratios-401k-plan-fees-closing-costs.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.9</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="4-9-hidden-and-layered-fees-fund-expense-ratios-401k-plan-fees-closing-costs.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Hidden and Layered Fees</h3>
-      <p class="chap-subtitle">Fund Expense Ratios, 401k Plan Fees, Closing Costs</p>
+      <p>Some fees you pay once and see; the expensive ones you pay forever and never see at all — fund expense ratios, 401k plan layers, mortgage closing costs, all quietly skimmed as percentages before a number ever reaches your statement. Every one of them dies to the same weapon: rate times balance equals dollars per year. '0.85%' sounds like nothing; '$3,400 a year from your retirement account' does not.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="4-10-how-free-apps-monetize-you-referral-engines-data-sale-lead-generation.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.10</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="4-10-how-free-apps-monetize-you-referral-engines-data-sale-lead-generation.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>How "Free" Apps Monetize You</h3>
-      <p class="chap-subtitle">Referral Engines, Data Sale, Lead Generation</p>
+      <p>A free finance app with a hundred million users and no subscription fee still makes billions — from somewhere, and that somewhere is you. Referral bounties reward the app when you take on more credit, not when your finances improve; your transaction data becomes a targeting asset; 'free' dashboards exist to funnel you toward paid products past a balance threshold. Ask of any tool: does it earn more when your finances improve, or when you transact?</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="4-11-the-man-in-the-car-paradox-who-youre-actually-impressing-nobody.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-3 4-5 7-5 10a5 5 0 0010 0c0-3-2-6-5-10z"/></svg></span><span class="cn-digits">4.11</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="4-11-the-man-in-the-car-paradox-who-youre-actually-impressing-nobody.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#artBlur)" opacity="0.7">
+    <ellipse cx="70" cy="110" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="98" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="70" cy="86" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="74" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="115" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="104" rx="30" ry="8" style="fill:var(--hue-d);"/>
+    <ellipse cx="180" cy="93" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="105" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="92" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="79" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="66" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="53" rx="34" ry="9" style="fill:var(--hue-d);"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>The Man in the Car Paradox</h3>
-      <p class="chap-subtitle">Who You're Actually Impressing (Nobody)</p>
+      <p>Watch someone drive by in a stunning car and you rarely think they're impressive — you imagine yourself in the seat instead, and the driver vanishes from the thought entirely. That's the Man in the Car paradox: status spending buys a signal the audience never actually receives, because they're too busy daydreaming about themselves. Richness is what people see; wealth is what they don't, and the audience you're spending on isn't even watching.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
   </div>

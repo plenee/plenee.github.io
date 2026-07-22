@@ -67,6 +67,10 @@ footer p { color: #2E4A60; font-size: 13px; }
 .page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
 .page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
 .page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+/* Landing-page-only: "Plenee" set large (matching the h1 below), the
+   "Academy" pill sitting underneath it rather than "Plenee Academy" both
+   inside one small chip. */
+.landing-brand { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 18px; }
 
 /* ─── BREADCRUMB ─── */
 .crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
@@ -118,15 +122,30 @@ a.ref-link:hover { text-decoration: underline; }
 .cn-empty { visibility: hidden; }
 
 /* ─── TRACK INDEX ─── */
-.track-wrap { max-width: 720px; margin: 0 auto; padding: 56px 48px 88px; }
-.chapter-grid { display: flex; flex-direction: column; gap: 14px; }
-.chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
-.chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
-.chap-num { flex-shrink: 0; width: 48px; height: 52px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
-.chap-num .cn-icon { line-height: 0; }
-.chap-num .cn-digits { font-family: Georgia, serif; font-weight: 700; font-size: 13px; }
-.chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
-.chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+.track-wrap { max-width: 1080px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapters-heading { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 18px; }
+.chapter-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.chap-card {
+  --hue: var(--teal); --hue-l: var(--teal-l); --hue-d: var(--teal-d);
+  display: flex; flex-direction: column;
+  border: 1.5px solid var(--border); border-radius: 18px; overflow: hidden;
+  text-decoration: none; background: #fff;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.chap-card:hover { border-color: var(--hue); transform: translateY(-3px); box-shadow: 0 14px 34px rgba(12,25,41,.09); }
+.cc-tile { height: 132px; position: relative; overflow: hidden; background: var(--hue-l); }
+.cc-art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cc-art .grain { mix-blend-mode: multiply; opacity: .5; }
+.cc-body { padding: 22px 24px 20px; display: flex; flex-direction: column; flex: 1; }
+.cc-body h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 18px; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 10px; }
+.cc-body p { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; flex: 1; }
+.cc-cta { font-size: 13px; font-weight: 700; letter-spacing: .2px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--hue-d); }
+.cc-cta svg { width: 14px; height: 14px; transition: transform .2s; }
+.chap-card:hover .cc-cta svg { transform: translateX(3px); }
+
+@media (max-width: 860px) {
+  .chapter-grid { grid-template-columns: 1fr; }
+}
 
 /* ─── ACADEMY SEARCH ─── */
 /* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
@@ -325,67 +344,202 @@ a.ref-link:hover { text-decoration: underline; }
 
 
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="artBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="softBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="grainFilter" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0"/>
+    </filter>
+  </defs>
+</svg>
+
 <div class="track-wrap">
+  <div class="chapters-heading">9 Chapters</div>
   <div class="chapter-grid">
-  <a class="chap-card" href="5-1-thrift-to-credit-how-america-flipped-a-century-old-taboo.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="11" height="10" rx="5"/><rect x="11" y="7" width="11" height="10" rx="5"/></svg></span><span class="cn-digits">5.1</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="5-1-thrift-to-credit-how-america-flipped-a-century-old-taboo.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Thrift to Credit</h3>
-      <p class="chap-subtitle">How America Flipped a Century-Old Taboo</p>
+      <p>Going into debt for anything beyond a home or business used to be shameful, and that taboo didn't erode on its own — it was dismantled on purpose by companies that needed to sell more than people could pay for in cash. GM built an entire financing company to move cars in 1919; Ford tried an alternative and lost market share for a decade. Knowing the taboo was manufactured makes it easier to ignore the pressure to carry debt you don't need.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="5-2-the-card-that-started-it-all-mass-marketing-debt.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="11" height="10" rx="5"/><rect x="11" y="7" width="11" height="10" rx="5"/></svg></span><span class="cn-digits">5.2</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="5-2-the-card-that-started-it-all-mass-marketing-debt.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>The Card That Started It All</h3>
-      <p class="chap-subtitle">Mass-Marketing Debt</p>
+      <p>The credit card most Americans carry was built from two ideas: a card usable across many merchants instead of one store, and the willingness to mail live, already-activated cards to strangers by the tens of thousands. The resulting delinquency and fraud spiraled badly enough that Congress finally banned unsolicited card mailings by law in 1970. The instinct behind it — distribution outrunning caution, with someone else absorbing the fallout — still shows up in credit offers today.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="5-3-manufacturing-desire-the-psychology-of-advertising.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="11" height="10" rx="5"/><rect x="11" y="7" width="11" height="10" rx="5"/></svg></span><span class="cn-digits">5.3</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="5-3-manufacturing-desire-the-psychology-of-advertising.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Manufacturing Desire</h3>
-      <p class="chap-subtitle">The Psychology of Advertising</p>
+      <p>By the 1950s, advertisers had stopped guessing what people wanted and started studying it clinically — real research, though its most famous myth, hidden subliminal messages, turns out to be fabricated folklore the original book actually treated with skepticism. The older, better-evidenced mechanism is economist Thorstein Veblen's: status pursued through visible waste, with no natural stopping point, a dynamic so recognizable a cartoonist's own overspending became the phrase 'keeping up with the Joneses.'</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="5-4-built-to-break-planned-obsolescence.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="11" height="10" rx="5"/><rect x="11" y="7" width="11" height="10" rx="5"/></svg></span><span class="cn-digits">5.4</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="5-4-built-to-break-planned-obsolescence.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Built to Break</h3>
-      <p class="chap-subtitle">Planned Obsolescence</p>
+      <p>'Planned obsolescence' actually covers two very different claims: a real, archivally-documented lightbulb cartel that fined manufacturers for making bulbs last too long, and Detroit's openly acknowledged strategy of annual styling changes designed to make last year's car feel outdated. Only one of them required secrecy to work. Both aimed at the same result — more frequent purchases — and both still shape the replacement-cycle arithmetic behind every category from cars to phones.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="5-5-the-new-persuaders-social-media-influencers-and-buy-now-pay-later.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="11" height="10" rx="5"/><rect x="11" y="7" width="11" height="10" rx="5"/></svg></span><span class="cn-digits">5.5</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="5-5-the-new-persuaders-social-media-influencers-and-buy-now-pay-later.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>The New Persuaders</h3>
-      <p class="chap-subtitle">Social Media, Influencers, and Buy Now Pay Later</p>
+      <p>Nothing about modern marketing is conceptually new — what's changed is precision and friction. Social media targets individual insecurities instead of demographics, and buy-now-pay-later embeds financing directly at checkout, approved in seconds, skewing hardest toward younger, lower-income, and disproportionately Black and Hispanic users. The honest gap: nobody has a reliable, industry-wide measure of how risky BNPL actually is, because most lenders still don't report performance the way credit cards do.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="5-6-who-profits-from-your-debt-following-the-money.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="11" height="10" rx="5"/><rect x="11" y="7" width="11" height="10" rx="5"/></svg></span><span class="cn-digits">5.6</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="5-6-who-profits-from-your-debt-following-the-money.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Who Profits From Your Debt</h3>
-      <p class="chap-subtitle">Following the Money</p>
+      <p>A fair interest rate on more debt than you can safely carry does the same damage as a predatory rate on an amount you could handle — which means fair pricing and safe sizing are two different questions entirely. Card issuers, retailers, and platforms all profit from the volume, whether or not any single loan is predatory. And some of the debt isn't chasing a want at all — it's covering education, healthcare, and housing costs that grew far faster than income.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="5-7-own-the-equity-not-the-asset.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="11" height="10" rx="5"/><rect x="11" y="7" width="11" height="10" rx="5"/></svg></span><span class="cn-digits">5.7</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="5-7-own-the-equity-not-the-asset.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Own the Equity, Not the Asset</h3>
+      <p>Your name on a title doesn't mean you own the asset — you own the equity, the gap between what it's worth and what you still owe, and decades of loan engineering have quietly shrunk that gap. Interest-only mortgages, negative-amortization loans, and vanishing down payments let buyers 'own' homes with little or no real stake, and the same trick now runs through car loans, where rolled-over negative equity roughly doubles the odds of repossession.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="5-8-the-renter-society.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="11" height="10" rx="5"/><rect x="11" y="7" width="11" height="10" rx="5"/></svg></span><span class="cn-digits">5.8</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="5-8-the-renter-society.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#artBlur)" opacity="0.7">
+    <ellipse cx="70" cy="110" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="98" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="70" cy="86" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="74" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="115" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="104" rx="30" ry="8" style="fill:var(--hue-d);"/>
+    <ellipse cx="180" cy="93" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="105" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="92" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="79" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="66" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="53" rx="34" ry="9" style="fill:var(--hue-d);"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>The Renter Society</h3>
+      <p>Existing homeowners aren't losing their equity — it's actually near a decade-long high. The real story is narrower: fewer first-time buyers are getting in the door at all, while a separate, much larger trend concentrates wealth at the top mostly through stocks and business ownership, not housing debt. The two trends are real but different stories, and what's still fully within a household's control is the structure of the loan used to get in.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="5-9-seeing-the-strings-counter-conditioning-yourself.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="11" height="10" rx="5"/><rect x="11" y="7" width="11" height="10" rx="5"/></svg></span><span class="cn-digits">5.9</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="5-9-seeing-the-strings-counter-conditioning-yourself.html" style="--hue:#E87722;--hue-l:#FFF4EC;--hue-d:#C7630F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Seeing the Strings</h3>
-      <p class="chap-subtitle">Counter-Conditioning Yourself</p>
+      <p>Every chapter in this track named a piece of machinery — manufactured respectability, mass distribution, engineered desire, engineered replacement — and none of it has stopped running. What changes once you've seen it is that debt stops being a reflex and becomes a choice made with the manufacturing visible: a pre-decided pause before urgency purchases, an honest look at discretionary spending, a loan-to-value check before signing anything. What debt spends first is never just money — it's your freedom to choose differently later.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
   </div>

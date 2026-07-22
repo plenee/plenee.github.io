@@ -67,6 +67,10 @@ footer p { color: #2E4A60; font-size: 13px; }
 .page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
 .page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
 .page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+/* Landing-page-only: "Plenee" set large (matching the h1 below), the
+   "Academy" pill sitting underneath it rather than "Plenee Academy" both
+   inside one small chip. */
+.landing-brand { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 18px; }
 
 /* ─── BREADCRUMB ─── */
 .crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
@@ -118,15 +122,30 @@ a.ref-link:hover { text-decoration: underline; }
 .cn-empty { visibility: hidden; }
 
 /* ─── TRACK INDEX ─── */
-.track-wrap { max-width: 720px; margin: 0 auto; padding: 56px 48px 88px; }
-.chapter-grid { display: flex; flex-direction: column; gap: 14px; }
-.chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
-.chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
-.chap-num { flex-shrink: 0; width: 48px; height: 52px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
-.chap-num .cn-icon { line-height: 0; }
-.chap-num .cn-digits { font-family: Georgia, serif; font-weight: 700; font-size: 13px; }
-.chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
-.chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+.track-wrap { max-width: 1080px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapters-heading { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 18px; }
+.chapter-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.chap-card {
+  --hue: var(--teal); --hue-l: var(--teal-l); --hue-d: var(--teal-d);
+  display: flex; flex-direction: column;
+  border: 1.5px solid var(--border); border-radius: 18px; overflow: hidden;
+  text-decoration: none; background: #fff;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.chap-card:hover { border-color: var(--hue); transform: translateY(-3px); box-shadow: 0 14px 34px rgba(12,25,41,.09); }
+.cc-tile { height: 132px; position: relative; overflow: hidden; background: var(--hue-l); }
+.cc-art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cc-art .grain { mix-blend-mode: multiply; opacity: .5; }
+.cc-body { padding: 22px 24px 20px; display: flex; flex-direction: column; flex: 1; }
+.cc-body h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 18px; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 10px; }
+.cc-body p { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; flex: 1; }
+.cc-cta { font-size: 13px; font-weight: 700; letter-spacing: .2px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--hue-d); }
+.cc-cta svg { width: 14px; height: 14px; transition: transform .2s; }
+.chap-card:hover .cc-cta svg { transform: translateX(3px); }
+
+@media (max-width: 860px) {
+  .chapter-grid { grid-template-columns: 1fr; }
+}
 
 /* ─── ACADEMY SEARCH ─── */
 /* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
@@ -325,34 +344,112 @@ a.ref-link:hover { text-decoration: underline; }
 
 
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="artBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="softBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="grainFilter" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0"/>
+    </filter>
+  </defs>
+</svg>
+
 <div class="track-wrap">
+  <div class="chapters-heading">4 Chapters</div>
   <div class="chapter-grid">
-  <a class="chap-card" href="2-1-spending-as-a-mirror-what-your-transactions-say-about-your-identity.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.5l-1.2 4.3-4.3 1.2 1.2-4.3z"/></svg></span><span class="cn-digits">2.1</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="2-1-spending-as-a-mirror-what-your-transactions-say-about-your-identity.html" style="--hue:#1F5A6B;--hue-l:#E7F3F5;--hue-d:#17434F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g style="stroke:var(--hue-d);" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="18" x2="400" y2="18"/>
+    <line x1="0" y1="36" x2="400" y2="36"/>
+    <line x1="0" y1="54" x2="400" y2="54"/>
+    <line x1="0" y1="72" x2="400" y2="72"/>
+    <line x1="0" y1="90" x2="400" y2="90"/>
+    <line x1="0" y1="108" x2="400" y2="108"/>
+  </g>
+  <line x1="0" y1="120" x2="400" y2="120" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.35"/>
+  <line x1="80" y1="0" x2="80" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="220" y1="0" x2="220" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="340" y1="0" x2="340" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <path d="M0,105 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L400,25" fill="none" style="stroke:var(--hue);" stroke-width="3" opacity="0.75" filter="url(#softBlur)"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Spending as a Mirror</h3>
-      <p class="chap-subtitle">What Your Transactions Say About Your Identity</p>
+      <p>If a stranger read your last ninety days of transactions with no explanation allowed, how close would their sketch of you land? A transaction history is the most honest autobiography anyone will produce — unedited and immune to good intentions — and sorting ninety days into aligned, habitual, and performative piles usually finds the biggest recoverable money in spending nobody actually chose or wanted.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="2-2-spend-to-impress-yourself-personal-joy-over-universal-formulas.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.5l-1.2 4.3-4.3 1.2 1.2-4.3z"/></svg></span><span class="cn-digits">2.2</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="2-2-spend-to-impress-yourself-personal-joy-over-universal-formulas.html" style="--hue:#1F5A6B;--hue-l:#E7F3F5;--hue-d:#17434F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g style="stroke:var(--hue-d);" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="18" x2="400" y2="18"/>
+    <line x1="0" y1="36" x2="400" y2="36"/>
+    <line x1="0" y1="54" x2="400" y2="54"/>
+    <line x1="0" y1="72" x2="400" y2="72"/>
+    <line x1="0" y1="90" x2="400" y2="90"/>
+    <line x1="0" y1="108" x2="400" y2="108"/>
+  </g>
+  <line x1="0" y1="120" x2="400" y2="120" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.35"/>
+  <line x1="80" y1="0" x2="80" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="220" y1="0" x2="220" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="340" y1="0" x2="340" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <path d="M0,105 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L400,25" fill="none" style="stroke:var(--hue);" stroke-width="3" opacity="0.75" filter="url(#softBlur)"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Spend to Impress Yourself</h3>
-      <p class="chap-subtitle">Personal Joy Over Universal Formulas</p>
+      <p>There's no universal formula for good spending — every famous budgeting rule just smuggles in someone else's values dressed as arithmetic. The real discipline has two blades: spend lavishly, without apology, on what genuinely delivers for you, and cut mercilessly everything in the meh middle tier that's merely fine. Even-trimming everything equally feels fair and fails reliably, because it starves the joy that makes any plan survivable.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="2-3-time-over-luxury-the-highest-dividend-money-pays.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.5l-1.2 4.3-4.3 1.2 1.2-4.3z"/></svg></span><span class="cn-digits">2.3</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="2-3-time-over-luxury-the-highest-dividend-money-pays.html" style="--hue:#1F5A6B;--hue-l:#E7F3F5;--hue-d:#17434F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#artBlur)" opacity="0.7">
+    <ellipse cx="70" cy="110" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="98" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="70" cy="86" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="74" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="115" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="104" rx="30" ry="8" style="fill:var(--hue-d);"/>
+    <ellipse cx="180" cy="93" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="105" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="92" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="79" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="66" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="53" rx="34" ry="9" style="fill:var(--hue-d);"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Time Over Luxury</h3>
-      <p class="chap-subtitle">The Highest Dividend Money Pays</p>
+      <p>Ask wealthy people what they value most and they rarely describe an object — they describe unscheduled mornings. Money's highest dividend is control over your own time, and every dollar in a NEST is quietly a purchase of future autonomy. Priced in months-of-freedom instead of dollars, a $700-a-month status car stops competing with a cheaper car and starts competing with roughly a month of "I don't have to" a year.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="2-4-enough-the-hardest-financial-concept.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.5l-1.2 4.3-4.3 1.2 1.2-4.3z"/></svg></span><span class="cn-digits">2.4</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="2-4-enough-the-hardest-financial-concept.html" style="--hue:#1F5A6B;--hue-l:#E7F3F5;--hue-d:#17434F;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#artBlur)" opacity="0.7">
+    <ellipse cx="70" cy="110" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="98" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="70" cy="86" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="74" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="115" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="104" rx="30" ry="8" style="fill:var(--hue-d);"/>
+    <ellipse cx="180" cy="93" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="105" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="92" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="79" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="66" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="53" rx="34" ry="9" style="fill:var(--hue-d);"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Enough</h3>
-      <p class="chap-subtitle">The Hardest Financial Concept</p>
+      <p>The most dangerous people in finance aren't the ones who don't understand money — they're the ones who had everything and risked it for more, because no number ever triggered "done." The goalposts move by default; hedonic adaptation works on ambition just as it works on lifestyle. Defining "enough" in advance, as an actual written number, is what turns an endless treadmill into a finish line that holds still.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
   </div>

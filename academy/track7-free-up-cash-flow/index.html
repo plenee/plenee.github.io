@@ -67,6 +67,10 @@ footer p { color: #2E4A60; font-size: 13px; }
 .page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
 .page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
 .page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+/* Landing-page-only: "Plenee" set large (matching the h1 below), the
+   "Academy" pill sitting underneath it rather than "Plenee Academy" both
+   inside one small chip. */
+.landing-brand { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 18px; }
 
 /* ─── BREADCRUMB ─── */
 .crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
@@ -118,15 +122,30 @@ a.ref-link:hover { text-decoration: underline; }
 .cn-empty { visibility: hidden; }
 
 /* ─── TRACK INDEX ─── */
-.track-wrap { max-width: 720px; margin: 0 auto; padding: 56px 48px 88px; }
-.chapter-grid { display: flex; flex-direction: column; gap: 14px; }
-.chap-card { display: flex; gap: 20px; align-items: flex-start; border: 1.5px solid var(--border); border-radius: 16px; padding: 24px 26px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
-.chap-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(12,25,41,.07); }
-.chap-num { flex-shrink: 0; width: 48px; height: 52px; border-radius: 12px; background: var(--teal-l); color: var(--teal-d); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
-.chap-num .cn-icon { line-height: 0; }
-.chap-num .cn-digits { font-family: Georgia, serif; font-weight: 700; font-size: 13px; }
-.chap-info h3 { font-size: 17px; color: var(--navy); font-weight: 700; margin-bottom: 6px; line-height: 1.35; }
-.chap-info p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+.track-wrap { max-width: 1080px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapters-heading { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 18px; }
+.chapter-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.chap-card {
+  --hue: var(--teal); --hue-l: var(--teal-l); --hue-d: var(--teal-d);
+  display: flex; flex-direction: column;
+  border: 1.5px solid var(--border); border-radius: 18px; overflow: hidden;
+  text-decoration: none; background: #fff;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.chap-card:hover { border-color: var(--hue); transform: translateY(-3px); box-shadow: 0 14px 34px rgba(12,25,41,.09); }
+.cc-tile { height: 132px; position: relative; overflow: hidden; background: var(--hue-l); }
+.cc-art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cc-art .grain { mix-blend-mode: multiply; opacity: .5; }
+.cc-body { padding: 22px 24px 20px; display: flex; flex-direction: column; flex: 1; }
+.cc-body h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 18px; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 10px; }
+.cc-body p { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; flex: 1; }
+.cc-cta { font-size: 13px; font-weight: 700; letter-spacing: .2px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--hue-d); }
+.cc-cta svg { width: 14px; height: 14px; transition: transform .2s; }
+.chap-card:hover .cc-cta svg { transform: translateX(3px); }
+
+@media (max-width: 860px) {
+  .chapter-grid { grid-template-columns: 1fr; }
+}
 
 /* ─── ACADEMY SEARCH ─── */
 /* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
@@ -361,55 +380,172 @@ a.ref-link:hover { text-decoration: underline; }
 <figcaption class="cd-caption">Four stages, in order — stop the bleeding, free up cash flow, build wealth, earn instead of pay — then the cycle repeats.</figcaption>
 </figure>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="artBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="softBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="grainFilter" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0"/>
+    </filter>
+  </defs>
+</svg>
+
 <div class="track-wrap">
+  <div class="chapters-heading">7 Chapters</div>
   <div class="chapter-grid">
-  <a class="chap-card" href="7-1-building-your-flow-budget-core-flow-vs-extra-flow.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/></svg></span><span class="cn-digits">7.1</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="7-1-building-your-flow-budget-core-flow-vs-extra-flow.html" style="--hue:#C9971F;--hue-l:#FBF4E1;--hue-d:#A67D15;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g style="stroke:var(--hue-d);" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="18" x2="400" y2="18"/>
+    <line x1="0" y1="36" x2="400" y2="36"/>
+    <line x1="0" y1="54" x2="400" y2="54"/>
+    <line x1="0" y1="72" x2="400" y2="72"/>
+    <line x1="0" y1="90" x2="400" y2="90"/>
+    <line x1="0" y1="108" x2="400" y2="108"/>
+  </g>
+  <line x1="0" y1="120" x2="400" y2="120" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.35"/>
+  <line x1="80" y1="0" x2="80" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="220" y1="0" x2="220" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="340" y1="0" x2="340" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <path d="M0,105 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L400,25" fill="none" style="stroke:var(--hue);" stroke-width="3" opacity="0.75" filter="url(#softBlur)"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Building Your FLOW Budget</h3>
-      <p class="chap-subtitle">Core FLOW vs. Extra FLOW</p>
+      <p>Most budgets fail because they treat every dollar as up for negotiation this month, when a big chunk of your money — the mortgage, the insurance, the minimum payments — was already decided years ago. Split spending into Core FLOW, the committed money you can only renegotiate structurally, and Extra FLOW, the genuinely decidable rest, and the budget stops feeling like a moral exam you keep failing.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="7-2-the-net-budget-category-targets-that-follow-your-real-history.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/></svg></span><span class="cn-digits">7.2</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="7-2-the-net-budget-category-targets-that-follow-your-real-history.html" style="--hue:#C9971F;--hue-l:#FBF4E1;--hue-d:#A67D15;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g style="stroke:var(--hue-d);" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="18" x2="400" y2="18"/>
+    <line x1="0" y1="36" x2="400" y2="36"/>
+    <line x1="0" y1="54" x2="400" y2="54"/>
+    <line x1="0" y1="72" x2="400" y2="72"/>
+    <line x1="0" y1="90" x2="400" y2="90"/>
+    <line x1="0" y1="108" x2="400" y2="108"/>
+  </g>
+  <line x1="0" y1="120" x2="400" y2="120" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.35"/>
+  <line x1="80" y1="0" x2="80" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="220" y1="0" x2="220" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="340" y1="0" x2="340" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <path d="M0,105 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L400,25" fill="none" style="stroke:var(--hue);" stroke-width="3" opacity="0.75" filter="url(#softBlur)"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>The NET Budget</h3>
-      <p class="chap-subtitle">Category Targets That Follow Your Real History</p>
+      <p>"$400 a month on groceries" — says who? Not your own transaction history, which already knows exactly what you spend. Anchor every category target to your real trailing twelve months, adjust it as a deliberate small delta rather than a fantasy number, and give lumpy categories like gifts or utilities a shape that follows the calendar instead of a flat number that cries wolf every December.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="7-3-timing-is-everything-paycheck-cycles-due-dates-and-daily-cash-position.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/></svg></span><span class="cn-digits">7.3</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="7-3-timing-is-everything-paycheck-cycles-due-dates-and-daily-cash-position.html" style="--hue:#C9971F;--hue-l:#FBF4E1;--hue-d:#A67D15;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tickerFade-track7-free-up-cash-flow-7-3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:var(--hue);stop-opacity:0.55"/>
+      <stop offset="100%" style="stop-color:var(--hue);stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45 L400,132 L0,132 Z" fill="url(#tickerFade-track7-free-up-cash-flow-7-3)" filter="url(#softBlur)"/>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45" fill="none" style="stroke:var(--hue-d);" stroke-width="2.5" opacity="0.7" filter="url(#softBlur)"/>
+  <circle cx="160" cy="50" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <circle cx="320" cy="30" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Timing Is Everything</h3>
-      <p class="chap-subtitle">Paycheck Cycles, Due Dates, and Daily Cash Position</p>
+      <p>Two households with identical income and spending can have wildly different financial lives, because money is a sequence, not a sum — a month can balance perfectly on paper and still hit a painful trough in its first week if bills cluster before payday. Map your calendar to find the low point, then either fund it or simply move a due date; the fix costs one free phone call.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="7-4-right-sizing-accounts-where-checking-savings-and-investments-each-belong.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/></svg></span><span class="cn-digits">7.4</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="7-4-right-sizing-accounts-where-checking-savings-and-investments-each-belong.html" style="--hue:#C9971F;--hue-l:#FBF4E1;--hue-d:#A67D15;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#artBlur)" opacity="0.7">
+    <ellipse cx="70" cy="110" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="98" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="70" cy="86" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="74" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="115" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="104" rx="30" ry="8" style="fill:var(--hue-d);"/>
+    <ellipse cx="180" cy="93" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="105" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="92" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="79" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="66" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="53" rx="34" ry="9" style="fill:var(--hue-d);"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Right-Sizing Accounts</h3>
-      <p class="chap-subtitle">Where Checking, Savings, and Investments Each Belong</p>
+      <p>Money sitting in the wrong account isn't lost, it's just underemployed — showing up every day to a job beneath its ability and earning nothing for the trouble. Give every dollar a home matched to when you'll actually need it: checking for this month's trough, high-yield savings for someday-soon money, CDs for known dates, and investing only for the long horizon — nothing risked, just money sorted.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="7-5-debt-consolidation-and-refinancing-when-it-helps-when-its-a-trap.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/></svg></span><span class="cn-digits">7.5</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="7-5-debt-consolidation-and-refinancing-when-it-helps-when-its-a-trap.html" style="--hue:#C9971F;--hue-l:#FBF4E1;--hue-d:#A67D15;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Debt Consolidation and Refinancing</h3>
-      <p class="chap-subtitle">When It Helps, When It's a Trap</p>
+      <p>Consolidation ads sell one number — the lower monthly payment — and stay very quiet about how it got lower, because there are two ways and they have opposite values. The only honest test is total lifetime cost: rate, fees, and time together. Take the genuine wins, but a stretched-out term that trims the payment while adding years of interest is the same debt, just combed differently.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="7-6-windfalls-tax-refunds-bonuses-and-the-allocation-decision.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/></svg></span><span class="cn-digits">7.6</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="7-6-windfalls-tax-refunds-bonuses-and-the-allocation-decision.html" style="--hue:#C9971F;--hue-l:#FBF4E1;--hue-d:#A67D15;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#artBlur)" opacity="0.7">
+    <ellipse cx="70" cy="110" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="98" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="70" cy="86" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="74" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="115" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="104" rx="30" ry="8" style="fill:var(--hue-d);"/>
+    <ellipse cx="180" cy="93" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="105" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="92" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="79" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="66" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="53" rx="34" ry="9" style="fill:var(--hue-d);"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>Windfalls</h3>
-      <p class="chap-subtitle">Tax Refunds, Bonuses, and the Allocation Decision</p>
+      <p>A windfall behaves differently from a paycheck — your brain tags it 'extra,' and extra money has a habit of vanishing by Tuesday with nothing to show for it. The fix isn't discipline in the moment, it's a split decided before the money ever lands: buffer, high-rate debt, goals, and a deliberate guilt-free slice that protects the rest of the plan from resentment.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
-  <a class="chap-card" href="7-7-the-heloc-as-a-buffer-a-standby-credit-line-against-home-equity.html">
-    <div class="chap-num"><span class="cn-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/></svg></span><span class="cn-digits">7.7</span></div>
-    <div class="chap-info">
+  <a class="chap-card" href="7-7-the-heloc-as-a-buffer-a-standby-credit-line-against-home-equity.html" style="--hue:#C9971F;--hue-l:#FBF4E1;--hue-d:#A67D15;">
+    <div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg></div>
+    <div class="cc-body">
       <h3>The HELOC as a Buffer</h3>
-      <p class="chap-subtitle">A Standby Credit Line Against Home Equity</p>
+      <p>The best time to arrange emergency credit is exactly when you don't need it — which is also, predictably, when almost nobody bothers. A HELOC arranged in calm weather costs almost nothing sitting unused and beats every panic option people actually reach for in a crunch. The whole safety valve depends on two disciplines: open it early, and write down what counts as an emergency before temptation shows up.</p>
+      <span class="cc-cta">Read chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
   </a>
   </div>
