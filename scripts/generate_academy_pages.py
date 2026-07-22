@@ -588,6 +588,10 @@ footer p { color: #2E4A60; font-size: 13px; }
 .page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
 .page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
 .page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+/* Track-index-only: the parenthetical part of a track's title (e.g. "(The
+   Systemic Conditioning of Americans)") shown as its own line under the h1,
+   rather than crowding the h1 itself or every breadcrumb/nav mention. */
+.header-subtitle { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(15px,2vw,19px); font-weight: 400; color: #7A9AB5; line-height: 1.4; margin-top: -6px; margin-bottom: 14px; }
 /* Landing-page-only: "Plenee" set large (matching the h1 below), the
    "Academy" pill sitting underneath it rather than "Plenee Academy" both
    inside one small chip. */
@@ -771,7 +775,8 @@ a.ref-link:hover { text-decoration: underline; }
 }
 
 .tc-body { padding: 24px 26px 22px; display: flex; flex-direction: column; flex: 1; }
-.tc-body h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 19px; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 10px; }
+.tc-body h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 19px; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 2px; }
+.tc-subtitle { font-family: Georgia, 'Times New Roman', serif; font-size: 13px; font-style: italic; color: var(--muted); margin-bottom: 10px; }
 .tc-body p { font-size: 14.5px; color: var(--muted); line-height: 1.65; margin-bottom: 18px; flex: 1; }
 .tc-cta { font-size: 13px; font-weight: 700; letter-spacing: .2px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--hue-d); }
 .tc-cta svg { width: 14px; height: 14px; transition: transform .2s; }
@@ -973,11 +978,26 @@ def display_chapter_id(chapter_id: str) -> str:
     return chapter_id[2:] if chapter_id.startswith("PM") else chapter_id
 
 
-def search_html(placement: str) -> str:
-    """placement: 'academy' (root academy/index.html) or 'track' (a track's own
-    index.html, one level deeper -- links need a '../' prefix)."""
-    base = "" if placement == "academy" else "../"
-    return f"""<div class="academy-search-wrap" id="academy-search-wrap" data-base="{base}">
+TRACK_PAREN_SUBTITLE_RE = re.compile(r"^(.*?)\s*\((.+)\)\s*$")
+
+
+def split_paren_title(title: str) -> tuple[str, str | None]:
+    """Track titles from the source header sometimes carry a parenthetical
+    subtitle baked into the same string, e.g. 'The Debt Trap (The Systemic
+    Conditioning of Americans)'. Splits that into a bare main title (used
+    anywhere the full title would be too long -- breadcrumbs, nav links,
+    search labels) and the subtitle on its own (shown as a second line under
+    the title on cards and page headers, never inline)."""
+    m = TRACK_PAREN_SUBTITLE_RE.match(title)
+    if m:
+        return m.group(1).strip(), m.group(2).strip()
+    return title, None
+
+
+def search_html() -> str:
+    """The Academy landing page's own corpus-wide search box. Track index
+    pages no longer embed one -- they link out to this one instead."""
+    return """<div class="academy-search-wrap" id="academy-search-wrap" data-base="">
       <div class="academy-search-box">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         <input type="text" class="academy-search-input" id="academy-search-input" placeholder="Search Plenee Academy — try &quot;overdraft&quot; or &quot;idle cash&quot;" autocomplete="off">
@@ -1317,6 +1337,7 @@ CHAPTER_GRAPHICS.update(CHAPTER_GRAPHICS_DIAGRAMS)
 
 def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[dict],
                          track_info, track_title: str, track_slug: str, idx) -> tuple[str, dict]:
+    track_title_bare, _track_subtitle = split_paren_title(track_title)
     sections, takeaway, footnote_defs = split_sections(chapter["raw"])
 
     footnote_order = list(footnote_defs.keys())  # dict preserves insertion order (definition order)
@@ -1409,7 +1430,7 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
         prev_html = (
             '<a class="cn-link prev" href="index.html">\n'
             '      <div class="cn-dir">Previous</div>\n'
-            f'      <div class="cn-title">Back to {esc(track_title)}</div>\n'
+            f'      <div class="cn-title">Back to {esc(track_title_bare)}</div>\n'
             "    </a>"
         )
 
@@ -1424,14 +1445,14 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
         next_html = (
             '<a class="cn-link next" href="index.html">\n'
             '      <div class="cn-dir">Next</div>\n'
-            f'      <div class="cn-title">Back to {esc(track_title)}</div>\n'
+            f'      <div class="cn-title">Back to {esc(track_title_bare)}</div>\n'
             "    </a>"
         )
 
     body = f"""<div class="crumb">
   <a href="../index.html">Academy</a>
   <span>›</span>
-  <a href="index.html">{esc(track_title)}</a>
+  <a href="index.html">{esc(track_title_bare)}</a>
   <span>›</span>
   <span>{esc(display_chapter_id(chapter["id"]))}</span>
   <span style="margin-left:auto"></span>
@@ -1459,7 +1480,7 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
 
     search_entry = {
         "t": chapter["title"],
-        "trk": track_title,
+        "trk": track_title_bare,
         "n": f'Chapter {display_chapter_id(chapter["id"])}',
         "u": f'{track_slug}/{chapter["slug"]}.html',
         "x": " ".join(search_text_parts).strip()[:SEARCH_SNIPPET_CAP],
@@ -1567,9 +1588,13 @@ def landing_overview_html(paragraph: str) -> str:
     )
 
 
-def render_index_page(track_info, track_title: str, chapters: list[dict], search_index: list[dict]) -> str:
+def render_index_page(track_info, track_title: str, chapters: list[dict]) -> str:
     hue, hue_l, hue_d = TRACK_HUES[track_info.track_slug]
     chapter_meta = CHAPTER_META[track_info.track_slug]
+    title_bare, title_subtitle = split_paren_title(track_title)
+    title_subtitle_html = (
+        f'\n  <p class="header-subtitle">{esc(title_subtitle)}</p>' if title_subtitle else ""
+    )
     cards = []
     for c in chapters:
         headline = esc(c["title"].split(":", 1)[0].strip())
@@ -1589,21 +1614,17 @@ def render_index_page(track_info, track_title: str, chapters: list[dict], search
             "  </a>"
         )
 
-    search_json = json.dumps(search_index, ensure_ascii=False).replace("</script", "<\\/script")
-
     body = f"""<div class="page-header">
   <div class="page-kicker">T.{track_info.display_num}</div>
-  <h1>{esc(track_title)}</h1>
+  <h1>{esc(title_bare)}</h1>{title_subtitle_html}
 </div>
 
 <div class="crumb">
   <a href="../index.html">Academy</a>
   <span>›</span>
-  <span>{esc(track_title)}</span>
-</div>
-
-<div class="track-search-wrap">
-{search_html('track')}
+  <span>{esc(title_bare)}</span>
+  <span style="margin-left:auto"></span>
+  <a href="../index.html#search">🔍 Search Academy</a>
 </div>
 
 {overview_html(TRACK_OVERVIEWS[track_info.track_slug])}
@@ -1617,12 +1638,9 @@ def render_index_page(track_info, track_title: str, chapters: list[dict], search
   <div class="chapter-grid">
 {chr(10).join(cards)}
   </div>
-</div>
+</div>"""
 
-<script type="application/json" id="academy-search-data">{search_json}</script>
-<script>{SEARCH_JS}</script>"""
-
-    return PAGE_TEMPLATE.format(page_title=esc(track_title), style=STYLE_BLOCK, body=body,
+    return PAGE_TEMPLATE.format(page_title=esc(title_bare), style=STYLE_BLOCK, body=body,
                                  **DEPTH_CHAPTER_OR_TRACK)
 
 
@@ -1651,6 +1669,10 @@ def render_landing_page(track_order: list, search_index: list[dict]) -> str:
         for t in tracks:
             hue, hue_l, hue_d = TRACK_HUES[t.track_slug]
             overview_p1 = TRACK_OVERVIEWS[t.track_slug][0]
+            title_bare, title_subtitle = split_paren_title(smart_title(t.title))
+            subtitle_html = (
+                f'\n      <p class="tc-subtitle">{esc(title_subtitle)}</p>' if title_subtitle else ""
+            )
             parts.append(
                 f'  <a class="track-card" href="{t.track_slug}/index.html" '
                 f'style="--hue:{hue};--hue-l:{hue_l};--hue-d:{hue_d};">\n'
@@ -1658,7 +1680,7 @@ def render_landing_page(track_order: list, search_index: list[dict]) -> str:
                 f'      {render_track_icon(t.track_slug, size=44)}\n'
                 "    </div>\n"
                 '    <div class="tc-body">\n'
-                f'      <h3>{esc(smart_title(t.title))}</h3>\n'
+                f'      <h3>{esc(title_bare)}</h3>{subtitle_html}\n'
                 f'      <p>{esc(overview_p1)}</p>\n'
                 '      <span class="tc-cta">Start reading '
                 '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" '
@@ -1683,7 +1705,7 @@ def render_landing_page(track_order: list, search_index: list[dict]) -> str:
 <p class="academy-pullquote">&ldquo;Rich is what people see. Wealth is what they don't.&rdquo;</p>
 
 <div class="track-search-wrap">
-{search_html('academy')}
+{search_html()}
 </div>
 
 {landing_overview_html(ACADEMY_OVERVIEW)}
@@ -1762,33 +1784,35 @@ def generate_track_pages(source_filename: str, idx) -> dict:
     }
 
 
-def write_index_pages(track_results: list[dict], global_search_index: list[dict]) -> None:
+def write_index_pages(track_results: list[dict]) -> None:
     for r in track_results:
-        index_html = render_index_page(r["track_info"], r["track_title"], r["chapters"], global_search_index)
+        index_html = render_index_page(r["track_info"], r["track_title"], r["chapters"])
         index_path = r["outdir"] / "index.html"
         index_path.write_text(index_html, encoding="utf-8")
         print(f"  wrote {index_path.relative_to(WEBSITE_DIR)}")
 
 
 def generate(source_filename: str) -> None:
-    """Single-track regeneration -- fast for iterating on one file's content,
-    but its index.html search box will only cover THIS track's chapters until
-    --all is next run (which re-embeds the full cross-track index everywhere)."""
+    """Single-track regeneration -- fast for iterating on one file's content.
+    Track index pages no longer embed their own search box (they link to the
+    Academy landing page's corpus-wide search instead), so this no longer
+    needs a cross-track search index at all."""
     idx = build_index()
     result = generate_track_pages(source_filename, idx)
-    write_index_pages([result], result["search_entries"])
+    write_index_pages([result])
 
 
 def generate_all() -> None:
-    """Regenerate every track from current source, embed one shared cross-track
-    search index on every track's index.html, and rebuild the Academy landing
-    page (its reading order/grouping comes from academy_curriculum.md, not from
-    file-discovery order)."""
+    """Regenerate every track from current source and rebuild the Academy
+    landing page, which embeds the one shared cross-track search index (its
+    reading order/grouping comes from academy_curriculum.md, not from
+    file-discovery order). Track index pages link out to that search rather
+    than embedding their own."""
     idx = build_index()
     files = sorted(ACADEMY_SRC.glob("*_expanded.md"))
     results = [generate_track_pages(str(f), idx) for f in files]
     global_search_index = [e for r in results for e in r["search_entries"]]
-    write_index_pages(results, global_search_index)
+    write_index_pages(results)
     generate_landing_page(idx, global_search_index)
     print(f"\nDone: {len(results)} tracks, {len(global_search_index)} chapters indexed for search.")
 
