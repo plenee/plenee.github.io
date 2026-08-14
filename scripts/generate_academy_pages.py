@@ -148,6 +148,10 @@ TRACK_OVERVIEWS = {
         "Job loss, a medical crisis, divorce, disability — by the actual numbers, these are common events, not rare ones, and “it won't happen to me” isn't a plan so much as a bet most people eventually lose at least once. This track exists for what happens after preparation runs out.",
         "It covers sizing a true worst-case gap rather than an optimistic one, the real difference between Chapter 7 and Chapter 13 bankruptcy (and a documented disparity in how filers are steered and treated), negotiating medical debt before it becomes a collections problem, the first ninety days after a job loss, and the early-warning window where acting in week one beats waiting until month six on a foreclosure or eviction. It ends where recovery does — rebuilding credit and re-establishing the visibility habits that make the next crisis, if there is one, easier to see coming.",
     ),
+    "track16-the-penalty-system": (
+        "A household can earn enough, spend carefully, pay every bill it owes, and still lose over a thousand dollars a year — because rent is due on the 1st and the paycheck arrives on the 10th. The fee system that charges for that gap does not distinguish between a household with no money and a household whose money is nine days away; it prices both the same. This track is about that distinction, and about the two structural fixes that end it without changing a single amount.",
+        "It covers what a missed day actually costs once both the bank's fee and the biller's are counted, why the cheaper NSF fee is usually the more expensive outcome, and how the same mistake costs $0 at one bank and $108 at another. It works through the threshold where a penalty stream stops slowing a debt payoff and starts reversing it, then applies all of it to the situations where it decides outcomes: fixed incomes whose deposit date is set by a birthday and cannot be moved, and biweekly households whose pay calendar drifts against a bill calendar that doesn't. It deliberately skips the high-margin version of this topic, and says so — the same mechanism that costs a comfortable household a few dollars of interest can cost a thin-margin one its entire annual surplus.",
+    ),
     "volume2-track1-your-built-in-wiring": (
         "Nobody makes money decisions on a blank slate — every one is filtered through wiring built for scarcity and survival, not for managing a 401k across four decades. That wiring isn't a flaw to be ashamed of; it's standard equipment, present in essentially everyone, and it's exploitable mostly by people who've studied it more carefully than their customers have.",
         "This track maps the specific patterns that do most of the damage — loss aversion, present bias, mental accounting, anchoring, the stories that move money faster than statistics do, and the scarcity mindset that narrows decision-making under real pressure rather than reflecting a lack of discipline. It ends with something practical: concrete ways to route around each pattern instead of just knowing it's there.",
@@ -179,6 +183,7 @@ TRACK_HUES: dict[str, tuple[str, str, str]] = {
     "track13-protection": ("#A8506B", "#FAEBEF", "#8C3F54"),
     "track14-high-wealth-efficiency": ("#A8506B", "#FAEBEF", "#8C3F54"),
     "track15-when-preparation-isnt-enough": ("#A8506B", "#FAEBEF", "#8C3F54"),
+    "track16-the-penalty-system": ("#E87722", "#FFF4EC", "#C7630F"),
     "volume2-track1-your-built-in-wiring": ("#1F5A6B", "#E7F3F5", "#17434F"),
     "volume2-track2-what-money-is-for": ("#1F5A6B", "#E7F3F5", "#17434F"),
 }
@@ -330,6 +335,16 @@ CHAPTER_META: dict[str, dict[str, tuple[str, int]]] = {
         "15.7": ("Housing crises run on a clock that inverts most people's instincts: the options are maximal in week one and evaporate by month six, yet the natural reflex is to avoid the lender while scraping together the payment. Loss-mitigation programs, modifications, and assistance all work best applied early and completely — the silence that feels protective is actually the most expensive thing you can do.", 4),
         "15.8": ("Recovery gets no press, which leaves people who've been through bankruptcy or foreclosure assuming the damage is permanent — it isn't. Credit files heal on a schedule faster than most expect, the legitimate rebuilding toolkit is boring and free, and the \"second chance\" market preying on this exact moment is worth watching for. The real asset coming out the other side is the crisis-forged habits themselves.", 6),
     },
+    "track16-the-penalty-system": {
+        "16.1": ("A household earning $3,200 against $3,000 of obligations is $200 to the good every month and can still pay hundreds a year in penalties — because rent lands on the 1st and pay lands on the 10th. That isn't a shortage, it's a sequence, and it has a different fix: you cannot budget your way out of a date. Budgets balance over a period; banks charge on a moment.", 3),
+        "16.2": ("The overdraft fee averages $26.77 and the NSF fee $16.82 — which makes the NSF look like the better outcome and it usually isn't, because a declined payment leaves the bill unpaid and the biller charges anyway. The credit card gap is the one to memorise: it fires the bank's fee and the issuer's at once, for one missed morning, and daily caps mean an ordinary cluster of autopays can cost over $100 before lunch.", 2),
+        "16.3": ("Hold the household constant and change only the bank, and the same bad morning costs $0, $20, or $108. The institutions that eliminated overdraft fees are almost all online or branchless; the ones still charging $35 are the branch networks — so the relief went largely to customers who rarely triggered the fee. Under 9% of accounts generate close to 80% of overdraft revenue, and their median balance is under $350.", 5),
+        "16.4": ("Every balance has a standstill payment — balance times rate divided by twelve — below which the debt grows no matter how faithfully you pay. On $5,000 at 24.99% it's $104, and the approach to it isn't a slope but a wall: cutting a payment 45% makes the payoff four times longer. A penalty stream of $96 a month is enough to push a $200 surplus across that line, which is the difference between out in three years and never out.", 6),
+        "16.5": ("Most people treat a due date the way they treat an amount — as a fact about the world. For credit cards, utilities, phone and insurance it's a setting, changeable free in minutes, permanently. Move the card first and to three to five days after a deposit, then the utilities, then re-check; and when the gap still won't close, split a bill across two pay dates or make the residual gap cheap rather than saving your way out of it.", 2),
+        "16.6": ("Social Security pays on a date set by your birthday — and against a rent bill due on the 1st, that accident decides whether you carry the money two days or three weeks. It's the hardest case in the track: one deposit a month with no smoothing, and a date that cannot be changed by request, negotiation, or hardship. Every fix has to happen on the bills, and the cheapest fix in personal finance is also the one most likely to be blocked by a phone tree.", 4),
+        "16.7": ("Biweekly pay drifts about two days a month against a bill calendar that doesn't, which is why a sequence that worked for four months suddenly fails and nothing appears to have changed. The two three-paycheck months a year are the realistic answer: $1,800 of found money that no thin margin could ever save out of ordinary months, and enough to fund the first-week cluster permanently — if the dates are identified in advance rather than absorbed without a trace.", 1),
+        "16.8": ("Find the trough, look up your bank's four numbers, move the card, move the utilities, re-check — and stop when it goes positive, which for most households is three phone calls in. Change banks before trying to save your way out, and fund the buffer last, from a windfall rather than a margin that hasn't got it. And if you haven't paid a fee in a year, skip the whole track: it was written for the household where those three calls are worth more than a raise.", 5),
+    },
     "volume2-track1-your-built-in-wiring": {
         "PM1.1": ("The envelope budgeter, the day-trader, the spouse who won't look at the retirement account during downturns — each pattern looks irrational from outside and felt sensible from inside, because it was, once, in the world where it got learned. Naming why a habit formed doesn't excuse it, but it does tell you exactly where to intervene, which is more than shame ever manages.", 2),
         "PM1.2": ("Four pieces of ancient mental wiring quietly run financial decisions: losses hurt twice as hard as gains feel good, today always outbids tomorrow, identical dollars get filed into imaginary buckets, and the first number seen reframes everything after it. None of it can be uninstalled — but naming the pattern in the moment weakens its pull, and automating the decisions it corrupts removes it from the negotiation entirely.", 2),
@@ -372,6 +387,7 @@ TRACK_ICON_PATHS: dict[str, str] = {
     "track13-protection": '<path d="M12 3l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V6l7-3z"/>',
     "track14-high-wealth-efficiency": '<path d="M6 9l6-6 6 6-6 12z"/><path d="M6 9h12M9 9l3 12M15 9l-3 12"/>',
     "track15-when-preparation-isnt-enough": '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="21"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="21" y2="12"/>',
+    "track16-the-penalty-system": '<circle cx="12" cy="12" r="9"/><path d="M12 6.5V12l3.5 2.5"/>',
     "volume2-track1-your-built-in-wiring": '<circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v3c0 2 2 3 6 3M18 8v3c0 2-2 3-6 3"/>',
     "volume2-track2-what-money-is-for": '<circle cx="12" cy="12" r="9"/><path d="M14.5 9.5l-1.2 4.3-4.3 1.2 1.2-4.3z"/>',
 }
@@ -1506,9 +1522,12 @@ def overview_html(paragraphs: tuple[str, str]) -> str:
 # index page with TRACK_OVERVIEWS's two-paragraph tuples.
 LANDING_COMPASS_SVG = """<svg class="landing-overview-logo-mark" viewBox="-210 -210 420 420" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="needle-bright" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#FFD08A"/>
-      <stop offset="100%" stop-color="#F9AE4C"/>
+    <linearGradient id="needle-cone" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#D9922F"/>
+      <stop offset="18%"  stop-color="#FFD08A"/>
+      <stop offset="45%"  stop-color="#F7B45A"/>
+      <stop offset="78%"  stop-color="#C0822F"/>
+      <stop offset="100%" stop-color="#9A6520"/>
     </linearGradient>
   </defs>
 
@@ -1537,8 +1556,8 @@ LANDING_COMPASS_SVG = """<svg class="landing-overview-logo-mark" viewBox="-210 -
     <path d="M  23,-12 Q  61,52  105,168" stroke="#0FA8BC" stroke-width="4.2" opacity="0.34"/>
     <path d="M -23,-12 Q -70,63 -126,200" stroke="#0FA8BC" stroke-width="1.8" opacity="0.16"/>
     <path d="M  23,-12 Q  70,63  126,200" stroke="#0FA8BC" stroke-width="1.8" opacity="0.16"/>
-    <polygon points="0,-172 -25,-39 7,-32" fill="url(#needle-bright)" stroke="none"/>
-    <polygon points="0,-172 7,-32 25,-39" fill="#C0822F" stroke="none"/>
+    <path d="M 0,-172 L -25,-35.5 A 25,3.5 0 0 0 25,-35.5 Z" fill="url(#needle-cone)" stroke="none"/>
+    <path d="M -25,-35.5 A 25,3.5 0 0 0 25,-35.5" fill="none" stroke="#7A4E17" stroke-width="1.6" opacity="0.55"/>
     <circle cx="0" cy="0" r="20" fill="#fff" stroke="#FFB256" stroke-width="7"/>
     <circle cx="0" cy="0" r="10" fill="#FFB256" stroke="none"/>
   </g>
