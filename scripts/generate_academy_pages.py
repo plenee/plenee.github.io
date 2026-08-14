@@ -132,7 +132,7 @@ TRACK_OVERVIEWS = {
         "Most of the biggest financial decisions in a person's life don't happen on a schedule — they happen around specific events: a car purchase, a home, a marriage, a new job, a loss. Each one comes with its own traps, most of them well-documented but rarely explained at the moment they'd actually help.",
         "This track walks through the real total cost of owning a car versus what a monthly payment implies, the gap between what a lender approves and what a household can actually afford in a home, merging finances (and visibility) after marriage, what 529s and other education costs actually require, the rollover sales machine that targets a 401k the moment someone changes jobs, and the six-month rule worth following before acting on a windfall or inheritance. The common denominator: these decisions are big enough that a small amount of preparation changes the outcome substantially.",
     ),
-    "track12-retirement-decumulation": (
+    "track12-retirement-spending-down": (
         "Retirement flips the entire financial mindset that got someone there — for decades, the goal was accumulating and staying net-positive; in retirement, spending down is the plan working as intended, not a sign something's gone wrong.",
         "This track covers what that shift actually looks like: thinking in time-buckets rather than a single number, the real cost of over-saving (money that bought no freedom because it was never used), how sequence-of-returns risk changes withdrawal strategy, and the genuinely non-obvious math behind Social Security claiming age. It ends on the highest-return spending decade most people underrate — using both time and money deliberately once there's finally enough of both.",
     ),
@@ -179,7 +179,7 @@ TRACK_HUES: dict[str, tuple[str, str, str]] = {
     "track3-credit-mastery": ("#5B7A99", "#EAF1F6", "#46607A"),
     "track10-taxes-efficiency": ("#5B7A99", "#EAF1F6", "#46607A"),
     "track11-life-events": ("#5B7A99", "#EAF1F6", "#46607A"),
-    "track12-retirement-decumulation": ("#5B7A99", "#EAF1F6", "#46607A"),
+    "track12-retirement-spending-down": ("#5B7A99", "#EAF1F6", "#46607A"),
     "track13-protection": ("#A8506B", "#FAEBEF", "#8C3F54"),
     "track14-high-wealth-efficiency": ("#A8506B", "#FAEBEF", "#8C3F54"),
     "track15-when-preparation-isnt-enough": ("#A8506B", "#FAEBEF", "#8C3F54"),
@@ -301,7 +301,7 @@ CHAPTER_META: dict[str, dict[str, tuple[str, int]]] = {
         "11.6": ("Divorce, widowhood, and other household dissolutions don't just adjust a financial life, they can shatter it — often while one partner never held the full picture to begin with. The sequence that keeps a crisis from compounding is visibility first: rebuild the complete account map, secure shared exposures like joint credit, and defer every irreversible decision until the emotional pressure has passed.", 5),
         "11.7": ("Sudden money — an inheritance, a settlement, an insurance payout — attracts urgency, salespeople, and every cognitive bias in the book, all at once. The professional consensus is refreshingly simple: park it somewhere boring, make no irreversible decisions for six months, and spend that time quietly figuring out the tax picture and what you actually want the money to do.", 3),
     },
-    "track12-retirement-decumulation": {
+    "track12-retirement-spending-down": {
         "12.1": ("Spending down your savings in retirement isn't failure, it's the whole point — decades of saving exist precisely so later decades can draw them down. Yet the psychology rarely cooperates: loss aversion and a lifelong saver identity make people chronically underspend what they worked decades to build, mistaking the plan working for the plan failing.", 4),
         "12.2": ("Money buys different amounts of life depending on your age, and Bill Perkins' Die With Zero framework asks the question accumulation-minded savers never do: what's the optimal amount to die with? The practical answer is time-bucketing your experiences to the age windows when they're actually usable, and giving to people while you're alive to watch it matter rather than leaving an accidental, poorly-timed bequest.", 3),
         "12.3": ("Running out of money in retirement gets all the warnings; the opposite failure — dying with your largest balance ever, having never taken delivery of the freedom you bought — gets none, despite being disturbingly common among disciplined savers. The fix is structural: a pre-authorized minimum spend, a written definition of enough, and a concrete list of experiences with closing age-windows.", 3),
@@ -383,7 +383,7 @@ TRACK_ICON_PATHS: dict[str, str] = {
     "track9-earn-dont-pay": '<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.7c0-1.5 1.1-2.7 2.5-2.7s2.5 1 2.5 2.1-1 1.9-2.5 1.9-2.5 1-2.5 2.1 1.1 2.1 2.5 2.1 2.5-1.2 2.5-2.7"/>',
     "track10-taxes-efficiency": '<circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/><line x1="5" y1="19" x2="19" y2="5"/>',
     "track11-life-events": '<rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/>',
-    "track12-retirement-decumulation": '<path d="M6 3h12M6 21h12M7 3c0 5 5 7 5 9s-5 4-5 9M17 3c0 5-5 7-5 9s5 4 5 9"/>',
+    "track12-retirement-spending-down": '<path d="M6 3h12M6 21h12M7 3c0 5 5 7 5 9s-5 4-5 9M17 3c0 5-5 7-5 9s5 4 5 9"/>',
     "track13-protection": '<path d="M12 3l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V6l7-3z"/>',
     "track14-high-wealth-efficiency": '<path d="M6 9l6-6 6 6-6 12z"/><path d="M6 9h12M9 9l3 12M15 9l-3 12"/>',
     "track15-when-preparation-isnt-enough": '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="21"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="21" y2="12"/>',
