@@ -1,9 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 415" width="1300" height="415">
   <defs>
     <style>@import url('https://fonts.googleapis.com/css2?family=Varela+Round&amp;display=swap');</style>
-    <linearGradient id="needle-bright" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#FFD08A"/>
-      <stop offset="100%" stop-color="#F9AE4C"/>
+    <linearGradient id="needle-cone" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#D9922F"/>
+      <stop offset="18%"  stop-color="#FFD08A"/>
+      <stop offset="45%"  stop-color="#F7B45A"/>
+      <stop offset="78%"  stop-color="#C0822F"/>
+      <stop offset="100%" stop-color="#9A6520"/>
     </linearGradient>
   </defs>
 
@@ -27,9 +30,9 @@
     <path d="M -23,-12 Q -70,63 -126,200" stroke="#C7D6E6" stroke-width="1.8" opacity="0.16"/>
     <path d="M  23,-12 Q  70,63  126,200" stroke="#C7D6E6" stroke-width="1.8" opacity="0.16"/>
 
-    <!-- 3D needle: bright top-left facet + dark right facet sharing the tip ridge -->
-    <polygon points="0,-172 -25,-39 7,-32" fill="url(#needle-bright)" stroke="none"/>
-    <polygon points="0,-172 7,-32 25,-39" fill="#C0822F" stroke="none"/>
+    <!-- 3D needle: smooth CONE — elliptical base + cross-axis shading (replaced the two-facet pyramid 2026-08-05) -->
+    <path d="M 0,-172 L -25,-35.5 A 25,3.5 0 0 0 25,-35.5 Z" fill="url(#needle-cone)" stroke="none"/>
+    <path d="M -25,-35.5 A 25,3.5 0 0 0 25,-35.5" fill="none" stroke="#7A4E17" stroke-width="1.6" opacity="0.55"/>
 
     <!-- pivot ring + hub -->
     <circle cx="0" cy="0" r="20" fill="#0C1929" stroke="#FFB256" stroke-width="7"/>
