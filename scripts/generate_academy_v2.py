@@ -272,13 +272,17 @@ def shell(title: str, body: str, depth_root: str, ac_root: str, canonical: str =
     return page.replace("</title>", "</title>\n" + tag, 1)
 
 
-def crumb(here: str, depth: str, mid: tuple | None = None) -> str:
+def crumb(here: str, depth: str, mid: tuple | None = None,
+          right: tuple | None = None) -> str:
     parts = [f'<a href="{depth}index.html">Academy</a><span>&rsaquo;</span>']
     if mid:
         parts.append(f'<a href="{mid[1]}">{esc(mid[0])}</a><span>&rsaquo;</span>')
     parts.append(f"<span>{esc(here)}</span>")
     parts.append('<span style="margin-left:auto"></span>')
-    parts.append(f'<a href="{depth}contents.html">Everything by subject</a>')
+    # a crumb that links to the page you are already on is dead weight; the contents page
+    # points at the picker instead
+    label, href = right or ("Everything by subject", f"{depth}contents.html")
+    parts.append(f'<a href="{href}">{esc(label)}</a>')
     return '<div class="crumb">' + "".join(parts) + "</div>"
 
 
@@ -410,7 +414,7 @@ def contents_page(md, titles) -> str:
         '<div class="page-header"><div class="page-kicker">The whole Academy</div>'
         '<h1>Everything, by Subject</h1>'
         '<p class="header-subtitle">Every chapter, once, grouped by what it is about</p></div>'
-        + crumb("Everything by subject", "")
+        + crumb("Everything by subject", "", right=("Choose a situation", "index.html"))
         + f'<div class="chapter-wrap"><div class="chapter-body">{body_html}</div>'
         + '<div class="chapter-nav"><a class="cn-link next" href="index.html">'
         + '<div class="cn-dir">Or</div><div class="cn-title">Choose a situation instead</div>'
@@ -427,7 +431,7 @@ def landing_page(tracks, titles) -> str:
         ART_FILTER_DEFS
         + '<div class="page-header"><div class="page-kicker">Plenee Academy</div>'
         + "<h1>Start where you are</h1>"
-        + '<p class="header-subtitle">Every figure carries the document it came from</p></div>'
+        + '<p class="header-subtitle">What you get sold, what it costs, and what comes back</p></div>'
         + '<div class="track-wrap">'
         + '<div class="chapters-heading">Pick the situation closest to yours</div>'
         + grid
