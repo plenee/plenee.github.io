@@ -135,7 +135,7 @@ def refs(text: str, titles: dict, depth: str) -> str:
         if slug not in titles:
             raise SystemExit(f"BUILD FAILED: {{{{ref:{slug}}}}} has no chapter. "
                              "A dangling reference must break the build, not render as text.")
-        return f'<a class="ref-link" href="{depth}{slug}/">{esc(titles[slug])}</a>'
+        return f'<a class="ref-link" href="{depth}{slug}.html">{esc(titles[slug])}</a>'
     return re.sub(r'\{\{ref:([\w-]+)\}\}', sub, text)
 
 
@@ -253,6 +253,10 @@ def render_body(md: str) -> tuple[str, str]:
 
 BASE = "https://plenee.com/academy2/"
 
+# Flat .html files, not directories. Directory-style URLs need a server to resolve "/" to
+# index.html, so they break when the site is opened from disk — and v1 emits flat files, so
+# this matches it. One canonical URL per chapter either way.
+
 
 BASE = "https://plenee.com/academy2/"
 
@@ -274,7 +278,7 @@ def crumb(here: str, depth: str, mid: tuple | None = None) -> str:
         parts.append(f'<a href="{mid[1]}">{esc(mid[0])}</a><span>&rsaquo;</span>')
     parts.append(f"<span>{esc(here)}</span>")
     parts.append('<span style="margin-left:auto"></span>')
-    parts.append(f'<a href="{depth}contents/">Everything by subject</a>')
+    parts.append(f'<a href="{depth}contents.html">Everything by subject</a>')
     return '<div class="crumb">' + "".join(parts) + "</div>"
 
 
@@ -291,14 +295,14 @@ NAV_JS = """
   var t=d.tracks[p],s=document.getElementById('v2-ctx');
   /* the crumb above already carries the 'everything by subject' link; repeating it here
      put the same destination twice on one screen */
-  s.innerHTML='<span>In <a href="../tracks/'+p+'/">'+t.title+'</a></span>'
+  s.innerHTML='<span>In <a href="tracks/'+p+'.html">'+t.title+'</a></span>'
     +'<span class="pos">'+t.pos+' of '+t.len+'</span>';
   var n=document.getElementById('v2-pager'),h='';
-  if(t.prev){h+='<a class="cn-link prev" href="../'+t.prev.slug+'/?via='+p+'">'
+  if(t.prev){h+='<a class="cn-link prev" href="'+t.prev.slug+'.html?via='+p+'">'
     +'<div class="cn-dir">Previous</div><div class="cn-title">'+t.prev.title+'</div></a>'}
-  else{h+='<a class="cn-link prev" href="../tracks/'+p+'/">'
+  else{h+='<a class="cn-link prev" href="tracks/'+p+'.html">'
     +'<div class="cn-dir">Previous</div><div class="cn-title">Back to '+t.title+'</div></a>'}
-  if(t.next){h+='<a class="cn-link next" href="../'+t.next.slug+'/?via='+p+'">'
+  if(t.next){h+='<a class="cn-link next" href="'+t.next.slug+'.html?via='+p+'">'
     +'<div class="cn-dir">Next</div><div class="cn-title">'+t.next.title+'</div></a>'}
   n.innerHTML=h;
 })();
@@ -306,21 +310,21 @@ NAV_JS = """
 """
 
 
-def pager(prev, nxt, depth="../") -> str:
+def pager(prev, nxt, depth="") -> str:
     h = ""
     if prev:
-        h += (f'<a class="cn-link prev" href="{depth}{prev["slug"]}/">'
+        h += (f'<a class="cn-link prev" href="{depth}{prev["slug"]}.html">'
               f'<div class="cn-dir">Previous</div>'
               f'<div class="cn-title">{esc(prev["title"])}</div></a>')
     if nxt:
-        h += (f'<a class="cn-link next" href="{depth}{nxt["slug"]}/">'
+        h += (f'<a class="cn-link next" href="{depth}{nxt["slug"]}.html">'
               f'<div class="cn-dir">Next</div>'
               f'<div class="cn-title">{esc(nxt["title"])}</div></a>')
     return f'<div class="chapter-nav" id="v2-pager">{h}</div>'
 
 
 def chapter_page(slug, ch, tracks, titles, subject_nbrs, subject_name) -> str:
-    body_html, src_html, heads = render_body(refs(ch["body"], titles, "../"))
+    body_html, src_html, heads = render_body(refs(ch["body"], titles, ""))
 
     memberships, navmap = [], {}
     for tslug, tr in tracks.items():
@@ -342,7 +346,7 @@ def chapter_page(slug, ch, tracks, titles, subject_nbrs, subject_name) -> str:
     also = ""
     if memberships:
         lis = "".join(
-            f'<li><a href="../tracks/{ts}/">{esc(tt)}</a> — <span class="why">{inline(why)}</span></li>'
+            f'<li><a href="tracks/{ts}.html">{esc(tt)}</a> — <span class="why">{inline(why)}</span></li>'
             for ts, tt, why in sorted(memberships, key=lambda x: x[1]))
         also = ('<div class="takeaway alsoin"><div class="tk-label">Also in these situations</div>'
                 f'<div class="subhead-accent"></div><ol>{lis}</ol></div>')
@@ -355,7 +359,7 @@ def chapter_page(slug, ch, tracks, titles, subject_nbrs, subject_name) -> str:
 
     payload = json.dumps({"tracks": navmap})
     body = (
-        crumb(ch.get("title", slug), "../")
+        crumb(ch.get("title", slug), "")
         + '<div class="chapter-wrap">'
         + f'<div class="chapter-eyebrow ctx" id="v2-ctx">{esc(subject_name)}</div>'
         + f'<h1>{esc(ch.get("title", slug))}</h1>'
@@ -366,7 +370,7 @@ def chapter_page(slug, ch, tracks, titles, subject_nbrs, subject_name) -> str:
         + "</div>"
         + f'<script type="application/json" id="v2-nav">{payload}</script>{NAV_JS}'
     )
-    return shell(ch.get("title", slug), body, "../../", "../", f"{slug}/")
+    return shell(ch.get("title", slug), body, "../", "", f"{slug}.html")
 
 
 def cards(entries, titles, href, hue_slug) -> str:
@@ -384,7 +388,7 @@ def cards(entries, titles, href, hue_slug) -> str:
 def track_page(tslug, tr, titles) -> str:
     ov, _, _ = render_body(tr["overview"])
     grid = cards(tr["entries"], titles,
-                 href=lambda e: f'../../{e["slug"]}/?via={tslug}',
+                 href=lambda e: f'../{e["slug"]}.html?via={tslug}',
                  hue_slug=lambda e: tslug)
     body = (
         ART_FILTER_DEFS
@@ -392,33 +396,33 @@ def track_page(tslug, tr, titles) -> str:
         + '<div class="page-kicker">A situation</div>'
         + f'<h1>{esc(tr.get("title", tslug))}</h1>'
         + f'<p class="header-subtitle">{esc(tr.get("profile", ""))}</p></div>'
-        + crumb(tr.get("title", tslug), "../../")
+        + crumb(tr.get("title", tslug), "../")
         + f'<div class="overview-wrap">{ov}</div>'
         + '<div class="track-wrap">'
         + f'<div class="chapters-heading">{len(tr["entries"])} chapters, in this order</div>'
         + grid + "</div>")
-    return shell(tr.get("title", tslug), body, "../../../", "../../", f"tracks/{tslug}/")
+    return shell(tr.get("title", tslug), body, "../../", "../", f"tracks/{tslug}.html")
 
 
 def contents_page(md, titles) -> str:
-    body_html, _, _ = render_body(refs(md.split("---\n", 2)[-1], titles, "../"))
+    body_html, _, _ = render_body(refs(md.split("---\n", 2)[-1], titles, ""))
     body = (
         '<div class="page-header"><div class="page-kicker">The whole Academy</div>'
         '<h1>Everything, by Subject</h1>'
         '<p class="header-subtitle">Every chapter, once, grouped by what it is about</p></div>'
-        + crumb("Everything by subject", "../")
+        + crumb("Everything by subject", "")
         + f'<div class="chapter-wrap"><div class="chapter-body">{body_html}</div>'
-        + '<div class="chapter-nav"><a class="cn-link next" href="../">'
+        + '<div class="chapter-nav"><a class="cn-link next" href="index.html">'
         + '<div class="cn-dir">Or</div><div class="cn-title">Choose a situation instead</div>'
         + "</a></div></div>")
-    return shell("Everything, by Subject", body, "../../", "../", "contents/")
+    return shell("Everything, by Subject", body, "../", "", "contents.html")
 
 
 def landing_page(tracks, titles) -> str:
     entries = [{"slug": ts, "why": tr.get("profile", "")}
                for ts, tr in sorted(tracks.items(), key=lambda x: x[1].get("title", x[0]))]
     tl = {ts: tr.get("title", ts) for ts, tr in tracks.items()}
-    grid = cards(entries, tl, href=lambda e: f'tracks/{e["slug"]}/', hue_slug=lambda e: e["slug"])
+    grid = cards(entries, tl, href=lambda e: f'tracks/{e["slug"]}.html', hue_slug=lambda e: e["slug"])
     body = (
         ART_FILTER_DEFS
         + '<div class="page-header"><div class="page-kicker">Plenee Academy</div>'
@@ -428,7 +432,7 @@ def landing_page(tracks, titles) -> str:
         + '<div class="chapters-heading">Pick the situation closest to yours</div>'
         + grid
         + '<p style="text-align:center;margin-top:2rem">'
-        + '<a href="contents/">Or read everything by subject &rarr;</a></p></div>')
+        + '<a href="contents.html">Or read everything by subject &rarr;</a></p></div>')
     return shell("Plenee Academy", body, "../", "", "")
 
 
@@ -464,18 +468,15 @@ def main() -> int:
     OUT.mkdir(parents=True)
 
     (OUT / "index.html").write_text(landing_page(tracks, titles))
-    (OUT / "contents").mkdir()
-    (OUT / "contents" / "index.html").write_text(contents_page(contents_md, titles))
+    (OUT / "contents.html").write_text(contents_page(contents_md, titles))
+    (OUT / "tracks").mkdir()
     for tslug, t in tracks.items():
-        d = OUT / "tracks" / tslug
-        d.mkdir(parents=True)
-        (d / "index.html").write_text(track_page(tslug, t, titles))
+        (OUT / "tracks" / f"{tslug}.html").write_text(track_page(tslug, t, titles))
     for slug, ch in chapters.items():
-        d = OUT / slug
-        d.mkdir(parents=True)
-        (d / "index.html").write_text(chapter_page(slug, ch, tracks, titles, subj.get(slug), subject_of.get(slug, "Academy")))
+        (OUT / f"{slug}.html").write_text(
+            chapter_page(slug, ch, tracks, titles, subj.get(slug), subject_of.get(slug, "Academy")))
 
-    n = len(list(OUT.rglob("index.html")))
+    n = len(list(OUT.rglob("*.html")))
     print(f"academy2/: {len(chapters)} chapters, {len(tracks)} tracks, {n} pages")
     untracked = [s for s in chapters
                  if not any(s in [e["slug"] for e in t["entries"]] for t in tracks.values())]
