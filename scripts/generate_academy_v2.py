@@ -50,6 +50,12 @@ table.v2 th,table.v2 td{border-bottom:1px solid var(--border);padding:.6rem .7re
 table.v2 thead th{background:var(--off);color:var(--navy);font-weight:600;
   border-bottom:2px solid var(--border);white-space:nowrap}
 table.v2 tbody tr:last-child td{border-bottom:none}
+.chap-card .cc-tile{position:relative}
+.chap-card .cc-title{position:absolute;left:0;right:0;bottom:0;margin:0;padding:2.2rem 1.15rem .9rem;
+  font-family:Georgia,'Times New Roman',serif;font-size:1.12rem;line-height:1.25;color:#fff;
+  text-shadow:0 1px 14px rgba(0,0,0,.55);
+  background:linear-gradient(to top,rgba(12,25,41,.88) 0%,rgba(12,25,41,.62) 45%,rgba(12,25,41,0) 100%)}
+.chap-card .cc-body p{margin:0 0 1rem}
 sup.fnref a{color:var(--teal-d);text-decoration:none;font-weight:600;padding:0 .1em}
 sup.fnref a:hover{text-decoration:underline}
 """
@@ -377,20 +383,45 @@ def chapter_page(slug, ch, tracks, titles, subject_nbrs, subject_name) -> str:
     return shell(ch.get("title", slug), body, "../", "", f"{slug}.html")
 
 
+def blurb(md: str, limit: int = 260) -> str:
+    """The card description. Prefers the chapter's own "short version", which is written to
+    summarise it — the opening paragraph is unreliable because many chapters open on an
+    example, which reads as a non-sequitur on a card."""
+    body = md.split("\n## Sources\n")[0]
+    m = re.search(r'^## The short version\s*\n(.+?)(?=\n##|\Z)', body, re.S | re.M)
+    src = m.group(1) if m else body
+
+    def clean(s):
+        s = re.sub(r'\[\^\d+\]', '', " ".join(s.split()))
+        return re.sub(r'[*`]', '', s)
+
+    for para in re.split(r'\n\s*\n', src):
+        s = clean(para)
+        if s.startswith(("#", "|", ">", "-", "*", "1.")) or len(s) < 60:
+            continue
+        if len(s) <= limit:
+            return s
+        cut = s[:limit].rsplit(" ", 1)[0]
+        return cut.rstrip(",;:—- ") + "…"
+    return ""
+
+
 def cards(entries, titles, href, hue_slug) -> str:
     out = []
     for e in entries:
         out.append(
             f'<a class="chap-card" href="{href(e)}" {hue_style(hue_slug(e))}>'
-            f'<div class="cc-tile">{art_for(e["slug"])}</div>'
-            f'<div class="cc-body"><h3>{esc(titles[e["slug"]])}</h3>'
-            f'<p>{inline(e["why"])}</p>'
+            f'<div class="cc-tile">{art_for(e["slug"])}'
+            f'<h3 class="cc-title">{esc(titles[e["slug"]])}</h3></div>'
+            f'<div class="cc-body"><p>{inline(e.get("blurb") or e["why"])}</p>'
             f'<span class="cc-cta">Read &rarr;</span></div></a>')
     return f'<div class="chapter-grid">{"".join(out)}</div>'
 
 
 def track_page(tslug, tr, titles) -> str:
     ov, _, _ = render_body(tr["overview"])
+    for e in tr["entries"]:
+        e["blurb"] = CHAPTER_BLURB.get(e["slug"], "")
     grid = cards(tr["entries"], titles,
                  href=lambda e: f'../{e["slug"]}.html?via={tslug}',
                  hue_slug=lambda e: tslug)
@@ -423,7 +454,7 @@ def contents_page(md, titles) -> str:
 
 
 def landing_page(tracks, titles) -> str:
-    entries = [{"slug": ts, "why": tr.get("profile", "")}
+    entries = [{"slug": ts, "why": tr.get("profile", ""), "blurb": blurb(tr["overview"])}
                for ts, tr in sorted(tracks.items(), key=lambda x: x[1].get("title", x[0]))]
     tl = {ts: tr.get("title", ts) for ts, tr in tracks.items()}
     grid = cards(entries, tl, href=lambda e: f'tracks/{e["slug"]}.html', hue_slug=lambda e: e["slug"])
@@ -440,8 +471,13 @@ def landing_page(tracks, titles) -> str:
     return shell("Plenee Academy", body, "../", "", "")
 
 
+CHAPTER_BLURB: dict = {}
+
+
 def main() -> int:
     chapters, tracks, contents_md = load()
+    CHAPTER_BLURB.update({s: (c.get("blurb") or blurb(c["body"]))
+                          for s, c in chapters.items()})
     titles = {s: c.get("title", s) for s, c in chapters.items()}
 
     # subject-order neighbours, for readers with no track context
