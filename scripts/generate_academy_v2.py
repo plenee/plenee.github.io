@@ -24,40 +24,67 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from generate_academy_pages import PAGE_TEMPLATE, STYLE_BLOCK  # noqa: E402
+from generate_academy_pages import (  # noqa: E402
+    ART_FILTER_DEFS, PAGE_TEMPLATE, STYLE_BLOCK, TRACK_HUES, render_chapter_art,
+)
 
 WEBSITE = Path(__file__).resolve().parents[1]
 SRC = WEBSITE.parent / "plenee_app" / "docs" / "academy_v2"
 OUT = WEBSITE / "academy2"
 
 V2_STYLE = """
-.v2-strip{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;font-size:.85rem;
-  padding:.6rem .9rem;border-radius:8px;background:rgba(0,0,0,.04);margin:0 0 1.6rem}
-.v2-strip a{text-decoration:none;border-bottom:1px solid rgba(0,0,0,.2)}
-.v2-strip .v2-pos{opacity:.65}
-.v2-alsoin{margin:2.6rem 0 0;padding:1.1rem 1.2rem;border-radius:10px;background:rgba(0,0,0,.03)}
-.v2-alsoin h3{margin:0 0 .7rem;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase;opacity:.7}
-.v2-alsoin ul{margin:0;padding:0;list-style:none}
-.v2-alsoin li{margin:.45rem 0;font-size:.94rem}
-.v2-alsoin .v2-why{opacity:.7}
-.v2-pager{display:flex;justify-content:space-between;gap:1rem;margin:2.2rem 0 0}
-.v2-pager a{max-width:46%;text-decoration:none;font-size:.94rem}
-.v2-pager .v2-next{text-align:right;margin-left:auto}
-.v2-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin:1.6rem 0}
-.v2-card{display:block;padding:1.1rem 1.2rem;border-radius:10px;background:rgba(0,0,0,.03);
-  text-decoration:none;transition:transform .12s ease}
-.v2-card:hover{transform:translateY(-2px)}
-.v2-card b{display:block;margin-bottom:.35rem}
-.v2-card span{font-size:.9rem;opacity:.75}
-.v2-sub{opacity:.75;margin:.2rem 0 1.6rem}
-.v2-fn{font-size:.88rem;opacity:.85}
-.v2-fn li{margin:.5rem 0}
-table.v2{border-collapse:collapse;width:100%;margin:1.4rem 0;font-size:.93rem}
-table.v2 th,table.v2 td{border-bottom:1px solid rgba(0,0,0,.12);padding:.5rem .6rem;text-align:left;vertical-align:top}
-table.v2 th{font-weight:600}
-.v2-scroll{overflow-x:auto}
-sup.fnref a{text-decoration:none;padding:0 .1em}
+/* v1's stylesheet covers every component here once the markup matches it. Two things are
+   genuinely new in v2 and are built from v1's own variables rather than invented: the
+   track-membership block (which reuses .takeaway so it reads as the same family) and
+   tables, which v1 has no rules for because v1 chapters contain none. */
+.alsoin ol{margin:.5rem 0 0;padding-left:1.15rem}
+.alsoin li{margin:.4rem 0;color:var(--muted)}
+.alsoin li a{color:var(--teal-d);font-weight:600;text-decoration:none}
+.alsoin li a:hover{text-decoration:underline}
+.ctx{display:flex;gap:.7rem;align-items:baseline;flex-wrap:wrap}
+.ctx .pos{color:var(--light);font-variant-numeric:tabular-nums}
+.v2-scroll{overflow-x:auto;margin:1.6rem 0;-webkit-overflow-scrolling:touch}
+table.v2{border-collapse:collapse;width:100%;font-size:.94rem;color:var(--text)}
+table.v2 th,table.v2 td{border-bottom:1px solid var(--border);padding:.6rem .7rem;
+  text-align:left;vertical-align:top}
+table.v2 thead th{background:var(--off);color:var(--navy);font-weight:600;
+  border-bottom:2px solid var(--border);white-space:nowrap}
+table.v2 tbody tr:last-child td{border-bottom:none}
+sup.fnref a{color:var(--teal-d);text-decoration:none;font-weight:600;padding:0 .1em}
+sup.fnref a:hover{text-decoration:underline}
 """
+
+# Six palettes, borrowed from v1 so the two sites cannot diverge. Assigned by what the
+# situation is about rather than alphabetically: teal for beginnings, slate for irregular
+# work, rose for the protection-heavy household, orange where extraction concentrates,
+# gold for accumulation, deep teal for late life and for method.
+HUES = list(dict.fromkeys(TRACK_HUES.values()))
+TEAL, ORANGE, GOLD, SLATE, ROSE, DEEP = HUES[0], HUES[1], HUES[2], HUES[3], HUES[4], HUES[5]
+TRACK_HUE = {
+    "still-studying": TEAL, "first-job-renting": TEAL,
+    "no-payslip": SLATE, "looking-after-everyone": SLATE,
+    "just-bought-a-house": ROSE,
+    "one-income-no-buffer": ORANGE, "two-countries": ORANGE,
+    "earning-well": GOLD, "five-years-out": GOLD,
+    "policies-you-already-own": DEEP, "checking-anything": DEEP,
+}
+
+
+def hue_of(tslug: str) -> tuple[str, str, str]:
+    return TRACK_HUE.get(tslug, TEAL)
+
+
+def hue_style(tslug: str) -> str:
+    h, l, d = hue_of(tslug)
+    return f'style="--hue:{h};--hue-l:{l};--hue-d:{d};"'
+
+
+def art_for(slug: str) -> str:
+    return render_chapter_art(sum(ord(c) for c in slug) % 6 + 1, slug)
+
+
+def anchor(text: str) -> str:
+    return re.sub(r'[^a-z0-9]+', '-', text.lower()).strip('-')[:60]
 
 
 def esc(s: str) -> str:
@@ -108,7 +135,7 @@ def refs(text: str, titles: dict, depth: str) -> str:
         if slug not in titles:
             raise SystemExit(f"BUILD FAILED: {{{{ref:{slug}}}}} has no chapter. "
                              "A dangling reference must break the build, not render as text.")
-        return f'<a href="{depth}{slug}/">{esc(titles[slug])}</a>'
+        return f'<a class="ref-link" href="{depth}{slug}/">{esc(titles[slug])}</a>'
     return re.sub(r'\{\{ref:([\w-]+)\}\}', sub, text)
 
 
@@ -153,6 +180,7 @@ def render_body(md: str) -> tuple[str, str]:
     body, _, srcblock = md.partition("\n## Sources\n")
     notes = re.findall(r'^\[\^(\d+)\]: (.*?)(?=\n\[\^|\Z)', srcblock, re.S | re.M)
     seen: set = set()
+    heads: list = []
     out, i = [], 0
     lines = body.split("\n")
     while i < len(lines):
@@ -161,7 +189,11 @@ def render_body(md: str) -> tuple[str, str]:
             i += 1
             continue  # the H1 is rendered from frontmatter
         if ln.startswith("## "):
-            out.append(f"<h2>{inline(ln[3:].strip(), seen)}</h2>")
+            raw = ln[3:].strip()
+            a = anchor(re.sub(r'[*`]', '', raw))
+            heads.append((a, re.sub(r'[*`]', '', raw)))
+            out.append(f'<h2 id="{a}">{inline(raw, seen)}</h2>'
+                       f'<div class="subhead-accent"></div>')
             i += 1
         elif ln.startswith("### "):
             out.append(f"<h3>{inline(ln[4:].strip(), seen)}</h3>")
@@ -211,12 +243,16 @@ def render_body(md: str) -> tuple[str, str]:
     src_html = ""
     if notes:
         lis = "".join(f'<li id="fn{n}">{inline(" ".join(t.split()), seen)} '
-                      f'<a href="#r{n}" aria-label="back to text">&#8617;</a></li>' for n, t in notes)
-        src_html = f'<h2>Sources</h2><ol class="v2-fn">{lis}</ol>'
-    return "\n".join(out), src_html
+                      f'<a href="#r{n}">&#8617;</a></li>' for n, t in notes)
+        src_html = ('<div class="sources"><div class="src-title">Sources</div>'
+                    f"<ol>{lis}</ol></div>")
+    return "\n".join(out), src_html, heads
 
 
 # --------------------------------------------------------------------------- pages
+
+BASE = "https://plenee.com/academy2/"
+
 
 BASE = "https://plenee.com/academy2/"
 
@@ -232,104 +268,167 @@ def shell(title: str, body: str, depth_root: str, ac_root: str, canonical: str =
     return page.replace("</title>", "</title>\n" + tag, 1)
 
 
+def crumb(here: str, depth: str, mid: tuple | None = None) -> str:
+    parts = [f'<a href="{depth}index.html">Academy</a><span>&rsaquo;</span>']
+    if mid:
+        parts.append(f'<a href="{mid[1]}">{esc(mid[0])}</a><span>&rsaquo;</span>')
+    parts.append(f"<span>{esc(here)}</span>")
+    parts.append('<span style="margin-left:auto"></span>')
+    parts.append(f'<a href="{depth}contents/">Everything by subject</a>')
+    return '<div class="crumb">' + "".join(parts) + "</div>"
+
+
 NAV_JS = """
 <script>
 (function(){
-  var d=JSON.parse(document.getElementById('v2-nav').textContent);
+  var el=document.getElementById('v2-nav'); if(!el) return;
+  var d=JSON.parse(el.textContent);
   var p=new URLSearchParams(location.search).get('via');
   if(!p){try{p=localStorage.getItem('plenee_track')||''}catch(e){}}
   if(p&&!d.tracks[p]){p=''}
-  if(p){try{localStorage.setItem('plenee_track',p)}catch(e){}}
-  var strip=document.getElementById('v2-strip'),pager=document.getElementById('v2-pager');
-  if(p){
-    var t=d.tracks[p];
-    strip.innerHTML='<span>In <a href="'+d.depth+'tracks/'+p+'/">'+t.title+'</a></span>'
-      +'<span class="v2-pos">'+t.pos+' of '+t.len+'</span>'
-      +'<a href="'+d.depth+'contents/">See everything by subject instead</a>';
-    strip.style.display='';
-    var h='';
-    if(t.prev){h+='<a class="v2-prev" href="'+d.depth+t.prev.slug+'/?via='+p+'">&#8592; '+t.prev.title+'</a>'}
-    if(t.next){h+='<a class="v2-next" href="'+d.depth+t.next.slug+'/?via='+p+'">'+t.next.title+' &#8594;</a>'}
-    if(!t.prev&&!t.next){h='<a href="'+d.depth+'tracks/'+p+'/">Back to '+t.title+'</a>'}
-    pager.innerHTML=h;
-  }else if(d.subject){
-    var h='';
-    if(d.subject.prev){h+='<a class="v2-prev" href="'+d.depth+d.subject.prev.slug+'/">&#8592; '+d.subject.prev.title+'</a>'}
-    if(d.subject.next){h+='<a class="v2-next" href="'+d.depth+d.subject.next.slug+'/">'+d.subject.next.title+' &#8594;</a>'}
-    pager.innerHTML=h;
-  }
+  if(!p) return;                      /* no track context: the server-rendered nav stands */
+  try{localStorage.setItem('plenee_track',p)}catch(e){}
+  var t=d.tracks[p],s=document.getElementById('v2-ctx');
+  /* the crumb above already carries the 'everything by subject' link; repeating it here
+     put the same destination twice on one screen */
+  s.innerHTML='<span>In <a href="../tracks/'+p+'/">'+t.title+'</a></span>'
+    +'<span class="pos">'+t.pos+' of '+t.len+'</span>';
+  var n=document.getElementById('v2-pager'),h='';
+  if(t.prev){h+='<a class="cn-link prev" href="../'+t.prev.slug+'/?via='+p+'">'
+    +'<div class="cn-dir">Previous</div><div class="cn-title">'+t.prev.title+'</div></a>'}
+  else{h+='<a class="cn-link prev" href="../tracks/'+p+'/">'
+    +'<div class="cn-dir">Previous</div><div class="cn-title">Back to '+t.title+'</div></a>'}
+  if(t.next){h+='<a class="cn-link next" href="../'+t.next.slug+'/?via='+p+'">'
+    +'<div class="cn-dir">Next</div><div class="cn-title">'+t.next.title+'</div></a>'}
+  n.innerHTML=h;
 })();
 </script>
 """
 
 
-def chapter_page(slug, ch, tracks, titles, subject_nbrs) -> str:
-    body_html, src_html = render_body(refs(ch["body"], titles, "../"))
-    memberships = []
-    navmap = {}
-    for tslug, t in tracks.items():
-        slugs = [e["slug"] for e in t["entries"]]
+def pager(prev, nxt, depth="../") -> str:
+    h = ""
+    if prev:
+        h += (f'<a class="cn-link prev" href="{depth}{prev["slug"]}/">'
+              f'<div class="cn-dir">Previous</div>'
+              f'<div class="cn-title">{esc(prev["title"])}</div></a>')
+    if nxt:
+        h += (f'<a class="cn-link next" href="{depth}{nxt["slug"]}/">'
+              f'<div class="cn-dir">Next</div>'
+              f'<div class="cn-title">{esc(nxt["title"])}</div></a>')
+    return f'<div class="chapter-nav" id="v2-pager">{h}</div>'
+
+
+def chapter_page(slug, ch, tracks, titles, subject_nbrs, subject_name) -> str:
+    body_html, src_html, heads = render_body(refs(ch["body"], titles, "../"))
+
+    memberships, navmap = [], {}
+    for tslug, tr in tracks.items():
+        slugs = [e["slug"] for e in tr["entries"]]
         if slug not in slugs:
             continue
         idx = slugs.index(slug)
-        why = t["entries"][idx]["why"]
-        memberships.append((tslug, t.get("title", tslug), why))
+        memberships.append((tslug, tr.get("title", tslug), tr["entries"][idx]["why"]))
         navmap[tslug] = {
-            "title": t.get("title", tslug), "pos": idx + 1, "len": len(slugs),
+            "title": tr.get("title", tslug), "pos": idx + 1, "len": len(slugs),
             "prev": ({"slug": slugs[idx-1], "title": titles[slugs[idx-1]]} if idx else None),
-            "next": ({"slug": slugs[idx+1], "title": titles[slugs[idx+1]]} if idx+1 < len(slugs) else None),
+            "next": ({"slug": slugs[idx+1], "title": titles[slugs[idx+1]]}
+                     if idx + 1 < len(slugs) else None),
         }
+
+    # Reuses the .takeaway box rather than inventing a component. This is the block a cold
+    # arrival from search depends on: the general index is the whole corpus and a poor next
+    # step, but a list of situations lets someone recognise their own and pick up a path.
     also = ""
     if memberships:
         lis = "".join(
-            f'<li><a href="../tracks/{ts}/">{esc(tt)}</a> — <span class="v2-why">{inline(why)}</span></li>'
+            f'<li><a href="../tracks/{ts}/">{esc(tt)}</a> — <span class="why">{inline(why)}</span></li>'
             for ts, tt, why in sorted(memberships, key=lambda x: x[1]))
-        also = ('<div class="v2-alsoin"><h3>This chapter also appears in</h3>'
-                f'<ul>{lis}</ul></div>')
-    payload = json.dumps({"depth": "../", "tracks": navmap, "subject": subject_nbrs})
+        also = ('<div class="takeaway alsoin"><div class="tk-label">Also in these situations</div>'
+                f'<div class="subhead-accent"></div><ol>{lis}</ol></div>')
+
+    jump = ""
+    if len(heads) > 2:
+        lis = "".join(f'<li><a href="#{a}">{esc(txt)}</a></li>' for a, txt in heads)
+        jump = ('<div class="jump-list"><div class="jl-title">In this chapter</div>'
+                f"<ol>{lis}</ol></div>")
+
+    payload = json.dumps({"tracks": navmap})
     body = (
-        f'<article class="chapter">'
-        f'<div class="v2-strip" id="v2-strip" style="display:none"></div>'
-        f'<h1>{esc(ch.get("title", slug))}</h1>'
-        f'{body_html}{src_html}{also}'
-        f'<div class="v2-pager" id="v2-pager"></div>'
-        f'</article>'
-        f'<script type="application/json" id="v2-nav">{payload}</script>{NAV_JS}'
+        crumb(ch.get("title", slug), "../")
+        + '<div class="chapter-wrap">'
+        + f'<div class="chapter-eyebrow ctx" id="v2-ctx">{esc(subject_name)}</div>'
+        + f'<h1>{esc(ch.get("title", slug))}</h1>'
+        + '<div class="chapter-accent"></div>'
+        + jump
+        + f'<div class="chapter-body">{body_html}{also}{src_html}</div>'
+        + pager((subject_nbrs or {}).get("prev"), (subject_nbrs or {}).get("next"))
+        + "</div>"
+        + f'<script type="application/json" id="v2-nav">{payload}</script>{NAV_JS}'
     )
     return shell(ch.get("title", slug), body, "../../", "../", f"{slug}/")
 
 
-def track_page(tslug, t, titles) -> str:
-    ov, _ = render_body(t["overview"])
-    cards = "".join(
-        f'<a class="v2-card" href="../../{e["slug"]}/?via={tslug}"><b>{esc(titles[e["slug"]])}</b>'
-        f'<span>{inline(e["why"])}</span></a>' for e in t["entries"])
-    body = (f'<article class="chapter"><h1>{esc(t.get("title", tslug))}</h1>'
-            f'<p class="v2-sub">{esc(t.get("profile", ""))}</p>{ov}'
-            f'<div class="v2-cards">{cards}</div>'
-            f'<p><a href="../../contents/">See everything by subject instead</a></p></article>')
-    return shell(t.get("title", tslug), body, "../../../", "../../", f"tracks/{tslug}/")
+def cards(entries, titles, href, hue_slug) -> str:
+    out = []
+    for e in entries:
+        out.append(
+            f'<a class="chap-card" href="{href(e)}" {hue_style(hue_slug(e))}>'
+            f'<div class="cc-tile">{art_for(e["slug"])}</div>'
+            f'<div class="cc-body"><h3>{esc(titles[e["slug"]])}</h3>'
+            f'<p>{inline(e["why"])}</p>'
+            f'<span class="cc-cta">Read &rarr;</span></div></a>')
+    return f'<div class="chapter-grid">{"".join(out)}</div>'
+
+
+def track_page(tslug, tr, titles) -> str:
+    ov, _, _ = render_body(tr["overview"])
+    grid = cards(tr["entries"], titles,
+                 href=lambda e: f'../../{e["slug"]}/?via={tslug}',
+                 hue_slug=lambda e: tslug)
+    body = (
+        ART_FILTER_DEFS
+        + '<div class="page-header">'
+        + '<div class="page-kicker">A situation</div>'
+        + f'<h1>{esc(tr.get("title", tslug))}</h1>'
+        + f'<p class="header-subtitle">{esc(tr.get("profile", ""))}</p></div>'
+        + crumb(tr.get("title", tslug), "../../")
+        + f'<div class="overview-wrap">{ov}</div>'
+        + '<div class="track-wrap">'
+        + f'<div class="chapters-heading">{len(tr["entries"])} chapters, in this order</div>'
+        + grid + "</div>")
+    return shell(tr.get("title", tslug), body, "../../../", "../../", f"tracks/{tslug}/")
 
 
 def contents_page(md, titles) -> str:
-    body_html, _ = render_body(refs(md.split("---\n", 2)[-1], titles, "../"))
-    body = (f'<article class="chapter">{body_html}'
-            f'<p><a href="../">Choose a situation instead</a></p></article>')
+    body_html, _, _ = render_body(refs(md.split("---\n", 2)[-1], titles, "../"))
+    body = (
+        '<div class="page-header"><div class="page-kicker">The whole Academy</div>'
+        '<h1>Everything, by Subject</h1>'
+        '<p class="header-subtitle">Every chapter, once, grouped by what it is about</p></div>'
+        + crumb("Everything by subject", "../")
+        + f'<div class="chapter-wrap"><div class="chapter-body">{body_html}</div>'
+        + '<div class="chapter-nav"><a class="cn-link next" href="../">'
+        + '<div class="cn-dir">Or</div><div class="cn-title">Choose a situation instead</div>'
+        + "</a></div></div>")
     return shell("Everything, by Subject", body, "../../", "../", "contents/")
 
 
 def landing_page(tracks, titles) -> str:
-    cards = "".join(
-        f'<a class="v2-card" href="tracks/{ts}/"><b>{esc(t.get("title", ts))}</b>'
-        f'<span>{esc(t.get("profile",""))}</span></a>'
-        for ts, t in sorted(tracks.items(), key=lambda x: x[1].get("title", x[0])))
+    entries = [{"slug": ts, "why": tr.get("profile", "")}
+               for ts, tr in sorted(tracks.items(), key=lambda x: x[1].get("title", x[0]))]
+    tl = {ts: tr.get("title", ts) for ts, tr in tracks.items()}
+    grid = cards(entries, tl, href=lambda e: f'tracks/{e["slug"]}/', hue_slug=lambda e: e["slug"])
     body = (
-        '<article class="chapter"><h1>Plenee Academy</h1>'
-        '<p>Every chapter is sourced, and every figure carries where it came from. '
-        'Pick the situation closest to yours for a shorter path through it, or read '
-        'everything by subject.</p>'
-        f'<div class="v2-cards">{cards}</div>'
-        '<p><a href="contents/">See everything by subject</a></p></article>')
+        ART_FILTER_DEFS
+        + '<div class="page-header"><div class="page-kicker">Plenee Academy</div>'
+        + "<h1>Start where you are</h1>"
+        + '<p class="header-subtitle">Every figure carries the document it came from</p></div>'
+        + '<div class="track-wrap">'
+        + '<div class="chapters-heading">Pick the situation closest to yours</div>'
+        + grid
+        + '<p style="text-align:center;margin-top:2rem">'
+        + '<a href="contents/">Or read everything by subject &rarr;</a></p></div>')
     return shell("Plenee Academy", body, "../", "", "")
 
 
@@ -339,6 +438,14 @@ def main() -> int:
 
     # subject-order neighbours, for readers with no track context
     order = re.findall(r'\{\{ref:([\w-]+)\}\}', contents_md)
+    # the eyebrow carries the chapter's subject from the general index. v1 puts a chapter
+    # number there; v2 has no numbers by design, so it carries something true instead.
+    subject_of, cur = {}, "Academy"
+    for line in contents_md.split("\n"):
+        if line.startswith("## "):
+            cur = line[3:].strip()
+        for m in re.finditer(r'\{\{ref:([\w-]+)\}\}', line):
+            subject_of[m.group(1)] = cur
     subj = {}
     for i, s in enumerate(order):
         subj[s] = {
@@ -366,7 +473,7 @@ def main() -> int:
     for slug, ch in chapters.items():
         d = OUT / slug
         d.mkdir(parents=True)
-        (d / "index.html").write_text(chapter_page(slug, ch, tracks, titles, subj.get(slug)))
+        (d / "index.html").write_text(chapter_page(slug, ch, tracks, titles, subj.get(slug), subject_of.get(slug, "Academy")))
 
     n = len(list(OUT.rglob("index.html")))
     print(f"academy2/: {len(chapters)} chapters, {len(tracks)} tracks, {n} pages")
