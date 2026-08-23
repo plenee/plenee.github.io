@@ -72,7 +72,7 @@ TRACK_HUE = {
     "just-bought-a-house": ROSE,
     "one-income-no-buffer": ORANGE, "two-countries": ORANGE,
     "earning-well": GOLD, "five-years-out": GOLD,
-    "policies-you-already-own": DEEP, "checking-anything": DEEP,
+    "policies-you-already-own": DEEP, "flooded-with-offers": DEEP,
 }
 
 
@@ -110,6 +110,10 @@ def parse_front(text: str) -> tuple[dict, str]:
         if v.startswith("[") and v.endswith("]"):
             meta[k.strip()] = [x.strip() for x in v[1:-1].split(",") if x.strip()]
         else:
+            # a title containing a colon has to be quoted in YAML; strip the quotes or they
+            # render literally on the card
+            if len(v) > 1 and v[0] == v[-1] and v[0] in "\"'":
+                v = v[1:-1]
             meta[k.strip()] = v
     return meta, text[end + 4:]
 
@@ -383,6 +387,9 @@ def chapter_page(slug, ch, tracks, titles, subject_nbrs, subject_name) -> str:
     return shell(ch.get("title", slug), body, "../", "", f"{slug}.html")
 
 
+CHAPTER_TITLES: dict = {}
+
+
 def blurb(md: str, limit: int = 260) -> str:
     """The card description. Prefers the chapter's own "short version", which is written to
     summarise it — the opening paragraph is unreliable because many chapters open on an
@@ -393,6 +400,10 @@ def blurb(md: str, limit: int = 260) -> str:
 
     def clean(s):
         s = re.sub(r'\[\^\d+\]', '', " ".join(s.split()))
+        # Card blurbs are lifted from chapter bodies, which carry {{ref:slug}} markers.
+        # The ref substitution never reaches them, so they were rendering literally on
+        # published track pages. Replace with the chapter's title where known.
+        s = re.sub(r'\{\{ref:([\w-]+)\}\}', lambda m: CHAPTER_TITLES.get(m.group(1), m.group(1).replace("-", " ")), s)
         return re.sub(r'[*`]', '', s)
 
     for para in re.split(r'\n\s*\n', src):
@@ -401,6 +412,15 @@ def blurb(md: str, limit: int = 260) -> str:
             continue
         if len(s) <= limit:
             return s
+        # End on a sentence. A card cut mid-clause reads as broken text, and the
+        # trailing ellipsis was appearing on 76 published cards. Prefer the last
+        # complete sentence that fits; only fall back to a word cut when even the
+        # first sentence is longer than the limit.
+        sentences = re.findall(r'.+?[.!?](?=\s|$)', s[:limit + 1])
+        if sentences:
+            kept = "".join(sentences).strip()
+            if len(kept) >= 60:
+                return kept
         cut = s[:limit].rsplit(" ", 1)[0]
         return cut.rstrip(",;:—- ") + "…"
     return ""
@@ -476,6 +496,8 @@ CHAPTER_BLURB: dict = {}
 
 def main() -> int:
     chapters, tracks, contents_md = load()
+    # Populate titles BEFORE blurbs — blurb() resolves {{ref:}} markers against them.
+    CHAPTER_TITLES.update({s: c.get("title", s) for s, c in chapters.items()})
     CHAPTER_BLURB.update({s: (c.get("blurb") or blurb(c["body"]))
                           for s, c in chapters.items()})
     titles = {s: c.get("title", s) for s, c in chapters.items()}
