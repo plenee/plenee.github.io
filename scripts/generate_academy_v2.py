@@ -18,6 +18,7 @@ Run from the website/ directory:  python3 scripts/generate_academy_v2.py
 """
 import html
 import json
+import os
 import re
 import shutil
 import sys
@@ -37,7 +38,17 @@ def _find_src() -> Path:
     the build fails with a bare FileNotFoundError three frames deep. Ask git where the
     branch actually is rather than assuming.
     """
-    import subprocess
+    import os, subprocess
+    # An explicit override, because the resolver below picks a tree on the machine's
+    # behalf. When two checkouts of this branch exist, editing one and building from the
+    # other looks exactly like a build that did nothing.
+    env = os.environ.get("PLENEE_ACADEMY_SRC")
+    if env:
+        cand = Path(env).expanduser().resolve()
+        if not (cand / "contents.md").exists():
+            raise SystemExit(f"PLENEE_ACADEMY_SRC={cand} has no contents.md")
+        print(f"  source: {cand}  (PLENEE_ACADEMY_SRC)")
+        return cand
     default = WEBSITE.parent / "plenee_app" / "docs" / "academy_v2"
     if (default / "contents.md").exists():
         # Announce it. This path was empty while the branch lived only in a worktree, so
@@ -66,7 +77,8 @@ def _find_src() -> Path:
 
 
 SRC = _find_src()
-OUT = WEBSITE / "academy2"
+OUT = Path(os.environ["PLENEE_ACADEMY_OUT"]).expanduser().resolve() \
+    if os.environ.get("PLENEE_ACADEMY_OUT") else WEBSITE / "academy2"
 
 V2_STYLE = """
 /* Glossary. A reference page, not prose: the reader is looking something up, so the term
@@ -543,34 +555,65 @@ GLOSSARY_SLUG = "money-words-defined"
 _GL_TERM = re.compile(r'^\*\*(?P<term>[^*]+)\*\*\s+—\s+(?P<def>.+)$')
 
 
+def _paras(lines: list) -> list:
+    """Join wrapped lines into paragraphs, splitting on blank lines."""
+    out, cur = [], []
+    for ln in lines:
+        if ln.strip():
+            cur.append(ln.strip())
+        elif cur:
+            out.append(" ".join(cur))
+            cur = []
+    if cur:
+        out.append(" ".join(cur))
+    return out
+
+
 def glossary_body(md: str) -> str:
     """Render **term** — definition lines as a real <dl>, with a jump bar for the groups.
 
     A glossary is looked up, not read through, so the term has to be the scannable unit
-    and each one needs a stable anchor other chapters can link to."""
-    groups, cur = [], None
+    and each one needs a stable anchor other chapters can link to.
+
+    Prose is kept as well. The lead-in before the first group, and any group that is prose
+    rather than terms (Sources), are content. Discarding them is how this chapter's two
+    opening paragraphs and its entire sourcing note came to be written, committed and
+    never rendered."""
+    groups, cur, lead = [], None, []
     for ln in md.split("\n"):
+        s = ln.strip()
         if ln.startswith("## "):
-            cur = {"title": ln[3:].strip(), "id": anchor(ln[3:].strip()), "items": [], "intro": []}
+            cur = {"title": s[3:].strip(), "id": anchor(s[3:].strip()),
+                   "items": [], "intro": []}
             groups.append(cur)
-        elif cur is not None:
-            m = _GL_TERM.match(ln.strip())
-            if m:
-                cur["items"].append((m.group("term").strip(), m.group("def").strip()))
-            elif ln.strip() and not ln.startswith("#"):
-                if not cur["items"]:
-                    cur["intro"].append(ln.strip())
-                else:
-                    t, d = cur["items"][-1]
-                    cur["items"][-1] = (t, d + " " + ln.strip())
-    groups = [g for g in groups if g["items"]]
+            continue
+        if cur is None:
+            # The H1 is emitted by the page header; the paragraphs under it are not.
+            if not ln.startswith("#"):
+                lead.append(ln)
+            continue
+        m = _GL_TERM.match(s)
+        if m:
+            cur["items"].append((m.group("term").strip(), m.group("def").strip()))
+        elif ln.startswith("#"):
+            continue
+        elif cur["items"] and s:
+            t, d = cur["items"][-1]
+            cur["items"][-1] = (t, d + " " + s)
+        elif not cur["items"]:
+            cur["intro"].append(ln)
+    groups = [g for g in groups if g["items"] or _paras(g["intro"])]
     own = {g["id"] for g in groups if "plenee uses" in g["title"].lower()}
-    out = ['<ul class="gl-jump">' + "".join(
-        f'<li><a href="#{g["id"]}">{esc(g["title"])}</a></li>' for g in groups) + "</ul>"]
+    out = [f"<p>{inline(t)}</p>" for t in _paras(lead)]
+    out.append('<ul class="gl-jump">' + "".join(
+        f'<li><a href="#{g["id"]}">{esc(g["title"])}</a></li>'
+        for g in groups if g["items"]) + "</ul>")
     for g in groups:
         out.append(f'<h2 id="{g["id"]}">{esc(g["title"])}</h2><div class="subhead-accent"></div>')
-        for para in g["intro"]:
+        for para in _paras(g["intro"]):
             out.append(f"<p>{inline(para)}</p>")
+        if not g["items"]:
+            continue
         cls = " class=\"own\"" if g["id"] in own else ""
         rows = "".join(
             f'<dt id="term-{anchor(t)}"{cls}>{inline(t)}</dt><dd>{inline(d)}</dd>'
