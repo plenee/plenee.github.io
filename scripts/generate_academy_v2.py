@@ -96,6 +96,11 @@ V2_STYLE = """
 @media (prefers-reduced-motion:reduce){.way-t::after{transition:none}}
 @media (max-width:640px){.ways-row{gap:1.4rem}}
 
+/* The chapter heading breaks after the colon: subject on one line, what the chapter says
+   about it on the next. The second line is set lighter so the pair reads as one heading
+   rather than two. */
+.chapter-wrap h1 .h1-rest{color:var(--muted);font-weight:600}
+
 /* Glossary. A reference page, not prose: the reader is looking something up, so the term
    is the scannable unit and the definition follows it. Uses the chapter shell unchanged. */
 .gl-jump{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 2.2rem;padding:0;list-style:none}
@@ -421,6 +426,19 @@ def pager(prev, nxt, depth="") -> str:
     return f'<div class="chapter-nav" id="v2-pager">{h}</div>'
 
 
+def h1_title(t: str) -> str:
+    """The chapter H1, broken onto a second line after the colon.
+
+    Titles are two parts — the subject, then what the chapter says about it. Running them
+    together makes the reader parse the whole string to find where the claim starts. The
+    break is display only: the title stays one string everywhere it is not a heading, so
+    the browser tab, the breadcrumb and the next/previous links are unaffected."""
+    m = re.match(r'^(.*?:)\s+(.+)$', t)
+    if not m:
+        return esc(t)
+    return f'{esc(m.group(1))}<br><span class="h1-rest">{esc(m.group(2))}</span>'
+
+
 def chapter_page(slug, ch, tracks, titles, subject_nbrs, subject_name) -> str:
     if slug == GLOSSARY_SLUG:
         body_html, src_html, heads = glossary_body(ch["body"]), "", []
@@ -468,7 +486,7 @@ def chapter_page(slug, ch, tracks, titles, subject_nbrs, subject_name) -> str:
         crumb(ch.get("title", slug), "")
         + '<div class="chapter-wrap">'
         + f'<div class="chapter-eyebrow ctx" id="v2-ctx">{esc(subject_name)}</div>'
-        + f'<h1>{esc(ch.get("title", slug))}</h1>'
+        + f'<h1>{h1_title(ch.get("title", slug))}</h1>'
         + '<div class="chapter-accent"></div>'
         + jump
         + f'<div class="chapter-body">{body_html}{also}{src_html}</div>'

@@ -306,6 +306,11 @@ a.ref-link:hover { text-decoration: underline; }
 @media (prefers-reduced-motion:reduce){.way-t::after{transition:none}}
 @media (max-width:640px){.ways-row{gap:1.4rem}}
 
+/* The chapter heading breaks after the colon: subject on one line, what the chapter says
+   about it on the next. The second line is set lighter so the pair reads as one heading
+   rather than two. */
+.chapter-wrap h1 .h1-rest{color:var(--muted);font-weight:600}
+
 /* Glossary. A reference page, not prose: the reader is looking something up, so the term
    is the scannable unit and the definition follows it. Uses the chapter shell unchanged. */
 .gl-jump{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 2.2rem;padding:0;list-style:none}
