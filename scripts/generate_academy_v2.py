@@ -373,7 +373,11 @@ def pager(prev, nxt, depth="") -> str:
 
 def chapter_page(slug, ch, tracks, titles, subject_nbrs, subject_name) -> str:
     body_html, src_html, heads = render_body(ch["body"])
+    # Footnote definitions can carry {{ref:}} too — one chapter cites another's sourcing
+    # from inside a note. Resolving only the body left the marker printed in the Sources
+    # list, which is the same class of bug as the contents page had.
     body_html = refs(body_html, titles, "")
+    src_html = refs(src_html, titles, "")
 
     memberships, navmap = [], {}
     for tslug, tr in tracks.items():
@@ -430,7 +434,11 @@ def blurb(md: str, limit: int = 260) -> str:
     summarise it — the opening paragraph is unreliable because many chapters open on an
     example, which reads as a non-sequitur on a card."""
     body = md.split("\n## Sources\n")[0]
-    m = re.search(r'^## The short version\s*\n(.+?)(?=\n##|\Z)', body, re.S | re.M)
+    # v2 chapters close with "The short version"; the 133 ported from v1 close with
+    # "The takeaway". Looking for only the first meant every ported chapter fell back to
+    # its raw opening paragraph — a chapter opening, not a summary, and often far longer.
+    m = re.search(r'^## (?:The short version|The takeaway)\s*\n(.+?)(?=\n##|\Z)',
+                  body, re.S | re.M)
     src = m.group(1) if m else body
 
     def clean(s):
@@ -438,7 +446,18 @@ def blurb(md: str, limit: int = 260) -> str:
         # Card blurbs are lifted from chapter bodies, which carry {{ref:slug}} markers.
         # The ref substitution never reaches them, so they were rendering literally on
         # published track pages. Replace with the chapter's title where known.
-        s = re.sub(r'\{\{ref:([\w-]+)\}\}', lambda m: CHAPTER_TITLES.get(m.group(1), m.group(1).replace("-", " ")), s)
+        # Cross-references belong in a chapter, not on a card. Resolving them to full
+        # titles is right for body text and wrong here — a short-version paragraph citing
+        # three chapters becomes 200 characters of other chapters' titles and pushes the
+        # actual description past the limit. Drop parenthetical and trailing citations
+        # outright, and shorten a bare one to the part before its colon so the sentence
+        # still parses.
+        s = re.sub(r'\s*[;,]?\s*\(\s*(?:\{\{ref:[\w-]+\}\}[;,\s]*)+\)', '', s)
+        s = re.sub(r'\s*[;,]\s*(?:\{\{ref:[\w-]+\}\}[;,\s]*)+(?=[.!?]|$)', '', s)
+        s = re.sub(r'\{\{ref:([\w-]+)\}\}',
+                   lambda m: CHAPTER_TITLES.get(m.group(1), m.group(1).replace("-", " ")).split(":")[0],
+                   s)
+        s = re.sub(r'\s+([.,;:)])', r'\1', re.sub(r'\s{2,}', ' ', s)).strip()
         return re.sub(r'[*`]', '', s)
 
     for para in re.split(r'\n\s*\n', src):
