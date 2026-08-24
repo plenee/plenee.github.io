@@ -125,14 +125,25 @@ V2_STYLE = """
 .quiz-score{font-size:1.5rem;font-weight:700;color:var(--navy);margin:.4rem 0 .6rem}
 .quiz-bench{color:var(--muted);margin:0 0 1rem}
 .qz-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.2rem}
-.qz-card{display:block;padding:1.6rem;border:1px solid var(--border);border-radius:10px;
-  background:#fff;text-decoration:none;transition:border-color .15s ease,transform .15s ease}
+.qz-card{display:flex;flex-direction:column;padding:1.6rem;border:1px solid var(--border);
+  border-radius:10px;background:#fff;text-decoration:none;
+  transition:border-color .15s ease,transform .15s ease}
+/* the blurbs differ in length, so the call to action is pushed to the foot of the card and
+   the two line up regardless */
+.qz-card p{flex:1}
 .qz-card:hover,.qz-card:focus-visible{border-color:var(--teal);transform:translateY(-2px)}
 .qz-kicker{font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
   color:var(--teal-d);margin-bottom:.5rem}
 .qz-card h3{margin:0 0 .5rem;color:var(--navy);font-size:1.2rem}
-.qz-card p{margin:0 0 .9rem;color:var(--muted);line-height:1.6}
+.qz-card p{margin:0 0 1.1rem;color:var(--muted);line-height:1.6}
 .qz-go{font-weight:700;color:var(--teal-d)}
+.qz-note{color:var(--muted);margin:0 0 1.3rem;max-width:60ch}
+.qz-grid{margin:0 0 3.2rem}
+.qz-card{position:relative}
+.qz-lvl{position:absolute;top:1.1rem;right:1.1rem;width:1.9rem;height:1.9rem;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;
+  color:var(--teal-d);background:var(--teal-l);border:1px solid var(--border)}
+
 @media (prefers-reduced-motion:reduce){.qz-card{transition:none}.qz-card:hover{transform:none}}
 
 /* Glossary. A reference page, not prose: the reader is looking something up, so the term
@@ -841,19 +852,44 @@ def quiz_page(qz: dict, titles: dict) -> str:
 
 
 def quizzes_index(quizzes: list) -> str:
-    rows = "".join(
-        f'<a class="qz-card" href="{q["slug"]}.html">'
-        f'<div class="qz-kicker">{esc(q.get("kicker", ""))}</div>'
-        f'<h3>{esc(q.get("title", q["slug"]))}</h3>'
-        f'<p>{esc(q.get("blurb", ""))}</p>'
-        f'<span class="qz-go">Start &rarr;</span></a>' for q in quizzes)
+    """Grouped by family, ordered by level.
+
+    Mixing an elementary question with an advanced one in the same quiz tells a beginner
+    they are hopeless and an expert that the quiz is trivial. Levels exist so a reader can
+    find the rung they are actually on."""
+    FAMILIES = [
+        ("literacy", "Financial literacy, by level",
+         "Five levels. Start at one if the vocabulary has never been explained to you, "
+         "or jump to the level that sounds like your situation."),
+        ("price-cost-expense", "Price, cost and expense",
+         "Three words used as if they mean the same thing. Almost every bad purchase is a "
+         "price that looked fine and a cost nobody worked out."),
+        ("benchmark", "Measure yourself against the country",
+         "The instrument national surveys use. Not a level — it spans all of them."),
+    ]
+    out = []
+    for key, heading, note in FAMILIES:
+        group = sorted((q for q in quizzes if q.get("family", "literacy") == key),
+                       key=lambda q: int(q.get("level", 99)))
+        if not group:
+            continue
+        rows = "".join(
+            f'<a class="qz-card" href="{q["slug"]}.html">'
+            + (f'<div class="qz-lvl">{esc(str(q["level"]))}</div>' if q.get("level") else "")
+            + f'<div class="qz-kicker">{esc(q.get("kicker", ""))}</div>'
+            f'<h3>{esc(q.get("title", q["slug"]))}</h3>'
+            f'<p>{esc(q.get("blurb", ""))}</p>'
+            f'<span class="qz-go">Start &rarr;</span></a>' for q in group)
+        out.append(f'<div class="chapters-heading">{esc(heading)}</div>'
+                   f'<p class="qz-note">{esc(note)}</p>'
+                   f'<div class="qz-grid">{rows}</div>')
     body = (
         '<div class="page-header"><div class="page-kicker">Plenee Academy</div>'
         '<h1>Test what you actually know</h1>'
-        '<p class="header-subtitle">One quiz measures you against the country. '
-        'The other measures what not knowing has been costing you.</p></div>'
+        '<p class="header-subtitle">Graded, so a beginner is not asked an expert question '
+        'and an expert is not asked a trivial one.</p></div>'
         + crumb("Quizzes", "", right=("Everything by subject", "contents.html"))
-        + f'<div class="track-wrap"><div class="qz-grid">{rows}</div></div>')
+        + '<div class="track-wrap">' + "".join(out) + "</div>")
     return shell("Quizzes", body, "../", "", "quizzes.html")
 
 
