@@ -262,6 +262,12 @@ footer p { color: #2E4A60; font-size: 13px; }
     <p>We may derive inferences from the information described above to personalize your experience. For example, we may estimate a general income range based on your ZIP code using publicly available Census data, or infer device quality from hardware signals, in order to tailor the presentation of the Service — including the examples our AI chat assistant uses, both before and after you create an account. These inferences are used solely to improve your experience and are not used for credit scoring, advertising targeting, or any purpose unrelated to the Service.</p>
 
     <p>We do not use third-party advertising trackers or sell usage data to analytics providers.</p>
+
+    <h3>1.5 Plenee Copilot (AI Assistant)</h3>
+    <p>Plenee Copilot, our in-app AI assistant, is powered by Anthropic's Claude API. When you chat with Copilot, we send Anthropic your message, the conversation history, and a summary of your financial data relevant to answering your question (e.g., account balances, recent transactions, budget status).</p>
+    <p>Copilot also lets you optionally upload a file — a bank statement, receipt, or screenshot — so it can help identify a transaction that didn't sync automatically. If you choose to upload a file, its contents are sent to Anthropic for that one request so Copilot can read and respond to it. We do not store the file itself; only your conversation with Copilot (including any transaction Copilot adds to your account with your explicit confirmation) is retained as part of your normal account data.</p>
+    <p>Anthropic processes this information under its own commercial API terms: it does not use your data to train its models without our express permission, and it automatically deletes data from its systems within 30 days of receipt, except where retention is required by law or to enforce its usage policies. See <a href="https://www.anthropic.com/legal/privacy" style="color:var(--teal)">Anthropic's Privacy Policy</a> for current details.</p>
+    <p><strong>Uploading a document or screenshot to Copilot is entirely optional.</strong> If you would rather not have Copilot analyze an uploaded file for privacy reasons, you are not obligated to use that feature — every other part of the Service, including Copilot's regular chat features and all core account, budgeting, and transaction functionality, works fully without it.</p>
   </div>
 
   <!-- 2. How We Use -->
@@ -273,6 +279,7 @@ footer p { color: #2E4A60; font-size: 13px; }
       <tr><td>Create and manage your account</td><td>Account information</td></tr>
       <tr><td>Display your financial accounts, balances, and transactions</td><td>Financial data via Plaid</td></tr>
       <tr><td>Provide AI-powered budgeting insights and recommendations</td><td>Financial data via Plaid, usage data</td></tr>
+      <tr><td>Power Plenee Copilot, including optional document/screenshot analysis you choose to use</td><td>Conversation content, financial data summaries, and any file you choose to upload</td></tr>
       <tr><td>Send account-related notifications (e.g., low balance alerts)</td><td>Account information, financial data</td></tr>
       <tr><td>Diagnose and fix technical problems</td><td>Log data, usage data</td></tr>
       <tr><td>Personalize the presentation of the Service (e.g., layout, defaults)</td><td>Device signals, geolocation, inferences</td></tr>
@@ -294,6 +301,7 @@ footer p { color: #2E4A60; font-size: 13px; }
     <table>
       <tr><th>Service Provider</th><th>What is Used</th><th>Purpose</th></tr>
       <tr><td><strong>Plaid Technologies, Inc.</strong></td><td>Authentication credentials for your financial institution (processed by Plaid on your behalf)</td><td>Retrieve your financial data via the Plaid API</td></tr>
+      <tr><td><strong>Anthropic, PBC</strong></td><td>Conversation content, financial data summaries, and any document or screenshot you choose to upload to Copilot</td><td>Power the Plenee Copilot AI assistant, including optional document analysis (see §1.5)</td></tr>
       <tr><td><strong>Supabase, Inc.</strong> (AWS sub-processor)</td><td>Account and financial data stored in our database</td><td>Cloud database and authentication infrastructure</td></tr>
       <tr><td><strong>Render Services, Inc.</strong></td><td>API request logs, encrypted financial data in transit</td><td>Application server hosting</td></tr>
       <tr><td><strong>Vercel, Inc.</strong></td><td>Web application files</td><td>Frontend hosting</td></tr>
@@ -314,7 +322,7 @@ footer p { color: #2E4A60; font-size: 13px; }
     <p>We use your personal financial information solely to operate and improve the Plenee Service — to display your accounts, generate budgeting insights, and send you account-related notifications. We do not use your financial information for marketing to you on behalf of third parties, and we do not provide it to data brokers, marketing companies, or nonaffiliated businesses for their own purposes.</p>
 
     <h3>Infrastructure service providers</h3>
-    <p>To deliver the Service, we use infrastructure providers (Plaid, Supabase, Render, Vercel) who process your data on our behalf under contract. These providers are not permitted to use your data for any purpose other than providing services to Plenee.</p>
+    <p>To deliver the Service, we use infrastructure providers (Plaid, Anthropic, Supabase, Render, Vercel) who process your data on our behalf under contract. These providers are not permitted to use your data for any purpose other than providing services to Plenee.</p>
 
     <h3>When we are legally compelled</h3>
     <p>We will provide your information to government or regulatory authorities only when required to do so by a valid court order or subpoena. We will not voluntarily provide your financial information to law enforcement absent such compulsion.</p>
@@ -432,7 +440,7 @@ footer p { color: #2E4A60; font-size: 13px; }
   <!-- Meta footer -->
   <div class="policy-meta">
     <p>Plenee LLC, a Florida limited liability company ("Plenee," "we," "us," or "our"), operates the Plenee mobile and web application (the "Service"). This Privacy Policy explains what information we collect, how we use it, how we protect it, and your rights regarding your information. By using the Service, you agree to the collection and use of information in accordance with this policy.</p>
-    <p style="margin-top:14px"><strong>Effective Date:</strong> June 22, 2026 &nbsp;·&nbsp; <strong>Last Updated:</strong> June 22, 2026</p>
+    <p style="margin-top:14px"><strong>Effective Date:</strong> June 22, 2026 &nbsp;·&nbsp; <strong>Last Updated:</strong> August 23, 2026</p>
   </div>
 
 </div><!-- /content-wrap -->

@@ -928,8 +928,8 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
   <div class="nav-links" id="nav-links">
     <a href="{root}index.html#how">How it works</a>
     <a href="{root}index.html#features-start">Features</a>
-    <a href="{root}academy/index.html">Academy</a>
-    <a href="{root}academy2/index.html">Academy2</a>
+    <a href="{root}academy/index.html"{ac_active}>Academy</a>
+    <a href="{root}academy2/index.html"{ac2_active}>Academy2</a>
     <a href="{root}index.html#fid">Our Promise</a>
   </div>
   <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
@@ -975,8 +975,10 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 # Nesting-depth prefixes for PAGE_TEMPLATE's {root}/{ac_root}: chapter and track
 # pages live 2 levels under the site root (academy/<track>/*.html); the Academy
 # landing page lives 1 level under it (academy/index.html).
-DEPTH_CHAPTER_OR_TRACK = {"root": "../../", "ac_root": "../"}
-DEPTH_LANDING = {"root": "../", "ac_root": ""}
+DEPTH_CHAPTER_OR_TRACK = {"root": "../../", "ac_root": "../",
+                          "ac_active": ' class="active"', "ac2_active": ""}
+DEPTH_LANDING = {"root": "../", "ac_root": "",
+                 "ac_active": ' class="active"', "ac2_active": ""}
 
 
 SEARCH_SNIPPET_CAP = 30000  # chars of plain text indexed per chapter -- see

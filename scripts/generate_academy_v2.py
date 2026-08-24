@@ -303,8 +303,11 @@ BASE = "https://plenee.com/academy2/"
 
 
 def shell(title: str, body: str, depth_root: str, ac_root: str, canonical: str = "") -> str:
+    # v2 pages mark Academy2 as the active section, never Academy — the highlight was
+    # previously hardcoded onto Academy and so lit up on v2 pages too.
     page = PAGE_TEMPLATE.format(page_title=esc(title), style=STYLE_BLOCK + V2_STYLE,
-                                body=body, root=depth_root, ac_root=ac_root)
+                                body=body, root=depth_root, ac_root=ac_root,
+                                ac_active="", ac2_active=' class="active"')
     # Every page declares its canonical URL without the ?via= parameter. Track context is a
     # query string precisely so a chapter never gets a second address; without this tag a
     # crawler can still index /slug/?via=a and /slug/?via=b as separate pages and split
@@ -369,7 +372,8 @@ def pager(prev, nxt, depth="") -> str:
 
 
 def chapter_page(slug, ch, tracks, titles, subject_nbrs, subject_name) -> str:
-    body_html, src_html, heads = render_body(refs(ch["body"], titles, ""))
+    body_html, src_html, heads = render_body(ch["body"])
+    body_html = refs(body_html, titles, "")
 
     memberships, navmap = [], {}
     for tslug, tr in tracks.items():
@@ -491,7 +495,12 @@ def track_page(tslug, tr, titles) -> str:
 
 
 def contents_page(md, titles) -> str:
-    body_html, _, _ = render_body(refs(md.split("---\n", 2)[-1], titles, ""))
+    # refs resolve AFTER render_body, not before. inline() escapes its input, so an
+    # anchor produced up front arrives as visible &lt;a ...&gt; text — which is exactly
+    # what shipped to /academy2/contents.html. A {{ref:slug}} marker carries no HTML
+    # characters, so it passes through escaping untouched and resolves cleanly here.
+    body_html, _, _ = render_body(md.split("---\n", 2)[-1])
+    body_html = refs(body_html, titles, "")
     body = (
         '<div class="page-header"><div class="page-kicker">The whole Academy</div>'
         '<h1>Everything, by Subject</h1>'
