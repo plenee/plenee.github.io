@@ -852,27 +852,21 @@ def quiz_page(qz: dict, titles: dict) -> str:
 
 
 def quizzes_index(quizzes: list) -> str:
-    """Grouped by family, ordered by level.
+    """Grouped by family, ordered by level within it.
 
-    Mixing an elementary question with an advanced one in the same quiz tells a beginner
-    they are hopeless and an expert that the quiz is trivial. Levels exist so a reader can
-    find the rung they are actually on."""
-    FAMILIES = [
-        ("literacy", "Financial literacy, by level",
-         "Five levels. Start at one if the vocabulary has never been explained to you, "
-         "or jump to the level that sounds like your situation."),
-        ("price-cost-expense", "Price, cost and expense",
-         "Three words used as if they mean the same thing. Almost every bad purchase is a "
-         "price that looked fine and a cost nobody worked out."),
-        ("benchmark", "Measure yourself against the country",
-         "The instrument national surveys use. Not a level — it spans all of them."),
-    ]
+    Families and their ordering come from the quiz files themselves. Hardcoding the list
+    here meant every new family needed a generator edit, which is how a family gets written
+    and then silently left off the page."""
+    fams = {}
+    for q in quizzes:
+        key = q.get("family", "other")
+        fams.setdefault(key, {"title": q.get("family_title", key),
+                              "note": q.get("family_note", ""),
+                              "order": int(q.get("family_order", 99)), "items": []})
+        fams[key]["items"].append(q)
     out = []
-    for key, heading, note in FAMILIES:
-        group = sorted((q for q in quizzes if q.get("family", "literacy") == key),
-                       key=lambda q: int(q.get("level", 99)))
-        if not group:
-            continue
+    for key, fam in sorted(fams.items(), key=lambda kv: (kv[1]["order"], kv[0])):
+        group = sorted(fam["items"], key=lambda q: int(q.get("level", 99)))
         rows = "".join(
             f'<a class="qz-card" href="{q["slug"]}.html">'
             + (f'<div class="qz-lvl">{esc(str(q["level"]))}</div>' if q.get("level") else "")
@@ -880,14 +874,15 @@ def quizzes_index(quizzes: list) -> str:
             f'<h3>{esc(q.get("title", q["slug"]))}</h3>'
             f'<p>{esc(q.get("blurb", ""))}</p>'
             f'<span class="qz-go">Start &rarr;</span></a>' for q in group)
-        out.append(f'<div class="chapters-heading">{esc(heading)}</div>'
-                   f'<p class="qz-note">{esc(note)}</p>'
-                   f'<div class="qz-grid">{rows}</div>')
+        out.append(f'<div class="chapters-heading">{esc(fam["title"])}</div>'
+                   + (f'<p class="qz-note">{esc(fam["note"])}</p>' if fam["note"] else "")
+                   + f'<div class="qz-grid">{rows}</div>')
+    n = sum(len(f["items"]) for f in fams.values())
     body = (
         '<div class="page-header"><div class="page-kicker">Plenee Academy</div>'
         '<h1>Test what you actually know</h1>'
-        '<p class="header-subtitle">Graded, so a beginner is not asked an expert question '
-        'and an expert is not asked a trivial one.</p></div>'
+        f'<p class="header-subtitle">{n} quizzes, graded, so a beginner is not asked an '
+        'expert question and an expert is not asked a trivial one.</p></div>'
         + crumb("Quizzes", "", right=("Everything by subject", "contents.html"))
         + '<div class="track-wrap">' + "".join(out) + "</div>")
     return shell("Quizzes", body, "../", "", "quizzes.html")
