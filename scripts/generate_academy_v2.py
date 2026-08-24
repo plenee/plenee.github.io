@@ -650,6 +650,33 @@ def main() -> int:
                          "The general index is the canonical listing; a chapter absent from it "
                          "would generate a page nothing links to.")
 
+    # Footnotes fail silently, and that is the worst kind of failure in this corpus. The
+    # renderer matches [^<digits>] only and takes definitions from a "## Sources" section.
+    # A marker like [^cs6-1], or a definition sitting loose at the foot of the file, is not
+    # an error — it simply vanishes, and the page publishes looking entirely normal with
+    # its citations gone. Twenty chapters nearly shipped that way. In an Academy whose whole
+    # method is that every claim carries its source, silence is the wrong response.
+    fn_problems = []
+    for slug, ch in chapters.items():
+        raw = ch["body"]
+        body = raw.split("\n## Sources")[0]
+        nonnum = sorted({m.group(1) for m in re.finditer(r'\[\^([^\]]+)\]', body)
+                         if not m.group(1).isdigit()})
+        used = {m.group(1) for m in re.finditer(r'\[\^(\d+)\]', body)}
+        defined = {m.group(1) for m in re.finditer(r'^\[\^(\d+)\]:', raw, re.M)}
+        outside = "## Sources" not in raw and defined
+        if nonnum:
+            fn_problems.append(f"{slug}: non-numeric footnote markers {nonnum} — the "
+                               f"renderer matches [^1] style only, so these would be dropped")
+        if used - defined:
+            fn_problems.append(f"{slug}: markers {sorted(used - defined)} have no definition")
+        if outside:
+            fn_problems.append(f"{slug}: footnote definitions exist but there is no "
+                               f"'## Sources' heading, so none of them would render")
+    if fn_problems:
+        raise SystemExit("BUILD FAILED: footnotes would be silently dropped.\n  "
+                         + "\n  ".join(fn_problems))
+
     if OUT.exists():
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True)
