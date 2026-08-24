@@ -101,6 +101,40 @@ V2_STYLE = """
    rather than two. */
 .chapter-wrap h1 .h1-rest{color:var(--muted);font-weight:600}
 
+/* Quizzes. The score is not the point — the reveal under each answer is, because a number
+   out of ten teaches nothing and the cost of the miss does. Built from the Academy's own
+   variables so a quiz reads as a chapter that happens to ask questions. */
+.qz-q{margin:0 0 2.6rem;padding:0 0 2.2rem;border-bottom:1px solid var(--border)}
+.qz-q:last-of-type{border-bottom:0}
+.qz-qtext{font-weight:700;color:var(--navy);margin:0 0 1rem;line-height:1.45}
+.qz-num{display:inline-block;min-width:1.6rem;color:var(--teal-d);font-variant-numeric:tabular-nums}
+.qz-opts{display:flex;flex-direction:column;gap:.5rem}
+.qz-opt{text-align:left;font:inherit;font-size:.97rem;color:var(--navy);background:var(--off);
+  border:1px solid var(--border);border-radius:7px;padding:.68rem .9rem;cursor:pointer;
+  transition:border-color .12s ease,background .12s ease}
+.qz-opt:hover:enabled,.qz-opt:focus-visible:enabled{border-color:var(--teal);background:var(--teal-l)}
+.qz-opt:disabled{cursor:default;opacity:1}
+.qz-opt.correct{border-color:var(--green);background:var(--green-l);font-weight:600}
+.qz-opt.wrong{border-color:#D98A8A;background:#FDF0F0}
+.qz-why{margin:1rem 0 0;padding:.85rem 1rem;border-left:3px solid var(--border);
+  color:var(--muted);line-height:1.6;background:var(--off);border-radius:0 6px 6px 0}
+.qz-why.ok{border-left-color:var(--green)}
+.qz-why.no{border-left-color:#D98A8A}
+.quiz-result{margin:2.5rem 0 0;padding:1.6rem;border:1px solid var(--border);
+  border-radius:10px;background:var(--off)}
+.quiz-score{font-size:1.5rem;font-weight:700;color:var(--navy);margin:.4rem 0 .6rem}
+.quiz-bench{color:var(--muted);margin:0 0 1rem}
+.qz-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.2rem}
+.qz-card{display:block;padding:1.6rem;border:1px solid var(--border);border-radius:10px;
+  background:#fff;text-decoration:none;transition:border-color .15s ease,transform .15s ease}
+.qz-card:hover,.qz-card:focus-visible{border-color:var(--teal);transform:translateY(-2px)}
+.qz-kicker{font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--teal-d);margin-bottom:.5rem}
+.qz-card h3{margin:0 0 .5rem;color:var(--navy);font-size:1.2rem}
+.qz-card p{margin:0 0 .9rem;color:var(--muted);line-height:1.6}
+.qz-go{font-weight:700;color:var(--teal-d)}
+@media (prefers-reduced-motion:reduce){.qz-card{transition:none}.qz-card:hover{transform:none}}
+
 /* Glossary. A reference page, not prose: the reader is looking something up, so the term
    is the scannable unit and the definition follows it. Uses the chapter shell unchanged. */
 .gl-jump{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 2.2rem;padding:0;list-style:none}
@@ -685,13 +719,142 @@ def ways_in(titles, chapters) -> str:
     """
     gl = chapters.get(GLOSSARY_SLUG, {}).get("body", "")
     terms = len(re.findall(r'^\*\*([^*]+)\*\*\s+—', gl, re.M))
+    nq = len(list((SRC / "quizzes").glob("*.md"))) if (SRC / "quizzes").exists() else 0
     ways = [("contents.html", "Everything by subject", f"{len(titles)} chapters"),
             (f"{GLOSSARY_SLUG}.html", "Glossary", f"{terms} terms")]
+    if nq:
+        ways.append(("quizzes.html", "Quizzes", f"{nq} to try"))
     return ('<div class="ways"><div class="chapters-heading">Or find it another way</div>'
             '<div class="ways-row">' + "".join(
                 f'<a class="way" href="{h}"><span class="way-t">{esc(t)}</span>'
                 f'<span class="way-m">{esc(m)}</span></a>' for h, t, m in ways)
             + "</div></div>")
+
+
+QUIZ_JS = """
+<script>
+(function(){
+  var el=document.getElementById('quiz-data'); if(!el) return;
+  var D=JSON.parse(el.textContent), wrap=document.getElementById('quiz'), answered=0, right=0;
+  D.items.forEach(function(it,i){
+    var q=document.createElement('div'); q.className='qz-q';
+    var h=document.createElement('div'); h.className='qz-qtext';
+    h.innerHTML='<span class="qz-num">'+(i+1)+'</span>'+it.q; q.appendChild(h);
+    var list=document.createElement('div'); list.className='qz-opts';
+    it.options.forEach(function(o,j){
+      var b=document.createElement('button'); b.type='button'; b.className='qz-opt';
+      b.innerHTML=o;
+      b.addEventListener('click',function(){
+        if(q.dataset.done) return;
+        q.dataset.done='1'; answered++;
+        var ok=(j===it.answer); if(ok) right++;
+        Array.prototype.forEach.call(list.children,function(c,k){
+          c.disabled=true;
+          if(k===it.answer) c.classList.add('correct');
+          else if(k===j) c.classList.add('wrong');
+        });
+        var why=document.createElement('div');
+        why.className='qz-why '+(ok?'ok':'no');
+        why.innerHTML='<strong>'+(ok?'Correct.':'Not quite.')+'</strong> '+it.why;
+        q.appendChild(why);
+        if(answered===D.n){
+          var r=document.getElementById('quiz-result');
+          document.getElementById('quiz-score').textContent=right+' out of '+D.n+'.';
+          r.hidden=false; r.scrollIntoView({behavior:'smooth',block:'nearest'});
+        }
+      });
+      list.appendChild(b);
+    });
+    q.appendChild(list); wrap.appendChild(q);
+  });
+})();
+</script>
+"""
+
+def load_quizzes() -> list:
+    """Parse quizzes/*.md into question data.
+
+    One `### Q:` per question, options as list items with `*` marking the correct one, and
+    a `>` block for what the reader is told after answering. The asterisk is stripped before
+    anything reaches the page — the answer key lives in the generator, not in the markup a
+    reader can read."""
+    out = []
+    for f in sorted((SRC / "quizzes").glob("*.md")):
+        meta, body = parse_front(f.read_text())
+        intro, qs = [], []
+        cur = None
+        for ln in body.split("\n"):
+            if ln.startswith("### Q:"):
+                cur = {"q": ln[6:].strip(), "options": [], "answer": 0, "why": []}
+                qs.append(cur)
+            elif cur is None:
+                if ln.strip() and not ln.startswith("#"):
+                    intro.append(ln.strip())
+            elif ln.startswith("- "):
+                o = ln[2:].strip()
+                if o.endswith(" *"):
+                    cur["answer"] = len(cur["options"])
+                    o = o[:-2].strip()
+                cur["options"].append(o)
+            elif ln.startswith("> "):
+                cur["why"].append(ln[2:].strip())
+        meta["intro"] = " ".join(intro)
+        meta["questions"] = [{**q, "why": " ".join(q["why"])} for q in qs]
+        out.append(meta)
+    return out
+
+
+def quiz_page(qz: dict, titles: dict) -> str:
+    """One quiz. Answering is client-side; the page holds every question at once.
+
+    The signature is the reveal rather than the score. A number out of ten teaches nothing,
+    so each answer opens into what it costs and the chapter that shows the working — which
+    is the only thing here the other financial literacy quizzes cannot do."""
+    data = []
+    for q in qz["questions"]:
+        data.append({
+            "q": esc(q["q"]),
+            "options": [esc(o) for o in q["options"]],
+            "answer": q["answer"],
+            "why": refs(inline(q["why"]), titles, ""),
+        })
+    n = len(data)
+    bench = qz.get("benchmark", "")
+    body = (
+        '<div class="page-header"><div class="page-kicker">' + esc(qz.get("kicker", "Quiz"))
+        + '</div><h1>' + esc(qz.get("title", qz["slug"])) + '</h1>'
+        + '<p class="header-subtitle">' + esc(qz.get("blurb", "")) + '</p></div>'
+        + crumb(qz.get("title", ""), "", right=("All quizzes", "quizzes.html"))
+        + '<div class="chapter-wrap"><div class="chapter-body">'
+        + (f'<p>{inline(qz["intro"])}</p>' if qz.get("intro") else "")
+        + '<div id="quiz"></div>'
+        + '<div class="quiz-result" id="quiz-result" hidden>'
+        + '<div class="tk-label">Your score</div><div class="subhead-accent"></div>'
+        + '<p class="quiz-score" id="quiz-score"></p>'
+        + (f'<p class="quiz-bench">{inline(bench)}</p>' if bench else "")
+        + '<p><a class="ref-link" href="quizzes.html">Take another &rarr;</a></p>'
+        + "</div></div></div>"
+        + '<script type="application/json" id="quiz-data">'
+        + json.dumps({"n": n, "items": data}) + "</script>"
+        + QUIZ_JS)
+    return shell(qz.get("title", qz["slug"]), body, "../", "", f'{qz["slug"]}.html')
+
+
+def quizzes_index(quizzes: list) -> str:
+    rows = "".join(
+        f'<a class="qz-card" href="{q["slug"]}.html">'
+        f'<div class="qz-kicker">{esc(q.get("kicker", ""))}</div>'
+        f'<h3>{esc(q.get("title", q["slug"]))}</h3>'
+        f'<p>{esc(q.get("blurb", ""))}</p>'
+        f'<span class="qz-go">Start &rarr;</span></a>' for q in quizzes)
+    body = (
+        '<div class="page-header"><div class="page-kicker">Plenee Academy</div>'
+        '<h1>Test what you actually know</h1>'
+        '<p class="header-subtitle">One quiz measures you against the country. '
+        'The other measures what not knowing has been costing you.</p></div>'
+        + crumb("Quizzes", "", right=("Everything by subject", "contents.html"))
+        + f'<div class="track-wrap"><div class="qz-grid">{rows}</div></div>')
+    return shell("Quizzes", body, "../", "", "quizzes.html")
 
 
 def landing_page(tracks, titles, chapters) -> str:
@@ -778,6 +941,12 @@ def main() -> int:
 
     (OUT / "index.html").write_text(landing_page(tracks, titles, chapters))
     (OUT / "contents.html").write_text(contents_page(contents_md, titles))
+
+    quizzes = load_quizzes()
+    if quizzes:
+        (OUT / "quizzes.html").write_text(quizzes_index(quizzes))
+        for qz in quizzes:
+            (OUT / f'{qz["slug"]}.html').write_text(quiz_page(qz, titles))
     (OUT / "tracks").mkdir()
     for tslug, t in tracks.items():
         (OUT / "tracks" / f"{tslug}.html").write_text(track_page(tslug, t, titles))

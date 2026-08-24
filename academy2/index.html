@@ -311,6 +311,40 @@ a.ref-link:hover { text-decoration: underline; }
    rather than two. */
 .chapter-wrap h1 .h1-rest{color:var(--muted);font-weight:600}
 
+/* Quizzes. The score is not the point — the reveal under each answer is, because a number
+   out of ten teaches nothing and the cost of the miss does. Built from the Academy's own
+   variables so a quiz reads as a chapter that happens to ask questions. */
+.qz-q{margin:0 0 2.6rem;padding:0 0 2.2rem;border-bottom:1px solid var(--border)}
+.qz-q:last-of-type{border-bottom:0}
+.qz-qtext{font-weight:700;color:var(--navy);margin:0 0 1rem;line-height:1.45}
+.qz-num{display:inline-block;min-width:1.6rem;color:var(--teal-d);font-variant-numeric:tabular-nums}
+.qz-opts{display:flex;flex-direction:column;gap:.5rem}
+.qz-opt{text-align:left;font:inherit;font-size:.97rem;color:var(--navy);background:var(--off);
+  border:1px solid var(--border);border-radius:7px;padding:.68rem .9rem;cursor:pointer;
+  transition:border-color .12s ease,background .12s ease}
+.qz-opt:hover:enabled,.qz-opt:focus-visible:enabled{border-color:var(--teal);background:var(--teal-l)}
+.qz-opt:disabled{cursor:default;opacity:1}
+.qz-opt.correct{border-color:var(--green);background:var(--green-l);font-weight:600}
+.qz-opt.wrong{border-color:#D98A8A;background:#FDF0F0}
+.qz-why{margin:1rem 0 0;padding:.85rem 1rem;border-left:3px solid var(--border);
+  color:var(--muted);line-height:1.6;background:var(--off);border-radius:0 6px 6px 0}
+.qz-why.ok{border-left-color:var(--green)}
+.qz-why.no{border-left-color:#D98A8A}
+.quiz-result{margin:2.5rem 0 0;padding:1.6rem;border:1px solid var(--border);
+  border-radius:10px;background:var(--off)}
+.quiz-score{font-size:1.5rem;font-weight:700;color:var(--navy);margin:.4rem 0 .6rem}
+.quiz-bench{color:var(--muted);margin:0 0 1rem}
+.qz-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.2rem}
+.qz-card{display:block;padding:1.6rem;border:1px solid var(--border);border-radius:10px;
+  background:#fff;text-decoration:none;transition:border-color .15s ease,transform .15s ease}
+.qz-card:hover,.qz-card:focus-visible{border-color:var(--teal);transform:translateY(-2px)}
+.qz-kicker{font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--teal-d);margin-bottom:.5rem}
+.qz-card h3{margin:0 0 .5rem;color:var(--navy);font-size:1.2rem}
+.qz-card p{margin:0 0 .9rem;color:var(--muted);line-height:1.6}
+.qz-go{font-weight:700;color:var(--teal-d)}
+@media (prefers-reduced-motion:reduce){.qz-card{transition:none}.qz-card:hover{transform:none}}
+
 /* Glossary. A reference page, not prose: the reader is looking something up, so the term
    is the scannable unit and the definition follows it. Uses the chapter shell unchanged. */
 .gl-jump{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 2.2rem;padding:0;list-style:none}
@@ -573,7 +607,7 @@ sup.fnref a:hover{text-decoration:underline}
     <rect x="320" y="30" width="34" height="102" style="fill:var(--hue-d);"/>
   </g>
   <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
-</svg><h3 class="cc-title">When a Company Mishandles Your Account</h3></div><div class="cc-body"><p>A payment leaves your bank on the due date and the loan still says you are late. A mortgage payment rises by four hundred dollars with a month's notice. A refund you are owed after paying a car off early never arrives, and nobody writes to tell you it exists.</p><span class="cc-cta">Read &rarr;</span></div></a></div><div class="ways"><div class="chapters-heading">Or find it another way</div><div class="ways-row"><a class="way" href="contents.html"><span class="way-t">Everything by subject</span><span class="way-m">182 chapters</span></a><a class="way" href="money-words-defined.html"><span class="way-t">Glossary</span><span class="way-m">356 terms</span></a></div></div></div>
+</svg><h3 class="cc-title">When a Company Mishandles Your Account</h3></div><div class="cc-body"><p>A payment leaves your bank on the due date and the loan still says you are late. A mortgage payment rises by four hundred dollars with a month's notice. A refund you are owed after paying a car off early never arrives, and nobody writes to tell you it exists.</p><span class="cc-cta">Read &rarr;</span></div></a></div><div class="ways"><div class="chapters-heading">Or find it another way</div><div class="ways-row"><a class="way" href="contents.html"><span class="way-t">Everything by subject</span><span class="way-m">182 chapters</span></a><a class="way" href="money-words-defined.html"><span class="way-t">Glossary</span><span class="way-m">356 terms</span></a><a class="way" href="quizzes.html"><span class="way-t">Quizzes</span><span class="way-m">2 to try</span></a></div></div></div>
 
 <div id="disclaimer-strip">
   <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. <a href="../plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
