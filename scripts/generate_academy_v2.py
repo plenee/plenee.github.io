@@ -40,6 +40,11 @@ def _find_src() -> Path:
     import subprocess
     default = WEBSITE.parent / "plenee_app" / "docs" / "academy_v2"
     if (default / "contents.md").exists():
+        # Announce it. This path was empty while the branch lived only in a worktree, so
+        # the resolver fell through to the worktree and said so. Once the branch merged to
+        # main the path filled in, the resolver silently switched trees, and a build could
+        # take a stale copy without anything in the output saying which tree it read.
+        print(f"  source: {default}  (main checkout)")
         return default
     repo = WEBSITE.parent / "plenee_app"
     try:
