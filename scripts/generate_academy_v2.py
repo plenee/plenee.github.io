@@ -81,6 +81,21 @@ OUT = Path(os.environ["PLENEE_ACADEMY_OUT"]).expanduser().resolve() \
     if os.environ.get("PLENEE_ACADEMY_OUT") else WEBSITE / "academy2"
 
 V2_STYLE = """
+/* The two non-personalized ways into the corpus. Quiet by intent: the track cards are the
+   page's argument, and these are for a reader who already knows what they are after. */
+.ways{margin:3.25rem auto 0;padding-top:2rem;border-top:1px solid var(--border);text-align:center}
+.ways .chapters-heading{margin-bottom:1.15rem}
+.ways-row{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem 3.5rem}
+.way{display:inline-flex;flex-direction:column;gap:.15rem;text-decoration:none;
+  padding:.35rem .5rem;border-radius:6px}
+.way-t{font-weight:700;color:var(--teal-d)}
+.way-t::after{content:" \2192";display:inline-block;transition:transform .15s ease}
+.way:hover .way-t::after,.way:focus-visible .way-t::after{transform:translateX(3px)}
+.way:hover,.way:focus-visible{background:var(--teal-l)}
+.way-m{font-size:.82rem;color:var(--light);font-weight:400}
+@media (prefers-reduced-motion:reduce){.way-t::after{transition:none}}
+@media (max-width:640px){.ways-row{gap:1.4rem}}
+
 /* Glossary. A reference page, not prose: the reader is looking something up, so the term
    is the scannable unit and the definition follows it. Uses the chapter shell unchanged. */
 .gl-jump{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 2.2rem;padding:0;list-style:none}
@@ -641,7 +656,27 @@ def contents_page(md, titles) -> str:
     return shell("Everything, by Subject", body, "../", "", "contents.html")
 
 
-def landing_page(tracks, titles) -> str:
+def ways_in(titles, chapters) -> str:
+    """The two entry points that are not the track cards.
+
+    The cards above ask the reader to recognize their own situation. These do not: one is
+    ordered by subject, one by word. They are peers of each other and subordinate to the
+    cards, so they share a rule and a label rather than sitting loose under the grid.
+    Counts are read from the corpus, never typed, because a number that drifts is worse
+    than no number.
+    """
+    gl = chapters.get(GLOSSARY_SLUG, {}).get("body", "")
+    terms = len(re.findall(r'^\*\*([^*]+)\*\*\s+—', gl, re.M))
+    ways = [("contents.html", "Everything by subject", f"{len(titles)} chapters"),
+            (f"{GLOSSARY_SLUG}.html", "Glossary", f"{terms} terms")]
+    return ('<div class="ways"><div class="chapters-heading">Or find it another way</div>'
+            '<div class="ways-row">' + "".join(
+                f'<a class="way" href="{h}"><span class="way-t">{esc(t)}</span>'
+                f'<span class="way-m">{esc(m)}</span></a>' for h, t, m in ways)
+            + "</div></div>")
+
+
+def landing_page(tracks, titles, chapters) -> str:
     entries = [{"slug": ts, "why": tr.get("profile", ""), "blurb": blurb(tr["overview"])}
                for ts, tr in sorted(tracks.items(), key=lambda x: x[1].get("title", x[0]))]
     tl = {ts: tr.get("title", ts) for ts, tr in tracks.items()}
@@ -654,8 +689,7 @@ def landing_page(tracks, titles) -> str:
         + '<div class="track-wrap">'
         + '<div class="chapters-heading">Pick the situation closest to yours</div>'
         + grid
-        + '<p style="text-align:center;margin-top:2rem">'
-        + '<a href="contents.html">Or read everything by subject &rarr;</a></p></div>')
+        + ways_in(titles, chapters) + "</div>")
     return shell("Plenee Academy", body, "../", "", "")
 
 
@@ -724,7 +758,7 @@ def main() -> int:
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True)
 
-    (OUT / "index.html").write_text(landing_page(tracks, titles))
+    (OUT / "index.html").write_text(landing_page(tracks, titles, chapters))
     (OUT / "contents.html").write_text(contents_page(contents_md, titles))
     (OUT / "tracks").mkdir()
     for tslug, t in tracks.items():
