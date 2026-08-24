@@ -291,6 +291,24 @@ a.ref-link:hover { text-decoration: underline; }
   .volume-section { padding: 48px 20px 8px; }
 }
 
+/* Glossary. A reference page, not prose: the reader is looking something up, so the term
+   is the scannable unit and the definition follows it. Uses the chapter shell unchanged. */
+.gl-jump{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 2.2rem;padding:0;list-style:none}
+.gl-jump a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--border);
+  border-radius:999px;font-size:.85rem;color:var(--muted);text-decoration:none;background:var(--off)}
+.gl-jump a:hover,.gl-jump a:focus-visible{border-color:var(--teal);color:var(--teal-d);background:var(--teal-l)}
+.gl{margin:0 0 2.4rem}
+.gl dt{font-weight:700;color:var(--navy);margin:1.5rem 0 .3rem;scroll-margin-top:5rem}
+.gl dt:first-of-type{margin-top:.6rem}
+.gl dd{margin:0;color:var(--muted);line-height:1.65}
+.gl dd + dt{border-top:1px solid var(--border);padding-top:1.5rem}
+/* Plenee's own vocabulary has fixed casing that must never be "corrected" — mark it so a
+   reader can see at a glance which words are ours and which are the industry's. */
+.gl dt.own::after{content:"Plenee term";margin-left:.6rem;font-size:.7rem;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--teal-d);
+  background:var(--teal-l);padding:.13rem .45rem;border-radius:3px;vertical-align:.13em}
+@media (max-width:640px){.gl dt{margin-top:1.3rem}}
+
 /* v1's stylesheet covers every component here once the markup matches it. Two things are
    genuinely new in v2 and are built from v1's own variables rather than invented: the
    track-membership block (which reuses .takeaway so it reads as the same family) and
@@ -373,7 +391,7 @@ sup.fnref a:hover{text-decoration:underline}
 <p>The mechanics reward exactly one behavior — statement balance, in full, by the due date, every cycle — and everything Plenee does with cards is built to protect it. Each card's cycle is tracked; statement balances and the payments they'll require are projected forward on your cash calendar (<a class="ref-link" href="statements-decoded.html">Statements Decoded: What Your Bank and Card Statement Is Really Telling You</a>), so in-full is never sabotaged by a timing surprise; and autopay-in-full is treated as the default architecture the projections defend (<a class="ref-link" href="late-fee-elimination.html">Late Fee Elimination: Autopay-in-Full Done Right</a> builds it fully) — because in-full is where every mechanic in this chapter works <em>for</em> you instead of against you: the compounding never starts, the grace period never breaks, and trailing interest never exists.</p>
 <h2 id="the-takeaway">The takeaway</h2><div class="subhead-accent"></div>
 <p>The card game has two modes: in-full (interest-free float, rewards, weeks of free credit) and carrying (daily compounding, no grace, a parting fee on the way out). The gap between them isn't a rate — it's a switch, and everything about card strategy follows from knowing which mode you're in. Know the three mechanics, guard the in-full state like the asset it is, and if you're currently on the wrong side: <a class="ref-link" href="late-fee-elimination.html">Late Fee Elimination: Autopay-in-Full Done Right</a> is the way back across.</p>
-<hr><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/first-job-renting.html">First Job, Renting</a> — <span class="why">Paying in full buys weeks of free credit. Carrying compounds daily with no grace period.</span></li><li><a href="tracks/still-studying.html">Still Studying</a> — <span class="why">Paying in full buys weeks of free credit. Carrying compounds daily with no grace period.</span></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="overdraft-nsf-and-late-fees.html"><div class="cn-dir">Previous</div><div class="cn-title">Charged for being short? The poverty premium, and opting out</div></a><a class="cn-link next" href="bnpl-and-payday-traps.html"><div class="cn-dir">Next</div><div class="cn-title">BNPL and Payday Traps: The True APR of "Easy Payments"</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"first-job-renting": {"title": "First Job, Renting", "pos": 22, "len": 46, "prev": {"slug": "credit-myths", "title": "Credit Myths: Carrying a Balance Does NOT Help Your Score"}, "next": {"slug": "idle-cash", "title": "Cash sitting idle? You're paying yourself a fee"}}, "still-studying": {"title": "Still Studying", "pos": 19, "len": 29, "prev": {"slug": "credit-myths", "title": "Credit Myths: Carrying a Balance Does NOT Help Your Score"}, "next": {"slug": "bnpl-and-payday-traps", "title": "BNPL and Payday Traps: The True APR of \"Easy Payments\""}}}}</script>
+<hr><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/first-job-renting.html">First Job, Renting</a> — <span class="why">Paying in full buys weeks of free credit. Carrying compounds daily with no grace period.</span></li><li><a href="tracks/still-studying.html">Still Studying</a> — <span class="why">Paying in full buys weeks of free credit. Carrying compounds daily with no grace period.</span></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="overdraft-nsf-and-late-fees.html"><div class="cn-dir">Previous</div><div class="cn-title">Charged for being short? The poverty premium, and opting out</div></a><a class="cn-link next" href="bnpl-and-payday-traps.html"><div class="cn-dir">Next</div><div class="cn-title">BNPL and Payday Traps: The True APR of "Easy Payments"</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"first-job-renting": {"title": "First Job, Renting", "pos": 22, "len": 46, "prev": {"slug": "credit-myths", "title": "Credit Myths: Carrying a Balance Does NOT Help Your Score"}, "next": {"slug": "idle-cash", "title": "Cash sitting idle? You're paying yourself a fee"}}, "still-studying": {"title": "Still Studying", "pos": 20, "len": 30, "prev": {"slug": "credit-myths", "title": "Credit Myths: Carrying a Balance Does NOT Help Your Score"}, "next": {"slug": "bnpl-and-payday-traps", "title": "BNPL and Payday Traps: The True APR of \"Easy Payments\""}}}}</script>
 <script>
 (function(){
   var el=document.getElementById('v2-nav'); if(!el) return;

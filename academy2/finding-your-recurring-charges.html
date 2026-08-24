@@ -291,6 +291,24 @@ a.ref-link:hover { text-decoration: underline; }
   .volume-section { padding: 48px 20px 8px; }
 }
 
+/* Glossary. A reference page, not prose: the reader is looking something up, so the term
+   is the scannable unit and the definition follows it. Uses the chapter shell unchanged. */
+.gl-jump{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 2.2rem;padding:0;list-style:none}
+.gl-jump a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--border);
+  border-radius:999px;font-size:.85rem;color:var(--muted);text-decoration:none;background:var(--off)}
+.gl-jump a:hover,.gl-jump a:focus-visible{border-color:var(--teal);color:var(--teal-d);background:var(--teal-l)}
+.gl{margin:0 0 2.4rem}
+.gl dt{font-weight:700;color:var(--navy);margin:1.5rem 0 .3rem;scroll-margin-top:5rem}
+.gl dt:first-of-type{margin-top:.6rem}
+.gl dd{margin:0;color:var(--muted);line-height:1.65}
+.gl dd + dt{border-top:1px solid var(--border);padding-top:1.5rem}
+/* Plenee's own vocabulary has fixed casing that must never be "corrected" — mark it so a
+   reader can see at a glance which words are ours and which are the industry's. */
+.gl dt.own::after{content:"Plenee term";margin-left:.6rem;font-size:.7rem;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--teal-d);
+  background:var(--teal-l);padding:.13rem .45rem;border-radius:3px;vertical-align:.13em}
+@media (max-width:640px){.gl dt{margin-top:1.3rem}}
+
 /* v1's stylesheet covers every component here once the markup matches it. Two things are
    genuinely new in v2 and are built from v1's own variables rather than invented: the
    track-membership block (which reuses .takeaway so it reads as the same family) and
@@ -375,7 +393,7 @@ sup.fnref a:hover{text-decoration:underline}
 <p>The sweep's only hard part is the list — assembling every recurring charge from months of statements across multiple accounts. That part, Plenee automates: recurring charges are detected from your transaction history and surfaced as a list, each with its <strong>annual</strong> cost displayed — so a "small" monthly charge reads as what it really is, in the units where judgment works. What you cancel is your call; Plenee doesn't grade your subscriptions or nag about the ones you keep (your values, your keep pile — Lesson <a class="ref-link" href="spend-to-impress-yourself.html">Spending on What You Actually Enjoy</a>'s principle). It just ends the forgetting. Every dollar recovered stays yours, and the sweep that used to require an evening of statement archaeology becomes a two-minute review.</p>
 <h2 id="the-takeaway">The takeaway</h2><div class="subhead-accent"></div>
 <p>Subscriptions are priced to be individually ignorable and collectively expensive — the only spending that continues without decisions. Don't fight the design with vigilance; beat it with a schedule. Annualize every recurring charge once or twice a year, sort into keep, cancel, and downgrade — and let the keep pile be full of things you love, now that it's actually a choice again.</p>
-<hr><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/first-job-renting.html">First Job, Renting</a> — <span class="why">Subscriptions are priced to be individually ignorable and collectively expensive — the only spending that continues without decisions.</span></li><li><a href="tracks/still-studying.html">Still Studying</a> — <span class="why">Subscriptions are priced to be individually ignorable and collectively expensive — the only spending that continues without decisions.</span></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="credit-report-and-score.html"><div class="cn-dir">Previous</div><div class="cn-title">Your Credit Report and Score: What's Actually in It, VantageScore vs. FICO</div></a><a class="cn-link next" href="stress-tax.html"><div class="cn-dir">Next</div><div class="cn-title">Money problems eating your time? What that costs, and buying it back</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"first-job-renting": {"title": "First Job, Renting", "pos": 16, "len": 46, "prev": {"slug": "reading-your-own-transactions", "title": "Statement full of noise? Telling spending from transfers"}, "next": {"slug": "credit-scores-actually-work", "title": "How Credit Scores Actually Work: The Five Factors, Weighted"}}, "still-studying": {"title": "Still Studying", "pos": 15, "len": 29, "prev": {"slug": "credit-report-and-score", "title": "Your Credit Report and Score: What's Actually in It, VantageScore vs. FICO"}, "next": {"slug": "credit-scores-actually-work", "title": "How Credit Scores Actually Work: The Five Factors, Weighted"}}}}</script>
+<hr><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/first-job-renting.html">First Job, Renting</a> — <span class="why">Subscriptions are priced to be individually ignorable and collectively expensive — the only spending that continues without decisions.</span></li><li><a href="tracks/still-studying.html">Still Studying</a> — <span class="why">Subscriptions are priced to be individually ignorable and collectively expensive — the only spending that continues without decisions.</span></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="credit-report-and-score.html"><div class="cn-dir">Previous</div><div class="cn-title">Your Credit Report and Score: What's Actually in It, VantageScore vs. FICO</div></a><a class="cn-link next" href="stress-tax.html"><div class="cn-dir">Next</div><div class="cn-title">Money problems eating your time? What that costs, and buying it back</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"first-job-renting": {"title": "First Job, Renting", "pos": 16, "len": 46, "prev": {"slug": "reading-your-own-transactions", "title": "Statement full of noise? Telling spending from transfers"}, "next": {"slug": "credit-scores-actually-work", "title": "How Credit Scores Actually Work: The Five Factors, Weighted"}}, "still-studying": {"title": "Still Studying", "pos": 16, "len": 30, "prev": {"slug": "credit-report-and-score", "title": "Your Credit Report and Score: What's Actually in It, VantageScore vs. FICO"}, "next": {"slug": "credit-scores-actually-work", "title": "How Credit Scores Actually Work: The Five Factors, Weighted"}}}}</script>
 <script>
 (function(){
   var el=document.getElementById('v2-nav'); if(!el) return;

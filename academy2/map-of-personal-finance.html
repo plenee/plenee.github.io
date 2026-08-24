@@ -291,6 +291,24 @@ a.ref-link:hover { text-decoration: underline; }
   .volume-section { padding: 48px 20px 8px; }
 }
 
+/* Glossary. A reference page, not prose: the reader is looking something up, so the term
+   is the scannable unit and the definition follows it. Uses the chapter shell unchanged. */
+.gl-jump{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 2.2rem;padding:0;list-style:none}
+.gl-jump a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--border);
+  border-radius:999px;font-size:.85rem;color:var(--muted);text-decoration:none;background:var(--off)}
+.gl-jump a:hover,.gl-jump a:focus-visible{border-color:var(--teal);color:var(--teal-d);background:var(--teal-l)}
+.gl{margin:0 0 2.4rem}
+.gl dt{font-weight:700;color:var(--navy);margin:1.5rem 0 .3rem;scroll-margin-top:5rem}
+.gl dt:first-of-type{margin-top:.6rem}
+.gl dd{margin:0;color:var(--muted);line-height:1.65}
+.gl dd + dt{border-top:1px solid var(--border);padding-top:1.5rem}
+/* Plenee's own vocabulary has fixed casing that must never be "corrected" — mark it so a
+   reader can see at a glance which words are ours and which are the industry's. */
+.gl dt.own::after{content:"Plenee term";margin-left:.6rem;font-size:.7rem;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--teal-d);
+  background:var(--teal-l);padding:.13rem .45rem;border-radius:3px;vertical-align:.13em}
+@media (max-width:640px){.gl dt{margin-top:1.3rem}}
+
 /* v1's stylesheet covers every component here once the markup matches it. Two things are
    genuinely new in v2 and are built from v1's own variables rather than invented: the
    track-membership block (which reuses .takeaway so it reads as the same family) and
@@ -370,7 +388,7 @@ sup.fnref a:hover{text-decoration:underline}
 <h2 id="the-takeaway">The takeaway</h2><div class="subhead-accent"></div>
 <p>Personal finance divides into Money Management — the operational pillars you run daily: Cash, Debt, Investment — and Financial Planning — the overlay domains that design around them: risk, tax, retirement, estate. FLOW and NET live in Cash Management; loanFLOW in Debt; saveFLOW feeds Investment; NEST is the scoreboard across all of it. That's the complete map, the complete vocabulary, and the end of the foundations: everything else in this curriculum is one of these boxes, taught in these words.</p>
 <hr>
-<p><em>This is financial information and education, not personalized financial advice.</em></p><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/flooded-with-offers.html">Flooded with offers: how to separate the good from the bad</a> — <span class="why">Where money management ends and financial planning begins, and why the split matters.</span></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="two-statements-every-business-runs-on.html"><div class="cn-dir">Previous</div><div class="cn-title">The Two Statements Every Business Runs On, and Why You Are One</div></a><a class="cn-link next" href="you-cant-plan-what-you-cant-see.html"><div class="cn-dir">Next</div><div class="cn-title">Can't see where it goes? Mapping every account</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"flooded-with-offers": {"title": "Flooded with offers: how to separate the good from the bad", "pos": 8, "len": 24, "prev": {"slug": "money-jargon-keeps-you-poor", "title": "Jargon costing you money? The words worth learning first"}, "next": {"slug": "quarter-trillion-fleecing", "title": "Bank fees adding up? The ones worth moving accounts over"}}}}</script>
+<p><em>This is financial information and education, not personalized financial advice.</em></p><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/flooded-with-offers.html">Flooded with offers: how to separate the good from the bad</a> — <span class="why">Where money management ends and financial planning begins, and why the split matters.</span></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="two-statements-every-business-runs-on.html"><div class="cn-dir">Previous</div><div class="cn-title">The Two Statements Every Business Runs On, and Why You Are One</div></a><a class="cn-link next" href="you-cant-plan-what-you-cant-see.html"><div class="cn-dir">Next</div><div class="cn-title">Can't see where it goes? Mapping every account</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"flooded-with-offers": {"title": "Flooded with offers: how to separate the good from the bad", "pos": 9, "len": 25, "prev": {"slug": "money-words-defined", "title": "Money Words, Defined: The Terms That Decide What You Pay"}, "next": {"slug": "quarter-trillion-fleecing", "title": "Bank fees adding up? The ones worth moving accounts over"}}}}</script>
 <script>
 (function(){
   var el=document.getElementById('v2-nav'); if(!el) return;

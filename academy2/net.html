@@ -291,6 +291,24 @@ a.ref-link:hover { text-decoration: underline; }
   .volume-section { padding: 48px 20px 8px; }
 }
 
+/* Glossary. A reference page, not prose: the reader is looking something up, so the term
+   is the scannable unit and the definition follows it. Uses the chapter shell unchanged. */
+.gl-jump{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 2.2rem;padding:0;list-style:none}
+.gl-jump a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--border);
+  border-radius:999px;font-size:.85rem;color:var(--muted);text-decoration:none;background:var(--off)}
+.gl-jump a:hover,.gl-jump a:focus-visible{border-color:var(--teal);color:var(--teal-d);background:var(--teal-l)}
+.gl{margin:0 0 2.4rem}
+.gl dt{font-weight:700;color:var(--navy);margin:1.5rem 0 .3rem;scroll-margin-top:5rem}
+.gl dt:first-of-type{margin-top:.6rem}
+.gl dd{margin:0;color:var(--muted);line-height:1.65}
+.gl dd + dt{border-top:1px solid var(--border);padding-top:1.5rem}
+/* Plenee's own vocabulary has fixed casing that must never be "corrected" — mark it so a
+   reader can see at a glance which words are ours and which are the industry's. */
+.gl dt.own::after{content:"Plenee term";margin-left:.6rem;font-size:.7rem;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--teal-d);
+  background:var(--teal-l);padding:.13rem .45rem;border-radius:3px;vertical-align:.13em}
+@media (max-width:640px){.gl dt{margin-top:1.3rem}}
+
 /* v1's stylesheet covers every component here once the markup matches it. Two things are
    genuinely new in v2 and are built from v1's own variables rather than invented: the
    track-membership block (which reuses .takeaway so it reads as the same family) and
@@ -368,7 +386,7 @@ sup.fnref a:hover{text-decoration:underline}
 <p>Plenee computes NET per period from typed transactions (income and expenses only — transfers and principal excluded by the type system, <a class="ref-link" href="reading-your-own-transactions.html">Statement full of noise? Telling spending from transfers</a>), displays the state plainly — Net Plus, Net Minus, Net Zero — and runs the NET Budget on category targets built from your own history. The number most households have never computed becomes the number they see every month, named in words that don't require an accountant to parse.</p>
 <h2 id="the-takeaway">The takeaway</h2><div class="subhead-accent"></div>
 <p>NET is the period's verdict: Net Plus (ahead — the gap where wealth forms), Net Minus (behind — sometimes a problem, sometimes the plan, especially in retirement), Net Zero (break-even). It is not the same as FLOW — movement and income-versus-expenses are different questions — and learning to hold both words at once is the biggest single upgrade this vocabulary offers. One word remains: what all the periods add up to.</p>
-<hr><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/first-job-renting.html">First Job, Renting</a> — <span class="why">Net Plus, Net Minus, Net Zero — the period's verdict, and when being behind is the plan working.</span></li><li><a href="tracks/still-studying.html">Still Studying</a> — <span class="why">Net Plus, Net Minus, Net Zero — the period's verdict, and when being behind is the plan working.</span></li><li><a href="tracks/two-countries.html">Two Countries, One Budget</a> — <span class="why">Net Plus, Net Minus, Net Zero — the period's verdict, and when being behind is the plan working.</span></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="flow.html"><div class="cn-dir">Previous</div><div class="cn-title">FLOW: Watching Your Money Move</div></a><a class="cn-link next" href="nest.html"><div class="cn-dir">Next</div><div class="cn-title">NEST: What You Actually Own</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"first-job-renting": {"title": "First Job, Renting", "pos": 11, "len": 46, "prev": {"slug": "flow", "title": "FLOW: Watching Your Money Move"}, "next": {"slug": "loanflow-and-saveflow", "title": "loanFLOW and saveFLOW: Money That Changes Your Position vs. Money You Spend"}}, "still-studying": {"title": "Still Studying", "pos": 12, "len": 29, "prev": {"slug": "flow", "title": "FLOW: Watching Your Money Move"}, "next": {"slug": "nest", "title": "NEST: What You Actually Own"}}, "two-countries": {"title": "Two Countries, One Budget", "pos": 12, "len": 24, "prev": {"slug": "flow", "title": "FLOW: Watching Your Money Move"}, "next": {"slug": "credit-report-and-score", "title": "Your Credit Report and Score: What's Actually in It, VantageScore vs. FICO"}}}}</script>
+<hr><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/first-job-renting.html">First Job, Renting</a> — <span class="why">Net Plus, Net Minus, Net Zero — the period's verdict, and when being behind is the plan working.</span></li><li><a href="tracks/still-studying.html">Still Studying</a> — <span class="why">Net Plus, Net Minus, Net Zero — the period's verdict, and when being behind is the plan working.</span></li><li><a href="tracks/two-countries.html">Two Countries, One Budget</a> — <span class="why">Net Plus, Net Minus, Net Zero — the period's verdict, and when being behind is the plan working.</span></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="flow.html"><div class="cn-dir">Previous</div><div class="cn-title">FLOW: Watching Your Money Move</div></a><a class="cn-link next" href="nest.html"><div class="cn-dir">Next</div><div class="cn-title">NEST: What You Actually Own</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"first-job-renting": {"title": "First Job, Renting", "pos": 11, "len": 46, "prev": {"slug": "flow", "title": "FLOW: Watching Your Money Move"}, "next": {"slug": "loanflow-and-saveflow", "title": "loanFLOW and saveFLOW: Money That Changes Your Position vs. Money You Spend"}}, "still-studying": {"title": "Still Studying", "pos": 13, "len": 30, "prev": {"slug": "flow", "title": "FLOW: Watching Your Money Move"}, "next": {"slug": "nest", "title": "NEST: What You Actually Own"}}, "two-countries": {"title": "Two Countries, One Budget", "pos": 12, "len": 24, "prev": {"slug": "flow", "title": "FLOW: Watching Your Money Move"}, "next": {"slug": "credit-report-and-score", "title": "Your Credit Report and Score: What's Actually in It, VantageScore vs. FICO"}}}}</script>
 <script>
 (function(){
   var el=document.getElementById('v2-nav'); if(!el) return;

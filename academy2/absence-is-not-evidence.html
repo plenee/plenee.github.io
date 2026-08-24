@@ -291,6 +291,24 @@ a.ref-link:hover { text-decoration: underline; }
   .volume-section { padding: 48px 20px 8px; }
 }
 
+/* Glossary. A reference page, not prose: the reader is looking something up, so the term
+   is the scannable unit and the definition follows it. Uses the chapter shell unchanged. */
+.gl-jump{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 2.2rem;padding:0;list-style:none}
+.gl-jump a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--border);
+  border-radius:999px;font-size:.85rem;color:var(--muted);text-decoration:none;background:var(--off)}
+.gl-jump a:hover,.gl-jump a:focus-visible{border-color:var(--teal);color:var(--teal-d);background:var(--teal-l)}
+.gl{margin:0 0 2.4rem}
+.gl dt{font-weight:700;color:var(--navy);margin:1.5rem 0 .3rem;scroll-margin-top:5rem}
+.gl dt:first-of-type{margin-top:.6rem}
+.gl dd{margin:0;color:var(--muted);line-height:1.65}
+.gl dd + dt{border-top:1px solid var(--border);padding-top:1.5rem}
+/* Plenee's own vocabulary has fixed casing that must never be "corrected" — mark it so a
+   reader can see at a glance which words are ours and which are the industry's. */
+.gl dt.own::after{content:"Plenee term";margin-left:.6rem;font-size:.7rem;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--teal-d);
+  background:var(--teal-l);padding:.13rem .45rem;border-radius:3px;vertical-align:.13em}
+@media (max-width:640px){.gl dt{margin-top:1.3rem}}
+
 /* v1's stylesheet covers every component here once the markup matches it. Two things are
    genuinely new in v2 and are built from v1's own variables rather than invented: the
    track-membership block (which reuses .takeaway so it reads as the same family) and
@@ -390,7 +408,7 @@ sup.fnref a:hover{text-decoration:underline}
 <h2 id="where-plenee-fits">Where Plenee fits</h2><div class="subhead-accent"></div>
 <p>Every figure in this Academy names its document. Where we could not confirm something, the chapter says so — you will find "unconfirmed" in these pages, and that is deliberate. The alternative is filling a gap with something plausible, which is the failure this whole chapter describes.</p>
 <h2 id="the-short-version">The short version</h2><div class="subhead-accent"></div>
-<p>We ran 376 of our own claims through an adversarial check and it rejected 207. On re-examination only about twenty rejections involved anyone reading a contradicting document; the rest were dead links, paywalls and unchecked assertions. We opened 388 documents and found 129 of the rejected claims were simply true. The error ran one way, and it always will: when the real source is hard to reach, what remains easy to find is whatever the industry publishes. So "I couldn't find evidence" is not a finding — it is a description of the search.</p><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/flooded-with-offers.html">Flooded with offers: how to separate the good from the bad</a> — <span class="why">Why 'I couldn't find it' usually means 'I found their version'.</span></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="the-default-and-the-check.html"><div class="cn-dir">Previous</div><div class="cn-title">Chatbot gave you a number? How to get its source</div></a><a class="cn-link next" href="evidence-read-and-ignored.html"><div class="cn-dir">Next</div><div class="cn-title">Shown it proof and it disagreed? Go to the document</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"flooded-with-offers": {"title": "Flooded with offers: how to separate the good from the bad", "pos": 3, "len": 24, "prev": {"slug": "the-default-and-the-check", "title": "Chatbot gave you a number? How to get its source"}, "next": {"slug": "evidence-read-and-ignored", "title": "Shown it proof and it disagreed? Go to the document"}}}}</script>
+<p>We ran 376 of our own claims through an adversarial check and it rejected 207. On re-examination only about twenty rejections involved anyone reading a contradicting document; the rest were dead links, paywalls and unchecked assertions. We opened 388 documents and found 129 of the rejected claims were simply true. The error ran one way, and it always will: when the real source is hard to reach, what remains easy to find is whatever the industry publishes. So "I couldn't find evidence" is not a finding — it is a description of the search.</p><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/flooded-with-offers.html">Flooded with offers: how to separate the good from the bad</a> — <span class="why">Why 'I couldn't find it' usually means 'I found their version'.</span></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="the-default-and-the-check.html"><div class="cn-dir">Previous</div><div class="cn-title">Chatbot gave you a number? How to get its source</div></a><a class="cn-link next" href="evidence-read-and-ignored.html"><div class="cn-dir">Next</div><div class="cn-title">Shown it proof and it disagreed? Go to the document</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"flooded-with-offers": {"title": "Flooded with offers: how to separate the good from the bad", "pos": 3, "len": 25, "prev": {"slug": "the-default-and-the-check", "title": "Chatbot gave you a number? How to get its source"}, "next": {"slug": "evidence-read-and-ignored", "title": "Shown it proof and it disagreed? Go to the document"}}}}</script>
 <script>
 (function(){
   var el=document.getElementById('v2-nav'); if(!el) return;

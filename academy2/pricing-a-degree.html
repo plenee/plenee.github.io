@@ -291,6 +291,24 @@ a.ref-link:hover { text-decoration: underline; }
   .volume-section { padding: 48px 20px 8px; }
 }
 
+/* Glossary. A reference page, not prose: the reader is looking something up, so the term
+   is the scannable unit and the definition follows it. Uses the chapter shell unchanged. */
+.gl-jump{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 2.2rem;padding:0;list-style:none}
+.gl-jump a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--border);
+  border-radius:999px;font-size:.85rem;color:var(--muted);text-decoration:none;background:var(--off)}
+.gl-jump a:hover,.gl-jump a:focus-visible{border-color:var(--teal);color:var(--teal-d);background:var(--teal-l)}
+.gl{margin:0 0 2.4rem}
+.gl dt{font-weight:700;color:var(--navy);margin:1.5rem 0 .3rem;scroll-margin-top:5rem}
+.gl dt:first-of-type{margin-top:.6rem}
+.gl dd{margin:0;color:var(--muted);line-height:1.65}
+.gl dd + dt{border-top:1px solid var(--border);padding-top:1.5rem}
+/* Plenee's own vocabulary has fixed casing that must never be "corrected" — mark it so a
+   reader can see at a glance which words are ours and which are the industry's. */
+.gl dt.own::after{content:"Plenee term";margin-left:.6rem;font-size:.7rem;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--teal-d);
+  background:var(--teal-l);padding:.13rem .45rem;border-radius:3px;vertical-align:.13em}
+@media (max-width:640px){.gl dt{margin-top:1.3rem}}
+
 /* v1's stylesheet covers every component here once the markup matches it. Two things are
    genuinely new in v2 and are built from v1's own variables rather than invented: the
    track-membership block (which reuses .takeaway so it reads as the same family) and
@@ -384,7 +402,7 @@ sup.fnref a:hover{text-decoration:underline}
 <p>Plenee holds the two halves this decision needs and that people normally keep in separate heads: what a commitment does to the month it lands in, and what it does to everything else you own. A program's cost is not the fee — it is the fee, plus the income foregone, against the position it leaves you in afterwards.</p>
 <p>Rob's planned feature here treats education as what it is on a balance sheet: a NEST asset with a value, rather than a cost with a feeling attached.</p>
 <h2 id="the-short-version">The short version</h2><div class="subhead-accent"></div>
-<p>A qualification is an asset with four inputs: what you pay, what you give up by not working, what it adds across a career, and whether you finish. The fourth one dominates — debt without the qualification is the worst outcome available, so anything that raises the odds of completing is worth paying for. Work out whether you are buying a license, a signal or a network, because they are priced very differently and only one of them is reliable. And check what happens to the plan if one thing goes wrong, because the debt lasts far longer than the setback does.</p><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/still-studying.html">Still Studying</a> — <span class="why">What the qualification returns, while you can still change course.</span></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="your-benefits-package.html"><div class="cn-dir">Previous</div><div class="cn-title">Your Benefits Package: The Annual Deadline With Real Money</div></a><a class="cn-link next" href="student-loan-repayment.html"><div class="cn-dir">Next</div><div class="cn-title">Paying Back a Student Loan, After Everything Changed</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"still-studying": {"title": "Still Studying", "pos": 2, "len": 29, "prev": {"slug": "student-loan-repayment", "title": "Paying Back a Student Loan, After Everything Changed"}, "next": {"slug": "the-last-five-minutes", "title": "At the car finance desk? What each product pays back"}}}}</script>
+<p>A qualification is an asset with four inputs: what you pay, what you give up by not working, what it adds across a career, and whether you finish. The fourth one dominates — debt without the qualification is the worst outcome available, so anything that raises the odds of completing is worth paying for. Work out whether you are buying a license, a signal or a network, because they are priced very differently and only one of them is reliable. And check what happens to the plan if one thing goes wrong, because the debt lasts far longer than the setback does.</p><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/still-studying.html">Still Studying</a> — <span class="why">What the qualification returns, while you can still change course.</span></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="your-benefits-package.html"><div class="cn-dir">Previous</div><div class="cn-title">Your Benefits Package: The Annual Deadline With Real Money</div></a><a class="cn-link next" href="student-loan-repayment.html"><div class="cn-dir">Next</div><div class="cn-title">Paying Back a Student Loan, After Everything Changed</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"still-studying": {"title": "Still Studying", "pos": 2, "len": 30, "prev": {"slug": "student-loan-repayment", "title": "Paying Back a Student Loan, After Everything Changed"}, "next": {"slug": "the-last-five-minutes", "title": "At the car finance desk? What each product pays back"}}}}</script>
 <script>
 (function(){
   var el=document.getElementById('v2-nav'); if(!el) return;

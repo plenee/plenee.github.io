@@ -291,6 +291,24 @@ a.ref-link:hover { text-decoration: underline; }
   .volume-section { padding: 48px 20px 8px; }
 }
 
+/* Glossary. A reference page, not prose: the reader is looking something up, so the term
+   is the scannable unit and the definition follows it. Uses the chapter shell unchanged. */
+.gl-jump{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 2.2rem;padding:0;list-style:none}
+.gl-jump a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--border);
+  border-radius:999px;font-size:.85rem;color:var(--muted);text-decoration:none;background:var(--off)}
+.gl-jump a:hover,.gl-jump a:focus-visible{border-color:var(--teal);color:var(--teal-d);background:var(--teal-l)}
+.gl{margin:0 0 2.4rem}
+.gl dt{font-weight:700;color:var(--navy);margin:1.5rem 0 .3rem;scroll-margin-top:5rem}
+.gl dt:first-of-type{margin-top:.6rem}
+.gl dd{margin:0;color:var(--muted);line-height:1.65}
+.gl dd + dt{border-top:1px solid var(--border);padding-top:1.5rem}
+/* Plenee's own vocabulary has fixed casing that must never be "corrected" — mark it so a
+   reader can see at a glance which words are ours and which are the industry's. */
+.gl dt.own::after{content:"Plenee term";margin-left:.6rem;font-size:.7rem;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--teal-d);
+  background:var(--teal-l);padding:.13rem .45rem;border-radius:3px;vertical-align:.13em}
+@media (max-width:640px){.gl dt{margin-top:1.3rem}}
+
 /* v1's stylesheet covers every component here once the markup matches it. Two things are
    genuinely new in v2 and are built from v1's own variables rather than invented: the
    track-membership block (which reuses .takeaway so it reads as the same family) and
@@ -371,7 +389,7 @@ sup.fnref a:hover{text-decoration:underline}
 <p>The transcript is already written and categorized — Plenee's transaction history <em>is</em> the mirror, sortable by category and trend, with the recurring detection (Volume 1, <a class="ref-link" href="finding-your-recurring-charges.html">Finding Your Recurring Charges: Subscriptions You Forgot You Pay</a>) pre-sorting much of the habitual pile automatically. The three-pile reading takes an evening. Plenee doesn't grade the piles — the sorting of aligned from performative is a judgment only the person who lived the transactions can make. It just makes the reading <em>possible</em>, which the fragmented, unread version never was.</p>
 <h2 id="the-takeaway">The takeaway</h2><div class="subhead-accent"></div>
 <p>Read your own transcript before anyone else does. The goal isn't spending less — it's spending like the person you'd actually claim to be: aligned funded proudly, habitual cut without loss, performative recognized for what it was buying and released. The mirror doesn't judge. It just shows — and what it shows is the raw material for everything the rest of this track builds.</p>
-<hr><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/flooded-with-offers.html">Flooded with offers: how to separate the good from the bad</a> — <span class="why">What a stranger would conclude about you from ninety days of transactions and nothing else.</span></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="endowment-effect.html"><div class="cn-dir">Previous</div><div class="cn-title">The Endowment Effect: Why Selling Your Own Things Feels Wrong</div></a><a class="cn-link next" href="spend-to-impress-yourself.html"><div class="cn-dir">Next</div><div class="cn-title">Spending on What You Actually Enjoy</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"flooded-with-offers": {"title": "Flooded with offers: how to separate the good from the bad", "pos": 22, "len": 24, "prev": {"slug": "expectations-vs-circumstances", "title": "Earning more but no happier? Expectations move faster than income"}, "next": {"slug": "spend-to-impress-yourself", "title": "Spending on What You Actually Enjoy"}}}}</script>
+<hr><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/flooded-with-offers.html">Flooded with offers: how to separate the good from the bad</a> — <span class="why">What a stranger would conclude about you from ninety days of transactions and nothing else.</span></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="endowment-effect.html"><div class="cn-dir">Previous</div><div class="cn-title">The Endowment Effect: Why Selling Your Own Things Feels Wrong</div></a><a class="cn-link next" href="spend-to-impress-yourself.html"><div class="cn-dir">Next</div><div class="cn-title">Spending on What You Actually Enjoy</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"flooded-with-offers": {"title": "Flooded with offers: how to separate the good from the bad", "pos": 23, "len": 25, "prev": {"slug": "expectations-vs-circumstances", "title": "Earning more but no happier? Expectations move faster than income"}, "next": {"slug": "spend-to-impress-yourself", "title": "Spending on What You Actually Enjoy"}}}}</script>
 <script>
 (function(){
   var el=document.getElementById('v2-nav'); if(!el) return;

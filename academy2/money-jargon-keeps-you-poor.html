@@ -291,6 +291,24 @@ a.ref-link:hover { text-decoration: underline; }
   .volume-section { padding: 48px 20px 8px; }
 }
 
+/* Glossary. A reference page, not prose: the reader is looking something up, so the term
+   is the scannable unit and the definition follows it. Uses the chapter shell unchanged. */
+.gl-jump{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 2.2rem;padding:0;list-style:none}
+.gl-jump a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--border);
+  border-radius:999px;font-size:.85rem;color:var(--muted);text-decoration:none;background:var(--off)}
+.gl-jump a:hover,.gl-jump a:focus-visible{border-color:var(--teal);color:var(--teal-d);background:var(--teal-l)}
+.gl{margin:0 0 2.4rem}
+.gl dt{font-weight:700;color:var(--navy);margin:1.5rem 0 .3rem;scroll-margin-top:5rem}
+.gl dt:first-of-type{margin-top:.6rem}
+.gl dd{margin:0;color:var(--muted);line-height:1.65}
+.gl dd + dt{border-top:1px solid var(--border);padding-top:1.5rem}
+/* Plenee's own vocabulary has fixed casing that must never be "corrected" — mark it so a
+   reader can see at a glance which words are ours and which are the industry's. */
+.gl dt.own::after{content:"Plenee term";margin-left:.6rem;font-size:.7rem;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--teal-d);
+  background:var(--teal-l);padding:.13rem .45rem;border-radius:3px;vertical-align:.13em}
+@media (max-width:640px){.gl dt{margin-top:1.3rem}}
+
 /* v1's stylesheet covers every component here once the markup matches it. Two things are
    genuinely new in v2 and are built from v1's own variables rather than invented: the
    track-membership block (which reuses .takeaway so it reads as the same family) and
@@ -368,7 +386,7 @@ sup.fnref a:hover{text-decoration:underline}
 <p>Plenee is built in this vocabulary from the ground up — the app's numbers, the Copilot's explanations, this Academy's lessons all speak FLOW, NET, and NEST rather than the accountant's dialect. Not as branding, but as the fix this chapter argues for: a household that can <em>name</em> what's happening to its money can finally manage it — and the naming has to be built into the tools, because nobody learns a language from a glossary.</p>
 <h2 id="the-takeaway">The takeaway</h2><div class="subhead-accent"></div>
 <p>Financial illiteracy isn't a comprehension problem — the core ideas fit in three sentences. It's a language problem: the concepts that run your financial life have names built for professionals, and no one ever translated them. The next chapters do the translation: three words, three ideas, the working vocabulary of everything that follows.</p>
-<hr><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/flooded-with-offers.html">Flooded with offers: how to separate the good from the bad</a> — <span class="why">Financial illiteracy isn't a comprehension problem — the core ideas fit in three sentences.</span></li><li><a href="tracks/still-studying.html">Still Studying</a> — <span class="why">Financial illiteracy isn't a comprehension problem — the core ideas fit in three sentences.</span></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="evidence-read-and-ignored.html"><div class="cn-dir">Previous</div><div class="cn-title">Shown it proof and it disagreed? Go to the document</div></a><a class="cn-link next" href="flow.html"><div class="cn-dir">Next</div><div class="cn-title">FLOW: Watching Your Money Move</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"flooded-with-offers": {"title": "Flooded with offers: how to separate the good from the bad", "pos": 7, "len": 24, "prev": {"slug": "everybody-takes-a-percentage", "title": "Three Percentages on One Medical Bill: Which One You Control"}, "next": {"slug": "map-of-personal-finance", "title": "Money management or financial planning? Which one you need"}}, "still-studying": {"title": "Still Studying", "pos": 10, "len": 29, "prev": {"slug": "the-default-and-the-check", "title": "Chatbot gave you a number? How to get its source"}, "next": {"slug": "flow", "title": "FLOW: Watching Your Money Move"}}}}</script>
+<hr><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/flooded-with-offers.html">Flooded with offers: how to separate the good from the bad</a> — <span class="why">Financial illiteracy isn't a comprehension problem — the core ideas fit in three sentences.</span></li><li><a href="tracks/still-studying.html">Still Studying</a> — <span class="why">Financial illiteracy isn't a comprehension problem — the core ideas fit in three sentences.</span></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="money-words-defined.html"><div class="cn-dir">Previous</div><div class="cn-title">Money Words, Defined: The Terms That Decide What You Pay</div></a><a class="cn-link next" href="flow.html"><div class="cn-dir">Next</div><div class="cn-title">FLOW: Watching Your Money Move</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"flooded-with-offers": {"title": "Flooded with offers: how to separate the good from the bad", "pos": 7, "len": 25, "prev": {"slug": "everybody-takes-a-percentage", "title": "Three Percentages on One Medical Bill: Which One You Control"}, "next": {"slug": "money-words-defined", "title": "Money Words, Defined: The Terms That Decide What You Pay"}}, "still-studying": {"title": "Still Studying", "pos": 10, "len": 30, "prev": {"slug": "the-default-and-the-check", "title": "Chatbot gave you a number? How to get its source"}, "next": {"slug": "money-words-defined", "title": "Money Words, Defined: The Terms That Decide What You Pay"}}}}</script>
 <script>
 (function(){
   var el=document.getElementById('v2-nav'); if(!el) return;

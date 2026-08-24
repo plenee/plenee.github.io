@@ -291,6 +291,24 @@ a.ref-link:hover { text-decoration: underline; }
   .volume-section { padding: 48px 20px 8px; }
 }
 
+/* Glossary. A reference page, not prose: the reader is looking something up, so the term
+   is the scannable unit and the definition follows it. Uses the chapter shell unchanged. */
+.gl-jump{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 2.2rem;padding:0;list-style:none}
+.gl-jump a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--border);
+  border-radius:999px;font-size:.85rem;color:var(--muted);text-decoration:none;background:var(--off)}
+.gl-jump a:hover,.gl-jump a:focus-visible{border-color:var(--teal);color:var(--teal-d);background:var(--teal-l)}
+.gl{margin:0 0 2.4rem}
+.gl dt{font-weight:700;color:var(--navy);margin:1.5rem 0 .3rem;scroll-margin-top:5rem}
+.gl dt:first-of-type{margin-top:.6rem}
+.gl dd{margin:0;color:var(--muted);line-height:1.65}
+.gl dd + dt{border-top:1px solid var(--border);padding-top:1.5rem}
+/* Plenee's own vocabulary has fixed casing that must never be "corrected" — mark it so a
+   reader can see at a glance which words are ours and which are the industry's. */
+.gl dt.own::after{content:"Plenee term";margin-left:.6rem;font-size:.7rem;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--teal-d);
+  background:var(--teal-l);padding:.13rem .45rem;border-radius:3px;vertical-align:.13em}
+@media (max-width:640px){.gl dt{margin-top:1.3rem}}
+
 /* v1's stylesheet covers every component here once the markup matches it. Two things are
    genuinely new in v2 and are built from v1's own variables rather than invented: the
    track-membership block (which reuses .takeaway so it reads as the same family) and
@@ -364,7 +382,7 @@ sup.fnref a:hover{text-decoration:underline}
     </filter>
   </defs>
 </svg><div class="page-header"><div class="page-kicker">A situation</div><h1>Still Studying</h1><p class="header-subtitle">In education, working shifts, first credit products arriving</p></div><div class="crumb"><a href="../index.html">Academy</a><span>&rsaquo;</span><span>Still Studying</span><span style="margin-left:auto"></span><a href="../contents.html">Everything by subject</a></div><div class="overview-wrap"><p>You have been told the loan is nothing like a real debt, and that it is quietly ruining your life, by people who both sounded completely certain. Neither of them showed you the arithmetic.</p>
-<p>Meanwhile everything else is arriving. A first card with something attached that you do not remember agreeing to. A first car, where three separate products get added in the last five minutes before you sign. None of it is presented to you as a decision, which is exactly what makes it one.</p></div><div class="track-wrap"><div class="chapters-heading">29 chapters, in this order</div><div class="chapter-grid"><a class="chap-card" href="../student-loan-repayment.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+<p>Meanwhile everything else is arriving. A first card with something attached that you do not remember agreeing to. A first car, where three separate products get added in the last five minutes before you sign. None of it is presented to you as a decision, which is exactly what makes it one.</p></div><div class="track-wrap"><div class="chapters-heading">30 chapters, in this order</div><div class="chapter-grid"><a class="chap-card" href="../student-loan-repayment.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
   <g fill="none" opacity="0.55">
     <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
     <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
@@ -509,7 +527,29 @@ sup.fnref a:hover{text-decoration:underline}
     <rect x="342" y="35" width="16" height="30" style="fill:var(--hue-d);"/>
   </g>
   <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
-</svg><h3 class="cc-title">Jargon costing you money? The words worth learning first</h3></div><div class="cc-body"><p>Financial illiteracy isn't a comprehension problem — the core ideas fit in three sentences. It's a language problem: the concepts that run your financial life have names built for professionals, and no one ever translated them.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../flow.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+</svg><h3 class="cc-title">Jargon costing you money? The words worth learning first</h3></div><div class="cc-body"><p>Financial illiteracy isn't a comprehension problem — the core ideas fit in three sentences. It's a language problem: the concepts that run your financial life have names built for professionals, and no one ever translated them.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../money-words-defined.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#softBlur)" opacity="0.6">
+    <line x1="30" y1="30" x2="30" y2="95" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="22" y="45" width="16" height="35" style="fill:var(--hue-d);"/>
+    <line x1="70" y1="20" x2="70" y2="70" style="stroke:var(--hue);" stroke-width="1.5"/>
+    <rect x="62" y="35" width="16" height="25" style="fill:var(--hue);"/>
+    <line x1="110" y1="50" x2="110" y2="110" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="102" y="60" width="16" height="40" style="fill:var(--hue-d);"/>
+    <line x1="150" y1="15" x2="150" y2="60" style="stroke:var(--hue);" stroke-width="1.5"/>
+    <rect x="142" y="25" width="16" height="25" style="fill:var(--hue);"/>
+    <line x1="190" y1="40" x2="190" y2="100" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="182" y="55" width="16" height="35" style="fill:var(--hue-d);"/>
+    <line x1="230" y1="10" x2="230" y2="55" style="stroke:var(--hue);" stroke-width="1.5"/>
+    <rect x="222" y="18" width="16" height="28" style="fill:var(--hue);"/>
+    <line x1="270" y1="35" x2="270" y2="90" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="262" y="45" width="16" height="32" style="fill:var(--hue-d);"/>
+    <line x1="310" y1="5" x2="310" y2="45" style="stroke:var(--hue);" stroke-width="1.5"/>
+    <rect x="302" y="12" width="16" height="22" style="fill:var(--hue);"/>
+    <line x1="350" y1="25" x2="350" y2="80" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="342" y="35" width="16" height="30" style="fill:var(--hue-d);"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Money Words, Defined: The Terms That Decide What You Pay</h3></div><div class="cc-body"><p>Most financial vocabulary was built by accountants for accountants and never translated. That is not an accident you need to resent, but it is a cost you can stop paying.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../flow.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
   <g filter="url(#artBlur)" opacity="0.7">
     <ellipse cx="70" cy="110" rx="32" ry="9" style="fill:var(--hue-d);"/>
     <ellipse cx="70" cy="98" rx="32" ry="9" style="fill:var(--hue);"/>

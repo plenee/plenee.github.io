@@ -291,6 +291,24 @@ a.ref-link:hover { text-decoration: underline; }
   .volume-section { padding: 48px 20px 8px; }
 }
 
+/* Glossary. A reference page, not prose: the reader is looking something up, so the term
+   is the scannable unit and the definition follows it. Uses the chapter shell unchanged. */
+.gl-jump{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 2.2rem;padding:0;list-style:none}
+.gl-jump a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--border);
+  border-radius:999px;font-size:.85rem;color:var(--muted);text-decoration:none;background:var(--off)}
+.gl-jump a:hover,.gl-jump a:focus-visible{border-color:var(--teal);color:var(--teal-d);background:var(--teal-l)}
+.gl{margin:0 0 2.4rem}
+.gl dt{font-weight:700;color:var(--navy);margin:1.5rem 0 .3rem;scroll-margin-top:5rem}
+.gl dt:first-of-type{margin-top:.6rem}
+.gl dd{margin:0;color:var(--muted);line-height:1.65}
+.gl dd + dt{border-top:1px solid var(--border);padding-top:1.5rem}
+/* Plenee's own vocabulary has fixed casing that must never be "corrected" — mark it so a
+   reader can see at a glance which words are ours and which are the industry's. */
+.gl dt.own::after{content:"Plenee term";margin-left:.6rem;font-size:.7rem;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--teal-d);
+  background:var(--teal-l);padding:.13rem .45rem;border-radius:3px;vertical-align:.13em}
+@media (max-width:640px){.gl dt{margin-top:1.3rem}}
+
 /* v1's stylesheet covers every component here once the markup matches it. Two things are
    genuinely new in v2 and are built from v1's own variables rather than invented: the
    track-membership block (which reuses .takeaway so it reads as the same family) and
@@ -381,7 +399,7 @@ sup.fnref a:hover{text-decoration:underline}
 <h2 id="the-takeaway">The takeaway</h2><div class="subhead-accent"></div>
 <p>The debt trap this track has documented was never a single villain or a single decade. It was a century of separate industries, each solving their own sales problem, compounding into one durable result: debt normalized, glamorised, engineered to look smaller than it is, and stripped of the friction that once made people pause. None of that history is a reason for shame about any debt you're currently carrying — the conditioning was real, deliberate, aimed at everyone, and some of it was never optional. It's the reason the most valuable move available is the one this curriculum has argued for since its first chapter: look directly at your own numbers, on your own terms, before anyone else's marketing — or anyone else's loan structure — gets to define what normal, affordable, or already-yours actually means. What debt costs is never just money. What it's sold against is your freedom to choose. Defend that first.</p>
 <hr>
-<p><em>This is financial information and education, not personalized financial advice.</em></p><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/flooded-with-offers.html">Flooded with offers: how to separate the good from the bad</a> — <span class="why">The pattern was never one villain or one decade. It was assembled, piece by piece.</span></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="renter-society.html"><div class="cn-dir">Previous</div><div class="cn-title">Renting everything? What the subscriptions really total</div></a><a class="cn-link next" href="late-fee-elimination.html"><div class="cn-dir">Next</div><div class="cn-title">Late Fee Elimination: Autopay-in-Full Done Right</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"flooded-with-offers": {"title": "Flooded with offers: how to separate the good from the bad", "pos": 12, "len": 24, "prev": {"slug": "manufacturing-desire", "title": "Wanting things you didn't before? How the desire is manufactured"}, "next": {"slug": "stories-beat-statistics", "title": "Stories Beat Statistics: How Narratives and Marketers Move Your Money"}}}}</script>
+<p><em>This is financial information and education, not personalized financial advice.</em></p><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/flooded-with-offers.html">Flooded with offers: how to separate the good from the bad</a> — <span class="why">The pattern was never one villain or one decade. It was assembled, piece by piece.</span></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="renter-society.html"><div class="cn-dir">Previous</div><div class="cn-title">Renting everything? What the subscriptions really total</div></a><a class="cn-link next" href="late-fee-elimination.html"><div class="cn-dir">Next</div><div class="cn-title">Late Fee Elimination: Autopay-in-Full Done Right</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"flooded-with-offers": {"title": "Flooded with offers: how to separate the good from the bad", "pos": 13, "len": 25, "prev": {"slug": "manufacturing-desire", "title": "Wanting things you didn't before? How the desire is manufactured"}, "next": {"slug": "stories-beat-statistics", "title": "Stories Beat Statistics: How Narratives and Marketers Move Your Money"}}}}</script>
 <script>
 (function(){
   var el=document.getElementById('v2-nav'); if(!el) return;

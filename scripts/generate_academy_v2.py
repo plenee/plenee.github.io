@@ -69,6 +69,24 @@ SRC = _find_src()
 OUT = WEBSITE / "academy2"
 
 V2_STYLE = """
+/* Glossary. A reference page, not prose: the reader is looking something up, so the term
+   is the scannable unit and the definition follows it. Uses the chapter shell unchanged. */
+.gl-jump{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 2.2rem;padding:0;list-style:none}
+.gl-jump a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--border);
+  border-radius:999px;font-size:.85rem;color:var(--muted);text-decoration:none;background:var(--off)}
+.gl-jump a:hover,.gl-jump a:focus-visible{border-color:var(--teal);color:var(--teal-d);background:var(--teal-l)}
+.gl{margin:0 0 2.4rem}
+.gl dt{font-weight:700;color:var(--navy);margin:1.5rem 0 .3rem;scroll-margin-top:5rem}
+.gl dt:first-of-type{margin-top:.6rem}
+.gl dd{margin:0;color:var(--muted);line-height:1.65}
+.gl dd + dt{border-top:1px solid var(--border);padding-top:1.5rem}
+/* Plenee's own vocabulary has fixed casing that must never be "corrected" — mark it so a
+   reader can see at a glance which words are ours and which are the industry's. */
+.gl dt.own::after{content:"Plenee term";margin-left:.6rem;font-size:.7rem;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--teal-d);
+  background:var(--teal-l);padding:.13rem .45rem;border-radius:3px;vertical-align:.13em}
+@media (max-width:640px){.gl dt{margin-top:1.3rem}}
+
 /* v1's stylesheet covers every component here once the markup matches it. Two things are
    genuinely new in v2 and are built from v1's own variables rather than invented: the
    track-membership block (which reuses .takeaway so it reads as the same family) and
@@ -377,7 +395,10 @@ def pager(prev, nxt, depth="") -> str:
 
 
 def chapter_page(slug, ch, tracks, titles, subject_nbrs, subject_name) -> str:
-    body_html, src_html, heads = render_body(ch["body"])
+    if slug == GLOSSARY_SLUG:
+        body_html, src_html, heads = glossary_body(ch["body"]), "", []
+    else:
+        body_html, src_html, heads = render_body(ch["body"])
     # Footnote definitions can carry {{ref:}} too — one chapter cites another's sourcing
     # from inside a note. Resolving only the body left the marker printed in the Sources
     # list, which is the same class of bug as the contents page had.
@@ -516,6 +537,46 @@ def track_page(tslug, tr, titles) -> str:
         + f'<div class="chapters-heading">{len(tr["entries"])} chapters, in this order</div>'
         + grid + "</div>")
     return shell(tr.get("title", tslug), body, "../../", "../", f"tracks/{tslug}.html")
+
+
+GLOSSARY_SLUG = "money-words-defined"
+_GL_TERM = re.compile(r'^\*\*(?P<term>[^*]+)\*\*\s+—\s+(?P<def>.+)$')
+
+
+def glossary_body(md: str) -> str:
+    """Render **term** — definition lines as a real <dl>, with a jump bar for the groups.
+
+    A glossary is looked up, not read through, so the term has to be the scannable unit
+    and each one needs a stable anchor other chapters can link to."""
+    groups, cur = [], None
+    for ln in md.split("\n"):
+        if ln.startswith("## "):
+            cur = {"title": ln[3:].strip(), "id": anchor(ln[3:].strip()), "items": [], "intro": []}
+            groups.append(cur)
+        elif cur is not None:
+            m = _GL_TERM.match(ln.strip())
+            if m:
+                cur["items"].append((m.group("term").strip(), m.group("def").strip()))
+            elif ln.strip() and not ln.startswith("#"):
+                if not cur["items"]:
+                    cur["intro"].append(ln.strip())
+                else:
+                    t, d = cur["items"][-1]
+                    cur["items"][-1] = (t, d + " " + ln.strip())
+    groups = [g for g in groups if g["items"]]
+    own = {g["id"] for g in groups if "plenee uses" in g["title"].lower()}
+    out = ['<ul class="gl-jump">' + "".join(
+        f'<li><a href="#{g["id"]}">{esc(g["title"])}</a></li>' for g in groups) + "</ul>"]
+    for g in groups:
+        out.append(f'<h2 id="{g["id"]}">{esc(g["title"])}</h2><div class="subhead-accent"></div>')
+        for para in g["intro"]:
+            out.append(f"<p>{inline(para)}</p>")
+        cls = " class=\"own\"" if g["id"] in own else ""
+        rows = "".join(
+            f'<dt id="term-{anchor(t)}"{cls}>{inline(t)}</dt><dd>{inline(d)}</dd>'
+            for t, d in g["items"])
+        out.append(f'<dl class="gl">{rows}</dl>')
+    return "".join(out)
 
 
 def contents_page(md, titles) -> str:

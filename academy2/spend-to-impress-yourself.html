@@ -291,6 +291,24 @@ a.ref-link:hover { text-decoration: underline; }
   .volume-section { padding: 48px 20px 8px; }
 }
 
+/* Glossary. A reference page, not prose: the reader is looking something up, so the term
+   is the scannable unit and the definition follows it. Uses the chapter shell unchanged. */
+.gl-jump{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 2.2rem;padding:0;list-style:none}
+.gl-jump a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--border);
+  border-radius:999px;font-size:.85rem;color:var(--muted);text-decoration:none;background:var(--off)}
+.gl-jump a:hover,.gl-jump a:focus-visible{border-color:var(--teal);color:var(--teal-d);background:var(--teal-l)}
+.gl{margin:0 0 2.4rem}
+.gl dt{font-weight:700;color:var(--navy);margin:1.5rem 0 .3rem;scroll-margin-top:5rem}
+.gl dt:first-of-type{margin-top:.6rem}
+.gl dd{margin:0;color:var(--muted);line-height:1.65}
+.gl dd + dt{border-top:1px solid var(--border);padding-top:1.5rem}
+/* Plenee's own vocabulary has fixed casing that must never be "corrected" — mark it so a
+   reader can see at a glance which words are ours and which are the industry's. */
+.gl dt.own::after{content:"Plenee term";margin-left:.6rem;font-size:.7rem;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--teal-d);
+  background:var(--teal-l);padding:.13rem .45rem;border-radius:3px;vertical-align:.13em}
+@media (max-width:640px){.gl dt{margin-top:1.3rem}}
+
 /* v1's stylesheet covers every component here once the markup matches it. Two things are
    genuinely new in v2 and are built from v1's own variables rather than invented: the
    track-membership block (which reuses .takeaway so it reads as the same family) and
@@ -369,7 +387,7 @@ sup.fnref a:hover{text-decoration:underline}
 <h2 id="where-plenee-fits">Where Plenee fits</h2><div class="subhead-accent"></div>
 <p>Plenee doesn't grade your categories — no morality tags on dining or travel, no applause for austerity. It shows you the allocation: what you actually funded, in what proportions, against your own history. Whether the allocation matches <em>your</em> values is a judgment only you can make — and the only one that matters. The tool's job is making the allocation visible enough that the judgment is possible; the smuggled-values business is left to other people's budgets.</p>
 <h2 id="the-takeaway">The takeaway</h2><div class="subhead-accent"></div>
-<p>There is no universal good spend — there's only alignment between your money and your honest joys. Fund what you love without apology; cut the meh without mercy; let the savings rate be a pleasure if it genuinely is one; and ignore anyone's formula — including this one — that argues with your honest joy. The budget that survives is the one with your actual life in it.</p><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/flooded-with-offers.html">Flooded with offers: how to separate the good from the bad</a> — <span class="why">The same purchase can be right for one person and waste for another. The test that separates them.</span></li></ol></div><div class="sources"><div class="src-title">Sources</div><ol><li id="fn1">Morgan Housel, <em>The Art of Spending Money: Simple Choices for a Richer Life</em> (2025) — argues there's no universal formula for good spending; contentment comes from spending on what genuinely delivers for the individual, savings-as-pleasure included. --- <a href="#r1">&#8617;</a></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="spending-as-a-mirror.html"><div class="cn-dir">Previous</div><div class="cn-title">Not sure where it goes? Your spending already says</div></a><a class="cn-link next" href="time-over-luxury.html"><div class="cn-dir">Next</div><div class="cn-title">Time Over Luxury: The Highest Dividend Money Pays</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"flooded-with-offers": {"title": "Flooded with offers: how to separate the good from the bad", "pos": 23, "len": 24, "prev": {"slug": "spending-as-a-mirror", "title": "Not sure where it goes? Your spending already says"}, "next": {"slug": "five-ways-to-outsmart-yourself", "title": "Five Ways to Outsmart Your Own Money Habits"}}}}</script>
+<p>There is no universal good spend — there's only alignment between your money and your honest joys. Fund what you love without apology; cut the meh without mercy; let the savings rate be a pleasure if it genuinely is one; and ignore anyone's formula — including this one — that argues with your honest joy. The budget that survives is the one with your actual life in it.</p><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/flooded-with-offers.html">Flooded with offers: how to separate the good from the bad</a> — <span class="why">The same purchase can be right for one person and waste for another. The test that separates them.</span></li></ol></div><div class="sources"><div class="src-title">Sources</div><ol><li id="fn1">Morgan Housel, <em>The Art of Spending Money: Simple Choices for a Richer Life</em> (2025) — argues there's no universal formula for good spending; contentment comes from spending on what genuinely delivers for the individual, savings-as-pleasure included. --- <a href="#r1">&#8617;</a></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="spending-as-a-mirror.html"><div class="cn-dir">Previous</div><div class="cn-title">Not sure where it goes? Your spending already says</div></a><a class="cn-link next" href="time-over-luxury.html"><div class="cn-dir">Next</div><div class="cn-title">Time Over Luxury: The Highest Dividend Money Pays</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"flooded-with-offers": {"title": "Flooded with offers: how to separate the good from the bad", "pos": 24, "len": 25, "prev": {"slug": "spending-as-a-mirror", "title": "Not sure where it goes? Your spending already says"}, "next": {"slug": "five-ways-to-outsmart-yourself", "title": "Five Ways to Outsmart Your Own Money Habits"}}}}</script>
 <script>
 (function(){
   var el=document.getElementById('v2-nav'); if(!el) return;
