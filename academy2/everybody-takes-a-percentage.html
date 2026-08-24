@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Three Percentages on One Medical Bill: Which One You Control — Plenee Academy</title>
+<link rel="canonical" href="https://plenee.com/academy2/everybody-takes-a-percentage.html">
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:    #0C1929;
+  --navy2:   #152236;
+  --teal:    #0FA8BC;
+  --teal-d:  #0A8A9E;
+  --teal-l:  #E6F7FA;
+  --orange:  #E87722;
+  --orange-l:#FFF4EC;
+  --white:   #FFFFFF;
+  --off:     #F6F9FB;
+  --text:    #0C1929;
+  --muted:   #4E6175;
+  --light:   #8A9EB0;
+  --border:  #DDE8F0;
+  --green:   #1E9E5E;
+  --green-l: #E8FAF2;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+nav {
+  position: sticky; top: 0; z-index: 300;
+  background: #0C1929;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  height: 72px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+}
+.nav-logo { display: flex; align-items: center; height: 100%; line-height: 0; }
+.nav-logo img { height: 100%; display: block; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { color: #B6C6D6; text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--teal); }
+.nav-links a.active { color: var(--teal); }
+.nav-toggle { display: none; background: none; border: none; color: #fff; cursor: pointer; padding: 8px; align-items: center; justify-content: center; }
+
+footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.07); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+footer p { color: #2E4A60; font-size: 13px; }
+.fl a { color: #2E4A60; font-size: 13px; text-decoration: none; margin-left: 24px; transition: color .2s; }
+.fl a:hover { color: var(--teal); }
+
+#disclaimer-strip { background: var(--off); border-top: 1px solid var(--border); padding: 16px 48px; text-align: center; }
+#disclaimer-strip p { font-size: 12px; color: var(--light); line-height: 1.6; max-width: 900px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 56px; }
+  .nav-toggle { display: flex; }
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; background: #0C1929; border-bottom: 1px solid rgba(255,255,255,.08); padding: 4px 20px 10px; }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.06); font-size: 12px; white-space: nowrap; }
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .fl a { margin-left: 0; margin-right: 20px; }
+}
+
+
+/* ─── PAGE HEADER ─── */
+.page-header { background: var(--navy); padding: 64px 48px 52px; text-align: center; }
+.page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
+.page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
+.page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+/* Track-index-only: the parenthetical part of a track's title (e.g. "(The
+   Systemic Conditioning of Americans)") shown as its own line under the h1,
+   rather than crowding the h1 itself or every breadcrumb/nav mention. */
+.header-subtitle { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(15px,2vw,19px); font-weight: 400; color: #7A9AB5; line-height: 1.4; margin-top: -6px; margin-bottom: 14px; }
+/* Landing-page-only: "Plenee" set large (matching the h1 below), the
+   "Academy" pill sitting underneath it rather than "Plenee Academy" both
+   inside one small chip. */
+.landing-brand { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 18px; }
+
+/* ─── BREADCRUMB ─── */
+.crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
+.crumb a { color: var(--muted); text-decoration: none; }
+.crumb a:hover { color: var(--teal); }
+
+/* ─── CHAPTER PAGE ─── */
+.chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
+.chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 14px; }
+.chapter-title-subtitle { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(16px,2vw,20px); font-weight: 400; color: var(--muted); line-height: 1.35; margin-bottom: 14px; }
+.chapter-accent { width: 56px; height: 3px; border-radius: 2px; background: var(--teal); margin-bottom: 28px; }
+
+.jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
+.jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.jump-list ol { padding-left: 18px; }
+.jump-list li { margin-bottom: 6px; }
+.jump-list a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
+.jump-list a:hover { color: var(--teal); }
+
+.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 6px; }
+.subhead-accent { width: 200px; height: 1px; background: var(--orange); margin-bottom: 20px; }
+.chapter-body p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 20px; }
+.chapter-body p strong { color: var(--text); font-weight: 700; }
+.chapter-body p em { color: var(--text); font-style: italic; }
+.chapter-body sup { font-size: 11px; margin-left: 1px; }
+.chapter-body sup a { color: var(--teal-d); text-decoration: none; font-weight: 700; }
+.chapter-body sup a:hover { text-decoration: underline; }
+a.ref-link { color: var(--teal-d); font-weight: 400; text-decoration: none; }
+a.ref-link:hover { text-decoration: underline; }
+
+.takeaway { background: var(--teal-l); border-left: 4px solid var(--teal); border-radius: 0 14px 14px 0; padding: 26px 30px; margin: 44px 0 8px; }
+.takeaway .tk-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 10px; }
+.takeaway p { color: var(--text); font-size: 16px; line-height: 1.75; margin-bottom: 0; font-weight: 500; }
+
+.sources { margin: 36px 0 8px; padding-top: 24px; border-top: 1px solid var(--border); }
+.sources .src-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 14px; }
+.sources ol { padding-left: 20px; }
+.sources li { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 10px; }
+.sources li a { color: var(--teal-d); text-decoration: none; margin-left: 4px; }
+.sources li a:hover { text-decoration: underline; }
+
+.chapter-nav { max-width: 760px; margin: 0 auto; padding: 8px 48px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cn-link { display: block; border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 22px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.cn-link:hover { border-color: var(--teal); transform: translateY(-2px); }
+.cn-link.next { text-align: right; }
+.cn-dir { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); margin-bottom: 6px; }
+.cn-title { font-size: 15px; font-weight: 700; color: var(--navy); line-height: 1.4; }
+.cn-empty { visibility: hidden; }
+
+/* ─── TRACK INDEX ─── */
+.track-wrap { max-width: 1080px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapters-heading { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 18px; }
+.chapter-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.chap-card {
+  --hue: var(--teal); --hue-l: var(--teal-l); --hue-d: var(--teal-d);
+  display: flex; flex-direction: column;
+  border: 1.5px solid var(--border); border-radius: 18px; overflow: hidden;
+  text-decoration: none; background: #fff;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.chap-card:hover { border-color: var(--hue); transform: translateY(-3px); box-shadow: 0 14px 34px rgba(12,25,41,.09); }
+.cc-tile { height: 132px; position: relative; overflow: hidden; background: var(--hue-l); }
+.cc-art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cc-art .grain { mix-blend-mode: multiply; opacity: .5; }
+.cc-body { padding: 22px 24px 20px; display: flex; flex-direction: column; flex: 1; }
+.cc-body h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 18px; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 10px; }
+.cc-body p { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; flex: 1; }
+.cc-cta { font-size: 13px; font-weight: 700; letter-spacing: .2px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--hue-d); }
+.cc-cta svg { width: 14px; height: 14px; transition: transform .2s; }
+.chap-card:hover .cc-cta svg { transform: translateX(3px); }
+
+@media (max-width: 860px) {
+  .chapter-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── ACADEMY SEARCH ─── */
+/* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
+   (built + verified 2026-07-18 by a concurrent session). Listing pages only
+   (Academy index + each track index) -- never on individual chapter pages. */
+.academy-search-wrap { max-width: 620px; margin: 0 auto; padding: 0 48px; position: relative; }
+.academy-search-box { position: relative; }
+.academy-search-box svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--light); pointer-events: none; }
+.academy-search-input { width: 100%; font-family: inherit; font-size: 16px; color: var(--text); background: #fff; border: 1.5px solid var(--border); border-radius: 12px; padding: 15px 18px 15px 48px; outline: none; transition: border-color .2s, box-shadow .2s; }
+.academy-search-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(15,168,188,0.12); }
+.search-results { margin-top: 14px; display: none; flex-direction: column; gap: 10px; }
+.search-results.open { display: flex; }
+.search-hit { display: block; border: 1.5px solid var(--border); border-radius: 12px; padding: 16px 18px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.search-hit:hover { border-color: var(--teal); transform: translateY(-1px); }
+.search-hit .sh-track { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 5px; }
+.search-hit .sh-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; line-height: 1.4; }
+.search-hit .sh-snippet { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.search-hit mark { background: var(--teal-l); color: var(--teal-d); border-radius: 3px; padding: 0 2px; font-weight: 700; }
+.search-empty { font-size: 14px; color: var(--light); text-align: center; padding: 18px 0; display: none; }
+.search-empty.open { display: block; }
+.search-count { font-size: 12px; color: var(--light); margin-top: 12px; text-align: center; display: none; }
+.search-count.open { display: block; }
+.track-search-wrap { max-width: 720px; margin: 32px auto 0; padding: 0 48px; }
+.track-search-wrap .academy-search-wrap { padding: 0; max-width: none; }
+
+/* ─── OVERVIEW (track index pages) ─── */
+/* Widened to match the chapter-card grid below it (.track-wrap, 1080px) and
+   split its two paragraphs into side-by-side columns when there's room;
+   collapses to a single stacked column at the same breakpoint the card grid
+   itself collapses at, so the two never disagree about "narrow." */
+.overview-wrap { max-width: 1080px; margin: 0 auto; padding: 32px 48px 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 40px; }
+.overview-wrap p { font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 18px; }
+.overview-wrap p:last-child { margin-bottom: 0; }
+@media (max-width: 860px) {
+  .overview-wrap { grid-template-columns: 1fr; }
+}
+
+/* ─── DATA CHART (ACADEMY_PUBLISHING_INSTRUCTIONS.md §8a) ─── */
+.data-chart { max-width: 720px; margin: 40px auto; padding: 0 48px; }
+.dc-headline { font-family: Georgia, 'Times New Roman', serif; font-size: 36px; font-weight: 700; color: var(--navy); letter-spacing: -.5px; }
+.dc-subtitle { font-size: 13px; color: var(--muted); margin-top: 4px; margin-bottom: 20px; }
+.dc-divider { border-top: 1px solid var(--border); margin: 16px 0; }
+.dc-rows { display: flex; flex-direction: column; gap: 16px; }
+.dc-row-top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 2px 12px; margin-bottom: 6px; }
+.dc-row-label { font-size: 14px; color: var(--navy); }
+.dc-row-value { font-size: 14px; font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dc-bar-track { height: 10px; border-radius: 5px; overflow: hidden; }
+.dc-bar-track.teal { background: var(--teal-l); }
+.dc-bar-track.orange { background: var(--orange-l); }
+.dc-bar-fill { height: 100%; border-radius: 5px; }
+.dc-bar-fill.teal { background: var(--teal); }
+.dc-bar-fill.orange { background: var(--orange); }
+.dc-legend { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 4px; }
+.dc-legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+.dc-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.dc-swatch.teal { background: var(--teal); }
+.dc-swatch.orange { background: var(--orange); }
+.dc-caption { font-size: 12px; color: var(--light); margin-top: 18px; line-height: 1.6; }
+
+/* ─── SHARED CONCEPT DIAGRAM (ACADEMY_PUBLISHING_INSTRUCTIONS.md §8b) ─── */
+.concept-diagram { max-width: 720px; margin: 32px auto; padding: 0 48px; }
+.concept-diagram svg { width: 100%; height: auto; display: block; }
+.cd-caption { font-size: 12px; color: var(--light); text-align: center; margin-top: 12px; }
+
+/* ─── ACADEMY LANDING PAGE ─── */
+.academy-pullquote { text-align: center; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 19px; color: var(--navy); max-width: 560px; margin: 28px auto 0; padding: 0 48px; line-height: 1.5; }
+
+.landing-overview {
+  max-width: 1080px; margin: 44px auto 0; padding: 0 48px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center;
+}
+.landing-overview-logo { display: flex; align-items: center; justify-content: center; }
+.landing-overview-logo svg { width: 100%; max-width: 224px; height: auto; display: block; }
+/* #overview-needle's rotation is applied as a native SVG transform attribute
+   (via JS), not a CSS transform -- that pivots reliably at SVG-space (0,0),
+   the pivot/hub position, matching how the source logo's own static
+   transform="rotate(43)" already worked. CSS transform-origin tricks on SVG
+   (transform-box: view-box, etc.) proved inconsistent across browsers. */
+.landing-overview p { font-size: 16px; color: var(--muted); line-height: 1.75; margin: 0; }
+
+.volume-section { max-width: 1080px; margin: 0 auto; padding: 64px 48px 8px; }
+.volume-section + .volume-section { padding-top: 12px; }
+.volume-kicker { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+.volume-section.v1 .volume-kicker { color: var(--teal-d); }
+.volume-section.v2 .volume-kicker { color: #17434F; }
+.volume-h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(26px,3.2vw,36px); font-weight: 700; color: var(--navy); letter-spacing: -.5px; margin-bottom: 8px; }
+.volume-sub { color: var(--muted); font-size: 16px; margin-bottom: 40px; max-width: 620px; }
+
+/* Each card sets its own --hue/--hue-l/--hue-d inline (see TRACK_HUES: the 6
+   thematic groups -- Foundations=teal, Know-your-opponent=orange,
+   Flywheel=gold, Life admin=slate, Protection/crisis=rose, Psychology=indigo). */
+.track-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 8px; }
+.track-card {
+  --hue: var(--teal); --hue-l: var(--teal-l); --hue-d: var(--teal-d);
+  display: flex; flex-direction: column;
+  border: 1.5px solid var(--border); border-radius: 18px; overflow: hidden;
+  text-decoration: none; background: #fff;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.track-card:hover { border-color: var(--hue); transform: translateY(-3px); box-shadow: 0 14px 34px rgba(12,25,41,.09); }
+
+.tc-tile { height: 108px; display: flex; align-items: center; justify-content: center; position: relative; background: var(--hue-l); }
+.tc-tile svg { width: 44px; height: 44px; color: var(--hue-d); }
+.tc-num {
+  position: absolute; top: 14px; right: 16px;
+  font-family: Georgia, serif; font-weight: 700; font-size: 13px;
+  padding: 3px 10px; border-radius: 100px; background: rgba(255,255,255,.6);
+  color: var(--hue-d);
+}
+
+.tc-body { padding: 24px 26px 22px; display: flex; flex-direction: column; flex: 1; }
+.tc-body h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 19px; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 2px; }
+.tc-subtitle { font-family: Georgia, 'Times New Roman', serif; font-size: 13px; font-style: italic; color: var(--muted); margin-bottom: 10px; }
+.tc-body p { font-size: 14.5px; color: var(--muted); line-height: 1.65; margin-bottom: 18px; flex: 1; }
+.tc-cta { font-size: 13px; font-weight: 700; letter-spacing: .2px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--hue-d); }
+.tc-cta svg { width: 14px; height: 14px; transition: transform .2s; }
+.track-card:hover .tc-cta svg { transform: translateX(3px); }
+
+@media (max-width: 860px) {
+  .track-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .academy-pullquote { padding: 0 20px; }
+  .page-header { padding: 44px 20px 36px; }
+  .crumb { padding: 0 20px; }
+  .chapter-wrap { padding: 32px 20px 16px; }
+  .chapter-nav { grid-template-columns: 1fr; padding: 8px 20px 48px; }
+  .cn-link.next { text-align: left; }
+  .track-wrap { padding: 40px 20px 64px; }
+  .academy-search-wrap { padding: 0 20px; }
+  .track-search-wrap { padding: 0 20px; }
+  .overview-wrap { padding: 24px 20px 8px; }
+  .data-chart { padding: 0 20px; }
+  .concept-diagram { padding: 0 20px; }
+  .landing-overview { padding: 0 20px; grid-template-columns: 1fr; text-align: center; }
+  .landing-overview-logo svg { max-width: 96px; }
+  .volume-section { padding: 48px 20px 8px; }
+}
+
+/* v1's stylesheet covers every component here once the markup matches it. Two things are
+   genuinely new in v2 and are built from v1's own variables rather than invented: the
+   track-membership block (which reuses .takeaway so it reads as the same family) and
+   tables, which v1 has no rules for because v1 chapters contain none. */
+.alsoin ol{margin:.5rem 0 0;padding-left:1.15rem}
+.alsoin li{margin:.4rem 0;color:var(--muted)}
+.alsoin li a{color:var(--teal-d);font-weight:600;text-decoration:none}
+.alsoin li a:hover{text-decoration:underline}
+.ctx{display:flex;gap:.7rem;align-items:baseline;flex-wrap:wrap}
+.ctx .pos{color:var(--light);font-variant-numeric:tabular-nums}
+.v2-scroll{overflow-x:auto;margin:1.6rem 0;-webkit-overflow-scrolling:touch}
+table.v2{border-collapse:collapse;width:100%;font-size:.94rem;color:var(--text)}
+table.v2 th,table.v2 td{border-bottom:1px solid var(--border);padding:.6rem .7rem;
+  text-align:left;vertical-align:top}
+table.v2 thead th{background:var(--off);color:var(--navy);font-weight:600;
+  border-bottom:2px solid var(--border);white-space:nowrap}
+table.v2 tbody tr:last-child td{border-bottom:none}
+.chap-card .cc-tile{position:relative}
+.chap-card .cc-title{position:absolute;left:0;right:0;bottom:0;margin:0;padding:2.2rem 1.15rem .9rem;
+  font-family:Georgia,'Times New Roman',serif;font-size:1.12rem;line-height:1.25;color:#fff;
+  text-shadow:0 1px 14px rgba(0,0,0,.55);
+  background:linear-gradient(to top,rgba(12,25,41,.88) 0%,rgba(12,25,41,.62) 45%,rgba(12,25,41,0) 100%)}
+.chap-card .cc-body p{margin:0 0 1rem}
+sup.fnref a{color:var(--teal-d);text-decoration:none;font-weight:600;padding:0 .1em}
+sup.fnref a:hover{text-decoration:underline}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../Logo%20-%20Plenee_Navigator_v2.svg" alt="Plenee Navigator">
+  </a>
+  <div class="nav-links" id="nav-links">
+    <a href="../index.html#how">How it works</a>
+    <a href="../index.html#features-start">Features</a>
+    <a href="../academy/index.html">Academy</a>
+    <a href="../academy2/index.html">Academy2</a>
+    <a href="../index.html#fid">Our Promise</a>
+  </div>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+<script>
+(function(){
+  var toggle = document.getElementById('nav-toggle');
+  var links = document.getElementById('nav-links');
+  if (!toggle || !links) return;
+  toggle.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+})();
+</script>
+
+<div class="crumb"><a href="index.html">Academy</a><span>&rsaquo;</span><span>Three Percentages on One Medical Bill: Which One You Control</span><span style="margin-left:auto"></span><a href="contents.html">Everything by subject</a></div><div class="chapter-wrap"><div class="chapter-eyebrow ctx" id="v2-ctx">How things get sold</div><h1>Three Percentages on One Medical Bill: Which One You Control</h1><div class="chapter-accent"></div><div class="jump-list"><div class="jl-title">In this chapter</div><ol><li><a href="#what-happens-to-a-firm-s-income-when-its-cut-is-capped-at-20">What happens to a firm's income when its cut is capped at 20%</a></li><li><a href="#what-share-of-a-settlement-the-lawyer-actually-takes">What share of a settlement the lawyer actually takes</a></li><li><a href="#why-the-number-the-jury-starts-from-is-not-a-number-anyone-p">Why the number the jury starts from is not a number anyone paid</a></li><li><a href="#why-verdict-headlines-are-a-poor-guide-to-what-claims-cost">Why verdict headlines are a poor guide to what claims cost</a></li><li><a href="#why-the-insurer-s-margin-is-written-as-a-percentage-of-the-b">Why the insurer's margin is written as a percentage of the bill — and why that has not turned into profit</a></li><li><a href="#what-a-one-way-fee-statute-does-to-the-decision-to-fight">What a one-way fee statute does to the decision to fight</a></li><li><a href="#what-a-margin-cap-on-health-insurers-did-and-did-not-reach">What a margin cap on health insurers did and did not reach</a></li><li><a href="#what-to-do-about-it">What to do about it</a></li><li><a href="#where-plenee-fits">Where Plenee fits</a></li><li><a href="#the-short-version">The short version</a></li></ol></div><div class="chapter-body"><h2 id="what-happens-to-a-firm-s-income-when-its-cut-is-capped-at-20">What happens to a firm's income when its cut is capped at 20%</h2><div class="subhead-accent"></div>
+<p>Start with arithmetic rather than anyone's motives.</p>
+<p>Say a rule tells a firm it may keep at most twenty cents of every dollar it charges. The rest has to go on the thing the customer is buying. That looks like a limit, and it is one. The firm can never keep more than a fifth.</p>
+<p>Now let the underlying cost double. Eighty cents becomes a dollar sixty, and the price rises to two dollars. The firm still keeps a fifth. But a fifth of two dollars is forty cents. The percentage held. The income doubled.</p>
+<p>That is the chapter in one paragraph. <strong>A rule that caps a firm's take as a percentage of what it charges makes that firm's income a function of the cost it was meant to control.</strong></p>
+<p>The point is not contested. In health insurance the rule "limits the percentage of insurers' income from premiums, though not the total dollar amount, that they can retain as profits."<sup class="fnref" id="r1"><a href="#fn1">1</a></sup> It caps margins, not levels.<sup class="fnref"><a href="#fn1">1</a></sup></p>
+<p>Three percentages in the injury system are written this way. It is worth being exact about what each one sits on. The lawyer takes a share of the recovery, which is paid by the at-fault driver's insurer. The car insurer's rate divides expected losses, claim-handling costs and fixed expenses by one minus two percentages — expenses that vary with premium, and target profit — so the permitted profit is a mark-up on the loss cost.<sup class="fnref" id="r2"><a href="#fn2">2</a></sup> The health insurer must spend at least a fixed share of premium on care, which caps what it may keep at a fixed share.<sup class="fnref"><a href="#fn1">1</a></sup></p>
+<p>Three different bases, and three different payers. What they share is an input. The medical bill sits inside all three.</p>
+<p><strong>Where the geometry holds, and where it does not.</strong> Doubling the loss cost doubles the permitted profit dollars. It also roughly doubles the premium written and the reserves held, and a car insurer's required capital scales with both. Profit dollars up, capital up, return on capital roughly unchanged. So the incentive is strongest where the input does not scale. The lawyer's hours do not double when the recovery doubles. A health insurer's administrative cost does not rise one-for-one with claims. The clean case in car insurance is not the profit provision at all. It is the agent's commission — "typically … paid as a percentage of premium written," with no capital standing behind it.<sup class="fnref"><a href="#fn2">2</a></sup></p>
+<p>One more difference matters. The lawyer's share is a contractual percentage of money actually received. The insurer's is an assumption inside a rate filed before the losses happen. When losses come in above expected, the insurer's profit falls rather than rises.</p>
+<p><strong>One honest limit before going on.</strong> The arithmetic is not in dispute. It follows from formulas the industries publish. Whether it changes behavior is a different question. In health insurance the effect has been measured. In car insurance this research found no property-casualty source drawing the conclusion in print, and one legal scholar arguing that it does not carry across: health insurers negotiate the prices they pay providers, and car insurers do not, so the effect measured in health insurance may be specific to health insurance.<sup class="fnref" id="r3"><a href="#fn3">3</a></sup> That is a strong argument. On this one point the contrary view is currently better supported than this chapter's. Read the arithmetic as established and the incentive as an argument.</p>
+<p>What follows takes each of the three in turn, and then the two places where the arithmetic is most visible: a fee statute that made fighting a claim more expensive than settling it, and a margin cap that did exactly what the first section describes.</p>
+<h2 id="what-share-of-a-settlement-the-lawyer-actually-takes">What share of a settlement the lawyer actually takes</h2><div class="subhead-accent"></div>
+<p>Florida is one of very few states anywhere that puts numbers in its fee rule. Of the seven southern states checked here, every other one uses a bare reasonableness standard, with no percentage anywhere.<sup class="fnref" id="r4"><a href="#fn4">4</a></sup></p>
+<p>The scale runs 33⅓% of the first million, rising to 40% once the defendant files an answer. Above a million it drops to 30%, and above two million to 20%.<sup class="fnref"><a href="#fn4">4</a></sup> Three things about it get routinely misdescribed.</p>
+<p><strong>It is not a cap.</strong> The rule says a fee above those levels is "presumed, unless rebutted, to be clearly excessive," and a client may petition a court to approve more.<sup class="fnref"><a href="#fn4">4</a></sup></p>
+<p><strong>The step to 40% is triggered by the defendant's answer</strong>, not by the plaintiff filing.<sup class="fnref"><a href="#fn4">4</a></sup> The claimant does not control it and may never be told it happened.</p>
+<p><strong>The headline overstates the take.</strong> On a $1.5 million recovery after an answer the fee is $400,000 plus $150,000 — 36.7% blended, not 40%.</p>
+<p>Two deductions then matter more to the household than the percentage does.</p>
+<p><strong>The costs ordering.</strong> All seven states checked here require the agreement to say whether case expenses come out before or after the fee. None says which.<sup class="fnref" id="r5"><a href="#fn5">5</a></sup> On a $90,000 recovery with $15,000 of costs at 33⅓%, costs first leaves the client $50,000 and fee first leaves $45,000. A $5,000 swing decided by one sentence.</p>
+<p><strong>The liens.</strong> Medicare shares the cost of recovery in proportion. But where its payments equal or exceed the settlement, the lawyer and the costs are paid in full and the claimant's share is zero.<sup class="fnref" id="r6"><a href="#fn6">6</a></sup> Florida Medicaid presumes 37.5% of the whole recovery is medical.<sup class="fnref"><a href="#fn6">6</a></sup> A well-drafted employer health plan can recover in full with no contribution to the fee — so the household funds the entire legal cost of recovering money that goes to the plan.<sup class="fnref"><a href="#fn6">6</a></sup></p>
+<p>This research found no measurement of what share of the system's money reaches claimants. The familiar figure of roughly half comes from a business-funded study that estimates claimant legal costs as defense costs times four-thirds, using a ratio from cases ending in 1985; the 2024 edition dropped the estimate. The best-pedigreed figure is <em>higher</em> — about 57%, from a state regulator's mandatory closed-claim database.<sup class="fnref" id="r7"><a href="#fn7">7</a></sup> The document that would settle it exists in every Florida file. It is the closing statement, and no bar located here aggregates them.<sup class="fnref"><a href="#fn7">7</a></sup></p>
+<h2 id="why-the-number-the-jury-starts-from-is-not-a-number-anyone-p">Why the number the jury starts from is not a number anyone paid</h2><div class="subhead-accent"></div>
+<p>Two numbers reach a jury that nobody ever paid.</p>
+<p>The first is the demand. A $5,000,000 lump-sum demand raised the average award by about $1.37 million against no demand — a 276% increase on a baseline of $496,389, in a controlled experiment.<sup class="fnref" id="r8"><a href="#fn8">8</a></sup> Read the denominator: the effect is measured on the mock jurors who found liability, not on everyone recruited, and awards above $5 million were compressed down to $5 million, so the top of the range is truncated.<sup class="fnref"><a href="#fn8">8</a></sup></p>
+<p>The same experiment tested the argument lawyers are most often accused of: breaking a lifetime of pain into minutes and pricing each one. On the size of the award it found nothing significant. The same test did find the argument moved whether the plaintiff won at all, and its authors report that null as underpowered rather than as a zero.<sup class="fnref"><a href="#fn8">8</a></sup> Several state supreme courts banned the argument in the 1960s, one calling it "an illusion of certainty" producing "any amount that the imagination of counsel deems advantageous." Others expressly permitted it, and the state that led the ban later reversed itself.<sup class="fnref" id="r9"><a href="#fn9">9</a></sup> What moves the number is the plain large demand.</p>
+<p><strong>And the effect is far weaker in real courtrooms.</strong> Before real deliberating juries in 31 cases, jurors were critical consumers of demands, reacted more negatively to pain-and-suffering figures than to requests grounded in evidence, and extreme demands "may not exert substantial undue influence."<sup class="fnref" id="r10"><a href="#fn10">10</a></sup> Awards also have structure. Injury severity predicts them strongly and repeatedly.<sup class="fnref"><a href="#fn10">10</a></sup></p>
+<p>The reason a number in the air has purchase at all is a vacancy, not a trick. From a federal appellate court: "There is no rational scale that justifies the award of any particular amount, as opposed to some very different amount, in compensation for a particular quantum of pain."<sup class="fnref" id="r11"><a href="#fn11">11</a></sup> Georgia's 2025 statute codifies the same idea, calling the measure "the enlightened conscience of an impartial jury."<sup class="fnref"><a href="#fn11">11</a></sup> Juries are generally not allowed to hear what comparable cases produced.<sup class="fnref"><a href="#fn11">11</a></sup> So the only number in the room is the one counsel supplies.</p>
+<p>The second number nobody paid is the medical bill. Three measurements circulate and they answer three different questions. Hospital charges ran about 3.4 times Medicare-allowable costs in 2012. Private health plans actually paid about 254% of Medicare rates in 2022. And in one California case the bills came to $189,978.63 while providers accepted $59,691.73 as payment in full.<sup class="fnref" id="r12"><a href="#fn12">12</a></sup> Only the third has the right shape, and its sample is one case. This research reached no measured distribution of billed against accepted amounts for the injury system.</p>
+<p>Florida and Georgia both legislated here, differently. Florida limits evidence of satisfied past medical damages to "the amount actually paid, regardless of the source of payment," with benchmarks of 120% of Medicare for unpaid charges of uninsured or publicly insured claimants — while keeping billed amounts admissible alongside them.<sup class="fnref" id="r13"><a href="#fn13">13</a></sup> Georgia set no benchmark and sends both numbers to the jury.<sup class="fnref"><a href="#fn13">13</a></sup> Both forced disclosure of what a bill was really sold for, including the price a debt buyer paid; Florida overrides lawyer-client privilege where the claimant's own lawyer made the referral.<sup class="fnref"><a href="#fn13">13</a></sup> Both reached for case-by-case discovery. Neither had a measured distribution to set a benchmark against.</p>
+<h2 id="why-verdict-headlines-are-a-poor-guide-to-what-claims-cost">Why verdict headlines are a poor guide to what claims cost</h2><div class="subhead-accent"></div>
+<p>This section is load-bearing, not defensive. A chapter arguing everyone takes a percentage of an inflated number cannot itself rest on an inflated number.</p>
+<p>Almost nothing reaches a verdict. In the last national random-sample measurement, about 4% of tort dispositions were resolved by trial.<sup class="fnref" id="r14"><a href="#fn14">14</a></sup> Everything reported as a verdict comes from that 4%, and cases reach trial precisely when the two sides disagree most.</p>
+<p>Inside that 4% the median is small. Half of plaintiffs who <strong>won at trial</strong> were awarded $24,000 or less; for auto accident cases the median was $15,000.<sup class="fnref"><a href="#fn14">14</a></sup> Read the denominator carefully. That is the median among winners at trial — roughly half of the 4% that got there — not the median outcome of a claim, which is lower. It is also in 2005 dollars, and general prices have risen by more than half since, so it cannot be set against the 2022 claim averages later in this chapter.</p>
+<p>The direction of travel is downward. Adjusted for inflation, median jury awards in the largest US counties fell 40% across all civil cases between 1992 and 2005, 53.5% in tort cases and about 60% in auto accident cases.<sup class="fnref"><a href="#fn14">14</a></sup> Tort trials in those counties fell from 10,278 in 1996 to 7,038 in 2005.<sup class="fnref"><a href="#fn14">14</a></sup> Across sixteen states reporting comparable 2024 data, the share of tort cases resolved by jury ran from 0.0% to 2.3% — figures this research could not check against the primary dashboard.<sup class="fnref" id="r15"><a href="#fn15">15</a></sup></p>
+<p>The counts of very large verdicts have their own problems, and they drive the headlines. Earlier years came from a list capped at the hundred largest awards a year and later years from an uncapped database, so the series partly measures its own method changing.<sup class="fnref" id="r16"><a href="#fn16">16</a></sup> Totals are gross awards before appeal, including verdicts later overturned in full. The $10 million threshold defining a "nuclear" verdict has never been indexed for inflation. Auto accident is the cheapest large category on the industry's own data, both leading reports draw on the same commercial vendor, and the industry's own median verdict fell in real terms.<sup class="fnref"><a href="#fn16">16</a></sup></p>
+<p>One absence sits underneath all of it. The federal survey that produced the trial figures is listed inactive, and 2005 is its latest data year.<sup class="fnref"><a href="#fn14">14</a></sup></p>
+<p>Two figures belong here, and they are ones this chapter would rather not have. Florida's average bodily injury claim in 2022 was $28,243, against a published countrywide average of $28,919.<sup class="fnref" id="r17"><a href="#fn17">17</a></sup> That countrywide figure carries a defect. Texas's losses sit in the numerator while its claim counts are missing from the denominator, and correcting it puts Florida about 9%–10% <em>above</em> the national average rather than just below it.<sup class="fnref"><a href="#fn17">17</a></sup> So the honest reading is that most of Florida's excess is how often a claim is made and some of it is what a claim is worth — roughly 85% and 15% of the gap.<sup class="fnref"><a href="#fn17">17</a></sup></p>
+<h2 id="why-the-insurer-s-margin-is-written-as-a-percentage-of-the-b">Why the insurer's margin is written as a percentage of the bill — and why that has not turned into profit</h2><div class="subhead-accent"></div>
+<p>Car insurance rates are built from the loss upward.</p>
+<p>The standard method takes expected losses and claim-handling costs, adds fixed expenses, and divides by one minus two percentages: expenses that vary with premium, and target profit.<sup class="fnref"><a href="#fn2">2</a></sup> The professional standard defines the profit provision as "the provision for underwriting profit in the actuarially developed rate, typically expressed as a percentage of the rate."<sup class="fnref"><a href="#fn2">2</a></sup> Because the profit percentage sits in the divisor, the rate is a mark-up on the loss cost. Regulators write the same shape into their rules. California divides projected losses by one minus an expense standard minus a profit factor.<sup class="fnref" id="r18"><a href="#fn18">18</a></sup> Florida treats a profit allowance above five percent, less any contingency factor, as prima facie excessive for motor vehicle insurance.<sup class="fnref"><a href="#fn18">18</a></sup></p>
+<p>Now take what that has actually produced, because it is not profit.</p>
+<p><strong>Insurers have not earned the margin.</strong> Across 2014 to 2023, US private passenger auto ran an average underwriting result of <strong>minus 2.4%</strong> of direct premiums earned, negative in seven of ten years. Over the same decade the whole property and casualty industry returned 6.0% on its own capital against an estimated 14.9% for all industries.<sup class="fnref" id="r19"><a href="#fn19">19</a></sup></p>
+<p><strong>And the line this chapter is about lost money in the state this chapter uses.</strong> Over 2020 to 2022, 96.0 cents of every dollar of Florida bodily injury liability premium went out as losses, against 82.2 cents countrywide — before any cost of running the book. Florida was third on that table, and four southern states sat below the countrywide figure. That is pre-reform data and should not be read in the present tense.<sup class="fnref"><a href="#fn19">19</a></sup></p>
+<p><strong>Competition is why.</strong> The wish of all insurers to earn that result "creates intense competition, so vigorous in most years that it causes the P/C industry as a whole to operate at a significant underwriting loss."<sup class="fnref" id="r20"><a href="#fn20">20</a></sup> A filed target margin and a realized one are different things.</p>
+<p><strong>The largest input to the bill has no lawyers in it.</strong> Between 2019 and July 2026 the price of vehicle maintenance and repair rose 55.5%. Motor vehicle insurance rose 49.9% — less. And insurance prices are now falling: down 4.46% over the year to July 2026, after peaking in February 2026.<sup class="fnref" id="r21"><a href="#fn21">21</a></sup> Every premium figure in this chapter is calendar 2022 or 2023, which is the newest regulator-grade data available. Consumer prices have moved since.</p>
+<p><strong>Some pay is tied to low losses.</strong> Contingent commissions vary an agent's pay by loss ratio.<sup class="fnref"><a href="#fn2">2</a></sup></p>
+<p><strong>And an insurer does not want its loss costs to rise.</strong> Four reasons, none of which the arithmetic above touches. A rate is filed before the losses happen, on expected losses; when losses come in higher, the extra lands on business already priced and sold, with no premium behind it. The higher rate may not be granted, because Florida and California both require approval. Volatile costs raise the price of the capital held behind the book. And dearer cover sells fewer policies — raising Florida's minimum was modeled as pushing about a quarter more drivers out of the market, as section nine sets out. There is a published finding that premiums follow falling claim costs only after a lag, so a carrier can hold the gain for a while. But it was measured in a different line in a different era, and the same literature notes that car insurers use short policy terms and re-price often, which is what would close the lag.<sup class="fnref" id="r22"><a href="#fn22">22</a></sup> Treat the lag as unproven for car insurance, and read the incentive as running in both directions.</p>
+<p>One more feature is worth naming, because two states rule opposite ways on it. Insurers collect premium before paying claims and invest the difference. California credits that investment income back against the permitted premium, including the return on surplus. Florida requires it considered too, but says "investment income from invested surplus may not be considered."<sup class="fnref"><a href="#fn20">20</a></sup> Same question, two live answers. These percentages are policy choices, not physics.</p>
+<h2 id="what-a-one-way-fee-statute-does-to-the-decision-to-fight">What a one-way fee statute does to the decision to fight</h2><div class="subhead-accent"></div>
+<p>For decades Florida had a rule with no reciprocal half. If a policyholder recovered anything against an insurer, the court "shall adjudge or decree against the insurer and in favor of the insured … a reasonable sum as fees."<sup class="fnref" id="r23"><a href="#fn23">23</a></sup> The insurer had no matching claim if it won.</p>
+<p>Here is the fact most often got wrong. <strong>The fee came from the insurer, on top of the recovery. It did not reduce what the claimant kept.</strong><sup class="fnref"><a href="#fn23">23</a></sup></p>
+<p>Alongside it ran a multiplier. A court could take hours times rate and multiply by up to 2.5, with the multiplier rising as the case had looked <em>less</em> likely to succeed. In 2017 the state's highest court refused to adopt the federal limit confining multipliers to rare cases.<sup class="fnref"><a href="#fn23">23</a></sup> Because the fee was built from hours, it was not bounded by the size of the claim.</p>
+<p>The economics are well understood in theory. A defendant facing even a weak claim must spend money to defend it, so settling for up to the cost of defending is rational whatever the merits.<sup class="fnref" id="r24"><a href="#fn24">24</a></sup> A one-way rule raises that ceiling, because losing costs the defendant both sides' fees.</p>
+<p>Three qualifications stop this becoming a caricature. <strong>The insurer could cap its own exposure</strong>: under a 2006 decision the insured only prevailed by beating the insurer's own earlier settlement offer.<sup class="fnref"><a href="#fn23">23</a></sup> <strong>It barely applied to car insurance</strong>, since the fee statutes reached the no-fault law "only in a limited manner."<sup class="fnref"><a href="#fn23">23</a></sup> And <strong>repeal moves to the American rule, not the British one.</strong> Under two-way shifting a winning defendant recovers its costs and the nuisance dynamic disappears. Florida abolished the statutes outright in March 2023, leaving each side to bear its own fees — removing an aggravating factor rather than the mechanism.<sup class="fnref"><a href="#fn24">24</a></sup> That mapping is this chapter's reading, not the model's own claim. The same bill imposed a strong presumption that hours times rate is enough, barred recovery by anyone more than 50% at fault, and halved the deadline to sue for negligence from four years to two.<sup class="fnref" id="r25"><a href="#fn25">25</a></sup></p>
+<p>For scale on the other side, here is the one measured figure in this chapter that supports the litigation-cost story. Florida's personal auto liability loss adjustment expense ran 13.0% of premium against 11.4% countrywide. Adjust for Florida's mix of business and the excess is about 1.15 points, which on Florida's $20.25 billion of direct liability premium is roughly $233 million a year.<sup class="fnref" id="r26"><a href="#fn26">26</a></sup></p>
+<p>What happened after repeal is genuinely mixed, and nobody has isolated the cause. Lawsuit filings against Florida personal residential property insurers fell 23%, 25% and 25% across 2024, 2025 and early 2026.<sup class="fnref" id="r27"><a href="#fn27">27</a></sup> But Florida circuit courts recorded 48,206 auto negligence filings in 2024-25 — about 40% above the pre-reform run rate, two years on.<sup class="fnref"><a href="#fn27">27</a></sup> Texas's regulator, ordered by its legislature to measure whether a 2021 commercial auto reform lowered premiums, asked every filing insurer and reported that none attributed any rate change to it.<sup class="fnref"><a href="#fn27">27</a></sup> Louisiana's rates rose four years running after its 2020 reform, then fell 5.8% in 2025, which the Commissioner attributed to lower accident frequency rather than to the reform.<sup class="fnref"><a href="#fn27">27</a></sup> The peer-reviewed evidence finds no measurable auto premium effect from damage caps, joint-and-several changes or bad-faith reform — and an effect from only two things: repealing no-fault, and relaxing the rules on which medical bills may be shown.<sup class="fnref"><a href="#fn27">27</a></sup></p>
+<h2 id="what-a-margin-cap-on-health-insurers-did-and-did-not-reach">What a margin cap on health insurers did and did not reach</h2><div class="subhead-accent"></div>
+<p>The clearest live example of a percentage cap sits in health insurance, and it has been studied properly. It reached what it was aimed at, which is what insurers keep. It did not touch what medical care costs, which it was never aimed at.</p>
+<p>Federal law requires an insurer to spend at least 85% of premium on care in the large group market, and 80% in the individual and small group markets. Those are floors; states may set them higher.<sup class="fnref" id="r28"><a href="#fn28">28</a></sup> The denominator is not gross premium — it is premium after the insurer's taxes and regulatory fees, and after risk adjustment, risk corridors and reinsurance.<sup class="fnref"><a href="#fn28">28</a></sup> The numerator is claims plus spending on quality improvement, which ran 0.7% to 0.9% of net premiums in the most recent period this research could source a published figure for. So in practice the numerator is close to claims.<sup class="fnref"><a href="#fn28">28</a></sup></p>
+<p>Miss the threshold and the insurer rebates the shortfall. For reporting year 2024 that came to about $1.64 billion. Since 2012 the total is $14.4 billion.<sup class="fnref" id="r29"><a href="#fn29">29</a></sup></p>
+<p>The measured effect is the point. Medical claims rose almost one-for-one with an insurer's distance below its threshold when the rule took effect in 2011 — 7% in the individual market, 2% in the group market. Premiums were unaffected.<sup class="fnref"><a href="#fn1">1</a></sup> So the harm, if any, ran through total medical spending rather than through premium. The same mechanism is described with a qualifier most people drop: insurers responded through utilization, not price, by "decreasing their utilization management … allowing enrollees to use more services than they would otherwise."<sup class="fnref" id="r30"><a href="#fn30">30</a></sup></p>
+<p>Now the evidence against. Most insurers already met the standards before the rule bound — 76.4% in 2011 and 79.1% in 2012, at a median around 88% against an 80% floor.<sup class="fnref" id="r31"><a href="#fn31">31</a></sup> But it bound hard exactly where the effect was measured: in 2010 only 44.3% of individual-market insurers met the standard, rising to 63.2% in 2011.<sup class="fnref"><a href="#fn31">31</a></sup> It also did its job there. For-profit individual-market insurers cut both administrative cost ratio and operating margin by more than two points each.<sup class="fnref"><a href="#fn31">31</a></sup> And in 2012 that market's premium surplus was <strong>negative</strong> 1.1%. Insurers lost money there in the year the constraint bit hardest.<sup class="fnref"><a href="#fn31">31</a></sup></p>
+<p>There is one more route around a percentage cap, and the regulator has named it.</p>
+<p>The rules count what a plan pays for covered services in the numerator, including capitation and provider bonus payments. Nothing asks whether the payment went to an affiliated provider, or whether the price matched what an unaffiliated one would get. The test is what the payment was <em>for</em>, never who was paid or how much.<sup class="fnref" id="r32"><a href="#fn32">32</a></sup> In December 2024 the regulator wrote that payments to related parties "may, in some cases, be inflated to ensure" a plan meets its spending requirement, "obscuring the actual … profits made by the integrated system as a whole."<sup class="fnref"><a href="#fn32">32</a></sup> It floated six fixes and adopted none in either final rule that followed, while reserving the right to act later.<sup class="fnref"><a href="#fn32">32</a></sup> The equivalent test already exists in Medicaid.<sup class="fnref"><a href="#fn32">32</a></sup></p>
+<p>The size of that surface sits on the companies' own filings. One large health group removed $167.96 billion of revenue on consolidation in 2025 because one part billed another, and 55.9% of its adjusted operating earnings came from the non-insurance side. At a second, 81.8% of segment adjusted operating income came from non-insurance segments; at a third, 63.5%.<sup class="fnref" id="r33"><a href="#fn33">33</a></sup> These are margins on segment revenue, not loss ratios, and must not be set beside an 80% or 85% figure as though comparable.<sup class="fnref"><a href="#fn33">33</a></sup></p>
+<p>Against that, Congress's own Medicare advisory commission finds the large national insurers are <em>less</em> vertically integrated than provider-owned plans, not more.<sup class="fnref" id="r34"><a href="#fn34">34</a></sup> The estimate the regulator itself cites puts the effect at 1.3 loss-ratio points per ten-point rise in related-business share, and calls its own evidence "indirect, incomplete."<sup class="fnref"><a href="#fn34">34</a></sup> The strongest causal work found affiliated-pharmacy prices rose 9.5% after profit caps took effect in Medicare Part D — but its authors estimate only about 5% of profits moved, and note the requirement was "rarely binding."<sup class="fnref"><a href="#fn34">34</a></sup> Nothing published shows that most of the profit walked through the door.</p>
+<h2 id="what-to-do-about-it">What to do about it</h2><div class="subhead-accent"></div>
+<p>Each of these is tied to a fact above, not to a general principle.</p>
+<p><strong>1. Negotiate the costs ordering, and ask which fee tier the lawyer expects.</strong> On a $90,000 recovery with $15,000 of costs, the ordering is worth $5,000 to you, and the rule sets no default.<sup class="fnref"><a href="#fn5">5</a></sup> The step from 33⅓% to 40% is triggered by the defendant's answer, not by your filing.<sup class="fnref"><a href="#fn4">4</a></sup></p>
+<p><strong>2. Demand and read the closing statement before any money moves.</strong> Until you approve it, your lawyer cannot pay money to anyone, including you, without a court order. You also have a written right to bargain over the fee and three business days to cancel.<sup class="fnref"><a href="#fn7">7</a></sup></p>
+<p><strong>3. Treat a pre-settlement advance as the most expensive money you will ever borrow, and check the lien before you settle.</strong> In the largest dataset located here the median advance was $2,250, the median owed $4,849 and the median repaid $3,380 over 417 days — about 43% a year, with roughly a third paying the full contract.<sup class="fnref" id="r35"><a href="#fn35">35</a></sup> And where Medicare's payments equal or exceed the settlement, your share is zero.<sup class="fnref"><a href="#fn6">6</a></sup></p>
+<h2 id="where-plenee-fits">Where Plenee fits</h2><div class="subhead-accent"></div>
+<p>What makes a percentage hard to notice is that it arrives inside a total. A premium is one number. A settlement is one number. Plenee can hold what you actually pay in one place and set it against everything else in the month, which is where the question of what a percentage is costing you has to start.</p>
+<h2 id="the-short-version">The short version</h2><div class="subhead-accent"></div>
+<p>Cap a firm's take as a percentage of what it charges and you have tied its income to the cost you were trying to control. The lawyer's percentage, the car insurer's permitted margin and the health plan's allowed 15 or 20% are all written this way. They sit on three different bases with three different payers. What they share is one input: the medical bill. The arithmetic is certain. The behavior is measured in health insurance and argued here for car insurance, where required capital rises with the loss cost too and blunts it — the clean case there is the agent's commission, a percentage of premium with no capital standing behind it. Two of the numbers that reach a jury were never paid by anyone. And verdict headlines are a poor guide to what claims cost, because only about 4% of tort dispositions reached trial, the median award to a winner was $24,000, and inflation-adjusted medians fell by half between 1992 and 2005 — the last period anyone measured. What you control is the costs ordering you negotiate, the closing statement you insist on reading, and never borrowing against a settlement.</p><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/earning-well.html">Earning Well</a> — <span class="why">The percentage structures behind the advice you are given.</span></li><li><a href="tracks/flooded-with-offers.html">Flooded with offers: how to separate the good from the bad</a> — <span class="why">Why three different parties all earn more when the same bill grows.</span></li></ol></div><div class="sources"><div class="src-title">Sources</div><ol><li id="fn1">Congressional Budget Office, <em>Policy Approaches to Reduce What Commercial Insurers Pay for Hospitals' and Physicians' Services</em> (September 2022), Appendix A, for the sentence quoted. Peer-reviewed twin: Cicala, Lieber and Marone, <em>AEJ: Applied Economics</em> 11(4): 71–104 (2019), capping "insurer profit margins, but not levels" — US fully-insured commercial markets, identified off the rule's 2011 introduction. <a href="#r1">&#8617;</a></li><li id="fn2">Actuarial Standard of Practice No. 30 (1997) §2.15 for the definition quoted; §3.8 allows the cost of capital to be expressed against capital, assets or premium, so percentage-of-premium is a convention over an underlying return on capital — which is why doubling the loss cost does not double the return on capital, since required capital scales with premium and reserves too. <a href="#r2">&#8617;</a></li><li id="fn3">Scoped absence: this research searched the professional standard, the actuarial syllabus text, the California and Florida rate rules and the general literature, and found no property-casualty source drawing the incentive conclusion from a percentage-of-premium profit provision. <a href="#r3">&#8617;</a></li><li id="fn4">Rules Regulating The Florida Bar 4-1.5(f)(4)(B)(i), edition of 15 June 2026: 33⅓% up to $1m before an answer is served, 40% after; 30% of $1–2m; 20% above $2m; plus 5% on appeal — each as a share of the gross recovery. A fee above those levels is "presumed, unless rebutted, to be clearly excessive," and (f)(4)(B)(ii) lets a client petition a court to approve more: a rebuttable presumption, not a cap. <a href="#r4">&#8617;</a></li><li id="fn5">Rules Regulating The Florida Bar 4-1.5(f)(1), with equivalents at La. R. 1.5(c), Ga. R. 1.5(c)(1), Tex. R. 1.04(d), Miss. R. 1.5(c), Ala. R. 1.5(c) and S.C. R. 1.5(c): all seven states checked require the agreement to state whether expenses are deducted before or after the fee; none prescribes an order. Florida's Statement of Client's Rights, para. 6, says only that the lawyer "should also inform you" which applies. <a href="#r5">&#8617;</a></li><li id="fn6">42 C.F.R. §411.37(c) shares Medicare's procurement costs pro rata, but §411.37(d) provides that where Medicare's payments equal or exceed the settlement the recovery is "the total judgment or settlement payment minus the total procurement costs" — the claimant's share goes to zero. Fla. Stat. <a href="#r6">&#8617;</a></li><li id="fn7">US Chamber Institute for Legal Reform / Brattle Group, <em>Tort Costs in America</em> (November 2022), Table 7: claimant compensation of $235.7bn against $443.0bn of 2020 US tort costs, about 53% — but claimant legal costs there are not observed. They are defense costs multiplied by four-thirds, a ratio from cases terminated in 1985, with compensation as the residual; the 2024 edition dropped the estimate. <a href="#r7">&#8617;</a></li><li id="fn8">Campbell, Chao and Robertson, 95 <em>Washington University Law Review</em> 1 (2017), US experimental. A $5m lump-sum demand increased the award by $1,368,211, or 276% (p &lt; .001), against a regression baseline of $496,389. A per-diem argument — 9.5 remaining years framed as 4,979,520 minutes — increased awards by $195,963, not significant (p = .2); <a href="#r8">&#8617;</a></li><li id="fn9"><em>Caley v. Manicke</em>, 182 N.E.2d 206, 208 (Ill. 1962) and <em>Duguay v. Gelinas</em>, 182 A.2d 451, 454 (N.H. 1962), quoted here at one remove from 95 Wash. U. L. Rev. 1, 7–8, with pin cites. The leading case forbidding per-diem argument is <em>Botta v. Brunner</em>, 138 A.2d 713, 722 (N.J. 1958); the leading case permitting it is <em>Beagle v. Vasold</em>, 417 P.2d 673, 678 (Cal. 1966), which expressly rejected <em>Botta</em>. <a href="#r9">&#8617;</a></li><li id="fn10">Diamond, Rose, Murphy and Meixner, <em>Journal of Empirical Legal Studies</em> 8(s1): 148–178 (2011): 31 US cases involving 33 plaintiffs in which real deliberating juries awarded damages. Structure in awards: Wissler et al., <em>Law and Human Behavior</em> 21(2): 181–207 (1997), a strong replicated effect of injury severity, with disability and mental suffering stronger predictors than pain and disfigurement. <a href="#r10">&#8617;</a></li><li id="fn11"><em>Consorti v. Armstrong World Industries, Inc.</em>, 72 F.3d 1003 (2d Cir. 1995) — that damages holding was later vacated on other grounds, so cite it for the reasoning about the absence of a scale, not as controlling damages law. Georgia SB 68 (2025) §1, amending O.C.G.A. <a href="#r11">&#8617;</a></li><li id="fn12">Three different denominators, never to be merged. Charge-to-cost: Bai and Anderson, <em>Health Affairs</em> 34(6): 922–8 (2015) — US hospital charges at a national average of 3.4 times Medicare-allowable costs, 2012 data. <a href="#r12">&#8617;</a></li><li id="fn13">Fla. Stat. §768.0427, created by HB 837 (ch. 2023-15), for causes of action filed after 24 March 2023. §(2)(a) limits evidence of satisfied past medical damages to "the amount actually paid, regardless of the source of payment"; §(2)(b)3 sets 120% of the Medicare rate (170% of Medicaid where no Medicare rate exists) for uninsured or publicly insured claimants; <a href="#r13">&#8617;</a></li><li id="fn14">Bureau of Justice Statistics, <em>Tort Bench and Jury Trials in State Courts, 2005</em> (NCJ 228129, October 2008), US state general-jurisdiction courts: "nearly 4% of all tort cases were disposed of by trial" among jurisdictions reporting both trial and non-trial dispositions; "Half of plaintiff winners in tort trials were awarded $24,000 or less in damages," with an auto accident median of $15,000; <a href="#r14">&#8617;</a></li><li id="fn15">Center for Justice &amp; Democracy, "How Low Can They Go?", reporting National Center for State Courts data viewed 16 November 2025: 2024 tort jury trial rates of 0.0% to 2.3% across sixteen states plus two territories reporting publishable data. The reporting organization is a consumer- and plaintiff-side advocacy body with an interest in a low number, and is labeled exactly as an insurer-funded source would be; <a href="#r15">&#8617;</a></li><li id="fn16">US Chamber Institute for Legal Reform, <em>Nuclear Verdicts</em> (May 2024), Appendix A, conceding that "no jury verdict database captures all verdicts in every court"; Marathon Strategies, <em>Corporate Verdicts Go Thermonuclear</em>, endnote vi, recording that pre-2022 counts came from a top-100-per-year list while later counts come from an uncapped database. <a href="#r16">&#8617;</a></li><li id="fn17">NAIC, <em>2022/2023 Auto Insurance Database Report</em> (adopted December 2025), bodily injury liability tables, calendar year 2022, Florida against countrywide. Claim frequency 1.37 per 100 earned car-years against 0.82 (claims ÷ earned car-years × 100). Severity $28,242.31 against a published countrywide $28,918.86 (incurred losses ÷ incurred claims). Recomputed from the counts: 183,919 Florida claims over 13,426,631 exposures; 1,629,333 over 198,827,699 countrywide. <a href="#r17">&#8617;</a></li><li id="fn18">Cal. Code Regs. tit. 10 §2644.2 sets maximum permitted earned premium as projected losses and defense costs, adjusted for investment and ancillary income, divided by one minus an efficiency standard, minus a maximum profit factor, plus a variable investment income factor. <a href="#r18">&#8617;</a></li><li id="fn19">NAIC, <em>Report on Profitability by Line by State in 2023</em> (April 2025), ten-year summary tables, United States: private passenger auto underwriting profit averaged −2.4% of direct premiums earned across 2014–2023, negative in seven of ten years, ranging from −12.2% (2022) to +7.5% (2020). <a href="#r19">&#8617;</a></li><li id="fn20">Warren Buffett, Berkshire Hathaway 2011 Annual Report, Chairman's Letter, for the competition sentence quoted and for the float mechanism ("This collect-now, pay-later model leaves us holding large sums"). Buffett is an interested party describing an asset he wants valued highly, and Berkshire is an outlier; the passage is used for the mechanism and for the competition point, which runs against his own book. <a href="#r20">&#8617;</a></li><li id="fn21">US Bureau of Labor Statistics, consumer price index for all urban consumers, US city average, not seasonally adjusted, indexed to calendar 2019 and read to July 2026: motor vehicle maintenance and repair +55.5% against motor vehicle insurance +49.9%. Motor vehicle insurance fell 4.46% over the twelve months to July 2026, having peaked in February 2026. <a href="#r21">&#8617;</a></li><li id="fn22">Carried as a caveat, not as support. Born and Viscusi, <em>Brookings Papers on Economic Activity: Microeconomics</em> 1998, pp. 55–100, on a 1984–1991 US panel of medical malpractice and general liability insurers — not auto, and thirty-five years old. <a href="#r22">&#8617;</a></li><li id="fn23">Fla. Stat. §627.428(1), as reproduced in CS/SB 2-A (2022) §13, for the sentence quoted. The fee was paid by the insurer on top of the recovery and did not reduce what the claimant kept — the single most misunderstood fact in this area. Multiplier framework: <em>Standard Guaranty Ins. Co. v. Quanstrom</em>, 555 So. 2d 828 (Fla. 1990), permitting a lodestar multiplier up to 2.5 rising as success had looked less likely; *Joyce v. <a href="#r23">&#8617;</a></li><li id="fn24">Rosenberg and Shavell, <em>International Review of Law and Economics</em> 5: 3–13 (1985): "the defendant should be willing to pay a positive amount in settlement to the plaintiff with the weak case — despite the defendant's knowledge that were he to defend himself, such a plaintiff would withdraw." The same paper finds that under two-way British-rule shifting, "nuisance suits would never occur." Florida had one-way shifting and… <a href="#r24">&#8617;</a></li><li id="fn25">CS/CS/HB 837 (2023), Enrolled: §§10–11 repeal Fla. Stat. §§626.9373 and 627.428 outright; §1 amends Fla. Stat. §57.104 to create "a strong presumption that a lodestar fee is sufficient and reasonable," overcome "only in a rare and exceptional circumstance," applying to all court-awarded fees; Fla. Stat. <a href="#r25">&#8617;</a></li><li id="fn26">NAIC, <em>Report on Profitability by Line by State in 2023</em> (April 2025), private passenger auto liability, direct loss adjustment expense as a percentage of direct premiums earned: Florida 13.0% against 11.4% countrywide, on Florida direct liability premium of $20.25bn. <a href="#r26">&#8617;</a></li><li id="fn27">Florida OIR, <em>Property Insurance Stability Report</em>, 1 July 2026: filings against personal residential insurers down 23% (2024), 25% (2025) and 25% in the first five months of 2026 — filing counts, not rates per claim, and property insurance, not auto. Florida Office of the State Courts Administrator, <em>Statistical Reference Guide</em> Ch. <a href="#r27">&#8617;</a></li><li id="fn28">42 U.S.C. §300gg-18(b) sets minimum medical loss ratios of "85 percent, or such higher percentage as a State may by regulation determine" for large group and "80 percent" for small group and individual coverage, United States, plan years from 2011 — so the 20% ceiling is the individual and small group figure and 15% is the large group figure. Denominator, verbatim from 45 C.F.R. <a href="#r28">&#8617;</a></li><li id="fn29">45 C.F.R. §158.240: the rebate equals the shortfall percentage multiplied by adjusted premium revenue, paid pro rata to enrollees "no later than September 30 following the end of the MLR reporting year." §158.220 requires a three-year rolling average, so a rebate reflects the three preceding years. <a href="#r29">&#8617;</a></li><li id="fn30">Congressional Budget Office, <em>Policy Approaches to Reduce What Commercial Insurers Pay …</em> (September 2022), Chapter 1 and Appendix A. The setup — an insurer at the threshold "could pay higher prices to providers, raise its premiums, and realize additional profits" — is followed immediately by the qualifier that "studies suggest that insurers' responses to MLR requirements are largely consistent with increases in utilization… <a href="#r30">&#8617;</a></li><li id="fn31">GAO-14-580, Table 1, United States, all three commercial markets: 76.4% of insurers met or exceeded the standards in 2011 and 79.1% in 2012, at median ratios of 87.5% and 88.0% — so the typical insurer sat well inside the ceiling rather than at it. GAO notes at footnote 27 that "insurers" means insurer-market-state reporting combinations, so a company in twenty states counts twenty times. <a href="#r31">&#8617;</a></li><li id="fn32">42 C.F.R. §422.2420 defines the Medicare Advantage numerator to include "amounts that the MA organization pays (including under capitation contracts) for covered services," "percentage withholds from payments made to contracted providers" and "the amount of incentive and bonus payments made to providers," excluding amounts paid "for professional or administrative services that do not represent compensation or reimbursement… <a href="#r32">&#8617;</a></li><li id="fn33">Band warning first: these are margins on booked segment revenue, not loss ratios. UnitedHealth Group, Form 8-K supplemental financial information (27 January 2026), fiscal years ended 31 December 2024 and 2025: footnote (a) records "corporate eliminations of $167,956 and $150,887" million — revenue removed on consolidation because one segment billed another. Against consolidated revenues of $447,567m that is 37.5%; <a href="#r33">&#8617;</a></li><li id="fn34">MedPAC, <em>Report to the Congress: Medicare Payment Policy</em> (March 2024), Ch. 12, analyzing CMS plan bid data: "the data show that large national insurers remain significantly less vertically integrated than their provider-owned competitors" — so the three companies above are not the high end of the distribution. <a href="#r34">&#8617;</a></li><li id="fn35">Avraham and Sebok, 104 <em>Cornell Law Review</em> 1133 (2019), covering 191,144 US funding requests from 106,800 people at one of the largest funders, with medians across 38,318 completed advances: $2,250 funded, $4,849 contractually owed (a 115% markup), $3,380 actually repaid (a 50% markup), over 417 days — about 43% a year realized. This is the largest dataset located by this research, not necessarily the largest that exists. <a href="#r35">&#8617;</a></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link next" href="who-gets-sold-what.html"><div class="cn-dir">Next</div><div class="cn-title">Who Gets Offered Which Product: Why the Offer Is Not the Market</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"earning-well": {"title": "Earning Well", "pos": 9, "len": 32, "prev": {"slug": "legal-and-everyone-does-it", "title": "\"Is it legal\" is the wrong question: what it returns is the right one"}, "next": {"slug": "the-questions-that-do-the-work", "title": "Six Questions for Any Claim, from Anyone"}}, "flooded-with-offers": {"title": "Flooded with offers: how to separate the good from the bad", "pos": 6, "len": 24, "prev": {"slug": "legal-and-everyone-does-it", "title": "\"Is it legal\" is the wrong question: what it returns is the right one"}, "next": {"slug": "money-jargon-keeps-you-poor", "title": "Jargon costing you money? The words worth learning first"}}}}</script>
+<script>
+(function(){
+  var el=document.getElementById('v2-nav'); if(!el) return;
+  var d=JSON.parse(el.textContent);
+  var p=new URLSearchParams(location.search).get('via');
+  if(!p){try{p=localStorage.getItem('plenee_track')||''}catch(e){}}
+  if(p&&!d.tracks[p]){p=''}
+  if(!p) return;                      /* no track context: the server-rendered nav stands */
+  try{localStorage.setItem('plenee_track',p)}catch(e){}
+  var t=d.tracks[p],s=document.getElementById('v2-ctx');
+  /* the crumb above already carries the 'everything by subject' link; repeating it here
+     put the same destination twice on one screen */
+  s.innerHTML='<span>In <a href="tracks/'+p+'.html">'+t.title+'</a></span>'
+    +'<span class="pos">'+t.pos+' of '+t.len+'</span>';
+  var n=document.getElementById('v2-pager'),h='';
+  if(t.prev){h+='<a class="cn-link prev" href="'+t.prev.slug+'.html?via='+p+'">'
+    +'<div class="cn-dir">Previous</div><div class="cn-title">'+t.prev.title+'</div></a>'}
+  else{h+='<a class="cn-link prev" href="tracks/'+p+'.html">'
+    +'<div class="cn-dir">Previous</div><div class="cn-title">Back to '+t.title+'</div></a>'}
+  if(t.next){h+='<a class="cn-link next" href="'+t.next.slug+'.html?via='+p+'">'
+    +'<div class="cn-dir">Next</div><div class="cn-title">'+t.next.title+'</div></a>'}
+  n.innerHTML=h;
+})();
+</script>
+
+
+<div id="disclaimer-strip">
+  <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. <a href="../plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
+</div>
+
+<footer>
+  <a href="../index.html" style="display:block;line-height:0">
+    <img src="../Logo%20-%20Plenee_Navigator_v2.svg" height="44" alt="Plenee Navigator">
+  </a>
+  <p>© 2026 Plenee Co. All rights reserved.</p>
+  <div class="fl"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../plenee_legal.html" style="color:var(--teal)">Legal</a><a href="../contact.html">Contact</a></div>
+</footer>
+
+</body>
+</html>

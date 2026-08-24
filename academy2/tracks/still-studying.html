@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Still Studying — Plenee Academy</title>
+<link rel="canonical" href="https://plenee.com/academy2/tracks/still-studying.html">
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:    #0C1929;
+  --navy2:   #152236;
+  --teal:    #0FA8BC;
+  --teal-d:  #0A8A9E;
+  --teal-l:  #E6F7FA;
+  --orange:  #E87722;
+  --orange-l:#FFF4EC;
+  --white:   #FFFFFF;
+  --off:     #F6F9FB;
+  --text:    #0C1929;
+  --muted:   #4E6175;
+  --light:   #8A9EB0;
+  --border:  #DDE8F0;
+  --green:   #1E9E5E;
+  --green-l: #E8FAF2;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+nav {
+  position: sticky; top: 0; z-index: 300;
+  background: #0C1929;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  height: 72px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+}
+.nav-logo { display: flex; align-items: center; height: 100%; line-height: 0; }
+.nav-logo img { height: 100%; display: block; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { color: #B6C6D6; text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--teal); }
+.nav-links a.active { color: var(--teal); }
+.nav-toggle { display: none; background: none; border: none; color: #fff; cursor: pointer; padding: 8px; align-items: center; justify-content: center; }
+
+footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.07); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+footer p { color: #2E4A60; font-size: 13px; }
+.fl a { color: #2E4A60; font-size: 13px; text-decoration: none; margin-left: 24px; transition: color .2s; }
+.fl a:hover { color: var(--teal); }
+
+#disclaimer-strip { background: var(--off); border-top: 1px solid var(--border); padding: 16px 48px; text-align: center; }
+#disclaimer-strip p { font-size: 12px; color: var(--light); line-height: 1.6; max-width: 900px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 56px; }
+  .nav-toggle { display: flex; }
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; background: #0C1929; border-bottom: 1px solid rgba(255,255,255,.08); padding: 4px 20px 10px; }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.06); font-size: 12px; white-space: nowrap; }
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .fl a { margin-left: 0; margin-right: 20px; }
+}
+
+
+/* ─── PAGE HEADER ─── */
+.page-header { background: var(--navy); padding: 64px 48px 52px; text-align: center; }
+.page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
+.page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
+.page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+/* Track-index-only: the parenthetical part of a track's title (e.g. "(The
+   Systemic Conditioning of Americans)") shown as its own line under the h1,
+   rather than crowding the h1 itself or every breadcrumb/nav mention. */
+.header-subtitle { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(15px,2vw,19px); font-weight: 400; color: #7A9AB5; line-height: 1.4; margin-top: -6px; margin-bottom: 14px; }
+/* Landing-page-only: "Plenee" set large (matching the h1 below), the
+   "Academy" pill sitting underneath it rather than "Plenee Academy" both
+   inside one small chip. */
+.landing-brand { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 18px; }
+
+/* ─── BREADCRUMB ─── */
+.crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
+.crumb a { color: var(--muted); text-decoration: none; }
+.crumb a:hover { color: var(--teal); }
+
+/* ─── CHAPTER PAGE ─── */
+.chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
+.chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 14px; }
+.chapter-title-subtitle { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(16px,2vw,20px); font-weight: 400; color: var(--muted); line-height: 1.35; margin-bottom: 14px; }
+.chapter-accent { width: 56px; height: 3px; border-radius: 2px; background: var(--teal); margin-bottom: 28px; }
+
+.jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
+.jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.jump-list ol { padding-left: 18px; }
+.jump-list li { margin-bottom: 6px; }
+.jump-list a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
+.jump-list a:hover { color: var(--teal); }
+
+.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 6px; }
+.subhead-accent { width: 200px; height: 1px; background: var(--orange); margin-bottom: 20px; }
+.chapter-body p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 20px; }
+.chapter-body p strong { color: var(--text); font-weight: 700; }
+.chapter-body p em { color: var(--text); font-style: italic; }
+.chapter-body sup { font-size: 11px; margin-left: 1px; }
+.chapter-body sup a { color: var(--teal-d); text-decoration: none; font-weight: 700; }
+.chapter-body sup a:hover { text-decoration: underline; }
+a.ref-link { color: var(--teal-d); font-weight: 400; text-decoration: none; }
+a.ref-link:hover { text-decoration: underline; }
+
+.takeaway { background: var(--teal-l); border-left: 4px solid var(--teal); border-radius: 0 14px 14px 0; padding: 26px 30px; margin: 44px 0 8px; }
+.takeaway .tk-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 10px; }
+.takeaway p { color: var(--text); font-size: 16px; line-height: 1.75; margin-bottom: 0; font-weight: 500; }
+
+.sources { margin: 36px 0 8px; padding-top: 24px; border-top: 1px solid var(--border); }
+.sources .src-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 14px; }
+.sources ol { padding-left: 20px; }
+.sources li { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 10px; }
+.sources li a { color: var(--teal-d); text-decoration: none; margin-left: 4px; }
+.sources li a:hover { text-decoration: underline; }
+
+.chapter-nav { max-width: 760px; margin: 0 auto; padding: 8px 48px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cn-link { display: block; border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 22px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.cn-link:hover { border-color: var(--teal); transform: translateY(-2px); }
+.cn-link.next { text-align: right; }
+.cn-dir { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); margin-bottom: 6px; }
+.cn-title { font-size: 15px; font-weight: 700; color: var(--navy); line-height: 1.4; }
+.cn-empty { visibility: hidden; }
+
+/* ─── TRACK INDEX ─── */
+.track-wrap { max-width: 1080px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapters-heading { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 18px; }
+.chapter-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.chap-card {
+  --hue: var(--teal); --hue-l: var(--teal-l); --hue-d: var(--teal-d);
+  display: flex; flex-direction: column;
+  border: 1.5px solid var(--border); border-radius: 18px; overflow: hidden;
+  text-decoration: none; background: #fff;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.chap-card:hover { border-color: var(--hue); transform: translateY(-3px); box-shadow: 0 14px 34px rgba(12,25,41,.09); }
+.cc-tile { height: 132px; position: relative; overflow: hidden; background: var(--hue-l); }
+.cc-art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cc-art .grain { mix-blend-mode: multiply; opacity: .5; }
+.cc-body { padding: 22px 24px 20px; display: flex; flex-direction: column; flex: 1; }
+.cc-body h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 18px; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 10px; }
+.cc-body p { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; flex: 1; }
+.cc-cta { font-size: 13px; font-weight: 700; letter-spacing: .2px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--hue-d); }
+.cc-cta svg { width: 14px; height: 14px; transition: transform .2s; }
+.chap-card:hover .cc-cta svg { transform: translateX(3px); }
+
+@media (max-width: 860px) {
+  .chapter-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── ACADEMY SEARCH ─── */
+/* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
+   (built + verified 2026-07-18 by a concurrent session). Listing pages only
+   (Academy index + each track index) -- never on individual chapter pages. */
+.academy-search-wrap { max-width: 620px; margin: 0 auto; padding: 0 48px; position: relative; }
+.academy-search-box { position: relative; }
+.academy-search-box svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--light); pointer-events: none; }
+.academy-search-input { width: 100%; font-family: inherit; font-size: 16px; color: var(--text); background: #fff; border: 1.5px solid var(--border); border-radius: 12px; padding: 15px 18px 15px 48px; outline: none; transition: border-color .2s, box-shadow .2s; }
+.academy-search-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(15,168,188,0.12); }
+.search-results { margin-top: 14px; display: none; flex-direction: column; gap: 10px; }
+.search-results.open { display: flex; }
+.search-hit { display: block; border: 1.5px solid var(--border); border-radius: 12px; padding: 16px 18px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.search-hit:hover { border-color: var(--teal); transform: translateY(-1px); }
+.search-hit .sh-track { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 5px; }
+.search-hit .sh-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; line-height: 1.4; }
+.search-hit .sh-snippet { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.search-hit mark { background: var(--teal-l); color: var(--teal-d); border-radius: 3px; padding: 0 2px; font-weight: 700; }
+.search-empty { font-size: 14px; color: var(--light); text-align: center; padding: 18px 0; display: none; }
+.search-empty.open { display: block; }
+.search-count { font-size: 12px; color: var(--light); margin-top: 12px; text-align: center; display: none; }
+.search-count.open { display: block; }
+.track-search-wrap { max-width: 720px; margin: 32px auto 0; padding: 0 48px; }
+.track-search-wrap .academy-search-wrap { padding: 0; max-width: none; }
+
+/* ─── OVERVIEW (track index pages) ─── */
+/* Widened to match the chapter-card grid below it (.track-wrap, 1080px) and
+   split its two paragraphs into side-by-side columns when there's room;
+   collapses to a single stacked column at the same breakpoint the card grid
+   itself collapses at, so the two never disagree about "narrow." */
+.overview-wrap { max-width: 1080px; margin: 0 auto; padding: 32px 48px 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 40px; }
+.overview-wrap p { font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 18px; }
+.overview-wrap p:last-child { margin-bottom: 0; }
+@media (max-width: 860px) {
+  .overview-wrap { grid-template-columns: 1fr; }
+}
+
+/* ─── DATA CHART (ACADEMY_PUBLISHING_INSTRUCTIONS.md §8a) ─── */
+.data-chart { max-width: 720px; margin: 40px auto; padding: 0 48px; }
+.dc-headline { font-family: Georgia, 'Times New Roman', serif; font-size: 36px; font-weight: 700; color: var(--navy); letter-spacing: -.5px; }
+.dc-subtitle { font-size: 13px; color: var(--muted); margin-top: 4px; margin-bottom: 20px; }
+.dc-divider { border-top: 1px solid var(--border); margin: 16px 0; }
+.dc-rows { display: flex; flex-direction: column; gap: 16px; }
+.dc-row-top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 2px 12px; margin-bottom: 6px; }
+.dc-row-label { font-size: 14px; color: var(--navy); }
+.dc-row-value { font-size: 14px; font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dc-bar-track { height: 10px; border-radius: 5px; overflow: hidden; }
+.dc-bar-track.teal { background: var(--teal-l); }
+.dc-bar-track.orange { background: var(--orange-l); }
+.dc-bar-fill { height: 100%; border-radius: 5px; }
+.dc-bar-fill.teal { background: var(--teal); }
+.dc-bar-fill.orange { background: var(--orange); }
+.dc-legend { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 4px; }
+.dc-legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+.dc-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.dc-swatch.teal { background: var(--teal); }
+.dc-swatch.orange { background: var(--orange); }
+.dc-caption { font-size: 12px; color: var(--light); margin-top: 18px; line-height: 1.6; }
+
+/* ─── SHARED CONCEPT DIAGRAM (ACADEMY_PUBLISHING_INSTRUCTIONS.md §8b) ─── */
+.concept-diagram { max-width: 720px; margin: 32px auto; padding: 0 48px; }
+.concept-diagram svg { width: 100%; height: auto; display: block; }
+.cd-caption { font-size: 12px; color: var(--light); text-align: center; margin-top: 12px; }
+
+/* ─── ACADEMY LANDING PAGE ─── */
+.academy-pullquote { text-align: center; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 19px; color: var(--navy); max-width: 560px; margin: 28px auto 0; padding: 0 48px; line-height: 1.5; }
+
+.landing-overview {
+  max-width: 1080px; margin: 44px auto 0; padding: 0 48px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center;
+}
+.landing-overview-logo { display: flex; align-items: center; justify-content: center; }
+.landing-overview-logo svg { width: 100%; max-width: 224px; height: auto; display: block; }
+/* #overview-needle's rotation is applied as a native SVG transform attribute
+   (via JS), not a CSS transform -- that pivots reliably at SVG-space (0,0),
+   the pivot/hub position, matching how the source logo's own static
+   transform="rotate(43)" already worked. CSS transform-origin tricks on SVG
+   (transform-box: view-box, etc.) proved inconsistent across browsers. */
+.landing-overview p { font-size: 16px; color: var(--muted); line-height: 1.75; margin: 0; }
+
+.volume-section { max-width: 1080px; margin: 0 auto; padding: 64px 48px 8px; }
+.volume-section + .volume-section { padding-top: 12px; }
+.volume-kicker { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+.volume-section.v1 .volume-kicker { color: var(--teal-d); }
+.volume-section.v2 .volume-kicker { color: #17434F; }
+.volume-h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(26px,3.2vw,36px); font-weight: 700; color: var(--navy); letter-spacing: -.5px; margin-bottom: 8px; }
+.volume-sub { color: var(--muted); font-size: 16px; margin-bottom: 40px; max-width: 620px; }
+
+/* Each card sets its own --hue/--hue-l/--hue-d inline (see TRACK_HUES: the 6
+   thematic groups -- Foundations=teal, Know-your-opponent=orange,
+   Flywheel=gold, Life admin=slate, Protection/crisis=rose, Psychology=indigo). */
+.track-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 8px; }
+.track-card {
+  --hue: var(--teal); --hue-l: var(--teal-l); --hue-d: var(--teal-d);
+  display: flex; flex-direction: column;
+  border: 1.5px solid var(--border); border-radius: 18px; overflow: hidden;
+  text-decoration: none; background: #fff;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.track-card:hover { border-color: var(--hue); transform: translateY(-3px); box-shadow: 0 14px 34px rgba(12,25,41,.09); }
+
+.tc-tile { height: 108px; display: flex; align-items: center; justify-content: center; position: relative; background: var(--hue-l); }
+.tc-tile svg { width: 44px; height: 44px; color: var(--hue-d); }
+.tc-num {
+  position: absolute; top: 14px; right: 16px;
+  font-family: Georgia, serif; font-weight: 700; font-size: 13px;
+  padding: 3px 10px; border-radius: 100px; background: rgba(255,255,255,.6);
+  color: var(--hue-d);
+}
+
+.tc-body { padding: 24px 26px 22px; display: flex; flex-direction: column; flex: 1; }
+.tc-body h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 19px; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 2px; }
+.tc-subtitle { font-family: Georgia, 'Times New Roman', serif; font-size: 13px; font-style: italic; color: var(--muted); margin-bottom: 10px; }
+.tc-body p { font-size: 14.5px; color: var(--muted); line-height: 1.65; margin-bottom: 18px; flex: 1; }
+.tc-cta { font-size: 13px; font-weight: 700; letter-spacing: .2px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--hue-d); }
+.tc-cta svg { width: 14px; height: 14px; transition: transform .2s; }
+.track-card:hover .tc-cta svg { transform: translateX(3px); }
+
+@media (max-width: 860px) {
+  .track-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .academy-pullquote { padding: 0 20px; }
+  .page-header { padding: 44px 20px 36px; }
+  .crumb { padding: 0 20px; }
+  .chapter-wrap { padding: 32px 20px 16px; }
+  .chapter-nav { grid-template-columns: 1fr; padding: 8px 20px 48px; }
+  .cn-link.next { text-align: left; }
+  .track-wrap { padding: 40px 20px 64px; }
+  .academy-search-wrap { padding: 0 20px; }
+  .track-search-wrap { padding: 0 20px; }
+  .overview-wrap { padding: 24px 20px 8px; }
+  .data-chart { padding: 0 20px; }
+  .concept-diagram { padding: 0 20px; }
+  .landing-overview { padding: 0 20px; grid-template-columns: 1fr; text-align: center; }
+  .landing-overview-logo svg { max-width: 96px; }
+  .volume-section { padding: 48px 20px 8px; }
+}
+
+/* v1's stylesheet covers every component here once the markup matches it. Two things are
+   genuinely new in v2 and are built from v1's own variables rather than invented: the
+   track-membership block (which reuses .takeaway so it reads as the same family) and
+   tables, which v1 has no rules for because v1 chapters contain none. */
+.alsoin ol{margin:.5rem 0 0;padding-left:1.15rem}
+.alsoin li{margin:.4rem 0;color:var(--muted)}
+.alsoin li a{color:var(--teal-d);font-weight:600;text-decoration:none}
+.alsoin li a:hover{text-decoration:underline}
+.ctx{display:flex;gap:.7rem;align-items:baseline;flex-wrap:wrap}
+.ctx .pos{color:var(--light);font-variant-numeric:tabular-nums}
+.v2-scroll{overflow-x:auto;margin:1.6rem 0;-webkit-overflow-scrolling:touch}
+table.v2{border-collapse:collapse;width:100%;font-size:.94rem;color:var(--text)}
+table.v2 th,table.v2 td{border-bottom:1px solid var(--border);padding:.6rem .7rem;
+  text-align:left;vertical-align:top}
+table.v2 thead th{background:var(--off);color:var(--navy);font-weight:600;
+  border-bottom:2px solid var(--border);white-space:nowrap}
+table.v2 tbody tr:last-child td{border-bottom:none}
+.chap-card .cc-tile{position:relative}
+.chap-card .cc-title{position:absolute;left:0;right:0;bottom:0;margin:0;padding:2.2rem 1.15rem .9rem;
+  font-family:Georgia,'Times New Roman',serif;font-size:1.12rem;line-height:1.25;color:#fff;
+  text-shadow:0 1px 14px rgba(0,0,0,.55);
+  background:linear-gradient(to top,rgba(12,25,41,.88) 0%,rgba(12,25,41,.62) 45%,rgba(12,25,41,0) 100%)}
+.chap-card .cc-body p{margin:0 0 1rem}
+sup.fnref a{color:var(--teal-d);text-decoration:none;font-weight:600;padding:0 .1em}
+sup.fnref a:hover{text-decoration:underline}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" alt="Plenee Navigator">
+  </a>
+  <div class="nav-links" id="nav-links">
+    <a href="../../index.html#how">How it works</a>
+    <a href="../../index.html#features-start">Features</a>
+    <a href="../../academy/index.html">Academy</a>
+    <a href="../../academy2/index.html">Academy2</a>
+    <a href="../../index.html#fid">Our Promise</a>
+  </div>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+<script>
+(function(){
+  var toggle = document.getElementById('nav-toggle');
+  var links = document.getElementById('nav-links');
+  if (!toggle || !links) return;
+  toggle.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+})();
+</script>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="artBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="softBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="grainFilter" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0"/>
+    </filter>
+  </defs>
+</svg><div class="page-header"><div class="page-kicker">A situation</div><h1>Still Studying</h1><p class="header-subtitle">In education, working shifts, first credit products arriving</p></div><div class="crumb"><a href="../index.html">Academy</a><span>&rsaquo;</span><span>Still Studying</span><span style="margin-left:auto"></span><a href="../contents.html">Everything by subject</a></div><div class="overview-wrap"><p>You have been told the loan is nothing like a real debt, and that it is quietly ruining your life, by people who both sounded completely certain. Neither of them showed you the arithmetic.</p>
+<p>Meanwhile everything else is arriving. A first card with something attached that you do not remember agreeing to. A first car, where three separate products get added in the last five minutes before you sign. None of it is presented to you as a decision, which is exactly what makes it one.</p></div><div class="track-wrap"><div class="chapters-heading">29 chapters, in this order</div><div class="chapter-grid"><a class="chap-card" href="../student-loan-repayment.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Paying Back a Student Loan, After Everything Changed</h3></div><div class="cc-body"><p>The plan you were on may no longer exist, the replacement charges at least $10 a month where some people used to pay nothing, and the deadline to choose is measured from a letter that may already have arrived. Find the letter first.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../pricing-a-degree.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g style="stroke:var(--hue-d);" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="18" x2="400" y2="18"/>
+    <line x1="0" y1="36" x2="400" y2="36"/>
+    <line x1="0" y1="54" x2="400" y2="54"/>
+    <line x1="0" y1="72" x2="400" y2="72"/>
+    <line x1="0" y1="90" x2="400" y2="90"/>
+    <line x1="0" y1="108" x2="400" y2="108"/>
+  </g>
+  <line x1="0" y1="120" x2="400" y2="120" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.35"/>
+  <line x1="80" y1="0" x2="80" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="220" y1="0" x2="220" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="340" y1="0" x2="340" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <path d="M0,105 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L400,25" fill="none" style="stroke:var(--hue);" stroke-width="3" opacity="0.75" filter="url(#softBlur)"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">What a Degree Is Worth: Pricing It Before You Borrow</h3></div><div class="cc-body"><p>A qualification is an asset with four inputs: what you pay, what you give up by not working, what it adds across a career, and whether you finish.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../the-last-five-minutes.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tickerFade-the-last-five-minutes" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:var(--hue);stop-opacity:0.55"/>
+      <stop offset="100%" style="stop-color:var(--hue);stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45 L400,132 L0,132 Z" fill="url(#tickerFade-the-last-five-minutes)" filter="url(#softBlur)"/>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45" fill="none" style="stroke:var(--hue-d);" stroke-width="2.5" opacity="0.7" filter="url(#softBlur)"/>
+  <circle cx="160" cy="50" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <circle cx="320" cy="30" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">At the car finance desk? What each product pays back</h3></div><div class="cc-body"><p>These products are defined by when they are sold, not by what they cover.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../the-cheapest-cover-you-can-buy.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tickerFade-the-cheapest-cover-you-can-buy" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:var(--hue);stop-opacity:0.55"/>
+      <stop offset="100%" style="stop-color:var(--hue);stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45 L400,132 L0,132 Z" fill="url(#tickerFade-the-cheapest-cover-you-can-buy)" filter="url(#softBlur)"/>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45" fill="none" style="stroke:var(--hue-d);" stroke-width="2.5" opacity="0.7" filter="url(#softBlur)"/>
+  <circle cx="160" cy="50" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <circle cx="320" cy="30" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Renters Insurance: The Cheapest Cover You Can Buy</h3></div><div class="cc-body"><p>The cheapest genuinely useful policy there is, and it is missing from most rented homes. The liability half, which almost nobody buys it for, is the valuable half.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../insurance-you-borrowed-to-buy.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#softBlur)" opacity="0.6">
+    <line x1="30" y1="30" x2="30" y2="95" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="22" y="45" width="16" height="35" style="fill:var(--hue-d);"/>
+    <line x1="70" y1="20" x2="70" y2="70" style="stroke:var(--hue);" stroke-width="1.5"/>
+    <rect x="62" y="35" width="16" height="25" style="fill:var(--hue);"/>
+    <line x1="110" y1="50" x2="110" y2="110" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="102" y="60" width="16" height="40" style="fill:var(--hue-d);"/>
+    <line x1="150" y1="15" x2="150" y2="60" style="stroke:var(--hue);" stroke-width="1.5"/>
+    <rect x="142" y="25" width="16" height="25" style="fill:var(--hue);"/>
+    <line x1="190" y1="40" x2="190" y2="100" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="182" y="55" width="16" height="35" style="fill:var(--hue-d);"/>
+    <line x1="230" y1="10" x2="230" y2="55" style="stroke:var(--hue);" stroke-width="1.5"/>
+    <rect x="222" y="18" width="16" height="28" style="fill:var(--hue);"/>
+    <line x1="270" y1="35" x2="270" y2="90" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="262" y="45" width="16" height="32" style="fill:var(--hue-d);"/>
+    <line x1="310" y1="5" x2="310" y2="45" style="stroke:var(--hue);" stroke-width="1.5"/>
+    <rect x="302" y="12" width="16" height="22" style="fill:var(--hue);"/>
+    <line x1="350" y1="25" x2="350" y2="80" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="342" y="35" width="16" height="30" style="fill:var(--hue-d);"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Credit insurance on your loan? How to find it, and what canceling returns</h3></div><div class="cc-body"><p>Credit life and credit disability sold with a car or installment loan are usually charged as a single premium added to the loan, which means you pay interest on the insurance.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../still-paying-no-longer-covered.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Offered GAP insurance? When the cover actually ends</h3></div><div class="cc-body"><p>You will pay around a thousand dollars, and closer to thirteen hundred once it is financed on a used car loan. Nobody in the United States can tell you what share of that comes back to buyers, because no regulator collects it.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../negotiating-what-you-earn.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#artBlur)" opacity="0.65">
+    <rect x="20" y="105" width="34" height="27" style="fill:var(--hue-d);"/>
+    <rect x="70" y="90" width="34" height="42" style="fill:var(--hue);"/>
+    <rect x="120" y="95" width="34" height="37" style="fill:var(--hue-d);"/>
+    <rect x="170" y="70" width="34" height="62" style="fill:var(--hue);"/>
+    <rect x="220" y="55" width="34" height="77" style="fill:var(--hue-d);"/>
+    <rect x="270" y="60" width="34" height="72" style="fill:var(--hue);"/>
+    <rect x="320" y="30" width="34" height="102" style="fill:var(--hue-d);"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Negotiating Your Pay: The Lever Nobody Teaches</h3></div><div class="cc-body"><p>Income is the side of the equation almost no financial education covers, and for many people it is the bigger one. A rise compounds because it becomes the base for every rise after it.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../the-questions-that-do-the-work.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g style="stroke:var(--hue-d);" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="18" x2="400" y2="18"/>
+    <line x1="0" y1="36" x2="400" y2="36"/>
+    <line x1="0" y1="54" x2="400" y2="54"/>
+    <line x1="0" y1="72" x2="400" y2="72"/>
+    <line x1="0" y1="90" x2="400" y2="90"/>
+    <line x1="0" y1="108" x2="400" y2="108"/>
+  </g>
+  <line x1="0" y1="120" x2="400" y2="120" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.35"/>
+  <line x1="80" y1="0" x2="80" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="220" y1="0" x2="220" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="340" y1="0" x2="340" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <path d="M0,105 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L400,25" fill="none" style="stroke:var(--hue);" stroke-width="3" opacity="0.75" filter="url(#softBlur)"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Six Questions for Any Claim, from Anyone</h3></div><div class="cc-body"><p>Six questions. What document. Who made it and do they sell the thing. Is it the source or a retelling. What is the number actually of. What would change my mind. What is missing.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../the-default-and-the-check.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Chatbot gave you a number? How to get its source</h3></div><div class="cc-body"><p>The tool itself says its default answers are not a source of truth, and explains why: it answers from memory and only looks things up when told to.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../money-jargon-keeps-you-poor.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#softBlur)" opacity="0.6">
+    <line x1="30" y1="30" x2="30" y2="95" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="22" y="45" width="16" height="35" style="fill:var(--hue-d);"/>
+    <line x1="70" y1="20" x2="70" y2="70" style="stroke:var(--hue);" stroke-width="1.5"/>
+    <rect x="62" y="35" width="16" height="25" style="fill:var(--hue);"/>
+    <line x1="110" y1="50" x2="110" y2="110" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="102" y="60" width="16" height="40" style="fill:var(--hue-d);"/>
+    <line x1="150" y1="15" x2="150" y2="60" style="stroke:var(--hue);" stroke-width="1.5"/>
+    <rect x="142" y="25" width="16" height="25" style="fill:var(--hue);"/>
+    <line x1="190" y1="40" x2="190" y2="100" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="182" y="55" width="16" height="35" style="fill:var(--hue-d);"/>
+    <line x1="230" y1="10" x2="230" y2="55" style="stroke:var(--hue);" stroke-width="1.5"/>
+    <rect x="222" y="18" width="16" height="28" style="fill:var(--hue);"/>
+    <line x1="270" y1="35" x2="270" y2="90" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="262" y="45" width="16" height="32" style="fill:var(--hue-d);"/>
+    <line x1="310" y1="5" x2="310" y2="45" style="stroke:var(--hue);" stroke-width="1.5"/>
+    <rect x="302" y="12" width="16" height="22" style="fill:var(--hue);"/>
+    <line x1="350" y1="25" x2="350" y2="80" style="stroke:var(--hue-d);" stroke-width="1.5"/>
+    <rect x="342" y="35" width="16" height="30" style="fill:var(--hue-d);"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Jargon costing you money? The words worth learning first</h3></div><div class="cc-body"><p>Quick test, no studying allowed: what's the difference between cash flow and income? Between net income and net worth? If your mortgage payment is $2,000, how much of it is an expense?</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../flow.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#artBlur)" opacity="0.7">
+    <ellipse cx="70" cy="110" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="98" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="70" cy="86" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="74" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="115" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="104" rx="30" ry="8" style="fill:var(--hue-d);"/>
+    <ellipse cx="180" cy="93" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="105" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="92" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="79" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="66" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="53" rx="34" ry="9" style="fill:var(--hue-d);"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">FLOW: Watching Your Money Move</h3></div><div class="cc-body"><p>Money's most basic fact is that it moves. It arrives — paychecks, deposits, refunds — and it leaves — rent, groceries, payments.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../net.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tickerFade-net" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:var(--hue);stop-opacity:0.55"/>
+      <stop offset="100%" style="stop-color:var(--hue);stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45 L400,132 L0,132 Z" fill="url(#tickerFade-net)" filter="url(#softBlur)"/>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45" fill="none" style="stroke:var(--hue-d);" stroke-width="2.5" opacity="0.7" filter="url(#softBlur)"/>
+  <circle cx="160" cy="50" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <circle cx="320" cy="30" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">NET: Did You Come Out Ahead?</h3></div><div class="cc-body"><p>FLOW watches money move. The second question is what the movement amounted to: over this window, did you come out ahead or behind?</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../nest.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">NEST: What You Actually Own</h3></div><div class="cc-body"><p>FLOW watches the motion; NET scores the period; the third word answers the question underneath both: after all the moving and netting, what do you actually have?</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../credit-report-and-score.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#artBlur)" opacity="0.65">
+    <rect x="20" y="105" width="34" height="27" style="fill:var(--hue-d);"/>
+    <rect x="70" y="90" width="34" height="42" style="fill:var(--hue);"/>
+    <rect x="120" y="95" width="34" height="37" style="fill:var(--hue-d);"/>
+    <rect x="170" y="70" width="34" height="62" style="fill:var(--hue);"/>
+    <rect x="220" y="55" width="34" height="77" style="fill:var(--hue-d);"/>
+    <rect x="270" y="60" width="34" height="72" style="fill:var(--hue);"/>
+    <rect x="320" y="30" width="34" height="102" style="fill:var(--hue-d);"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Your Credit Report and Score: What's Actually in It, VantageScore vs. FICO</h3></div><div class="cc-body"><p>The free credit score in your banking app says 728. The score your mortgage lender pulls says 691. Thirty-seven points apart — sometimes the gap runs past forty — and the difference might genuinely change the rate you're offered. So which one is wrong?</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../finding-your-recurring-charges.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g style="stroke:var(--hue-d);" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="18" x2="400" y2="18"/>
+    <line x1="0" y1="36" x2="400" y2="36"/>
+    <line x1="0" y1="54" x2="400" y2="54"/>
+    <line x1="0" y1="72" x2="400" y2="72"/>
+    <line x1="0" y1="90" x2="400" y2="90"/>
+    <line x1="0" y1="108" x2="400" y2="108"/>
+  </g>
+  <line x1="0" y1="120" x2="400" y2="120" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.35"/>
+  <line x1="80" y1="0" x2="80" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="220" y1="0" x2="220" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="340" y1="0" x2="340" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <path d="M0,105 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L400,25" fill="none" style="stroke:var(--hue);" stroke-width="3" opacity="0.75" filter="url(#softBlur)"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Finding Your Recurring Charges: Subscriptions You Forgot You Pay</h3></div><div class="cc-body"><p>There's a small experiment researchers like to run: ask people to estimate their monthly subscription spending, then have them pull the statements and count.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../credit-scores-actually-work.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tickerFade-credit-scores-actually-work" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:var(--hue);stop-opacity:0.55"/>
+      <stop offset="100%" style="stop-color:var(--hue);stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45 L400,132 L0,132 Z" fill="url(#tickerFade-credit-scores-actually-work)" filter="url(#softBlur)"/>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45" fill="none" style="stroke:var(--hue-d);" stroke-width="2.5" opacity="0.7" filter="url(#softBlur)"/>
+  <circle cx="160" cy="50" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <circle cx="320" cy="30" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">How Credit Scores Actually Work: The Five Factors, Weighted</h3></div><div class="cc-body"><p>Your credit score doesn't know your salary. It doesn't know your savings, your degree, your job title, or your net worth.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../building-credit-from-nothing-and-rebuilding-after-da.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Building Credit From Nothing (and Rebuilding After Damage)</h3></div><div class="cc-body"><p>The credit system has a famous catch-22: you need credit to get credit. It's real — the file can't score what it's never seen — but it has well-marked exits, and none of them require the products sold most aggressively to people starting over.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../credit-myths.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tickerFade-credit-myths" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:var(--hue);stop-opacity:0.55"/>
+      <stop offset="100%" style="stop-color:var(--hue);stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45 L400,132 L0,132 Z" fill="url(#tickerFade-credit-myths)" filter="url(#softBlur)"/>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45" fill="none" style="stroke:var(--hue-d);" stroke-width="2.5" opacity="0.7" filter="url(#softBlur)"/>
+  <circle cx="160" cy="50" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <circle cx="320" cy="30" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Credit Myths: Carrying a Balance Does NOT Help Your Score</h3></div><div class="cc-body"><p>Somewhere, someone told you that carrying a small credit card balance "shows the bank you use credit" and helps your score. The advice has a precise cost: twenty-something percent interest, annually, purchased in exchange for a benefit of exactly zero.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../credit-card-interest-mechanics.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tickerFade-credit-card-interest-mechanics" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:var(--hue);stop-opacity:0.55"/>
+      <stop offset="100%" style="stop-color:var(--hue);stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45 L400,132 L0,132 Z" fill="url(#tickerFade-credit-card-interest-mechanics)" filter="url(#softBlur)"/>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45" fill="none" style="stroke:var(--hue-d);" stroke-width="2.5" opacity="0.7" filter="url(#softBlur)"/>
+  <circle cx="160" cy="50" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <circle cx="320" cy="30" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Carrying a card balance? How to get the grace period back</h3></div><div class="cc-body"><p>Credit card interest has a switch most people don't know exists — and not knowing it is worth billions a year to the industry. Here it is: pay your statement balance in full, and purchases are interest-free for weeks.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../bnpl-and-payday-traps.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#artBlur)" opacity="0.7">
+    <ellipse cx="70" cy="110" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="98" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="70" cy="86" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="74" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="115" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="104" rx="30" ry="8" style="fill:var(--hue-d);"/>
+    <ellipse cx="180" cy="93" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="105" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="92" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="79" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="66" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="53" rx="34" ry="9" style="fill:var(--hue-d);"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">BNPL and Payday Traps: The True APR of "Easy Payments"</h3></div><div class="cc-body"><p>"Four easy payments of $25" sounds like $100. It's engineered to. The installment frame is one of the oldest discoveries in retail psychology: people who would flinch at $100 don't flinch at $25-four-times, even though the arithmetic is identical.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../late-fee-elimination.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g style="stroke:var(--hue-d);" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="18" x2="400" y2="18"/>
+    <line x1="0" y1="36" x2="400" y2="36"/>
+    <line x1="0" y1="54" x2="400" y2="54"/>
+    <line x1="0" y1="72" x2="400" y2="72"/>
+    <line x1="0" y1="90" x2="400" y2="90"/>
+    <line x1="0" y1="108" x2="400" y2="108"/>
+  </g>
+  <line x1="0" y1="120" x2="400" y2="120" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.35"/>
+  <line x1="80" y1="0" x2="80" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="220" y1="0" x2="220" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="340" y1="0" x2="340" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <path d="M0,105 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L400,25" fill="none" style="stroke:var(--hue);" stroke-width="3" opacity="0.75" filter="url(#softBlur)"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Late Fee Elimination: Autopay-in-Full Done Right</h3></div><div class="cc-body"><p>The most efficient way to pay a credit card is also the laziest: automatically, in full, on the due date. Not early. Not late. Not manually.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../rewards-optimization-without-the-debt-trap.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g style="stroke:var(--hue-d);" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="18" x2="400" y2="18"/>
+    <line x1="0" y1="36" x2="400" y2="36"/>
+    <line x1="0" y1="54" x2="400" y2="54"/>
+    <line x1="0" y1="72" x2="400" y2="72"/>
+    <line x1="0" y1="90" x2="400" y2="90"/>
+    <line x1="0" y1="108" x2="400" y2="108"/>
+  </g>
+  <line x1="0" y1="120" x2="400" y2="120" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.35"/>
+  <line x1="80" y1="0" x2="80" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="220" y1="0" x2="220" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="340" y1="0" x2="340" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <path d="M0,105 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L400,25" fill="none" style="stroke:var(--hue);" stroke-width="3" opacity="0.75" filter="url(#softBlur)"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Rewards Optimization Without the Debt Trap: The 2% Cash Baseline</h3></div><div class="cc-body"><p>Bank fees adding up? The ones worth moving accounts over's swipe-fee chapter established the strange economics of card payments: acceptance costs are baked into shelf prices, paid by everyone — cash payers included — while rewards flow back only to card users.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../buying-a-car.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#artBlur)" opacity="0.65">
+    <rect x="20" y="105" width="34" height="27" style="fill:var(--hue-d);"/>
+    <rect x="70" y="90" width="34" height="42" style="fill:var(--hue);"/>
+    <rect x="120" y="95" width="34" height="37" style="fill:var(--hue-d);"/>
+    <rect x="170" y="70" width="34" height="62" style="fill:var(--hue);"/>
+    <rect x="220" y="55" width="34" height="77" style="fill:var(--hue-d);"/>
+    <rect x="270" y="60" width="34" height="72" style="fill:var(--hue);"/>
+    <rect x="320" y="30" width="34" height="102" style="fill:var(--hue-d);"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Buying a Car: Total Cost of Ownership, Financing Traps, Depreciation</h3></div><div class="cc-body"><p>Buying a car packs more of this curriculum into one afternoon than any other transaction. Depreciation (High-Depreciation Spending: Cars, Gadgets, and Wealth Leaks), how financing really works (Bank fees adding up?</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../loss-aversion-and-other-biases.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#artBlur)" opacity="0.7">
+    <ellipse cx="70" cy="110" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="98" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="70" cy="86" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="74" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="115" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="104" rx="30" ry="8" style="fill:var(--hue-d);"/>
+    <ellipse cx="180" cy="93" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="105" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="92" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="79" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="66" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="53" rx="34" ry="9" style="fill:var(--hue-d);"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Loss Aversion, Present Bias and Anchoring: Spotting Them in Yourself</h3></div><div class="cc-body"><p>Your brain runs money decisions on hardware built for surviving scarcity — for not starving in winter, for not being cheated at the well — and not for managing a 401k across four decades.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../cashless-effect.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#artBlur)" opacity="0.7">
+    <ellipse cx="70" cy="110" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="98" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="70" cy="86" rx="32" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="70" cy="74" rx="32" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="115" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="180" cy="104" rx="30" ry="8" style="fill:var(--hue-d);"/>
+    <ellipse cx="180" cy="93" rx="30" ry="8" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="105" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="92" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="79" rx="34" ry="9" style="fill:var(--hue-d);"/>
+    <ellipse cx="300" cy="66" rx="34" ry="9" style="fill:var(--hue);"/>
+    <ellipse cx="300" cy="53" rx="34" ry="9" style="fill:var(--hue-d);"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">The Cashless Effect and the Framing Effect: How Money Leaves Before You Feel It</h3></div><div class="cc-body"><p>A $40 tap of your phone and a $40 handover of cash cost exactly the same amount and feel almost nothing alike. The tap is weightless — a chirp, a nod, done.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../compounding-needs-time-not-genius.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g style="stroke:var(--hue-d);" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="18" x2="400" y2="18"/>
+    <line x1="0" y1="36" x2="400" y2="36"/>
+    <line x1="0" y1="54" x2="400" y2="54"/>
+    <line x1="0" y1="72" x2="400" y2="72"/>
+    <line x1="0" y1="90" x2="400" y2="90"/>
+    <line x1="0" y1="108" x2="400" y2="108"/>
+  </g>
+  <line x1="0" y1="120" x2="400" y2="120" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.35"/>
+  <line x1="80" y1="0" x2="80" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="220" y1="0" x2="220" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <line x1="340" y1="0" x2="340" y2="132" style="stroke:var(--hue-d);" stroke-width="1" opacity="0.2"/>
+  <path d="M0,105 L60,95 L120,100 L180,70 L240,75 L300,45 L360,50 L400,25" fill="none" style="stroke:var(--hue);" stroke-width="3" opacity="0.75" filter="url(#softBlur)"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Starting late? Compound growth needs time, not genius</h3></div><div class="cc-body"><p>Compounding is the only thing in finance that deserves the word miraculous, and it has the least impressive job description imaginable. Earn a return. Leave it alone. Let the return earn returns.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../high-depreciation-spending.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#artBlur)" opacity="0.65">
+    <rect x="20" y="105" width="34" height="27" style="fill:var(--hue-d);"/>
+    <rect x="70" y="90" width="34" height="42" style="fill:var(--hue);"/>
+    <rect x="120" y="95" width="34" height="37" style="fill:var(--hue-d);"/>
+    <rect x="170" y="70" width="34" height="62" style="fill:var(--hue);"/>
+    <rect x="220" y="55" width="34" height="77" style="fill:var(--hue-d);"/>
+    <rect x="270" y="60" width="34" height="72" style="fill:var(--hue);"/>
+    <rect x="320" y="30" width="34" height="102" style="fill:var(--hue-d);"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">High-Depreciation Spending: Cars, Gadgets, and Wealth Leaks</h3></div><div class="cc-body"><p>A new car doesn't just cost money. It destroys money — reliably, measurably, fastest in the first year — and most buyers finance the destruction and pay interest on it. That sentence contains the whole chapter; the rest is pricing it.</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../new-persuaders.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tickerFade-new-persuaders" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:var(--hue);stop-opacity:0.55"/>
+      <stop offset="100%" style="stop-color:var(--hue);stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45 L400,132 L0,132 Z" fill="url(#tickerFade-new-persuaders)" filter="url(#softBlur)"/>
+  <path d="M0,90 Q40,60 80,75 T160,50 T240,70 T320,30 T400,45" fill="none" style="stroke:var(--hue-d);" stroke-width="2.5" opacity="0.7" filter="url(#softBlur)"/>
+  <circle cx="160" cy="50" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <circle cx="320" cy="30" r="4" style="fill:var(--hue-d);" opacity="0.6"/>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">The New Persuaders: Social Media, Influencers, and Buy Now Pay Later</h3></div><div class="cc-body"><p>Nothing in the last decade of consumer marketing is conceptually new. Wanting things you didn't before? How the desire is manufactured covered the psychology; Breaks just after the warranty?</p><span class="cc-cta">Read &rarr;</span></div></a><a class="chap-card" href="../you-cant-plan-what-you-cant-see.html?via=still-studying" style="--hue:#0FA8BC;--hue-l:#E6F7FA;--hue-d:#0A8A9E;"><div class="cc-tile"><svg class="cc-art" viewBox="0 0 400 132" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" opacity="0.55">
+    <path d="M-20,20 C60,60 100,-20 180,20 S300,60 420,20" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,40 C60,80 100,0 180,40 S300,80 420,40" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,60 C60,100 100,20 180,60 S300,100 420,60" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,80 C60,120 100,40 180,80 S300,120 420,80" style="stroke:var(--hue);" stroke-width="1.2"/>
+    <path d="M-20,100 C60,140 100,60 180,100 S300,140 420,100" style="stroke:var(--hue-d);" stroke-width="1.2"/>
+    <path d="M-20,30 C60,-10 100,70 180,30 S300,-10 420,30" style="stroke:var(--hue);" stroke-width="1"/>
+    <path d="M-20,70 C60,30 100,110 180,70 S300,30 420,70" style="stroke:var(--hue-d);" stroke-width="1"/>
+    <path d="M-20,110 C60,70 100,150 180,110 S300,70 420,110" style="stroke:var(--hue);" stroke-width="1"/>
+  </g>
+  <rect class="grain" x="0" y="0" width="400" height="132" filter="url(#grainFilter)"/>
+</svg><h3 class="cc-title">Can't see where it goes? Mapping every account</h3></div><div class="cc-body"><p>Nobody plans to pay $400 a year in fees. There's no line in anyone's budget that says fees: $400, no January morning where someone sits down with coffee and decides that this year, like last year, they'll hand a few hundred dollars to their bank for nothing.</p><span class="cc-cta">Read &rarr;</span></div></a></div></div>
+
+<div id="disclaimer-strip">
+  <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. <a href="../../plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
+</div>
+
+<footer>
+  <a href="../../index.html" style="display:block;line-height:0">
+    <img src="../../Logo%20-%20Plenee_Navigator_v2.svg" height="44" alt="Plenee Navigator">
+  </a>
+  <p>© 2026 Plenee Co. All rights reserved.</p>
+  <div class="fl"><a href="../../privacy.html">Privacy</a><a href="../../terms.html">Terms</a><a href="../../plenee_legal.html" style="color:var(--teal)">Legal</a><a href="../../contact.html">Contact</a></div>
+</footer>
+
+</body>
+</html>

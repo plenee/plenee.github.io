@@ -928,7 +928,8 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
   <div class="nav-links" id="nav-links">
     <a href="{root}index.html#how">How it works</a>
     <a href="{root}index.html#features-start">Features</a>
-    <a href="{ac_root}index.html" class="active">Academy</a>
+    <a href="{root}academy/index.html">Academy</a>
+    <a href="{root}academy2/index.html">Academy2</a>
     <a href="{root}index.html#fid">Our Promise</a>
   </div>
   <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">

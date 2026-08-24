@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Renters, Umbrella and Disability: The Policies Nobody Sells You — Plenee Academy</title>
+<link rel="canonical" href="https://plenee.com/academy2/the-policies-nobody-sells-you.html">
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:    #0C1929;
+  --navy2:   #152236;
+  --teal:    #0FA8BC;
+  --teal-d:  #0A8A9E;
+  --teal-l:  #E6F7FA;
+  --orange:  #E87722;
+  --orange-l:#FFF4EC;
+  --white:   #FFFFFF;
+  --off:     #F6F9FB;
+  --text:    #0C1929;
+  --muted:   #4E6175;
+  --light:   #8A9EB0;
+  --border:  #DDE8F0;
+  --green:   #1E9E5E;
+  --green-l: #E8FAF2;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+nav {
+  position: sticky; top: 0; z-index: 300;
+  background: #0C1929;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  height: 72px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+}
+.nav-logo { display: flex; align-items: center; height: 100%; line-height: 0; }
+.nav-logo img { height: 100%; display: block; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { color: #B6C6D6; text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--teal); }
+.nav-links a.active { color: var(--teal); }
+.nav-toggle { display: none; background: none; border: none; color: #fff; cursor: pointer; padding: 8px; align-items: center; justify-content: center; }
+
+footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.07); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+footer p { color: #2E4A60; font-size: 13px; }
+.fl a { color: #2E4A60; font-size: 13px; text-decoration: none; margin-left: 24px; transition: color .2s; }
+.fl a:hover { color: var(--teal); }
+
+#disclaimer-strip { background: var(--off); border-top: 1px solid var(--border); padding: 16px 48px; text-align: center; }
+#disclaimer-strip p { font-size: 12px; color: var(--light); line-height: 1.6; max-width: 900px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 56px; }
+  .nav-toggle { display: flex; }
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; background: #0C1929; border-bottom: 1px solid rgba(255,255,255,.08); padding: 4px 20px 10px; }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.06); font-size: 12px; white-space: nowrap; }
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .fl a { margin-left: 0; margin-right: 20px; }
+}
+
+
+/* ─── PAGE HEADER ─── */
+.page-header { background: var(--navy); padding: 64px 48px 52px; text-align: center; }
+.page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
+.page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
+.page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+/* Track-index-only: the parenthetical part of a track's title (e.g. "(The
+   Systemic Conditioning of Americans)") shown as its own line under the h1,
+   rather than crowding the h1 itself or every breadcrumb/nav mention. */
+.header-subtitle { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(15px,2vw,19px); font-weight: 400; color: #7A9AB5; line-height: 1.4; margin-top: -6px; margin-bottom: 14px; }
+/* Landing-page-only: "Plenee" set large (matching the h1 below), the
+   "Academy" pill sitting underneath it rather than "Plenee Academy" both
+   inside one small chip. */
+.landing-brand { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 18px; }
+
+/* ─── BREADCRUMB ─── */
+.crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
+.crumb a { color: var(--muted); text-decoration: none; }
+.crumb a:hover { color: var(--teal); }
+
+/* ─── CHAPTER PAGE ─── */
+.chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
+.chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 14px; }
+.chapter-title-subtitle { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(16px,2vw,20px); font-weight: 400; color: var(--muted); line-height: 1.35; margin-bottom: 14px; }
+.chapter-accent { width: 56px; height: 3px; border-radius: 2px; background: var(--teal); margin-bottom: 28px; }
+
+.jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
+.jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.jump-list ol { padding-left: 18px; }
+.jump-list li { margin-bottom: 6px; }
+.jump-list a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
+.jump-list a:hover { color: var(--teal); }
+
+.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 6px; }
+.subhead-accent { width: 200px; height: 1px; background: var(--orange); margin-bottom: 20px; }
+.chapter-body p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 20px; }
+.chapter-body p strong { color: var(--text); font-weight: 700; }
+.chapter-body p em { color: var(--text); font-style: italic; }
+.chapter-body sup { font-size: 11px; margin-left: 1px; }
+.chapter-body sup a { color: var(--teal-d); text-decoration: none; font-weight: 700; }
+.chapter-body sup a:hover { text-decoration: underline; }
+a.ref-link { color: var(--teal-d); font-weight: 400; text-decoration: none; }
+a.ref-link:hover { text-decoration: underline; }
+
+.takeaway { background: var(--teal-l); border-left: 4px solid var(--teal); border-radius: 0 14px 14px 0; padding: 26px 30px; margin: 44px 0 8px; }
+.takeaway .tk-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 10px; }
+.takeaway p { color: var(--text); font-size: 16px; line-height: 1.75; margin-bottom: 0; font-weight: 500; }
+
+.sources { margin: 36px 0 8px; padding-top: 24px; border-top: 1px solid var(--border); }
+.sources .src-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 14px; }
+.sources ol { padding-left: 20px; }
+.sources li { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 10px; }
+.sources li a { color: var(--teal-d); text-decoration: none; margin-left: 4px; }
+.sources li a:hover { text-decoration: underline; }
+
+.chapter-nav { max-width: 760px; margin: 0 auto; padding: 8px 48px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cn-link { display: block; border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 22px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.cn-link:hover { border-color: var(--teal); transform: translateY(-2px); }
+.cn-link.next { text-align: right; }
+.cn-dir { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); margin-bottom: 6px; }
+.cn-title { font-size: 15px; font-weight: 700; color: var(--navy); line-height: 1.4; }
+.cn-empty { visibility: hidden; }
+
+/* ─── TRACK INDEX ─── */
+.track-wrap { max-width: 1080px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapters-heading { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 18px; }
+.chapter-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.chap-card {
+  --hue: var(--teal); --hue-l: var(--teal-l); --hue-d: var(--teal-d);
+  display: flex; flex-direction: column;
+  border: 1.5px solid var(--border); border-radius: 18px; overflow: hidden;
+  text-decoration: none; background: #fff;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.chap-card:hover { border-color: var(--hue); transform: translateY(-3px); box-shadow: 0 14px 34px rgba(12,25,41,.09); }
+.cc-tile { height: 132px; position: relative; overflow: hidden; background: var(--hue-l); }
+.cc-art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cc-art .grain { mix-blend-mode: multiply; opacity: .5; }
+.cc-body { padding: 22px 24px 20px; display: flex; flex-direction: column; flex: 1; }
+.cc-body h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 18px; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 10px; }
+.cc-body p { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; flex: 1; }
+.cc-cta { font-size: 13px; font-weight: 700; letter-spacing: .2px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--hue-d); }
+.cc-cta svg { width: 14px; height: 14px; transition: transform .2s; }
+.chap-card:hover .cc-cta svg { transform: translateX(3px); }
+
+@media (max-width: 860px) {
+  .chapter-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── ACADEMY SEARCH ─── */
+/* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
+   (built + verified 2026-07-18 by a concurrent session). Listing pages only
+   (Academy index + each track index) -- never on individual chapter pages. */
+.academy-search-wrap { max-width: 620px; margin: 0 auto; padding: 0 48px; position: relative; }
+.academy-search-box { position: relative; }
+.academy-search-box svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--light); pointer-events: none; }
+.academy-search-input { width: 100%; font-family: inherit; font-size: 16px; color: var(--text); background: #fff; border: 1.5px solid var(--border); border-radius: 12px; padding: 15px 18px 15px 48px; outline: none; transition: border-color .2s, box-shadow .2s; }
+.academy-search-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(15,168,188,0.12); }
+.search-results { margin-top: 14px; display: none; flex-direction: column; gap: 10px; }
+.search-results.open { display: flex; }
+.search-hit { display: block; border: 1.5px solid var(--border); border-radius: 12px; padding: 16px 18px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.search-hit:hover { border-color: var(--teal); transform: translateY(-1px); }
+.search-hit .sh-track { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 5px; }
+.search-hit .sh-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; line-height: 1.4; }
+.search-hit .sh-snippet { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.search-hit mark { background: var(--teal-l); color: var(--teal-d); border-radius: 3px; padding: 0 2px; font-weight: 700; }
+.search-empty { font-size: 14px; color: var(--light); text-align: center; padding: 18px 0; display: none; }
+.search-empty.open { display: block; }
+.search-count { font-size: 12px; color: var(--light); margin-top: 12px; text-align: center; display: none; }
+.search-count.open { display: block; }
+.track-search-wrap { max-width: 720px; margin: 32px auto 0; padding: 0 48px; }
+.track-search-wrap .academy-search-wrap { padding: 0; max-width: none; }
+
+/* ─── OVERVIEW (track index pages) ─── */
+/* Widened to match the chapter-card grid below it (.track-wrap, 1080px) and
+   split its two paragraphs into side-by-side columns when there's room;
+   collapses to a single stacked column at the same breakpoint the card grid
+   itself collapses at, so the two never disagree about "narrow." */
+.overview-wrap { max-width: 1080px; margin: 0 auto; padding: 32px 48px 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 40px; }
+.overview-wrap p { font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 18px; }
+.overview-wrap p:last-child { margin-bottom: 0; }
+@media (max-width: 860px) {
+  .overview-wrap { grid-template-columns: 1fr; }
+}
+
+/* ─── DATA CHART (ACADEMY_PUBLISHING_INSTRUCTIONS.md §8a) ─── */
+.data-chart { max-width: 720px; margin: 40px auto; padding: 0 48px; }
+.dc-headline { font-family: Georgia, 'Times New Roman', serif; font-size: 36px; font-weight: 700; color: var(--navy); letter-spacing: -.5px; }
+.dc-subtitle { font-size: 13px; color: var(--muted); margin-top: 4px; margin-bottom: 20px; }
+.dc-divider { border-top: 1px solid var(--border); margin: 16px 0; }
+.dc-rows { display: flex; flex-direction: column; gap: 16px; }
+.dc-row-top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 2px 12px; margin-bottom: 6px; }
+.dc-row-label { font-size: 14px; color: var(--navy); }
+.dc-row-value { font-size: 14px; font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dc-bar-track { height: 10px; border-radius: 5px; overflow: hidden; }
+.dc-bar-track.teal { background: var(--teal-l); }
+.dc-bar-track.orange { background: var(--orange-l); }
+.dc-bar-fill { height: 100%; border-radius: 5px; }
+.dc-bar-fill.teal { background: var(--teal); }
+.dc-bar-fill.orange { background: var(--orange); }
+.dc-legend { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 4px; }
+.dc-legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+.dc-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.dc-swatch.teal { background: var(--teal); }
+.dc-swatch.orange { background: var(--orange); }
+.dc-caption { font-size: 12px; color: var(--light); margin-top: 18px; line-height: 1.6; }
+
+/* ─── SHARED CONCEPT DIAGRAM (ACADEMY_PUBLISHING_INSTRUCTIONS.md §8b) ─── */
+.concept-diagram { max-width: 720px; margin: 32px auto; padding: 0 48px; }
+.concept-diagram svg { width: 100%; height: auto; display: block; }
+.cd-caption { font-size: 12px; color: var(--light); text-align: center; margin-top: 12px; }
+
+/* ─── ACADEMY LANDING PAGE ─── */
+.academy-pullquote { text-align: center; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 19px; color: var(--navy); max-width: 560px; margin: 28px auto 0; padding: 0 48px; line-height: 1.5; }
+
+.landing-overview {
+  max-width: 1080px; margin: 44px auto 0; padding: 0 48px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center;
+}
+.landing-overview-logo { display: flex; align-items: center; justify-content: center; }
+.landing-overview-logo svg { width: 100%; max-width: 224px; height: auto; display: block; }
+/* #overview-needle's rotation is applied as a native SVG transform attribute
+   (via JS), not a CSS transform -- that pivots reliably at SVG-space (0,0),
+   the pivot/hub position, matching how the source logo's own static
+   transform="rotate(43)" already worked. CSS transform-origin tricks on SVG
+   (transform-box: view-box, etc.) proved inconsistent across browsers. */
+.landing-overview p { font-size: 16px; color: var(--muted); line-height: 1.75; margin: 0; }
+
+.volume-section { max-width: 1080px; margin: 0 auto; padding: 64px 48px 8px; }
+.volume-section + .volume-section { padding-top: 12px; }
+.volume-kicker { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+.volume-section.v1 .volume-kicker { color: var(--teal-d); }
+.volume-section.v2 .volume-kicker { color: #17434F; }
+.volume-h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(26px,3.2vw,36px); font-weight: 700; color: var(--navy); letter-spacing: -.5px; margin-bottom: 8px; }
+.volume-sub { color: var(--muted); font-size: 16px; margin-bottom: 40px; max-width: 620px; }
+
+/* Each card sets its own --hue/--hue-l/--hue-d inline (see TRACK_HUES: the 6
+   thematic groups -- Foundations=teal, Know-your-opponent=orange,
+   Flywheel=gold, Life admin=slate, Protection/crisis=rose, Psychology=indigo). */
+.track-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 8px; }
+.track-card {
+  --hue: var(--teal); --hue-l: var(--teal-l); --hue-d: var(--teal-d);
+  display: flex; flex-direction: column;
+  border: 1.5px solid var(--border); border-radius: 18px; overflow: hidden;
+  text-decoration: none; background: #fff;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.track-card:hover { border-color: var(--hue); transform: translateY(-3px); box-shadow: 0 14px 34px rgba(12,25,41,.09); }
+
+.tc-tile { height: 108px; display: flex; align-items: center; justify-content: center; position: relative; background: var(--hue-l); }
+.tc-tile svg { width: 44px; height: 44px; color: var(--hue-d); }
+.tc-num {
+  position: absolute; top: 14px; right: 16px;
+  font-family: Georgia, serif; font-weight: 700; font-size: 13px;
+  padding: 3px 10px; border-radius: 100px; background: rgba(255,255,255,.6);
+  color: var(--hue-d);
+}
+
+.tc-body { padding: 24px 26px 22px; display: flex; flex-direction: column; flex: 1; }
+.tc-body h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 19px; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 2px; }
+.tc-subtitle { font-family: Georgia, 'Times New Roman', serif; font-size: 13px; font-style: italic; color: var(--muted); margin-bottom: 10px; }
+.tc-body p { font-size: 14.5px; color: var(--muted); line-height: 1.65; margin-bottom: 18px; flex: 1; }
+.tc-cta { font-size: 13px; font-weight: 700; letter-spacing: .2px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--hue-d); }
+.tc-cta svg { width: 14px; height: 14px; transition: transform .2s; }
+.track-card:hover .tc-cta svg { transform: translateX(3px); }
+
+@media (max-width: 860px) {
+  .track-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .academy-pullquote { padding: 0 20px; }
+  .page-header { padding: 44px 20px 36px; }
+  .crumb { padding: 0 20px; }
+  .chapter-wrap { padding: 32px 20px 16px; }
+  .chapter-nav { grid-template-columns: 1fr; padding: 8px 20px 48px; }
+  .cn-link.next { text-align: left; }
+  .track-wrap { padding: 40px 20px 64px; }
+  .academy-search-wrap { padding: 0 20px; }
+  .track-search-wrap { padding: 0 20px; }
+  .overview-wrap { padding: 24px 20px 8px; }
+  .data-chart { padding: 0 20px; }
+  .concept-diagram { padding: 0 20px; }
+  .landing-overview { padding: 0 20px; grid-template-columns: 1fr; text-align: center; }
+  .landing-overview-logo svg { max-width: 96px; }
+  .volume-section { padding: 48px 20px 8px; }
+}
+
+/* v1's stylesheet covers every component here once the markup matches it. Two things are
+   genuinely new in v2 and are built from v1's own variables rather than invented: the
+   track-membership block (which reuses .takeaway so it reads as the same family) and
+   tables, which v1 has no rules for because v1 chapters contain none. */
+.alsoin ol{margin:.5rem 0 0;padding-left:1.15rem}
+.alsoin li{margin:.4rem 0;color:var(--muted)}
+.alsoin li a{color:var(--teal-d);font-weight:600;text-decoration:none}
+.alsoin li a:hover{text-decoration:underline}
+.ctx{display:flex;gap:.7rem;align-items:baseline;flex-wrap:wrap}
+.ctx .pos{color:var(--light);font-variant-numeric:tabular-nums}
+.v2-scroll{overflow-x:auto;margin:1.6rem 0;-webkit-overflow-scrolling:touch}
+table.v2{border-collapse:collapse;width:100%;font-size:.94rem;color:var(--text)}
+table.v2 th,table.v2 td{border-bottom:1px solid var(--border);padding:.6rem .7rem;
+  text-align:left;vertical-align:top}
+table.v2 thead th{background:var(--off);color:var(--navy);font-weight:600;
+  border-bottom:2px solid var(--border);white-space:nowrap}
+table.v2 tbody tr:last-child td{border-bottom:none}
+.chap-card .cc-tile{position:relative}
+.chap-card .cc-title{position:absolute;left:0;right:0;bottom:0;margin:0;padding:2.2rem 1.15rem .9rem;
+  font-family:Georgia,'Times New Roman',serif;font-size:1.12rem;line-height:1.25;color:#fff;
+  text-shadow:0 1px 14px rgba(0,0,0,.55);
+  background:linear-gradient(to top,rgba(12,25,41,.88) 0%,rgba(12,25,41,.62) 45%,rgba(12,25,41,0) 100%)}
+.chap-card .cc-body p{margin:0 0 1rem}
+sup.fnref a{color:var(--teal-d);text-decoration:none;font-weight:600;padding:0 .1em}
+sup.fnref a:hover{text-decoration:underline}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../Logo%20-%20Plenee_Navigator_v2.svg" alt="Plenee Navigator">
+  </a>
+  <div class="nav-links" id="nav-links">
+    <a href="../index.html#how">How it works</a>
+    <a href="../index.html#features-start">Features</a>
+    <a href="../academy/index.html">Academy</a>
+    <a href="../academy2/index.html">Academy2</a>
+    <a href="../index.html#fid">Our Promise</a>
+  </div>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+<script>
+(function(){
+  var toggle = document.getElementById('nav-toggle');
+  var links = document.getElementById('nav-links');
+  if (!toggle || !links) return;
+  toggle.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+})();
+</script>
+
+<div class="crumb"><a href="index.html">Academy</a><span>&rsaquo;</span><span>Renters, Umbrella and Disability: The Policies Nobody Sells You</span><span style="margin-left:auto"></span><a href="contents.html">Everything by subject</a></div><div class="chapter-wrap"><div class="chapter-eyebrow ctx" id="v2-ctx">Cover worth having</div><h1>Renters, Umbrella and Disability: The Policies Nobody Sells You</h1><div class="chapter-accent"></div><div class="jump-list"><div class="jl-title">In this chapter</div><ol><li><a href="#the-pattern-worth-noticing-first">The pattern worth noticing first</a></li><li><a href="#renters-insurance">Renters insurance</a></li><li><a href="#umbrella-liability">Umbrella liability</a></li><li><a href="#long-term-disability-cover">Long-term disability cover</a></li><li><a href="#why-the-cheap-ones-are-the-good-ones">Why the cheap ones are the good ones</a></li><li><a href="#what-the-risk-numbers-actually-say">What the risk numbers actually say</a></li><li><a href="#the-order-to-buy-in">The order to buy in</a></li><li><a href="#where-plenee-fits">Where Plenee fits</a></li><li><a href="#the-short-version">The short version</a></li></ol></div><div class="chapter-body"><h2 id="the-pattern-worth-noticing-first">The pattern worth noticing first</h2><div class="subhead-accent"></div>
+<p>Nobody rings you about renters insurance. Nobody sets up a meeting to discuss umbrella liability. The disability cover in your benefits pack is a checkbox you scroll past.</p>
+<p>Meanwhile someone will absolutely find time to talk to you about a permanent life policy, an annuity, or a protection plan on a television.</p>
+<p>That contrast is not an accident and it is not a conspiracy either. It is arithmetic. The money in selling insurance is in the commission, the commission comes out of the premium, and these three products have small premiums or are sold in bulk through an employer. There is no living to be made pushing a $170 policy.</p>
+<p>So the market's effort and the household's need point in opposite directions. <strong>The three best-value protections available to most people are the three that nobody is incentivized to sell them.</strong> You have to go and get them.</p>
+<h2 id="renters-insurance">Renters insurance</h2><div class="subhead-accent"></div>
+<p>The cheapest genuinely useful policy in personal finance, and it is missing from most renting households.</p>
+<p>In 2021 the average renters premium was <strong>$170 a year</strong>, against <strong>$1,411</strong> for homeowners.<sup class="fnref" id="r1"><a href="#fn1">1</a></sup> Those figures are now five years old and premiums have moved since — but the ratio is the point, and the ratio has not changed: renters cover costs a fraction of what home cover costs, because it insures no building.</p>
+<p>What it actually does, and what most renters get wrong:</p>
+<p><strong>Your landlord's policy does not cover your things.</strong> It covers their building. If a fire starts two flats away, the structure is insured and your possessions are not.</p>
+<p><strong>The liability half is the valuable half</strong>, and almost nobody buys it for that. If someone is injured in your home, or you cause damage that runs into the building, you are the one liable. That is a claim with no ceiling attached to a policy that costs about what a streaming bundle does.</p>
+<p><strong>It usually pays for somewhere to live</strong> while a place is uninhabitable, which is the part renters discover they needed only after a fire or a burst pipe.</p>
+<p><strong>It does not cover flood.</strong> Standard renters forms exclude it, exactly as homeowners forms do.<sup class="fnref" id="r2"><a href="#fn2">2</a></sup></p>
+<h2 id="umbrella-liability">Umbrella liability</h2><div class="subhead-accent"></div>
+<p>The highest amount of protection per dollar available to a household, and the one most people have never had explained to them.</p>
+<p>Your home and auto policies each carry a liability limit. Most homeowners policies provide a minimum of <strong>$100,000</strong>; the industry's own guidance recommends carrying at least <strong>$300,000 to $500,000</strong>.<sup class="fnref" id="r3"><a href="#fn3">3</a></sup> An umbrella sits on top of both and adds cover in millions.</p>
+<p>The price is the surprising part. For a household with one home, two cars and two drivers, about <strong>$383 a year buys $1 million</strong> of umbrella cover, with each additional million adding roughly <strong>$75</strong>.<sup class="fnref" id="r4"><a href="#fn4">4</a></sup></p>
+<p>Why it matters more than it used to: third-party bodily injury payouts averaged about <strong>$27,600 per injured party</strong> as of the third quarter of 2024, up 8% in a year and 35% since 2020.<sup class="fnref" id="r5"><a href="#fn5">5</a></sup> That is per injured party, not per accident. A single serious crash involving several people can pass a standard auto limit without anything unusual happening.</p>
+<p>Two practical notes. Most carriers require you to hold <strong>$300,000</strong> of underlying liability before they will write an umbrella at all,<sup class="fnref"><a href="#fn3">3</a></sup> so raising the base limits is step one and often cheap. And liability is the one exposure on this list that genuinely has no cap — which is precisely the definition of a risk you cannot absorb.</p>
+<h2 id="long-term-disability-cover">Long-term disability cover</h2><div class="subhead-accent"></div>
+<p>The one that protects the asset everything else is built on: your ability to earn.</p>
+<p>Start with how likely it is, because almost nobody guesses this right. For someone turning 20 today, the government's own actuaries put the probability of becoming disabled before retirement age at <strong>24% — about one in four.</strong><sup class="fnref" id="r6"><a href="#fn6">6</a></sup> That is a higher chance than dying before retirement, which the same table puts at 13%.<sup class="fnref"><a href="#fn6">6</a></sup></p>
+<p>Two honest qualifiers, since the figure is often stretched. It is <em>about</em> one in four, not more than one in four — the projection has drifted down from a peak of 27.2% a decade ago. And it applies to workers who are and stay insured for disability cover, which the actuaries note produces a higher figure than counting all workers.<sup class="fnref"><a href="#fn6">6</a></sup></p>
+<p>The loss ratios here are unusually good, and they are the second argument. Individual long-term disability paid out <strong>70.25%</strong> of premium in claims in 2024, and group long-term disability <strong>65.82%</strong>.<sup class="fnref" id="r7"><a href="#fn7">7</a></sup> Set that against the products in the previous chapter paying out a fifth or a sixth of premium, and the difference is the whole point — this is insurance doing what insurance is for.</p>
+<p>One honest complication, because a tidy rule would be wrong. It is tempting to say the narrower and more frequent the trigger, the less comes back: individual short-term disability paid out only <strong>42.07%</strong> against individual long-term's 70.25%, which fits neatly. But the pattern reverses in the group market, where short-term paid <strong>70.60%</strong> — higher than group long-term.<sup class="fnref"><a href="#fn7">7</a></sup> The useful conclusion is narrower and more reliable: <strong>long-term disability is good value in both markets, and individual short-term cover is the weak member of the family.</strong></p>
+<p>Four things decide what a policy is worth, and none of them is the headline percentage:</p>
+<p><strong>What fraction of income it replaces.</strong> Aim for the region of 60–70% of gross.</p>
+<p><strong>How the benefit is taxed.</strong> If your employer pays the premium, the benefit is generally taxable; if you pay it with your own after-tax money, it generally is not. That single detail can move the real value of the same policy by a third.</p>
+<p><strong>The elimination period</strong> — how long you wait before it pays. Match it to the reserve you actually have, not the one you intend to build.</p>
+<p><strong>Whether it is own-occupation.</strong> If your income depends on a specific skill, cover that pays only when you cannot do <em>any</em> work is worth far less than it appears.</p>
+<p>Group cover through an employer is the cheapest version available to most people. It also usually ends when the job does, which is worth knowing before it becomes relevant.</p>
+<h2 id="why-the-cheap-ones-are-the-good-ones">Why the cheap ones are the good ones</h2><div class="subhead-accent"></div>
+<p>There is a pattern under all three, and it holds up well enough to use as a rule.</p>
+<p><strong>Products you can compare on a single number pay out the most and cost the least. Products you cannot compare pay out the least and pay the seller the most.</strong></p>
+<p>Renters, umbrella and term disability are all quotable. You can put two of them side by side and one number decides it. An indexed universal life illustration, a bonus annuity, a home warranty contract — you cannot compare two of those on any single number, and that is not a limitation of the paperwork.</p>
+<p>So: <em>if you cannot compare two quotes on one number, the difference between them is not the product. It is the price you cannot see.</em></p>
+<h2 id="what-the-risk-numbers-actually-say">What the risk numbers actually say</h2><div class="subhead-accent"></div>
+<p>It helps to know which household disasters are common and which are ruinous, because they are not the same list. Over 2018–2022:<sup class="fnref" id="r8"><a href="#fn8">8</a></sup></p>
+<div class="v2-scroll"><table class="v2"><thead><tr><th>Event</th><th>How often</th><th>Average claim</th></tr></thead><tbody><tr><td>Wind and hail</td><td>1 in 35 homes</td><td>$13,511</td></tr><tr><td>Water damage and freezing</td><td>1 in 60</td><td>$13,954</td></tr><tr><td>Theft</td><td>1 in 700</td><td>$5,024</td></tr><tr><td>Fire and lightning</td><td>1 in 425</td><td>$83,991</td></tr><tr><td>Liability (bodily injury)</td><td>1 in 1,100</td><td>$31,690</td></tr></tbody></table></div>
+<p>About 5.5% of insured homes filed a claim in 2022, and the average claim across all types over those five years was $15,749.<sup class="fnref"><a href="#fn8">8</a></sup></p>
+<p>Read the two columns against each other and the strategy writes itself. The frequent events are survivable — a five-figure claim hurts and does not end anything. The rare ones are the ones worth insuring properly. That is the argument for taking a higher deductible on the frequent stuff, which the industry's own guidance says can cut a homeowners premium by as much as 25%,<sup class="fnref" id="r9"><a href="#fn9">9</a></sup> and spending the saving on limits that cover the rare catastrophic one.</p>
+<h2 id="the-order-to-buy-in">The order to buy in</h2><div class="subhead-accent"></div>
+<p>For most households, this order:</p>
+<ol><li><strong>Renters or homeowners cover with a proper liability limit</strong> — not the $100,000 default.</li><li><strong>Long-term disability</strong>, group first because it is cheapest. This protects the income everything else depends on.</li><li><strong>Umbrella liability</strong>, once the underlying limits qualify you for it.</li><li><strong>Term life</strong>, if anyone depends on your income.</li><li><strong>Flood</strong>, if you are anywhere it can reach — and the standard policies exclude it, so it is a separate purchase.</li></ol>
+<p>None of these will be sold to you. All of them have to be asked for.</p>
+<h2 id="where-plenee-fits">Where Plenee fits</h2><div class="subhead-accent"></div>
+<p>The premiums here are small enough to disappear into a month, which is exactly why they get skipped and exactly why they are affordable. Plenee can show what you currently pay across every policy in one place — and, more usefully, the gap between that number and the handful of dollars a month that would close the exposures above.</p>
+<h2 id="the-short-version">The short version</h2><div class="subhead-accent"></div>
+<p>The three best-value protections most households can buy are the three nobody is paid enough to sell them. Renters insurance costs a fraction of home cover and its liability half is the valuable half. Umbrella liability is roughly $383 a year for a million dollars of protection against the one risk with no ceiling. Long-term disability pays out around two-thirds of premium in claims, which is what real insurance looks like. Frequent household claims are survivable and rare ones are not — so take the deductible on the common stuff and buy the limits on the catastrophic. And if two quotes cannot be compared on one number, the difference between them is the part you are not being shown.</p><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/first-job-renting.html">First Job, Renting</a> — <span class="why">Three protections nobody is paid enough to ring you about.</span></li><li><a href="tracks/no-pay-stub.html">No Pay Stub</a> — <span class="why">Income protection matters most here, and it is the one with the best value.</span></li><li><a href="tracks/one-income-no-buffer.html">One Income, No Buffer</a> — <span class="why">The protections nobody rings about, because there is no commission in them.</span></li><li><a href="tracks/two-countries.html">Two Countries, One Budget</a> — <span class="why">The protections nobody will ring you about.</span></li></ol></div><div class="sources"><div class="src-title">Sources</div><ol><li id="fn1">NAIC data via the Insurance Information Institute: average renters premium $170 in 2021, down 1.7% on 2020; average homeowners premium $1,411 in 2021, up 7.6%. These are 2021 figures and premiums have risen since — use the ratio, not the levels. <a href="#r1">&#8617;</a></li><li id="fn2">Standard homeowners and renters policy forms exclude flood. Flood cover is a separate purchase. <a href="#r2">&#8617;</a></li><li id="fn3">Insurance Information Institute, How Much Homeowners Insurance Do I Need: most homeowners policies provide a minimum of $100,000 of liability; at least $300,000 to $500,000 is recommended; most carriers require $300,000 of underlying liability before writing an umbrella policy. <a href="#r3">&#8617;</a></li><li id="fn4">Progressive: approximately $383 a year for $1 million of umbrella cover for a household with one home, two cars and two drivers, with each additional million adding about $75. Pricing varies by carrier, state and household. <a href="#r4">&#8617;</a></li><li id="fn5">CCC Crash Course: average third-party bodily injury payouts of about $27,600 per injured party as of Q3 2024, up 8% year on year and 35% since Q3 2020. <a href="#r5">&#8617;</a></li><li id="fn6">Social Security Administration, Office of the Chief Actuary, "Disability and Death Probability Tables for Insured Workers Who Attain Age 20 in 2026," Actuarial Note No. 2026.6 (July 2026), Summary and Table A. For an insured worker attaining age 20 in 2026, SSA projects a 24% probability (23.6% unrounded; 23% for men, 24% for women) of becoming disabled before the normal retirement age of 67, and a 13% probability of dying before it, on the intermediate assumptions of the 2026 Trustees Report. SSA renders this for general readers as "About 1 in 4 of today's 20 year-olds will become disabled and entitled to Social Security disabled worker benefits before reaching age 67." The probability applies to workers who are and remain disability insured; SSA notes at n.3 that calculating incidence on insured workers yields a higher figure than including all workers. The estimate has fallen from a modern peak of 27.2% (2015 Trustees Report cohort). A widely repeated claim that 8.8 million workers, "over 5% of the workforce," receive disability benefits is SSA's June 2017 count and is no longer accurate: as of July 2026 the figure is 6.99 million disabled workers, about 4.1% of the civilian labor force. <a href="#r6">&#8617;</a></li><li id="fn7">NAIC, 2024 Accident and Health Policy Experience Report. Individual: long-term disability 70.25%, short-term disability 42.07%. Group: long-term disability 65.82%, short-term disability 70.60%. Loss ratios are one year's claims against one year's earned premium and are a blunt instrument for long-duration business — they are used here to compare products within the same report and the same year. <a href="#r7">&#8617;</a></li><li id="fn8">Insurance Information Institute, homeowners claim frequency and severity, 2018–2022: fire and lightning about 1 in 425 homes at $83,991; wind and hail 1 in 35 at $13,511; water damage and freezing 1 in 60 at $13,954; theft 1 in 700 at $5,024; liability bodily injury 1 in 1,100 at $31,690. About 5.5% of insured homes filed a claim in 2022; average claim frequency 5.79 per 100 policies and average severity $15,749 across 2018–2022. <a href="#r8">&#8617;</a></li><li id="fn9">Insurance Information Institute, 12 Ways to Lower Your Homeowners Insurance Costs: raising a deductible to $1,000 "may save as much as 25 percent". This is stated as a ceiling, not a typical result. <a href="#r9">&#8617;</a></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="what-florida-drivers-pay.html"><div class="cn-dir">Previous</div><div class="cn-title">What Florida Drivers Pay: The Cover the State Does Not Require</div></a><a class="cn-link next" href="how-much-cover.html"><div class="cn-dir">Next</div><div class="cn-title">How Much Life Insurance, and For How Long</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"first-job-renting": {"title": "First Job, Renting", "pos": 7, "len": 46, "prev": {"slug": "choosing-a-health-plan", "title": "Choosing a Health Plan, and What an Illness Then Costs"}, "next": {"slug": "the-questions-that-do-the-work", "title": "Six Questions for Any Claim, from Anyone"}}, "no-pay-stub": {"title": "No Pay Stub", "pos": 2, "len": 27, "prev": {"slug": "working-for-yourself", "title": "Self-Employed Tax: Nobody Is Withholding Anything For You"}, "next": {"slug": "how-much-cover", "title": "How Much Life Insurance, and For How Long"}}, "one-income-no-buffer": {"title": "One Income, No Buffer", "pos": 6, "len": 45, "prev": {"slug": "the-cheapest-cover-you-can-buy", "title": "Renters Insurance: The Cheapest Cover You Can Buy"}, "next": {"slug": "how-much-cover", "title": "How Much Life Insurance, and For How Long"}}, "two-countries": {"title": "Two Countries, One Budget", "pos": 7, "len": 24, "prev": {"slug": "insurance-you-borrowed-to-buy", "title": "Credit insurance on your loan? How to find it, and what canceling returns"}, "next": {"slug": "negotiating-what-you-earn", "title": "Negotiating Your Pay: The Lever Nobody Teaches"}}}}</script>
+<script>
+(function(){
+  var el=document.getElementById('v2-nav'); if(!el) return;
+  var d=JSON.parse(el.textContent);
+  var p=new URLSearchParams(location.search).get('via');
+  if(!p){try{p=localStorage.getItem('plenee_track')||''}catch(e){}}
+  if(p&&!d.tracks[p]){p=''}
+  if(!p) return;                      /* no track context: the server-rendered nav stands */
+  try{localStorage.setItem('plenee_track',p)}catch(e){}
+  var t=d.tracks[p],s=document.getElementById('v2-ctx');
+  /* the crumb above already carries the 'everything by subject' link; repeating it here
+     put the same destination twice on one screen */
+  s.innerHTML='<span>In <a href="tracks/'+p+'.html">'+t.title+'</a></span>'
+    +'<span class="pos">'+t.pos+' of '+t.len+'</span>';
+  var n=document.getElementById('v2-pager'),h='';
+  if(t.prev){h+='<a class="cn-link prev" href="'+t.prev.slug+'.html?via='+p+'">'
+    +'<div class="cn-dir">Previous</div><div class="cn-title">'+t.prev.title+'</div></a>'}
+  else{h+='<a class="cn-link prev" href="tracks/'+p+'.html">'
+    +'<div class="cn-dir">Previous</div><div class="cn-title">Back to '+t.title+'</div></a>'}
+  if(t.next){h+='<a class="cn-link next" href="'+t.next.slug+'.html?via='+p+'">'
+    +'<div class="cn-dir">Next</div><div class="cn-title">'+t.next.title+'</div></a>'}
+  n.innerHTML=h;
+})();
+</script>
+
+
+<div id="disclaimer-strip">
+  <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. <a href="../plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
+</div>
+
+<footer>
+  <a href="../index.html" style="display:block;line-height:0">
+    <img src="../Logo%20-%20Plenee_Navigator_v2.svg" height="44" alt="Plenee Navigator">
+  </a>
+  <p>© 2026 Plenee Co. All rights reserved.</p>
+  <div class="fl"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../plenee_legal.html" style="color:var(--teal)">Legal</a><a href="../contact.html">Contact</a></div>
+</footer>
+
+</body>
+</html>

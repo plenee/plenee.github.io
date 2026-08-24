@@ -18,3 +18,5 @@
 # already-excluded directory without first un-ignoring the directory itself, hence both lines.
 !academy/
 !academy/**
+!academy2/
+!academy2/**

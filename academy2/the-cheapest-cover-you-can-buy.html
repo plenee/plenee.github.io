@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Renters Insurance: The Cheapest Cover You Can Buy — Plenee Academy</title>
+<link rel="canonical" href="https://plenee.com/academy2/the-cheapest-cover-you-can-buy.html">
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:    #0C1929;
+  --navy2:   #152236;
+  --teal:    #0FA8BC;
+  --teal-d:  #0A8A9E;
+  --teal-l:  #E6F7FA;
+  --orange:  #E87722;
+  --orange-l:#FFF4EC;
+  --white:   #FFFFFF;
+  --off:     #F6F9FB;
+  --text:    #0C1929;
+  --muted:   #4E6175;
+  --light:   #8A9EB0;
+  --border:  #DDE8F0;
+  --green:   #1E9E5E;
+  --green-l: #E8FAF2;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+nav {
+  position: sticky; top: 0; z-index: 300;
+  background: #0C1929;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  height: 72px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+}
+.nav-logo { display: flex; align-items: center; height: 100%; line-height: 0; }
+.nav-logo img { height: 100%; display: block; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { color: #B6C6D6; text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--teal); }
+.nav-links a.active { color: var(--teal); }
+.nav-toggle { display: none; background: none; border: none; color: #fff; cursor: pointer; padding: 8px; align-items: center; justify-content: center; }
+
+footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.07); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+footer p { color: #2E4A60; font-size: 13px; }
+.fl a { color: #2E4A60; font-size: 13px; text-decoration: none; margin-left: 24px; transition: color .2s; }
+.fl a:hover { color: var(--teal); }
+
+#disclaimer-strip { background: var(--off); border-top: 1px solid var(--border); padding: 16px 48px; text-align: center; }
+#disclaimer-strip p { font-size: 12px; color: var(--light); line-height: 1.6; max-width: 900px; margin: 0 auto; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 56px; }
+  .nav-toggle { display: flex; }
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; background: #0C1929; border-bottom: 1px solid rgba(255,255,255,.08); padding: 4px 20px 10px; }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.06); font-size: 12px; white-space: nowrap; }
+  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .fl a { margin-left: 0; margin-right: 20px; }
+}
+
+
+/* ─── PAGE HEADER ─── */
+.page-header { background: var(--navy); padding: 64px 48px 52px; text-align: center; }
+.page-kicker { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); background: rgba(15,168,188,.12); border: 1px solid rgba(15,168,188,.3); border-radius: 100px; padding: 6px 16px; margin-bottom: 18px; }
+.page-header h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
+.page-header p { font-size: 16px; color: #7A9AB5; max-width: 640px; margin: 0 auto; line-height: 1.65; }
+/* Track-index-only: the parenthetical part of a track's title (e.g. "(The
+   Systemic Conditioning of Americans)") shown as its own line under the h1,
+   rather than crowding the h1 itself or every breadcrumb/nav mention. */
+.header-subtitle { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(15px,2vw,19px); font-weight: 400; color: #7A9AB5; line-height: 1.4; margin-top: -6px; margin-bottom: 14px; }
+/* Landing-page-only: "Plenee" set large (matching the h1 below), the
+   "Academy" pill sitting underneath it rather than "Plenee Academy" both
+   inside one small chip. */
+.landing-brand { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px,4vw,52px); font-weight: 700; color: #fff; letter-spacing: -1px; line-height: 1.15; margin-bottom: 18px; }
+
+/* ─── BREADCRUMB ─── */
+.crumb { max-width: 760px; margin: 28px auto 0; padding: 0 48px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--light); }
+.crumb a { color: var(--muted); text-decoration: none; }
+.crumb a:hover { color: var(--teal); }
+
+/* ─── CHAPTER PAGE ─── */
+.chapter-wrap { max-width: 760px; margin: 0 auto; padding: 44px 48px 24px; }
+.chapter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.chapter-wrap h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--navy); letter-spacing: -.8px; line-height: 1.2; margin-bottom: 14px; }
+.chapter-title-subtitle { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(16px,2vw,20px); font-weight: 400; color: var(--muted); line-height: 1.35; margin-bottom: 14px; }
+.chapter-accent { width: 56px; height: 3px; border-radius: 2px; background: var(--teal); margin-bottom: 28px; }
+
+.jump-list { background: var(--off); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px 26px; margin-bottom: 44px; }
+.jump-list .jl-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+.jump-list ol { padding-left: 18px; }
+.jump-list li { margin-bottom: 6px; }
+.jump-list a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color .2s; }
+.jump-list a:hover { color: var(--teal); }
+
+.chapter-body h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px,2.5vw,26px); font-weight: 700; color: var(--navy); letter-spacing: -.3px; line-height: 1.3; margin: 44px 0 6px; }
+.subhead-accent { width: 200px; height: 1px; background: var(--orange); margin-bottom: 20px; }
+.chapter-body p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 20px; }
+.chapter-body p strong { color: var(--text); font-weight: 700; }
+.chapter-body p em { color: var(--text); font-style: italic; }
+.chapter-body sup { font-size: 11px; margin-left: 1px; }
+.chapter-body sup a { color: var(--teal-d); text-decoration: none; font-weight: 700; }
+.chapter-body sup a:hover { text-decoration: underline; }
+a.ref-link { color: var(--teal-d); font-weight: 400; text-decoration: none; }
+a.ref-link:hover { text-decoration: underline; }
+
+.takeaway { background: var(--teal-l); border-left: 4px solid var(--teal); border-radius: 0 14px 14px 0; padding: 26px 30px; margin: 44px 0 8px; }
+.takeaway .tk-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 10px; }
+.takeaway p { color: var(--text); font-size: 16px; line-height: 1.75; margin-bottom: 0; font-weight: 500; }
+
+.sources { margin: 36px 0 8px; padding-top: 24px; border-top: 1px solid var(--border); }
+.sources .src-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 14px; }
+.sources ol { padding-left: 20px; }
+.sources li { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 10px; }
+.sources li a { color: var(--teal-d); text-decoration: none; margin-left: 4px; }
+.sources li a:hover { text-decoration: underline; }
+
+.chapter-nav { max-width: 760px; margin: 0 auto; padding: 8px 48px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cn-link { display: block; border: 1.5px solid var(--border); border-radius: 14px; padding: 20px 22px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.cn-link:hover { border-color: var(--teal); transform: translateY(-2px); }
+.cn-link.next { text-align: right; }
+.cn-dir { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); margin-bottom: 6px; }
+.cn-title { font-size: 15px; font-weight: 700; color: var(--navy); line-height: 1.4; }
+.cn-empty { visibility: hidden; }
+
+/* ─── TRACK INDEX ─── */
+.track-wrap { max-width: 1080px; margin: 0 auto; padding: 56px 48px 88px; }
+.chapters-heading { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 18px; }
+.chapter-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.chap-card {
+  --hue: var(--teal); --hue-l: var(--teal-l); --hue-d: var(--teal-d);
+  display: flex; flex-direction: column;
+  border: 1.5px solid var(--border); border-radius: 18px; overflow: hidden;
+  text-decoration: none; background: #fff;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.chap-card:hover { border-color: var(--hue); transform: translateY(-3px); box-shadow: 0 14px 34px rgba(12,25,41,.09); }
+.cc-tile { height: 132px; position: relative; overflow: hidden; background: var(--hue-l); }
+.cc-art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cc-art .grain { mix-blend-mode: multiply; opacity: .5; }
+.cc-body { padding: 22px 24px 20px; display: flex; flex-direction: column; flex: 1; }
+.cc-body h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 18px; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 10px; }
+.cc-body p { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; flex: 1; }
+.cc-cta { font-size: 13px; font-weight: 700; letter-spacing: .2px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--hue-d); }
+.cc-cta svg { width: 14px; height: 14px; transition: transform .2s; }
+.chap-card:hover .cc-cta svg { transform: translateX(3px); }
+
+@media (max-width: 860px) {
+  .chapter-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── ACADEMY SEARCH ─── */
+/* Grafted verbatim from docs/academy/academy_search_feature_snippet.md
+   (built + verified 2026-07-18 by a concurrent session). Listing pages only
+   (Academy index + each track index) -- never on individual chapter pages. */
+.academy-search-wrap { max-width: 620px; margin: 0 auto; padding: 0 48px; position: relative; }
+.academy-search-box { position: relative; }
+.academy-search-box svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--light); pointer-events: none; }
+.academy-search-input { width: 100%; font-family: inherit; font-size: 16px; color: var(--text); background: #fff; border: 1.5px solid var(--border); border-radius: 12px; padding: 15px 18px 15px 48px; outline: none; transition: border-color .2s, box-shadow .2s; }
+.academy-search-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(15,168,188,0.12); }
+.search-results { margin-top: 14px; display: none; flex-direction: column; gap: 10px; }
+.search-results.open { display: flex; }
+.search-hit { display: block; border: 1.5px solid var(--border); border-radius: 12px; padding: 16px 18px; text-decoration: none; transition: border-color .2s, transform .2s; }
+.search-hit:hover { border-color: var(--teal); transform: translateY(-1px); }
+.search-hit .sh-track { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-d); margin-bottom: 5px; }
+.search-hit .sh-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; line-height: 1.4; }
+.search-hit .sh-snippet { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.search-hit mark { background: var(--teal-l); color: var(--teal-d); border-radius: 3px; padding: 0 2px; font-weight: 700; }
+.search-empty { font-size: 14px; color: var(--light); text-align: center; padding: 18px 0; display: none; }
+.search-empty.open { display: block; }
+.search-count { font-size: 12px; color: var(--light); margin-top: 12px; text-align: center; display: none; }
+.search-count.open { display: block; }
+.track-search-wrap { max-width: 720px; margin: 32px auto 0; padding: 0 48px; }
+.track-search-wrap .academy-search-wrap { padding: 0; max-width: none; }
+
+/* ─── OVERVIEW (track index pages) ─── */
+/* Widened to match the chapter-card grid below it (.track-wrap, 1080px) and
+   split its two paragraphs into side-by-side columns when there's room;
+   collapses to a single stacked column at the same breakpoint the card grid
+   itself collapses at, so the two never disagree about "narrow." */
+.overview-wrap { max-width: 1080px; margin: 0 auto; padding: 32px 48px 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 40px; }
+.overview-wrap p { font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 18px; }
+.overview-wrap p:last-child { margin-bottom: 0; }
+@media (max-width: 860px) {
+  .overview-wrap { grid-template-columns: 1fr; }
+}
+
+/* ─── DATA CHART (ACADEMY_PUBLISHING_INSTRUCTIONS.md §8a) ─── */
+.data-chart { max-width: 720px; margin: 40px auto; padding: 0 48px; }
+.dc-headline { font-family: Georgia, 'Times New Roman', serif; font-size: 36px; font-weight: 700; color: var(--navy); letter-spacing: -.5px; }
+.dc-subtitle { font-size: 13px; color: var(--muted); margin-top: 4px; margin-bottom: 20px; }
+.dc-divider { border-top: 1px solid var(--border); margin: 16px 0; }
+.dc-rows { display: flex; flex-direction: column; gap: 16px; }
+.dc-row-top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 2px 12px; margin-bottom: 6px; }
+.dc-row-label { font-size: 14px; color: var(--navy); }
+.dc-row-value { font-size: 14px; font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dc-bar-track { height: 10px; border-radius: 5px; overflow: hidden; }
+.dc-bar-track.teal { background: var(--teal-l); }
+.dc-bar-track.orange { background: var(--orange-l); }
+.dc-bar-fill { height: 100%; border-radius: 5px; }
+.dc-bar-fill.teal { background: var(--teal); }
+.dc-bar-fill.orange { background: var(--orange); }
+.dc-legend { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 4px; }
+.dc-legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+.dc-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.dc-swatch.teal { background: var(--teal); }
+.dc-swatch.orange { background: var(--orange); }
+.dc-caption { font-size: 12px; color: var(--light); margin-top: 18px; line-height: 1.6; }
+
+/* ─── SHARED CONCEPT DIAGRAM (ACADEMY_PUBLISHING_INSTRUCTIONS.md §8b) ─── */
+.concept-diagram { max-width: 720px; margin: 32px auto; padding: 0 48px; }
+.concept-diagram svg { width: 100%; height: auto; display: block; }
+.cd-caption { font-size: 12px; color: var(--light); text-align: center; margin-top: 12px; }
+
+/* ─── ACADEMY LANDING PAGE ─── */
+.academy-pullquote { text-align: center; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 19px; color: var(--navy); max-width: 560px; margin: 28px auto 0; padding: 0 48px; line-height: 1.5; }
+
+.landing-overview {
+  max-width: 1080px; margin: 44px auto 0; padding: 0 48px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center;
+}
+.landing-overview-logo { display: flex; align-items: center; justify-content: center; }
+.landing-overview-logo svg { width: 100%; max-width: 224px; height: auto; display: block; }
+/* #overview-needle's rotation is applied as a native SVG transform attribute
+   (via JS), not a CSS transform -- that pivots reliably at SVG-space (0,0),
+   the pivot/hub position, matching how the source logo's own static
+   transform="rotate(43)" already worked. CSS transform-origin tricks on SVG
+   (transform-box: view-box, etc.) proved inconsistent across browsers. */
+.landing-overview p { font-size: 16px; color: var(--muted); line-height: 1.75; margin: 0; }
+
+.volume-section { max-width: 1080px; margin: 0 auto; padding: 64px 48px 8px; }
+.volume-section + .volume-section { padding-top: 12px; }
+.volume-kicker { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+.volume-section.v1 .volume-kicker { color: var(--teal-d); }
+.volume-section.v2 .volume-kicker { color: #17434F; }
+.volume-h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(26px,3.2vw,36px); font-weight: 700; color: var(--navy); letter-spacing: -.5px; margin-bottom: 8px; }
+.volume-sub { color: var(--muted); font-size: 16px; margin-bottom: 40px; max-width: 620px; }
+
+/* Each card sets its own --hue/--hue-l/--hue-d inline (see TRACK_HUES: the 6
+   thematic groups -- Foundations=teal, Know-your-opponent=orange,
+   Flywheel=gold, Life admin=slate, Protection/crisis=rose, Psychology=indigo). */
+.track-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 8px; }
+.track-card {
+  --hue: var(--teal); --hue-l: var(--teal-l); --hue-d: var(--teal-d);
+  display: flex; flex-direction: column;
+  border: 1.5px solid var(--border); border-radius: 18px; overflow: hidden;
+  text-decoration: none; background: #fff;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.track-card:hover { border-color: var(--hue); transform: translateY(-3px); box-shadow: 0 14px 34px rgba(12,25,41,.09); }
+
+.tc-tile { height: 108px; display: flex; align-items: center; justify-content: center; position: relative; background: var(--hue-l); }
+.tc-tile svg { width: 44px; height: 44px; color: var(--hue-d); }
+.tc-num {
+  position: absolute; top: 14px; right: 16px;
+  font-family: Georgia, serif; font-weight: 700; font-size: 13px;
+  padding: 3px 10px; border-radius: 100px; background: rgba(255,255,255,.6);
+  color: var(--hue-d);
+}
+
+.tc-body { padding: 24px 26px 22px; display: flex; flex-direction: column; flex: 1; }
+.tc-body h3 { font-family: Georgia, 'Times New Roman', serif; font-size: 19px; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 2px; }
+.tc-subtitle { font-family: Georgia, 'Times New Roman', serif; font-size: 13px; font-style: italic; color: var(--muted); margin-bottom: 10px; }
+.tc-body p { font-size: 14.5px; color: var(--muted); line-height: 1.65; margin-bottom: 18px; flex: 1; }
+.tc-cta { font-size: 13px; font-weight: 700; letter-spacing: .2px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--hue-d); }
+.tc-cta svg { width: 14px; height: 14px; transition: transform .2s; }
+.track-card:hover .tc-cta svg { transform: translateX(3px); }
+
+@media (max-width: 860px) {
+  .track-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .academy-pullquote { padding: 0 20px; }
+  .page-header { padding: 44px 20px 36px; }
+  .crumb { padding: 0 20px; }
+  .chapter-wrap { padding: 32px 20px 16px; }
+  .chapter-nav { grid-template-columns: 1fr; padding: 8px 20px 48px; }
+  .cn-link.next { text-align: left; }
+  .track-wrap { padding: 40px 20px 64px; }
+  .academy-search-wrap { padding: 0 20px; }
+  .track-search-wrap { padding: 0 20px; }
+  .overview-wrap { padding: 24px 20px 8px; }
+  .data-chart { padding: 0 20px; }
+  .concept-diagram { padding: 0 20px; }
+  .landing-overview { padding: 0 20px; grid-template-columns: 1fr; text-align: center; }
+  .landing-overview-logo svg { max-width: 96px; }
+  .volume-section { padding: 48px 20px 8px; }
+}
+
+/* v1's stylesheet covers every component here once the markup matches it. Two things are
+   genuinely new in v2 and are built from v1's own variables rather than invented: the
+   track-membership block (which reuses .takeaway so it reads as the same family) and
+   tables, which v1 has no rules for because v1 chapters contain none. */
+.alsoin ol{margin:.5rem 0 0;padding-left:1.15rem}
+.alsoin li{margin:.4rem 0;color:var(--muted)}
+.alsoin li a{color:var(--teal-d);font-weight:600;text-decoration:none}
+.alsoin li a:hover{text-decoration:underline}
+.ctx{display:flex;gap:.7rem;align-items:baseline;flex-wrap:wrap}
+.ctx .pos{color:var(--light);font-variant-numeric:tabular-nums}
+.v2-scroll{overflow-x:auto;margin:1.6rem 0;-webkit-overflow-scrolling:touch}
+table.v2{border-collapse:collapse;width:100%;font-size:.94rem;color:var(--text)}
+table.v2 th,table.v2 td{border-bottom:1px solid var(--border);padding:.6rem .7rem;
+  text-align:left;vertical-align:top}
+table.v2 thead th{background:var(--off);color:var(--navy);font-weight:600;
+  border-bottom:2px solid var(--border);white-space:nowrap}
+table.v2 tbody tr:last-child td{border-bottom:none}
+.chap-card .cc-tile{position:relative}
+.chap-card .cc-title{position:absolute;left:0;right:0;bottom:0;margin:0;padding:2.2rem 1.15rem .9rem;
+  font-family:Georgia,'Times New Roman',serif;font-size:1.12rem;line-height:1.25;color:#fff;
+  text-shadow:0 1px 14px rgba(0,0,0,.55);
+  background:linear-gradient(to top,rgba(12,25,41,.88) 0%,rgba(12,25,41,.62) 45%,rgba(12,25,41,0) 100%)}
+.chap-card .cc-body p{margin:0 0 1rem}
+sup.fnref a{color:var(--teal-d);text-decoration:none;font-weight:600;padding:0 .1em}
+sup.fnref a:hover{text-decoration:underline}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../Logo%20-%20Plenee_Navigator_v2.svg" alt="Plenee Navigator">
+  </a>
+  <div class="nav-links" id="nav-links">
+    <a href="../index.html#how">How it works</a>
+    <a href="../index.html#features-start">Features</a>
+    <a href="../academy/index.html">Academy</a>
+    <a href="../academy2/index.html">Academy2</a>
+    <a href="../index.html#fid">Our Promise</a>
+  </div>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+<script>
+(function(){
+  var toggle = document.getElementById('nav-toggle');
+  var links = document.getElementById('nav-links');
+  if (!toggle || !links) return;
+  toggle.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      links.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+})();
+</script>
+
+<div class="crumb"><a href="index.html">Academy</a><span>&rsaquo;</span><span>Renters Insurance: The Cheapest Cover You Can Buy</span><span style="margin-left:auto"></span><a href="contents.html">Everything by subject</a></div><div class="chapter-wrap"><div class="chapter-eyebrow ctx" id="v2-ctx">Cover worth having</div><h1>Renters Insurance: The Cheapest Cover You Can Buy</h1><div class="chapter-accent"></div><div class="jump-list"><div class="jl-title">In this chapter</div><ol><li><a href="#whether-a-loss-ruins-you-is-not-a-property-of-the-loss">Whether a loss ruins you is not a property of the loss</a></li><li><a href="#what-you-are-actually-buying">What you are actually buying</a></li><li><a href="#how-expensive">How expensive</a></li><li><a href="#why-the-buffer-defeats-these-products-specifically">Why the buffer defeats these products specifically</a></li><li><a href="#the-wheel">The wheel</a></li><li><a href="#what-the-cushion-actually-earns">What the cushion actually earns</a></li><li><a href="#most-things-do-not-need-replacing">Most things do not need replacing</a></li><li><a href="#you-may-already-own-this-cover-twice">You may already own this cover twice</a></li><li><a href="#and-you-have-to-remember-you-own-it">And you have to remember you own it</a></li><li><a href="#the-bridge-when-the-cushion-is-not-there-yet">The bridge, when the cushion is not there yet</a></li><li><a href="#the-ladder">The ladder</a></li><li><a href="#it-turns-backwards-just-as-well">It turns backwards just as well</a></li><li><a href="#the-number-is-smaller-than-you-have-been-told">The number is smaller than you have been told</a></li><li><a href="#the-part-worth-sitting-with">The part worth sitting with</a></li><li><a href="#where-this-advice-fails-and-it-does">Where this advice fails, and it does</a></li><li><a href="#what-to-do-with-this">What to do with this</a></li></ol></div><div class="chapter-body"><h2 id="whether-a-loss-ruins-you-is-not-a-property-of-the-loss">Whether a loss ruins you is not a property of the loss</h2><div class="subhead-accent"></div>
+<p>A boiler fails. The repair is six hundred dollars.</p>
+<p>For one household that is a bad afternoon. They pay it and the week continues.</p>
+<p>For another it is a crisis. The money is not there. So it goes on a card at twenty-two per cent, or the heating stays off, or — most often — it never happens at all, because that household bought a home warranty two years ago precisely so this moment would not arrive.</p>
+<p>Same boiler. Same six hundred dollars. Two completely different events.</p>
+<p>The difference is not the loss. It is the cushion sitting behind it. And once you see that, a whole category of expensive products stops looking like a choice and starts looking like a symptom.</p>
+<h2 id="what-you-are-actually-buying">What you are actually buying</h2><div class="subhead-accent"></div>
+<p>Insurance does one genuinely valuable thing: it turns a loss that would end you into one you can survive. Paying more than a risk is worth is sensible when the alternative is ruin. Losing four hundred thousand on a house you cannot rebuild is not four hundred thousand times worse than losing a dollar. It is a different kind of event.</p>
+<p>But look at what the small policies actually cover. A television. A washing machine. A phone screen. A car repair. A year of eye tests.</p>
+<p>None of those would end anyone. They are not ruin. They are <strong>timing</strong>.</p>
+<p>So when someone buys an extended warranty on a fridge, they are not transferring a catastrophic risk. They are buying the ability to not have six hundred dollars on a Tuesday. That is a real problem and it deserves a real answer. It is just that insurance is a very expensive way to answer it.</p>
+<h2 id="how-expensive">How expensive</h2><div class="subhead-accent"></div>
+<p>Of every dollar of premium collected by home warranty companies in one large state, about thirty-five cents came back as claims.<sup class="fnref" id="r1"><a href="#fn1">1</a></sup> For one of the few vehicle service contract providers that reports against what the customer actually paid, it was about forty-two cents.<sup class="fnref" id="r2"><a href="#fn2">2</a></sup> For one large seller of consumer product protection plans, about twenty-five cents.<sup class="fnref" id="r3"><a href="#fn3">3</a></sup></p>
+<p>For identity theft cover, no regulator publishes a figure at all, and the body that used to collect the ingredients stopped requiring them.<sup class="fnref" id="r4"><a href="#fn4">4</a></sup></p>
+<p>Now compare the alternative.</p>
+<p><strong>Money you keep returns one hundred cents on the dollar.</strong> All of it. Every time. It also covers things no policy covers — the loss that falls outside the exclusions, the claim that gets denied for wear and tear, the thing that breaks in a category you never insured.</p>
+<p>That is the comparison that matters, and almost nobody makes it. Not "is this policy good value against another policy" but "is this policy good value against simply having the money."</p>
+<h2 id="why-the-buffer-defeats-these-products-specifically">Why the buffer defeats these products specifically</h2><div class="subhead-accent"></div>
+<p>This argument does not apply to insurance generally, and it is important to be exact about that.</p>
+<p>Keep the cover for things that would ruin you. The house. Your liability if you injure someone. The income your family lives on. The catastrophic vet bill you could not find nine thousand dollars for. Those transfer real ruin, and a cushion of a few thousand does not touch them.</p>
+<p>The buffer defeats a specific tier: <strong>small, frequent, survivable losses</strong>. And that tier is exactly where the payout ratios are worst.</p>
+<p>That is not a coincidence. Where a loss would ruin you, you would pay well above the odds and the seller knows it — but so does every competitor, and the market stays roughly honest. Where a loss is merely inconvenient, the buyer is not purchasing risk transfer at all. They are purchasing liquidity. And liquidity sold as insurance gets priced at whatever someone without options will pay.</p>
+<p>The cushion does not make these products better value. It makes them <strong>unnecessary</strong>, which is a stronger result.</p>
+<h2 id="the-wheel">The wheel</h2><div class="subhead-accent"></div>
+<p>Here is where it stops being a saving and starts being an engine.</p>
+<p><strong>The premium becomes the cushion.</strong> Cancel a product and the money that was leaving each month now stays. This is the only lever in personal finance that produces cash without requiring cash first, which is why it is the right place to start.</p>
+<p><strong>The cushion lets you raise every deductible.</strong> Once a thousand dollars is not frightening, the low deductible on the car and the home stops being worth its price. That is a second premium cut, on cover you are keeping, without losing any protection that matters.</p>
+<p><strong>You stop borrowing at crisis prices.</strong> The shock that used to become a card balance at twenty-two per cent now comes out of cash. Avoided interest is usually the largest number in this entire calculation for anyone currently carrying a balance.</p>
+<p><strong>Paying down debt is the same wheel from the other side.</strong> Clearing a balance at twenty-two per cent is arithmetically identical to earning twenty-two per cent, risk-free and tax-free. And a cleared revolving balance <em>is</em> a cushion — capacity you can reach for without paying a fee to build it. FLOW freed from interest is the same FLOW that fills the cushion.</p>
+<p><strong>You become a different customer.</strong> Cleaner file, better rates on everything priced off one, no thin-file penalty. And you stop being the person these products are designed for, so they stop being pushed at you with the same force.</p>
+<p><strong>And the last one is the real one: you gain time.</strong> A cushion buys the ability to wait. To get a second quote. To not sign at the desk this afternoon. To walk out. Almost every expensive product in this course is sold to someone who cannot afford to leave the room without deciding. The cushion is what lets you leave the room.</p>
+<p>Each turn makes the next turn easier. That is what makes it a wheel rather than a saving.</p>
+<h2 id="what-the-cushion-actually-earns">What the cushion actually earns</h2><div class="subhead-accent"></div>
+<p>A cushion is not money spent. It is capital put to work, and it stays where it is. What it earns is the premium you no longer pay, less the repairs you now cover yourself.</p>
+<p>Take the illustrative basket — about one thousand seven hundred a year on small-loss cover. If that tier returns around a quarter, then the repairs you take on are worth about four hundred and twenty a year, because that is the insurer's own estimate of what those losses cost. You keep the rest.</p>
+<p><strong>That is roughly twelve hundred and sixty dollars a year, earned on a two thousand dollar cushion. Sixty-three per cent.</strong></p>
+<p>No investment available to an ordinary household returns anything like that, and this one carries no market risk. What it carries instead is <strong>variance</strong> — a bad year can cost more than an average one, which is exactly the thing the cushion exists to absorb. That is why the money has to be there before the products go, and it is the only reason this is not simply free.</p>
+<h2 id="most-things-do-not-need-replacing">Most things do not need replacing</h2><div class="subhead-accent"></div>
+<p>The fear sold at the counter is the price of a new one. The claim you would actually make is usually a repair.</p>
+<p>A washing machine that fails rarely needs replacing. It needs a part and an hour. Across the sorts of items these plans cover, a typical repair runs somewhere near a fifth of the replacement price.<sup class="fnref" id="r6"><a href="#fn6">6</a></sup></p>
+<p>This matters twice.</p>
+<p>It means <strong>the cushion you need is far smaller than you think.</strong> Not the price of a new fridge, but the price of the repair that fridge is likely to need. Sized that way, the target is a few hundred dollars rather than a few thousand — and at the rate the redirected premiums accumulate, that is a couple of months, not a year.</p>
+<p>And it means <strong>the plan is insuring less than you imagine.</strong> You picture protecting eleven hundred dollars of fridge. The plan is mostly buying you a two hundred and sixty dollar repair, capped, minus a service call fee, excluding wear and tear.</p>
+<h2 id="you-may-already-own-this-cover-twice">You may already own this cover twice</h2><div class="subhead-accent"></div>
+<p>Before any of the above, check whether the thing has already been paid for.</p>
+<p>Three layers usually sit underneath an extended warranty. <strong>The manufacturer's warranty</strong>, typically a year, sometimes two. <strong>Your credit card's extended warranty benefit</strong>, which on some cards adds a further year automatically, free, with no enrollment. And in many places <strong>a statutory right</strong> that goods be durable for a reasonable period regardless of what anyone sold you.</p>
+<p>Now put a three-year plan on top of a one-year manufacturer warranty and a one-year card benefit. Two of those three years are already covered. A claim in year one is paid by someone else. So is a claim in year two.</p>
+<p><strong>You are paying for three years and receiving one you did not already have.</strong></p>
+<p>That changes the arithmetic considerably. If the plan returns a quarter of premium as claims, but only the final year's claims are worth anything to you, then the return on what you are actually buying is closer to <strong>eight to sixteen cents on the dollar</strong>, not twenty-five. Failures do cluster in later years, which is the only reason it is not worse.</p>
+<p><strong>One warning, because this is the point where the argument can be wrong in front of you.</strong> Card extended warranty benefits have been reduced or withdrawn by a number of issuers. Check your own card's current benefit guide before relying on it. If the benefit is gone, the overlap shrinks and the plan gets relatively better — still poor, but not as poor. This is a thing to verify, never to assume.</p>
+<h2 id="and-you-have-to-remember-you-own-it">And you have to remember you own it</h2><div class="subhead-accent"></div>
+<p>The single year of cover you did not already have is also the year furthest from the day you bought it.</p>
+<p>Think about what has to survive intact for that year to be worth anything. You have to remember the plan exists. You have to know which of the things you own it covers. You have to still have the paperwork, or find the email. The administrator has to be the same company, which is not guaranteed, because these contracts get sold on. Any registration step has to have been completed at the time and still be valid. And when something breaks on a wet Tuesday, you have to think of the plan before you think of the repair shop.</p>
+<p>Most people, most of the time, do not clear all of those.</p>
+<p><strong>This does not make the payout ratio worse than the published figure.</strong> People who never claim are already inside it — that is a large part of why it is a quarter rather than three quarters. But it means the average hides two very different outcomes. The person who remembers and claims does considerably better than a quarter. The person who forgets gets nothing at all, having paid in full.</p>
+<p>Almost everyone buying at the counter assumes they will be the first sort.</p>
+<p>Notice which way the friction runs, because it is not accidental. <strong>The plan takes your money once and then never contacts you again.</strong> A subscription that bills you monthly reminds you it exists monthly. A warranty paid for at the till has no reason to remind you of anything, and every reason not to. Registration steps, separate administrators, paper documents, no renewal notice, no annual statement. None of that is difficult to fix. It is simply not in anyone's interest to fix it.</p>
+<p>And this is where the cushion wins on something other than price.</p>
+<p><strong>Money in an account does not have to be remembered, registered, produced, or claimed.</strong> There is no administrator, no eligibility question, no wear-and-tear exclusion, no document to find. It works on the wet Tuesday without you having thought about it for three years. That is not a small advantage over a product whose value depends on your recall.</p>
+<h2 id="the-bridge-when-the-cushion-is-not-there-yet">The bridge, when the cushion is not there yet</h2><div class="subhead-accent"></div>
+<p>There is an ordering problem in everything above. You cannot safely cancel a product that smooths a shock until you have the money to absorb the shock. So the first stage is the one where nothing seems possible.</p>
+<p>A low-cost line of credit solves it — not by being a cushion, but by removing the ordering constraint. Cancel now, borrow if something breaks, and build the real cushion with the premiums you are no longer paying.</p>
+<p>The numbers make this obvious once you see them side by side. Borrowing a typical repair over six months costs about seven dollars on a credit union line, and about eighteen even at standard credit card rates. The warranty costs a hundred and fifty a year, on one item, whether anything breaks or not.</p>
+<p><strong>Borrowing the repair when it happens is roughly a tenth the cost of insuring against it.</strong></p>
+<p>There is one condition and it is not optional: this only works with enough FLOW to service it. A line drawn on and not repaid is not a bridge. It is the loop starting to run backwards, with the products already canceled.</p>
+<p><strong>And a line is not a cushion.</strong> It is permission to borrow, and permission gets withdrawn exactly when conditions worsen — lines were cut on a large scale in 2008 and again in 2020. Your own money cannot be canceled by anyone. The line buys months of acceleration. It does not buy safety, and it should be closed or left untouched once the cash exists.</p>
+<h2 id="the-ladder">The ladder</h2><div class="subhead-accent"></div>
+<p>Which tool belongs where, in order:</p>
+<p><strong>Nothing left at month end.</strong> None of this is available yet. The FLOW work comes first — finding what is leaving without being noticed. A surprising amount of it is in the products below.</p>
+<p><strong>FLOW positive, no cash.</strong> Cancel the things that protect nothing you could not already handle. Arrange a low-cost line if one is available. Redirect every premium.</p>
+<p><strong>Cash at roughly a typical repair.</strong> Now the smoothing products can go too. The line becomes a backstop rather than the plan. On the illustrative basket this stage arrives in about two months.</p>
+<p><strong>Cash at the largest loss you would plausibly face.</strong> Raise every deductible on the cover you are keeping. That is a second premium cut on protection you have not weakened. Another twelve months or so.</p>
+<h2 id="it-turns-backwards-just-as-well">It turns backwards just as well</h2><div class="subhead-accent"></div>
+<p>The same loop runs in reverse, and this is why the same products keep finding the same people.</p>
+<p>No cushion, so a shock becomes borrowing. Borrowing takes a slice of every future month, so there is less to put aside. Less put aside means the next shock is also borrowed. And somewhere in there, a product appears that promises the shocks will stop — for a premium, paid monthly, forever, returning a third of what it costs.</p>
+<p>Nobody in that loop is making a mistake. Every individual decision is the least bad one available at the moment it is made. The loop is the problem, and it only breaks at one point.</p>
+<h2 id="the-number-is-smaller-than-you-have-been-told">The number is smaller than you have been told</h2><div class="subhead-accent"></div>
+<p>The usual advice is three to six months of expenses. For most people that is a figure so distant it produces nothing but a feeling of failure, and it is the wrong target for this purpose anyway.</p>
+<p>To defeat the small-loss products you do not need six months of anything. You need to cover <strong>the largest single thing those products actually pay for</strong>. An appliance. A car repair. A phone.</p>
+<p>That is somewhere around two thousand dollars for most households — and often less.</p>
+<p>Reaching that does not make you secure. It makes the warranties optional, which is the first turn of the wheel and by far the hardest.</p>
+<h2 id="the-part-worth-sitting-with">The part worth sitting with</h2><div class="subhead-accent"></div>
+<p>Take a household paying for an extended warranty, a home warranty, an identity theft subscription, a vision plan, a card protection product, and low deductibles on the car and home. That is roughly one thousand seven hundred dollars a year — a plausible figure, not a measured one.<sup class="fnref" id="r5"><a href="#fn5">5</a></sup></p>
+<p>Redirect it and you reach a two thousand dollar cushion in <strong>about fourteen months.</strong></p>
+<p><strong>The products would fund the cushion that replaces them, in a bit over a year.</strong></p>
+<p>That is the whole argument. Not that these products are poor value, though they are. That you are already paying, every month, roughly what it would cost to never need them again.</p>
+<p>Left running for ten years, on the same illustrative figures, that redirected premium comes to about seventeen thousand dollars — before counting the interest never paid on shocks that no longer had to be borrowed.</p>
+<h2 id="where-this-advice-fails-and-it-does">Where this advice fails, and it does</h2><div class="subhead-accent"></div>
+<p><strong>If nothing is left at the end of the month, none of this is available yet.</strong> "Build a cushion" is not advice to someone with no margin. It is a description of a destination with no route attached. If that is the situation, the honest first move is the FLOW work — finding the money currently leaving without being noticed — and the products below are where a surprising amount of it usually is.</p>
+<p><strong>The order is not obvious, and getting it wrong costs money.</strong> There are two kinds of product here and they are not the same:</p>
+<ul><li><strong>Products that protect nothing you could not already handle</strong> — an identity theft plan</li></ul>
+<p>reselling a credit freeze that is free, a vision plan that loses its break-even, a card add-on covering a minimum payment. These can go <strong>today</strong>. There is no protective function to lose and no cushion required first.</p>
+<ul><li><strong>Products that genuinely smooth a shock you could not currently absorb</strong> — the</li></ul>
+<p>appliance cover, the warranty on the car you need for work. These are poor value and they are doing something real. Cancel them <strong>before</strong> the cushion exists and the first breakdown puts you further back than you started.</p>
+<p><strong>Never touch catastrophic cover.</strong> Nothing here argues for reducing home, liability, or income protection to fund a cushion. That trade is how a bad month becomes a permanent one.</p>
+<p><strong>The cushion has to be reachable.</strong> Money locked for twelve months is not a cushion. And a cushion that is really an unused credit line is fragile, because those get withdrawn at exactly the moment they are needed.</p>
+<p><strong>And one honest objection.</strong> For some people the premium was the only thing that made the saving happen at all — it left automatically and was never seen. Cancel it, fail to move the money, and you are worse off than before. That is a real risk and the answer is not to keep a product returning thirty-five cents. It is to make the transfer as automatic as the premium was.</p>
+<h2 id="what-to-do-with-this">What to do with this</h2><div class="subhead-accent"></div>
+<p>Find what you currently pay for cover on things that would not ruin you. Add it up over a year. Compare it to the largest single thing any of it would pay for.</p>
+<p>For most households those two numbers are close. That is not a coincidence — it is how the products are priced.</p><div class="takeaway alsoin"><div class="tk-label">Also in these situations</div><div class="subhead-accent"></div><ol><li><a href="tracks/first-job-renting.html">First Job, Renting</a> — <span class="why">Your landlord's program covers their building, not your things.</span></li><li><a href="tracks/just-bought-a-house.html">Just Bought a House</a> — <span class="why">The cheap protections missing from most new households.</span></li><li><a href="tracks/no-pay-stub.html">No Pay Stub</a> — <span class="why">The cheap policies, cheap because nobody earns anything selling them.</span></li><li><a href="tracks/one-income-no-buffer.html">One Income, No Buffer</a> — <span class="why">The cheapest useful policy there is, and the half nobody buys it for.</span></li><li><a href="tracks/still-studying.html">Still Studying</a> — <span class="why">The policy that costs about a streaming bundle, missing from most rented rooms.</span></li><li><a href="tracks/two-countries.html">Two Countries, One Budget</a> — <span class="why">The cheapest useful policy there is, and what it actually does.</span></li></ol></div><div class="sources"><div class="src-title">Sources</div><ol><li id="fn1">California Department of Insurance, 2025 Market Share Report, Home Protection line: incurred loss of $280,779,536 against earned premium of $787,959,273, or 35.6% for calendar year 2025. Direct California business. Company results within the line ranged from 32.33% to 53.67%. <a href="#r1">&#8617;</a></li><li id="fn2">Kingsway Financial Services, FY2025 Form 10-K: "Claims authorized on vehicle service agreements" of $25,727 thousand against "Vehicle service agreement fees" of $61,402 thousand, or 41.9%. Notable because Kingsway is itself the obligor and books the whole customer fee as revenue, so this is measured against what the customer paid rather than against what reached an insurer. One provider, in credit union and dealer channels; not an industry figure. <a href="#r2">&#8617;</a></li><li id="fn3">Allstate, Q4 2025 Investor Supplement, Protection Plans results: claims and claims expense of $541 million against premiums earned of $2,159 million, or 25.1%. Consumer product protection plans for mobile phones, electronics and major appliances. <a href="#r3">&#8617;</a></li><li id="fn4">No US regulator publishes a loss ratio for identity theft cover. The National Association of Insurance Commissioners collected the components through its Cybersecurity and Identity Theft Coverage Supplement but published premium and policy counts rather than losses, and removed identity theft from the reporting requirement effective with 2024 annual statement filings. <a href="#r4">&#8617;</a></li><li id="fn6">Typical repair against replacement across common covered items is reasoned from ordinary repair pricing, not from a sourced distribution. It is directionally reliable and the specific ratio must not be quoted until real repair-cost data is behind it. <a href="#r6">&#8617;</a></li><li id="fn5">Illustrative household composition. The products are real and their payout ratios are sourced above; the combination and the annual figure are constructed for the arithmetic and are not drawn from survey data. <a href="#r5">&#8617;</a></li></ol></div></div><div class="chapter-nav" id="v2-pager"><a class="cn-link prev" href="legal-and-everyone-does-it.html"><div class="cn-dir">Previous</div><div class="cn-title">"Is it legal" is the wrong question: what it returns is the right one</div></a><a class="cn-link next" href="what-florida-drivers-pay.html"><div class="cn-dir">Next</div><div class="cn-title">What Florida Drivers Pay: The Cover the State Does Not Require</div></a></div></div><script type="application/json" id="v2-nav">{"tracks": {"first-job-renting": {"title": "First Job, Renting", "pos": 1, "len": 46, "prev": null, "next": {"slug": "the-last-five-minutes", "title": "At the car finance desk? What each product pays back"}}, "just-bought-a-house": {"title": "Just Bought a House", "pos": 5, "len": 27, "prev": {"slug": "how-much-cover", "title": "How Much Life Insurance, and For How Long"}, "next": {"slug": "the-shape-of-the-commission", "title": "Sold a life policy? What the commission paid, and when"}}, "no-pay-stub": {"title": "No Pay Stub", "pos": 6, "len": 27, "prev": {"slug": "the-shape-of-the-commission", "title": "Sold a life policy? What the commission paid, and when"}, "next": {"slug": "the-questions-that-do-the-work", "title": "Six Questions for Any Claim, from Anyone"}}, "one-income-no-buffer": {"title": "One Income, No Buffer", "pos": 5, "len": 45, "prev": {"slug": "still-paying-no-longer-covered", "title": "Offered GAP insurance? When the cover actually ends"}, "next": {"slug": "the-policies-nobody-sells-you", "title": "Renters, Umbrella and Disability: The Policies Nobody Sells You"}}, "still-studying": {"title": "Still Studying", "pos": 4, "len": 29, "prev": {"slug": "the-last-five-minutes", "title": "At the car finance desk? What each product pays back"}, "next": {"slug": "insurance-you-borrowed-to-buy", "title": "Credit insurance on your loan? How to find it, and what canceling returns"}}, "two-countries": {"title": "Two Countries, One Budget", "pos": 3, "len": 24, "prev": {"slug": "who-gets-sold-what", "title": "Who Gets Offered Which Product: Why the Offer Is Not the Market"}, "next": {"slug": "the-last-five-minutes", "title": "At the car finance desk? What each product pays back"}}}}</script>
+<script>
+(function(){
+  var el=document.getElementById('v2-nav'); if(!el) return;
+  var d=JSON.parse(el.textContent);
+  var p=new URLSearchParams(location.search).get('via');
+  if(!p){try{p=localStorage.getItem('plenee_track')||''}catch(e){}}
+  if(p&&!d.tracks[p]){p=''}
+  if(!p) return;                      /* no track context: the server-rendered nav stands */
+  try{localStorage.setItem('plenee_track',p)}catch(e){}
+  var t=d.tracks[p],s=document.getElementById('v2-ctx');
+  /* the crumb above already carries the 'everything by subject' link; repeating it here
+     put the same destination twice on one screen */
+  s.innerHTML='<span>In <a href="tracks/'+p+'.html">'+t.title+'</a></span>'
+    +'<span class="pos">'+t.pos+' of '+t.len+'</span>';
+  var n=document.getElementById('v2-pager'),h='';
+  if(t.prev){h+='<a class="cn-link prev" href="'+t.prev.slug+'.html?via='+p+'">'
+    +'<div class="cn-dir">Previous</div><div class="cn-title">'+t.prev.title+'</div></a>'}
+  else{h+='<a class="cn-link prev" href="tracks/'+p+'.html">'
+    +'<div class="cn-dir">Previous</div><div class="cn-title">Back to '+t.title+'</div></a>'}
+  if(t.next){h+='<a class="cn-link next" href="'+t.next.slug+'.html?via='+p+'">'
+    +'<div class="cn-dir">Next</div><div class="cn-title">'+t.next.title+'</div></a>'}
+  n.innerHTML=h;
+})();
+</script>
+
+
+<div id="disclaimer-strip">
+  <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. <a href="../plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
+</div>
+
+<footer>
+  <a href="../index.html" style="display:block;line-height:0">
+    <img src="../Logo%20-%20Plenee_Navigator_v2.svg" height="44" alt="Plenee Navigator">
+  </a>
+  <p>© 2026 Plenee Co. All rights reserved.</p>
+  <div class="fl"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../plenee_legal.html" style="color:var(--teal)">Legal</a><a href="../contact.html">Contact</a></div>
+</footer>
+
+</body>
+</html>
