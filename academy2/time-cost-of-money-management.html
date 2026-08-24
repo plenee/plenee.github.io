@@ -335,13 +335,17 @@ a.ref-link:hover { text-decoration: underline; }
 .quiz-score{font-size:1.5rem;font-weight:700;color:var(--navy);margin:.4rem 0 .6rem}
 .quiz-bench{color:var(--muted);margin:0 0 1rem}
 .qz-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.2rem}
-.qz-card{display:block;padding:1.6rem;border:1px solid var(--border);border-radius:10px;
-  background:#fff;text-decoration:none;transition:border-color .15s ease,transform .15s ease}
+.qz-card{display:flex;flex-direction:column;padding:1.6rem;border:1px solid var(--border);
+  border-radius:10px;background:#fff;text-decoration:none;
+  transition:border-color .15s ease,transform .15s ease}
+/* the blurbs differ in length, so the call to action is pushed to the foot of the card and
+   the two line up regardless */
+.qz-card p{flex:1}
 .qz-card:hover,.qz-card:focus-visible{border-color:var(--teal);transform:translateY(-2px)}
 .qz-kicker{font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
   color:var(--teal-d);margin-bottom:.5rem}
 .qz-card h3{margin:0 0 .5rem;color:var(--navy);font-size:1.2rem}
-.qz-card p{margin:0 0 .9rem;color:var(--muted);line-height:1.6}
+.qz-card p{margin:0 0 1.1rem;color:var(--muted);line-height:1.6}
 .qz-go{font-weight:700;color:var(--teal-d)}
 @media (prefers-reduced-motion:reduce){.qz-card{transition:none}.qz-card:hover{transform:none}}
 
