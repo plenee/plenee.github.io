@@ -29,7 +29,38 @@ from generate_academy_pages import (  # noqa: E402
 )
 
 WEBSITE = Path(__file__).resolve().parents[1]
-SRC = WEBSITE.parent / "plenee_app" / "docs" / "academy_v2"
+def _find_src() -> Path:
+    """Locate the v2 source tree.
+
+    It does not always sit in the main checkout. When the branch holding it is checked out
+    as a git worktree, plenee_app/docs/academy_v2 is left behind as an empty directory and
+    the build fails with a bare FileNotFoundError three frames deep. Ask git where the
+    branch actually is rather than assuming.
+    """
+    import subprocess
+    default = WEBSITE.parent / "plenee_app" / "docs" / "academy_v2"
+    if (default / "contents.md").exists():
+        return default
+    repo = WEBSITE.parent / "plenee_app"
+    try:
+        out = subprocess.run(["git", "-C", str(repo), "worktree", "list", "--porcelain"],
+                             capture_output=True, text=True, timeout=10).stdout
+    except Exception:
+        out = ""
+    for line in out.splitlines():
+        if line.startswith("worktree "):
+            cand = Path(line.split(" ", 1)[1]) / "docs" / "academy_v2"
+            if (cand / "contents.md").exists():
+                print(f"  source: {cand}  (branch is checked out as a worktree)")
+                return cand
+    raise SystemExit(
+        f"BUILD FAILED: no academy_v2 source found.\n"
+        f"  looked in {default}\n"
+        f"  and in every worktree of {repo}\n"
+        f"The branch holding docs/academy_v2/ is not checked out anywhere.")
+
+
+SRC = _find_src()
 OUT = WEBSITE / "academy2"
 
 V2_STYLE = """
