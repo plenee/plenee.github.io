@@ -76,7 +76,54 @@ def _find_src() -> Path:
         f"The branch holding docs/academy_v2/ is not checked out anywhere.")
 
 
+def _check_trees_agree(chosen: Path) -> None:
+    """Refuse to build from a tree that is missing another tree's work.
+
+    The source can live in the main checkout or in a worktree, and _find_src prefers the
+    main checkout. That is fine while the two agree. When they do not, the build silently
+    drops whatever the chosen tree lacks: on 2026-08-24 a build from main produced no
+    quizzes because the 37 quiz sources existed only on the branch, and it deleted 38
+    published pages without a word. The page count in the summary line was the only
+    symptom, and only because someone happened to remember the previous number.
+
+    Presence is what is checked, not content. Trees that hold the same files but differ
+    inside are reported as a count, not a failure — that is ordinary while a branch is in
+    flight, and failing on it would make the build unusable.
+    """
+    import subprocess
+    repo = WEBSITE.parent / "plenee_app"
+    try:
+        out = subprocess.run(["git", "-C", str(repo), "worktree", "list", "--porcelain"],
+                             capture_output=True, text=True, timeout=10).stdout
+    except Exception:
+        return
+    others = []
+    for line in out.splitlines():
+        if line.startswith("worktree "):
+            c = Path(line.split(" ", 1)[1]) / "docs" / "academy_v2"
+            if c != chosen and (c / "contents.md").exists():
+                others.append(c)
+    rel = lambda root: {f.relative_to(root).as_posix()
+                        for f in root.rglob("*.md") if ".no-autofix" not in f.parts}
+    mine = rel(chosen)
+    for o in others:
+        theirs = rel(o)
+        missing = sorted(theirs - mine)
+        if missing:
+            shown = "\n    ".join(missing[:12])
+            more = f"\n    ... and {len(missing) - 12} more" if len(missing) > 12 else ""
+            raise SystemExit(
+                f"BUILD FAILED: {o} holds {len(missing)} source files this tree does not.\n"
+                f"  Building from {chosen} would publish without them, and would DELETE any\n"
+                f"  pages they produced. Merge the trees first.\n    {shown}{more}")
+        differing = sum(1 for f in sorted(mine & theirs)
+                        if (chosen / f).read_bytes() != (o / f).read_bytes())
+        if differing:
+            print(f"  note: {differing} file(s) differ from {o} — building this tree's version")
+
+
 SRC = _find_src()
+_check_trees_agree(SRC)
 OUT = Path(os.environ["PLENEE_ACADEMY_OUT"]).expanduser().resolve() \
     if os.environ.get("PLENEE_ACADEMY_OUT") else WEBSITE / "academy2"
 
@@ -966,6 +1013,55 @@ def main() -> int:
         raise SystemExit("BUILD FAILED: footnotes would be silently dropped.\n  "
                          + "\n  ".join(fn_problems))
 
+    # Every check below is here because the failure it catches is SILENT. A build that
+    # errors is cheap; a build that publishes something subtly wrong is not, because
+    # nothing downstream will notice and the page looks entirely normal.
+
+    # A slug collision does not error — the second file simply replaces the first in the
+    # dict and one chapter stops existing, with the page count still looking plausible.
+    files = list((SRC / "chapters").glob("*.md"))
+    if len(files) != len(chapters):
+        seen = {}
+        for f in files:
+            m = re.search(r'^slug:\s*(\S+)', f.read_text(), re.M)
+            s = m.group(1) if m else f.stem
+            seen.setdefault(s, []).append(f.name)
+        clashes = {s: v for s, v in seen.items() if len(v) > 1}
+        raise SystemExit(f"BUILD FAILED: {len(files)} chapter files produced "
+                         f"{len(chapters)} chapters. Slug collisions: {clashes}")
+
+    # A {{ref:}} pointing at nothing renders as a dead link or survives as raw markup,
+    # depending where it sits. Neither stops the build.
+    known = set(chapters)
+    dangling = []
+    for name, md in ([(f"chapters/{s}", c["body"]) for s, c in chapters.items()]
+                     + [(f"tracks/{s}", t.get("overview", "") + "".join(
+                         e["why"] for e in t["entries"])) for s, t in tracks.items()]
+                     + [("contents.md", contents_md)]):
+        for r in sorted({m.group(1) for m in re.finditer(r'\{\{ref:([\w-]+)\}\}', md)}):
+            if r not in known:
+                dangling.append(f"{name} -> {{{{ref:{r}}}}}")
+    if dangling:
+        raise SystemExit("BUILD FAILED: references to chapters that do not exist.\n  "
+                         + "\n  ".join(dangling))
+
+    # A source listed under ## Sources that nothing cites renders as an orphan entry in
+    # the Sources block, usually because a citation was edited out of the prose and its
+    # definition left behind.
+    orphan_notes = []
+    for slug, ch in chapters.items():
+        raw = ch["body"]
+        used = {m.group(1) for m in re.finditer(r'\[\^(\d+)\]', raw.split("\n## Sources")[0])}
+        defs = re.findall(r'^\[\^(\d+)\]:', raw, re.M)
+        if set(defs) - used:
+            orphan_notes.append(f"{slug}: sources {sorted(set(defs) - used)} defined but never cited")
+        dup = sorted({d for d in defs if defs.count(d) > 1})
+        if dup:
+            orphan_notes.append(f"{slug}: footnote {dup} defined more than once")
+    if orphan_notes:
+        raise SystemExit("BUILD FAILED: footnote definitions do not match their citations.\n  "
+                         + "\n  ".join(orphan_notes))
+
     if OUT.exists():
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True)
@@ -984,6 +1080,18 @@ def main() -> int:
     for slug, ch in chapters.items():
         (OUT / f"{slug}.html").write_text(
             chapter_page(slug, ch, tracks, titles, subj.get(slug), subject_of.get(slug, "Academy")))
+
+    # Everything above checks the SOURCES. This checks the OUTPUT, and it is the only one
+    # that catches a bug in the renderer itself. {{ref:}} markers once shipped to live
+    # pages inside card blurbs, because every source file was correct and nothing looked
+    # at what was actually written.
+    raw_markers = sorted(f.relative_to(OUT).as_posix()
+                         for f in OUT.rglob("*.html") if "{{ref:" in f.read_text())
+    if raw_markers:
+        raise SystemExit(
+            "BUILD FAILED: unrendered {{ref:}} markers in the output — "
+            "the pages are written but MUST NOT be published.\n  "
+            + "\n  ".join(raw_markers))
 
     n = len(list(OUT.rglob("*.html")))
     print(f"academy2/: {len(chapters)} chapters, {len(tracks)} tracks, {n} pages")
