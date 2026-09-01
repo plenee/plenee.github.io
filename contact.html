@@ -26,19 +26,6 @@
 html { scroll-behavior: smooth; }
 body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
 
-/* ─── NAV ─── */
-nav {
-  position: sticky; top: 0; z-index: 300;
-  background: #0C1929;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  height: 72px; display: flex; align-items: center; justify-content: space-between;
-  padding: 0 48px;
-}
-.nav-logo { display: flex; align-items: center; height: 100%; line-height: 0; }
-.nav-logo img { height: 100%; display: block; }
-.nav-links { display: flex; gap: 32px; align-items: center; }
-.nav-links a { color: #B6C6D6; text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
-.nav-links a:hover { color: var(--teal); }
 
 /* ─── PAGE HEADER ─── */
 .page-header {
@@ -207,8 +194,6 @@ footer p { color: #2E4A60; font-size: 13px; }
 .fl a.active { color: var(--teal); }
 
 @media (max-width: 768px) {
-  nav { padding: 0 20px; height: 56px; }
-  .nav-links { display: none; }
   .page-header { padding: 48px 20px 40px; }
   .content-wrap { padding: 40px 20px 72px; }
   .form-wrap { padding: 28px 20px; }
@@ -217,20 +202,34 @@ footer p { color: #2E4A60; font-size: 13px; }
   .fl a { margin-left: 0; margin-right: 20px; }
 }
 </style>
+<link rel="stylesheet" href="nav.css">
+<script src="nav.js" defer></script>
 </head>
-<body>
+<body data-plenee-surface="home" data-plenee-home="index.html" data-plenee-academy="academy/index.html">
 
 <!-- NAV -->
 <nav>
-  <a href="index.html" class="nav-logo">
-    <img src="Logo%20-%20Plenee_Navigator_v2.svg" alt="Plenee Navigator">
-  </a>
-  <div class="nav-links">
+  <div class="nav-brand">
+    <button class="nav-home" type="button" aria-label="Go to the Plenee home page">
+      <img src="plenee_icon2.svg" alt="Plenee" width="40" height="40">
+    </button>
+    <span class="nav-word"><span class="nw-1">Plenee</span><span class="nw-2">A Guide for Wealth</span></span>
+  </div>
+  <div class="nav-links" id="nav-links">
     <a href="index.html#how">How it works</a>
     <a href="index.html#features-start">Features</a>
     <a href="index.html#levels">Every level</a>
     <a href="academy/index.html">Academy</a>
     <a href="index.html#fid">Our Promise</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-acct">
+      <button class="nav-user" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Menu"></button>
+      <div class="nav-menu" role="menu" hidden></div>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Sections" aria-expanded="false" aria-controls="nav-links">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
   </div>
 </nav>
 

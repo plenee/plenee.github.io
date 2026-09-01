@@ -1,12 +1,12 @@
 """Builds the Academy v2 site from plenee_app/docs/academy_v2/.
 
-PARALLEL BUILD. Writes only to website/academy2/. It does not read, modify or overwrite
+PARALLEL BUILD. Writes only to website/academy/. It does not read, modify or overwrite
 anything under website/academy/, and generate_academy_pages.py is imported read-only for
 its shared CSS and page shell so the two sites cannot drift apart visually.
 
 The v2 model, from docs/academy_v2/navigation.md:
 
-  chapters/<slug>.md   one chapter, ONE canonical URL, /academy2/<slug>/
+  chapters/<slug>.md   one chapter, ONE canonical URL, /academy/<slug>/
   tracks/<slug>.md     an ordered list of chapter slugs — a view, not a container
   contents.md          the general index: every chapter exactly once, by subject
 
@@ -125,7 +125,7 @@ def _check_trees_agree(chosen: Path) -> None:
 SRC = _find_src()
 _check_trees_agree(SRC)
 OUT = Path(os.environ["PLENEE_ACADEMY_OUT"]).expanduser().resolve() \
-    if os.environ.get("PLENEE_ACADEMY_OUT") else WEBSITE / "academy2"
+    if os.environ.get("PLENEE_ACADEMY_OUT") else WEBSITE / "academy"
 
 V2_STYLE = """
 /* The two non-personalized ways into the corpus. Quiet by intent: the track cards are the
@@ -439,22 +439,17 @@ def render_body(md: str) -> tuple[str, str]:
 
 # --------------------------------------------------------------------------- pages
 
-BASE = "https://plenee.com/academy2/"
+BASE = "https://plenee.com/academy/"
 
 # Flat .html files, not directories. Directory-style URLs need a server to resolve "/" to
 # index.html, so they break when the site is opened from disk — and v1 emits flat files, so
 # this matches it. One canonical URL per chapter either way.
 
 
-BASE = "https://plenee.com/academy2/"
-
-
 def shell(title: str, body: str, depth_root: str, ac_root: str, canonical: str = "") -> str:
-    # v2 pages mark Academy2 as the active section, never Academy — the highlight was
-    # previously hardcoded onto Academy and so lit up on v2 pages too.
     page = PAGE_TEMPLATE.format(page_title=esc(title), style=STYLE_BLOCK + V2_STYLE,
                                 body=body, root=depth_root, ac_root=ac_root,
-                                ac_active="", ac2_active=' class="active"')
+                                ac_active=' class="active"')
     # Every page declares its canonical URL without the ?via= parameter. Track context is a
     # query string precisely so a chapter never gets a second address; without this tag a
     # crawler can still index /slug/?via=a and /slug/?via=b as separate pages and split
@@ -750,7 +745,7 @@ def glossary_body(md: str) -> str:
 def contents_page(md, titles) -> str:
     # refs resolve AFTER render_body, not before. inline() escapes its input, so an
     # anchor produced up front arrives as visible &lt;a ...&gt; text — which is exactly
-    # what shipped to /academy2/contents.html. A {{ref:slug}} marker carries no HTML
+    # what shipped to /academy/contents.html. A {{ref:slug}} marker carries no HTML
     # characters, so it passes through escaping untouched and resolves cleanly here.
     body_html, _, _ = render_body(md.split("---\n", 2)[-1])
     body_html = refs(body_html, titles, "")
@@ -949,7 +944,7 @@ def landing_page(tracks, titles, chapters) -> str:
         + '<div class="chapters-heading">Pick the situation closest to yours</div>'
         + grid
         + ways_in(titles, chapters) + "</div>")
-    return shell("Plenee Academy", body, "../", "", "")
+    return shell("Plenee", body, "../", "", "")
 
 
 CHAPTER_BLURB: dict = {}
@@ -1094,7 +1089,7 @@ def main() -> int:
             + "\n  ".join(raw_markers))
 
     n = len(list(OUT.rglob("*.html")))
-    print(f"academy2/: {len(chapters)} chapters, {len(tracks)} tracks, {n} pages")
+    print(f"academy/: {len(chapters)} chapters, {len(tracks)} tracks, {n} pages")
     untracked = [s for s in chapters
                  if not any(s in [e["slug"] for e in t["entries"]] for t in tracks.values())]
     if untracked:

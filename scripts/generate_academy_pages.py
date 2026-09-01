@@ -565,20 +565,7 @@ STYLE_BLOCK = """
 html { scroll-behavior: smooth; }
 body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
 
-nav {
-  position: sticky; top: 0; z-index: 300;
-  background: #0C1929;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  height: 72px; display: flex; align-items: center; justify-content: space-between;
-  padding: 0 48px;
-}
-.nav-logo { display: flex; align-items: center; height: 100%; line-height: 0; }
-.nav-logo img { height: 100%; display: block; }
-.nav-links { display: flex; gap: 32px; align-items: center; }
-.nav-links a { color: #B6C6D6; text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
-.nav-links a:hover { color: var(--teal); }
-.nav-links a.active { color: var(--teal); }
-.nav-toggle { display: none; background: none; border: none; color: #fff; cursor: pointer; padding: 8px; align-items: center; justify-content: center; }
+/* nav lives in website/nav.css — shared with plenee.com so the two cannot drift */
 
 footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.07); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
 footer p { color: #2E4A60; font-size: 13px; }
@@ -589,11 +576,6 @@ footer p { color: #2E4A60; font-size: 13px; }
 #disclaimer-strip p { font-size: 12px; color: var(--light); line-height: 1.6; max-width: 900px; margin: 0 auto; }
 
 @media (max-width: 768px) {
-  nav { padding: 0 20px; height: 56px; }
-  .nav-toggle { display: flex; }
-  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; background: #0C1929; border-bottom: 1px solid rgba(255,255,255,.08); padding: 4px 20px 10px; }
-  .nav-links.open { display: flex; }
-  .nav-links a { padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.06); font-size: 12px; white-space: nowrap; }
   footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
   .fl a { margin-left: 0; margin-right: 20px; }
 }
@@ -913,46 +895,40 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{page_title} — Plenee Academy</title>
+<title>{page_title} — Academy</title>
 <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 <style>
 {style}
 </style>
+<link rel="stylesheet" href="{root}nav.css">
+<script src="{root}nav.js" defer></script>
 </head>
-<body>
+<body data-plenee-surface="academy" data-plenee-home="{root}index.html" data-plenee-academy="{ac_root}index.html">
 
 <nav>
-  <a href="{root}index.html" class="nav-logo">
-    <img src="{root}Logo%20-%20Plenee_Navigator_v2.svg" alt="Plenee Navigator">
-  </a>
+  <div class="nav-brand">
+    <button class="nav-home" type="button" aria-label="Go to the Plenee home page">
+      <img src="{root}plenee_icon2.svg" alt="Plenee" width="40" height="40">
+    </button>
+    <span class="nav-word"><span class="nw-1">Plenee<em>&nbsp;Academy</em></span><span class="nw-2">A Guide for Wealth</span></span>
+  </div>
   <div class="nav-links" id="nav-links">
+    <a href="{ac_root}index.html"{ac_active}>Tracks</a>
+    <a href="{ac_root}money-words-defined.html">Glossary</a>
+    <a href="{ac_root}quizzes.html">Quizzes</a>
     <a href="{root}index.html#how">How it works</a>
-    <a href="{root}index.html#features-start">Features</a>
-    <a href="{root}academy/index.html"{ac_active}>Academy</a>
-    <a href="{root}academy2/index.html"{ac2_active}>Academy2</a>
     <a href="{root}index.html#fid">Our Promise</a>
   </div>
-  <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-  </button>
+  <div class="nav-right">
+    <div class="nav-acct">
+      <button class="nav-user" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Menu"></button>
+      <div class="nav-menu" role="menu" hidden></div>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Sections" aria-expanded="false" aria-controls="nav-links">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
 </nav>
-<script>
-(function(){{
-  var toggle = document.getElementById('nav-toggle');
-  var links = document.getElementById('nav-links');
-  if (!toggle || !links) return;
-  toggle.addEventListener('click', function(){{
-    var open = links.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-  }});
-  links.querySelectorAll('a').forEach(function(a){{
-    a.addEventListener('click', function(){{
-      links.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-    }});
-  }});
-}})();
-</script>
 
 {body}
 
@@ -962,7 +938,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 
 <footer>
   <a href="{root}index.html" style="display:block;line-height:0">
-    <img src="{root}Logo%20-%20Plenee_Navigator_v2.svg" height="44" alt="Plenee Navigator">
+    <img src="{root}Logo%20-%20Plenee_Navigator_v2.svg" height="44" alt="Plenee">
   </a>
   <p>© 2026 Plenee Co. All rights reserved.</p>
   <div class="fl"><a href="{root}privacy.html">Privacy</a><a href="{root}terms.html">Terms</a><a href="{root}plenee_legal.html" style="color:var(--teal)">Legal</a><a href="{root}contact.html">Contact</a></div>
@@ -1846,15 +1822,20 @@ def generate_all() -> None:
     print(f"\nDone: {len(results)} tracks, {len(global_search_index)} chapters indexed for search.")
 
 
+# Academy v1 was retired 2026-09-01: v2 moved from /academy2/ to /academy/ and now owns that
+# directory. This module still EXISTS because generate_academy_v2.py imports PAGE_TEMPLATE and
+# STYLE_BLOCK from it — but running it would write academy/index.html and academy/<track>/ over
+# the live v2 site, silently, with no error. So the entry point refuses; the imports still work.
+RETIRED = (
+    "generate_academy_pages.py builds Academy v1, which was retired on 2026-09-01.\n"
+    "It writes to website/academy/, which Academy v2 now owns — running it would overwrite\n"
+    "the live site. Use scripts/generate_academy_v2.py instead.\n"
+    "This file is kept only because v2 imports PAGE_TEMPLATE and STYLE_BLOCK from it."
+)
+
+
 def main() -> int:
-    if len(sys.argv) != 2:
-        print(__doc__)
-        return 1
-    if sys.argv[1] == "--all":
-        generate_all()
-    else:
-        generate(sys.argv[1])
-    return 0
+    raise SystemExit(RETIRED)
 
 
 if __name__ == "__main__":

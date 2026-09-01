@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- plenee_icon2.svg — Plenee compass mark, standalone icon.
+     The brand's compass mark alone (no wordmark), 512x512, transparent.
+     Successor to the pyramid-needle era: this uses the CONE needle adopted
+     across the brand 2026-08-05 (see "Logo - Plenee_Navigator_v2.svg").
+
+     Design notes worth keeping:
+       * Transparent — no background card, unlike the master lockup.
+       * White strokes are painted TWICE: a thicker navy pass underneath, then
+         white on top. This "sticker outline" is what lets the mark survive
+         LIGHT backgrounds. A soft drop-shadow was tried and verified
+         insufficient at small sizes (strokes washed out on light/paper/bright
+         plates). Do not swap the outline for a blur filter without retesting
+         at ~70px.
+       * rotate(43) moves the art's bbox off-origin (rotated bbox is centered
+         at (-55.6, 53.2), not (0,0)); the translate below pre-compensates.
+         Centering naively on the origin leaves the mark low-left and filling
+         only 43% of the canvas.
+       * The gold needle gradient runs ACROSS the cone axis — a cone's
+         terminator is parallel to its axis, so a diagonal gradient fights the
+         form and it stops reading as round.
+
+     Uses: video watermark (Pictory brand kit), social avatar, app icon.
+     PNG exports live alongside: plenee_icon2_512.png / plenee_icon2_1024.png -->
+  <defs>
+    <!-- cross-axis cone shading (replaces the master's diagonal facet gradient) -->
+    <linearGradient id="cone" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#D9922F"/>
+      <stop offset="18%"  stop-color="#FFD08A"/>
+      <stop offset="45%"  stop-color="#F7B45A"/>
+      <stop offset="78%"  stop-color="#C0822F"/>
+      <stop offset="100%" stop-color="#9A6520"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(322.8,192.1) scale(1.201) rotate(43)" fill="none" stroke-linecap="round">
+
+    <!-- ── PASS 1: navy outline (each stroke +5 width, sits underneath) ── -->
+    <line x1="-152" y1="0" x2="-50" y2="0" stroke="#0C1929" stroke-width="12.5" opacity="0.55"/>
+    <line x1="50"   y1="0" x2="152" y2="0" stroke="#0C1929" stroke-width="12.5" opacity="0.55"/>
+    <path d="M -23,-12 Q -52,42 -80,137" stroke="#0C1929" stroke-width="13.5" opacity="0.62"/>
+    <path d="M  23,-12 Q  52,42  80,137" stroke="#0C1929" stroke-width="13.5" opacity="0.62"/>
+    <path d="M -23,-12 Q -61,52 -105,168" stroke="#0C1929" stroke-width="9.2" opacity="0.42"/>
+    <path d="M  23,-12 Q  61,52  105,168" stroke="#0C1929" stroke-width="9.2" opacity="0.42"/>
+    <path d="M -23,-12 Q -70,63 -126,200" stroke="#0C1929" stroke-width="6.8" opacity="0.22"/>
+    <path d="M  23,-12 Q  70,63  126,200" stroke="#0C1929" stroke-width="6.8" opacity="0.22"/>
+
+    <!-- ── PASS 2: white mark on top ── -->
+    <line x1="-152" y1="0" x2="-50" y2="0" stroke="#FFFFFF" stroke-width="7.5" opacity="0.60"/>
+    <line x1="50"   y1="0" x2="152" y2="0" stroke="#FFFFFF" stroke-width="7.5" opacity="0.60"/>
+    <path d="M -23,-12 Q -52,42 -80,137" stroke="#FFFFFF" stroke-width="8.5" opacity="0.78"/>
+    <path d="M  23,-12 Q  52,42  80,137" stroke="#FFFFFF" stroke-width="8.5" opacity="0.78"/>
+    <path d="M -23,-12 Q -61,52 -105,168" stroke="#FFFFFF" stroke-width="4.2" opacity="0.42"/>
+    <path d="M  23,-12 Q  61,52  105,168" stroke="#FFFFFF" stroke-width="4.2" opacity="0.42"/>
+    <!-- faintest pair is pure texture — expected to vanish below ~120px render -->
+    <path d="M -23,-12 Q -70,63 -126,200" stroke="#FFFFFF" stroke-width="1.8" opacity="0.22"/>
+    <path d="M  23,-12 Q  70,63  126,200" stroke="#FFFFFF" stroke-width="1.8" opacity="0.22"/>
+
+    <!-- ── CONE needle: apex, two straight sides, elliptical base ── -->
+    <path d="M 0,-172 L -25,-35.5 A 25,3.5 0 0 0 25,-35.5 Z"
+          fill="url(#cone)" stroke="none"/>
+    <!-- base rim: a hair of shadow along the front of the base ellipse so the
+         cone reads as a solid with a bottom, not a flat gradient triangle -->
+    <path d="M -25,-35.5 A 25,3.5 0 0 0 25,-35.5"
+          fill="none" stroke="#7A4E17" stroke-width="1.6" opacity="0.55"/>
+
+    <!-- ── pivot ring + hub: unchanged ── -->
+    <circle cx="0" cy="0" r="20" fill="none" stroke="#FFB256" stroke-width="7"/>
+    <circle cx="0" cy="0" r="10" fill="#FFB256" stroke="none"/>
+  </g>
+</svg>

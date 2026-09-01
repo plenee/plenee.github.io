@@ -14,9 +14,15 @@
 !Logo - Plenee_Navigator.svg
 !Logo - Plenee_Navigator_v2.svg
 
-# Plenee Academy — local-only for now, not yet deployed; git-ignore rules can't negate into an
-# already-excluded directory without first un-ignoring the directory itself, hence both lines.
+# Shared nav, used by every page on the site AND every Academy page. Without these three
+# the nav 404s: unstyled, no account menu, no compass. The mark is the nav's logo now that
+# the lockup is HTML text beside it.
+!nav.css
+!nav.js
+!plenee_icon2.svg
+
+# Plenee Academy. git-ignore rules can't negate into an already-excluded directory without
+# first un-ignoring the directory itself, hence the paired lines.
+# academy2/ is gone: v2 moved to /academy/ on 2026-09-01 and Academy v1 was retired with it.
 !academy/
 !academy/**
-!academy2/
-!academy2/**
