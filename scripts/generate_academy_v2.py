@@ -445,9 +445,79 @@ BASE = "https://plenee.com/academy/"
 # index.html, so they break when the site is opened from disk — and v1 emits flat files, so
 # this matches it. One canonical URL per chapter either way.
 
+# Schema.org authority signals (docs/aeo_knowledge_moat_plan.md's "SCOPED TASK — schema.org
+# markup", private plenee-docs repo).
+#
+# Authorship is the ORGANIZATION, not a person. This named Rob with his CFA charter on all
+# 248 chapters until 2026-09-01. He does hold the charter — but he has not reviewed every
+# chapter, and a regulated designation attached to material its holder has not read is a
+# liability, not a trust signal (Rob's own call). Do NOT reintroduce a named person here
+# without his explicit sign-off on the specific material being attributed to him.
+JSON_LD_AUTHOR = {"@type": "Organization", "name": "Plenee"}
+JSON_LD_PUBLISHER = {
+    "@type": "Organization", "name": "Plenee",
+    "logo": {"@type": "ImageObject", "url": "https://plenee.com/plenee_icon2_1024.png"},
+}
 
-def shell(title: str, body: str, depth_root: str, ac_root: str, canonical: str = "") -> str:
-    page = PAGE_TEMPLATE.format(page_title=esc(title), style=STYLE_BLOCK + V2_STYLE,
+
+def _git_first_commit_date(rel_path: str) -> str | None:
+    """ISO date (YYYY-MM-DD) of rel_path's first commit in the plenee_app repo — SRC's parent
+    tree, whichever checkout or worktree _find_src resolved, so this stays correct even when the
+    academy_v2 branch is only checked out as a worktree. The datePublished fallback for chapters
+    with neither a `ported:` nor a `verified:` front-matter date (docs plan, decided 2026-08-27:
+    accurate, invents nothing, needs no content edits). None on any failure — a page missing
+    datePublished is better than a build that crashes over one file's git history."""
+    import subprocess
+    repo_root = SRC.parents[1]
+    try:
+        out = subprocess.run(
+            ["git", "-C", str(repo_root), "log", "--follow", "--format=%aI", "--", rel_path],
+            capture_output=True, text=True, timeout=10,
+        ).stdout.strip()
+        if not out:
+            return None
+        return out.splitlines()[-1][:10]  # oldest commit is the LAST line; date part only
+    except Exception:
+        return None
+
+
+def _chapter_date_published(meta: dict) -> str | None:
+    """ported: -> verified: -> the chapter file's first git commit date. Order decided
+    2026-08-27: only 133 of 182 chapters (at the time) carried ported:, most of the rest
+    verified:, and a real minority carried neither — emitting Article from ported: alone would
+    have left those without a publication date."""
+    for key in ("ported", "verified"):
+        v = meta.get(key)
+        if v:
+            return str(v)[:10]
+    slug = meta.get("slug")
+    return _git_first_commit_date(f"docs/academy_v2/chapters/{slug}.md") if slug else None
+
+
+def json_ld(kind: str, title: str, canonical: str, meta: dict | None = None) -> str:
+    """<script type="application/ld+json">...</script> for the given schema.org kind, injected
+    at shell()'s existing canonical-tag seam. meta is the chapter's own front-matter dict (for
+    Article's datePublished/slug lookup); unused for WebSite/CollectionPage."""
+    data = {"@context": "https://schema.org", "@type": kind, "url": f"{BASE}{canonical}",
+            "publisher": JSON_LD_PUBLISHER}
+    if kind == "Article":
+        data["headline"] = title
+        data["author"] = JSON_LD_AUTHOR
+        date_published = _chapter_date_published(meta or {})
+        if date_published:
+            data["datePublished"] = date_published
+    else:
+        data["name"] = title
+    return f'<script type="application/ld+json">{json.dumps(data)}</script>'
+
+
+def shell(title: str, body: str, depth_root: str, ac_root: str, canonical: str = "",
+          kind: str | None = None, meta: dict | None = None) -> str:
+    # The landing IS the Academy, so its tab reads "Academy" rather than
+    # "Plenee — Academy". Every other page is "<chapter> — Academy": the chapter
+    # first, because that is what tells one Academy tab from another.
+    full = "Academy" if title == "Academy" else f"{esc(title)} — Academy"
+    page = PAGE_TEMPLATE.format(page_title=full, style=STYLE_BLOCK + V2_STYLE,
                                 body=body, root=depth_root, ac_root=ac_root,
                                 ac_active=' class="active"')
     # Every page declares its canonical URL without the ?via= parameter. Track context is a
@@ -455,6 +525,8 @@ def shell(title: str, body: str, depth_root: str, ac_root: str, canonical: str =
     # crawler can still index /slug/?via=a and /slug/?via=b as separate pages and split
     # whatever authority the chapter earns.
     tag = f'<link rel="canonical" href="{BASE}{canonical}">'
+    if kind:
+        tag += "\n" + json_ld(kind, title, canonical, meta)
     return page.replace("</title>", "</title>\n" + tag, 1)
 
 
@@ -581,7 +653,7 @@ def chapter_page(slug, ch, tracks, titles, subject_nbrs, subject_name) -> str:
         + "</div>"
         + f'<script type="application/json" id="v2-nav">{payload}</script>{NAV_JS}'
     )
-    return shell(ch.get("title", slug), body, "../", "", f"{slug}.html")
+    return shell(ch.get("title", slug), body, "../", "", f"{slug}.html", kind="Article", meta=ch)
 
 
 CHAPTER_TITLES: dict = {}
@@ -668,7 +740,8 @@ def track_page(tslug, tr, titles) -> str:
         + '<div class="track-wrap">'
         + f'<div class="chapters-heading">{len(tr["entries"])} chapters, in this order</div>'
         + grid + "</div>")
-    return shell(tr.get("title", tslug), body, "../../", "../", f"tracks/{tslug}.html")
+    return shell(tr.get("title", tslug), body, "../../", "../", f"tracks/{tslug}.html",
+                 kind="CollectionPage")
 
 
 GLOSSARY_SLUG = "money-words-defined"
@@ -758,7 +831,7 @@ def contents_page(md, titles) -> str:
         + '<div class="chapter-nav"><a class="cn-link next" href="index.html">'
         + '<div class="cn-dir">Or</div><div class="cn-title">Choose a situation instead</div>'
         + "</a></div></div>")
-    return shell("Everything, by Subject", body, "../", "", "contents.html")
+    return shell("Everything, by Subject", body, "../", "", "contents.html", kind="CollectionPage")
 
 
 def ways_in(titles, chapters) -> str:
@@ -927,7 +1000,7 @@ def quizzes_index(quizzes: list) -> str:
         'expert question and an expert is not asked a trivial one.</p></div>'
         + crumb("Quizzes", "", right=("Everything by subject", "contents.html"))
         + '<div class="track-wrap">' + "".join(out) + "</div>")
-    return shell("Quizzes", body, "../", "", "quizzes.html")
+    return shell("Quizzes", body, "../", "", "quizzes.html", kind="CollectionPage")
 
 
 def landing_page(tracks, titles, chapters) -> str:
@@ -944,7 +1017,7 @@ def landing_page(tracks, titles, chapters) -> str:
         + '<div class="chapters-heading">Pick the situation closest to yours</div>'
         + grid
         + ways_in(titles, chapters) + "</div>")
-    return shell("Plenee", body, "../", "", "")
+    return shell("Academy", body, "../", "", "", kind="WebSite")
 
 
 CHAPTER_BLURB: dict = {}

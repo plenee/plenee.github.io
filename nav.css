@@ -1,4 +1,5 @@
-/* Plenee shared nav — plenee.com, plenee.com/academy/ and app.plenee.com all use this.
+/* Plenee shared nav and footer brand — plenee.com and plenee.com/academy/ use this,
+   and app.plenee.com carries the same rules in its own stylesheet.
    One file so the three surfaces cannot drift apart, and so 237 Academy pages fetch it
    once and reuse it rather than carrying their own copy.
 
@@ -128,4 +129,19 @@ nav.is-collapsed .nav-word { max-width: 0; opacity: 0; transform: translateX(-6p
   .nav-word { max-width: 120px; }
   .nav-word .nw-1 { font-size: 15px; }
   .nav-word .nw-2 { display: none; }
+}
+
+/* ─── footer lockup ───────────────────────────────────────────────────────
+   Same construction as the nav: the mark plus HTML text, so each surface names
+   itself here too. Replaced the single full-lockup SVG, which said "Plenee
+   Navigator" on all three surfaces regardless of which one you were on. */
+.foot-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.foot-brand img { width: 44px; height: 44px; display: block; flex-shrink: 0; }
+.foot-brand:focus-visible { outline: 2px solid #0FA8BC; outline-offset: 3px; }
+.foot-word { font-family: 'Varela Round', 'Segoe UI', sans-serif; line-height: 1.02; }
+.foot-word .fw-1 { display: block; font-size: 19px; letter-spacing: -.4px; color: #fff; }
+.foot-word .fw-1 em { font-style: normal; color: #2D9CB8; }
+.foot-word .fw-2 {
+  display: block; font-size: 9px; letter-spacing: .9px;
+  text-transform: uppercase; color: #F5A04A; margin-top: 2px;
 }

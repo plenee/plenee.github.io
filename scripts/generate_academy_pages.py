@@ -895,7 +895,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{page_title} — Academy</title>
+<title>{page_title}</title>
 <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 <style>
 {style}
@@ -933,12 +933,13 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 {body}
 
 <div id="disclaimer-strip">
-  <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. <a href="{root}plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
+  <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. Some of this material is written with AI assistance and may contain mistakes. Check anything you plan to act on. <a href="{root}plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
 </div>
 
 <footer>
-  <a href="{root}index.html" style="display:block;line-height:0">
-    <img src="{root}Logo%20-%20Plenee_Navigator_v2.svg" height="44" alt="Plenee">
+  <a href="{root}index.html" class="foot-brand">
+    <img src="{root}plenee_icon2.svg" alt="Plenee" width="44" height="44">
+    <span class="foot-word"><span class="fw-1">Plenee<em>&nbsp;Academy</em></span><span class="fw-2">A Guide for Wealth</span></span>
   </a>
   <p>© 2026 Plenee Co. All rights reserved.</p>
   <div class="fl"><a href="{root}privacy.html">Privacy</a><a href="{root}terms.html">Terms</a><a href="{root}plenee_legal.html" style="color:var(--teal)">Legal</a><a href="{root}contact.html">Contact</a></div>
@@ -1477,7 +1478,7 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
   {next_html}
 </div>"""
 
-    page_html = PAGE_TEMPLATE.format(page_title=esc(chapter["title"]), style=STYLE_BLOCK, body=body,
+    page_html = PAGE_TEMPLATE.format(page_title=esc(chapter["title"]) + " — Plenee Academy", style=STYLE_BLOCK, body=body,
                                       **DEPTH_CHAPTER_OR_TRACK)
 
     search_entry = {
@@ -1645,7 +1646,7 @@ def render_index_page(track_info, track_title: str, chapters: list[dict]) -> str
   </div>
 </div>"""
 
-    return PAGE_TEMPLATE.format(page_title=esc(title_bare), style=STYLE_BLOCK, body=body,
+    return PAGE_TEMPLATE.format(page_title=esc(title_bare) + " — Plenee Academy", style=STYLE_BLOCK, body=body,
                                  **DEPTH_CHAPTER_OR_TRACK)
 
 

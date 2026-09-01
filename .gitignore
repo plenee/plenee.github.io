@@ -21,6 +21,11 @@
 !nav.js
 !plenee_icon2.svg
 
+# Referenced as the schema.org publisher logo in every Academy page's JSON-LD. Named here
+# because the repo ignores * by default — without this the logo URL 404s and the structured
+# data is invalid, silently, exactly as nav.css would have been.
+!plenee_icon2_1024.png
+
 # Plenee Academy. git-ignore rules can't negate into an already-excluded directory without
 # first un-ignoring the directory itself, hence the paired lines.
 # academy2/ is gone: v2 moved to /academy/ on 2026-09-01 and Academy v1 was retired with it.
