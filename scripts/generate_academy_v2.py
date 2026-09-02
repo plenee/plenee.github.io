@@ -234,6 +234,8 @@ table.v2 tbody tr:last-child td{border-bottom:none}
   text-shadow:0 1px 14px rgba(0,0,0,.55);
   background:linear-gradient(to top,rgba(12,25,41,.88) 0%,rgba(12,25,41,.62) 45%,rgba(12,25,41,0) 100%)}
 .chap-card .cc-body p{margin:0 0 1rem}
+.chap-card .cc-sub{display:block;margin:0 0 .55rem;font-size:.92rem;font-weight:600;color:var(--navy);letter-spacing:.01em}
+.track-subtitle{margin:.25rem 0 .35rem;font-family:Georgia,'Times New Roman',serif;font-size:1.25rem;line-height:1.3;color:var(--navy)}
 sup.fnref a{color:var(--teal-d);text-decoration:none;font-weight:600;padding:0 .1em}
 sup.fnref a:hover{text-decoration:underline}
 """
@@ -718,7 +720,9 @@ def cards(entries, titles, href, hue_slug) -> str:
             f'<a class="chap-card" href="{href(e)}" {hue_style(hue_slug(e))}>'
             f'<div class="cc-tile">{art_for(e["slug"])}'
             f'<h3 class="cc-title">{esc(titles[e["slug"]])}</h3></div>'
-            f'<div class="cc-body"><p>{inline(e.get("blurb") or e["why"])}</p>'
+            f'<div class="cc-body">'
+            + (f'<span class="cc-sub">{esc(e["subtitle"])}</span>' if e.get("subtitle") else "")
+            + f'<p>{inline(e.get("blurb") or e["why"])}</p>'
             f'<span class="cc-cta">Read &rarr;</span></div></a>')
     return f'<div class="chapter-grid">{"".join(out)}</div>'
 
@@ -735,6 +739,7 @@ def track_page(tslug, tr, titles) -> str:
         + '<div class="page-header">'
         + '<div class="page-kicker">A situation</div>'
         + f'<h1>{esc(tr.get("title", tslug))}</h1>'
+        + (f'<p class="track-subtitle">{esc(tr["subtitle"])}</p>' if tr.get("subtitle") else "")
         + f'<p class="header-subtitle">{esc(tr.get("profile", ""))}</p></div>'
         + crumb(tr.get("title", tslug), "../")
         + f'<div class="overview-wrap">{ov}</div>'
@@ -1005,7 +1010,8 @@ def quizzes_index(quizzes: list) -> str:
 
 
 def landing_page(tracks, titles, chapters) -> str:
-    entries = [{"slug": ts, "why": tr.get("profile", ""), "blurb": blurb(tr["overview"])}
+    entries = [{"slug": ts, "why": tr.get("profile", ""), "blurb": blurb(tr["overview"]),
+                "subtitle": tr.get("subtitle", "")}
                for ts, tr in sorted(tracks.items(), key=lambda x: x[1].get("title", x[0]))]
     tl = {ts: tr.get("title", ts) for ts, tr in tracks.items()}
     grid = cards(entries, tl, href=lambda e: f'tracks/{e["slug"]}.html', hue_slug=lambda e: e["slug"])
