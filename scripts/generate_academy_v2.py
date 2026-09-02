@@ -251,6 +251,7 @@ TRACK_HUE = {
     "one-income-no-buffer": ORANGE, "two-countries": ORANGE,
     "earning-well": GOLD, "five-years-out": GOLD,
     "policies-you-already-own": DEEP, "flooded-with-offers": DEEP,
+    "where-money-advice-came-from": DEEP,
 }
 
 
