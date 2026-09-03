@@ -1,5 +1,5 @@
 /* Plenee shared nav behaviour — plenee.com and plenee.com/academy/.
-   app.plenee.com reimplements the cross-tab half in React (frontend/src/lib/crossTab.ts);
+   app.plenee.com reimplements the cross-tab half in React (frontend/src/utils/crossTab.ts);
    the two are deliberately separate deploy units, so that small duplication is on purpose.
 
    Wire-up, on <body>:
