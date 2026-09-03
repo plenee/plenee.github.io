@@ -2,6 +2,12 @@
    app.plenee.com reimplements the cross-tab half in React (frontend/src/utils/crossTab.ts);
    the two are deliberately separate deploy units, so that small duplication is on purpose.
 
+   THE TWO HALVES AGREE ONLY BY SPELLING FIVE STRINGS THE SAME WAY: plenee_auth_hint,
+   plenee_tab_*, and the three tab names below. Rename one on either side and nothing
+   errors — the switcher silently opens duplicate tabs, and the account menu shows
+   signed-out forever. After touching either file run:
+       python3 scripts/check_crosstab_contract.py
+
    Wire-up, on <body>:
      data-plenee-surface="home" | "academy"
      data-plenee-home="index.html"          (relative, so file:// still works)

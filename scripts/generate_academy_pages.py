@@ -908,7 +908,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 <nav>
   <div class="nav-brand">
     <button class="nav-home" type="button" aria-label="Go to the Plenee home page">
-      <img src="{root}plenee_icon2.svg" alt="Plenee" width="40" height="40">
+      <img src="{root}plenee_icon2_small.svg" alt="Plenee" width="40" height="40">
     </button>
     <span class="nav-word"><span class="nw-1">Plenee<em>&nbsp;Academy</em></span><span class="nw-2">A Guide for Wealth</span></span>
   </div>
@@ -938,7 +938,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 
 <footer>
   <a href="{root}index.html" class="foot-brand">
-    <img src="{root}plenee_icon2.svg" alt="Plenee" width="44" height="44">
+    <img src="{root}plenee_icon2_small.svg" alt="Plenee" width="44" height="44">
     <span class="foot-word"><span class="fw-1">Plenee<em>&nbsp;Academy</em></span><span class="fw-2">A Guide for Wealth</span></span>
   </a>
   <p>© 2026 Plenee Co. All rights reserved.</p>

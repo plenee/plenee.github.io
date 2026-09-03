@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 340" width="340" height="340">
+  <!-- plenee_icon2_small.svg — Plenee compass mark, SMALL-SIZE variant.
+     Companion to plenee_icon2.svg, not a replacement. Use this below ~72px:
+     nav bars, favicons, avatars. Use plenee_icon2.svg at 72px and above.
+
+     Why this exists: plenee_icon2.svg was drawn for watermark and app-icon
+     sizes. Its own notes say the faintest arc pair is "pure texture — expected
+     to vanish below ~120px render". At the 30px a collapsed nav bar gives it,
+     a 7.5-unit stroke in a 500 viewBox renders at 0.45px — under one pixel, so
+     the ticks and arcs disappear and the mark reads as an orange smudge with
+     no compass in it. Verified live on plenee.com, 2026-09-03.
+
+     What changed, and only this:
+       * Cropped 500 -> 340. The three faint arc pairs swept out to r=236 and
+         reserved a third of the canvas to draw nothing legible. Dropping them
+         lets everything else grow ~47% at the same render size.
+       * One arc pair kept, not three. The gesture survives; the texture does not.
+       * Strokes thickened to clear 1.5px at a 30px render (20 units x 30/340).
+       * Needle base widened 25 -> 30 and shortened, so the cone still reads as
+         a solid at 10px tall instead of a hairline triangle.
+       * Pivot ring and hub enlarged. At this size the ring is the single most
+         recognisable part of the mark, so it carries the identity.
+
+     UNCHANGED: the CONE needle (adopted 2026-08-05) and its cross-axis
+     gradient, the 43-degree rotation, and the palette. This is the same mark
+     drawn for a smaller pixel budget - never the P-mark, never a pyramid needle. -->
+  <defs>
+    <linearGradient id="cone-sm" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#D9922F"/>
+      <stop offset="18%"  stop-color="#FFD08A"/>
+      <stop offset="45%"  stop-color="#F7B45A"/>
+      <stop offset="78%"  stop-color="#C0822F"/>
+      <stop offset="100%" stop-color="#9A6520"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(170,170) rotate(43)" fill="none" stroke-linecap="round">
+
+    <!-- direction ticks: the axis that says "compass" -->
+    <line x1="-150" y1="0" x2="-64" y2="0" stroke="#D2E0EE" stroke-width="20" opacity="0.85"/>
+    <line x1="64"   y1="0" x2="150" y2="0" stroke="#D2E0EE" stroke-width="20" opacity="0.85"/>
+
+    <!-- one motion arc pair. Three were drawn at full size; two of them are
+         invisible here and only cost contrast in the ones that remain. -->
+    <path d="M -28,-14 Q -58,42 -86,118" stroke="#E2ECF5" stroke-width="17" opacity="0.7"/>
+    <path d="M  28,-14 Q  58,42  86,118" stroke="#E2ECF5" stroke-width="17" opacity="0.7"/>
+
+    <!-- CONE needle: apex, two straight sides, elliptical base -->
+    <path d="M 0,-150 L -30,-34 A 30,4.5 0 0 0 30,-34 Z"
+          fill="url(#cone-sm)" stroke="none"/>
+    <path d="M -30,-34 A 30,4.5 0 0 0 30,-34"
+          fill="none" stroke="#7A4E17" stroke-width="2.5" opacity="0.55"/>
+
+    <!-- pivot ring + hub: at this size these carry the identity -->
+    <circle cx="0" cy="0" r="34" fill="#0C1929" stroke="#FFB256" stroke-width="19"/>
+    <circle cx="0" cy="0" r="17" fill="#FFB256" stroke="none"/>
+  </g>
+</svg>

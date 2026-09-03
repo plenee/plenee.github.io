@@ -20,6 +20,13 @@
 !nav.css
 !nav.js
 !plenee_icon2.svg
+# Small-size variant of the mark, for the nav and anything else under ~72px.
+!plenee_icon2_small.svg
+
+# Guards the cross-tab contract shared with plenee_app. Named individually rather than
+# un-ignoring scripts/ wholesale, so nothing else that lands there publishes by accident.
+!scripts/
+!scripts/check_crosstab_contract.py
 
 # Referenced as the schema.org publisher logo in every Academy page's JSON-LD. Named here
 # because the repo ignores * by default — without this the logo URL 404s and the structured
