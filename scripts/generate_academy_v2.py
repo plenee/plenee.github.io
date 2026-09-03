@@ -254,6 +254,7 @@ TRACK_HUE = {
     "earning-well": GOLD, "five-years-out": GOLD,
     "policies-you-already-own": DEEP, "flooded-with-offers": DEEP,
     "where-money-advice-came-from": DEEP, "the-field-of-personal-finance": ORANGE,
+    "inflation": ORANGE,
 }
 
 
