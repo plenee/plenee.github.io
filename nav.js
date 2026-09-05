@@ -114,8 +114,10 @@
     menu.textContent = '';
     var signed = signedIn();
 
-    /* the surfaces you are NOT on. Home is reached by the mark, so it is not listed. */
-    ['navigator', 'academy'].forEach(function (key) {
+    /* the surfaces you are NOT on. Home is reached by the mark, so it is not listed.
+       Academy is unpublished, so it is not offered here. TARGETS keeps its entry: the
+       plenee-academy tab name is part of the cross-tab contract with crossTab.ts. */
+    ['navigator'].forEach(function (key) {
       if (key === SURFACE) return;
       var live = tabLooksOpen(key);
       var b = row('nav-dot' + (live ? ' is-live' : ''));
