@@ -263,9 +263,19 @@ footer p { color: #2E4A60; font-size: 13px; }
 
     <h3>1.5 Plenee Copilot (AI Assistant)</h3>
     <p>Plenee Copilot, our in-app AI assistant, is powered by Anthropic's Claude API. When you chat with Copilot, we send Anthropic your message, the conversation history, and a summary of your financial data relevant to answering your question (e.g., account balances, recent transactions, budget status).</p>
-    <p>Copilot also lets you optionally upload a file — a bank statement, receipt, or screenshot — so it can help identify a transaction that didn't sync automatically. If you choose to upload a file, its contents are sent to Anthropic for that one request so Copilot can read and respond to it. We do not store the file itself; only your conversation with Copilot (including any transaction Copilot adds to your account with your explicit confirmation) is retained as part of your normal account data.</p>
+    <p>Copilot also lets you optionally upload a file — a bank statement, receipt, or screenshot — so it can help identify a transaction that didn't sync automatically. If you choose to upload a file, its contents are sent to Anthropic for that one request so Copilot can read and respond to it. We do not store the file itself. Your conversation with Copilot (including any transaction Copilot adds to your account with your explicit confirmation) is retained as part of your normal account data, and we also keep the chat-derived information described in Section 1.6.</p>
     <p>Anthropic processes this information under its own commercial API terms: it does not use your data to train its models without our express permission, and it automatically deletes data from its systems within 30 days of receipt, except where retention is required by law or to enforce its usage policies. See <a href="https://www.anthropic.com/legal/privacy" style="color:var(--teal)">Anthropic's Privacy Policy</a> for current details.</p>
     <p><strong>Uploading a document or screenshot to Copilot is entirely optional.</strong> If you would rather not have Copilot analyze an uploaded file for privacy reasons, you are not obligated to use that feature — every other part of the Service, including Copilot's regular chat features and all core account, budgeting, and transaction functionality, works fully without it.</p>
+
+    <h3>1.6 Copilot Memory, and How We Use Chats to Improve Plenee</h3>
+    <p>When you chat with Copilot, we keep a short summary of what you told it — for example a goal you mentioned or a question you left unresolved — so it can pick up where you left off in a later conversation and in your daily brief. This summary is stored with your account, is visible only through your account, and is deleted when you delete your account. It is not shared with anyone outside Plenee and is not used to train AI models.</p>
+    <p>Once a day we review new Copilot conversations to learn how to improve the product. From that review we keep:</p>
+    <ul>
+      <li><strong>Product feedback</strong> — notes about problems or confusion with the app itself, with dollar amounts and account numbers removed before they are stored.</li>
+      <li><strong>Topic counts</strong> — how often people ask about a given money topic, with no name, account, or conversation attached.</li>
+      <li><strong>Assistant-improvement signals</strong> — information that helps us make Copilot's answers better. These are kept for up to 12 months and then deleted. They are kept inside Plenee, are not sold or shared, and are not used to train AI models.</li>
+    </ul>
+    <p>Your original chat messages are kept only as long as your conversation exists in the app; conversations are limited to ten per account, and older ones are removed automatically. Deleting a conversation or your account removes the messages.</p>
   </div>
 
   <!-- 2. How We Use -->
@@ -391,6 +401,7 @@ footer p { color: #2E4A60; font-size: 13px; }
       <li>Device and internet activity information (device signals, usage patterns, referral source)</li>
       <li>Geolocation data (city and ZIP code derived from IP address)</li>
       <li>Inferences drawn from the above (estimated income range, device quality tier)</li>
+      <li>Chat-derived information (a summary of what you have told Copilot, and product-improvement signals derived from conversations — see Section 1.6)</li>
     </ul>
     <p>To exercise your California rights, contact us at <a href="mailto:privacy@plenee.com" style="color:var(--teal)">privacy@plenee.com</a>.</p>
   </div>
@@ -438,7 +449,7 @@ footer p { color: #2E4A60; font-size: 13px; }
   <!-- Meta footer -->
   <div class="policy-meta">
     <p>Plenee LLC, a Florida limited liability company ("Plenee," "we," "us," or "our"), operates the Plenee mobile and web application (the "Service"). This Privacy Policy explains what information we collect, how we use it, how we protect it, and your rights regarding your information. By using the Service, you agree to the collection and use of information in accordance with this policy.</p>
-    <p style="margin-top:14px"><strong>Effective Date:</strong> June 22, 2026 &nbsp;·&nbsp; <strong>Last Updated:</strong> August 23, 2026</p>
+    <p style="margin-top:14px"><strong>Effective Date:</strong> June 22, 2026 &nbsp;·&nbsp; <strong>Last Updated:</strong> September 8, 2026</p>
   </div>
 
 </div><!-- /content-wrap -->
