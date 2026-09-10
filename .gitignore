@@ -20,6 +20,11 @@
 !nav.css
 !nav.js
 !plenee_icon2.svg
+
+# Academy Review reviewer tooling, loaded by every Academy page same as nav.js — self-gates
+# inert for a normal reader (see review.js's own top-of-file comment), moved here from the app
+# 2026-09-10 (plenee_app/docs/code_plans/academy_review_relocation_plan.md).
+!review.js
 # Small-size variant of the mark, for the nav and anything else under ~72px.
 !plenee_icon2_small.svg
 

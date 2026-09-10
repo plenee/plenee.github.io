@@ -516,7 +516,7 @@ def json_ld(kind: str, title: str, canonical: str, meta: dict | None = None) -> 
 
 
 def shell(title: str, body: str, depth_root: str, ac_root: str, canonical: str = "",
-          kind: str | None = None, meta: dict | None = None) -> str:
+          kind: str | None = None, meta: dict | None = None, review_slug: str = "") -> str:
     # The landing IS the Academy, so its tab reads "Academy" rather than
     # "Plenee — Academy". Every other page is "<chapter> — Academy": the chapter
     # first, because that is what tells one Academy tab from another.
@@ -531,7 +531,28 @@ def shell(title: str, body: str, depth_root: str, ac_root: str, canonical: str =
     tag = f'<link rel="canonical" href="{BASE}{canonical}">'
     if kind:
         tag += "\n" + json_ld(kind, title, canonical, meta)
-    return page.replace("</title>", "</title>\n" + tag, 1)
+    page = page.replace("</title>", "</title>\n" + tag, 1)
+    # review.js — moved out of the app 2026-09-10 (docs/code_plans/academy_review_relocation_plan.md
+    # in plenee_app; academy_review_spec.md at the Plenee root, a separate repo, stays the reference
+    # for the anchoring mechanism/data model/pickup procedure). Loaded on every page, same as
+    # nav.js, since it self-gates inert for a normal reader (see review.js's own top-of-file
+    # comment) — injected right after nav.js's own <script> tag rather than a new seam.
+    # data-review-slug is only added for pages review.py's /review/pages actually lists (chapters,
+    # the glossary, and quiz pages) — its absence tells review.js there is nothing here to anchor
+    # notes against, even if the reviewer is signed in.
+    page = page.replace(
+        f'<script src="{depth_root}nav.js" defer></script>',
+        f'<script src="{depth_root}nav.js" defer></script>\n'
+        f'<script src="{depth_root}review.js" defer></script>',
+        1,
+    )
+    if review_slug:
+        page = page.replace(
+            '<body data-plenee-surface="academy"',
+            f'<body data-plenee-surface="academy" data-review-slug="{esc(review_slug)}"',
+            1,
+        )
+    return page
 
 
 def crumb(here: str, depth: str, mid: tuple | None = None,
@@ -657,7 +678,8 @@ def chapter_page(slug, ch, tracks, titles, subject_nbrs, subject_name) -> str:
         + "</div>"
         + f'<script type="application/json" id="v2-nav">{payload}</script>{NAV_JS}'
     )
-    return shell(ch.get("title", slug), body, "../", "", f"{slug}.html", kind="Article", meta=ch)
+    return shell(ch.get("title", slug), body, "../", "", f"{slug}.html", kind="Article", meta=ch,
+                 review_slug=slug)
 
 
 CHAPTER_TITLES: dict = {}
@@ -872,10 +894,17 @@ QUIZ_JS = """
   D.items.forEach(function(it,i){
     var q=document.createElement('div'); q.className='qz-q';
     var h=document.createElement('div'); h.className='qz-qtext';
+    /* data-qz/data-qi (and data-oi below) exist only for review.js — this JSON-to-DOM build is
+       the ONLY place a quiz's markup exists at all (the static page ships just an empty #quiz
+       placeholder), so anything review.js's selection-anchoring needs has to be stamped on here,
+       not in the generator's own HTML string. Inert, invisible attributes for every other
+       reader. */
+    h.setAttribute('data-qz','q'); h.setAttribute('data-qi',String(i));
     h.innerHTML='<span class="qz-num">'+(i+1)+'</span>'+it.q; q.appendChild(h);
     var list=document.createElement('div'); list.className='qz-opts';
     it.options.forEach(function(o,j){
       var b=document.createElement('button'); b.type='button'; b.className='qz-opt';
+      b.setAttribute('data-qz','o'); b.setAttribute('data-qi',String(i)); b.setAttribute('data-oi',String(j));
       b.innerHTML=o;
       b.addEventListener('click',function(){
         if(q.dataset.done) return;
@@ -970,7 +999,8 @@ def quiz_page(qz: dict, titles: dict) -> str:
         + '<script type="application/json" id="quiz-data">'
         + json.dumps({"n": n, "items": data}) + "</script>"
         + QUIZ_JS)
-    return shell(qz.get("title", qz["slug"]), body, "../", "", f'{qz["slug"]}.html')
+    return shell(qz.get("title", qz["slug"]), body, "../", "", f'{qz["slug"]}.html',
+                 review_slug=qz["slug"])
 
 
 def quizzes_index(quizzes: list) -> str:
