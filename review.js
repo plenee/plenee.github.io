@@ -221,6 +221,7 @@
         try { window.getSelection().removeAllRanges(); } catch (e) {}
         notes.push(note);
         renderSheetButton();
+        refreshSheetIfOpen();
         closePop();
       }).catch(function (err) {
         try { window.alert(err.message || 'Could not save that note.'); } catch (e) {}
@@ -336,8 +337,10 @@
     mark.classList.add('review-note-active');
   }
 
-  function toggleSheet() {
-    if (sheetEl && sheetEl.parentNode) { sheetEl.parentNode.removeChild(sheetEl); sheetEl = null; return; }
+  // Split from toggleSheet() so a note sent while the sheet is already open can refresh just
+  // this part in place (see doSend() above) rather than the sheet only picking up the new note
+  // the next time it's closed and reopened.
+  function sheetList() {
     var list = el('div', { style: 'max-height:340px; overflow:auto; padding:.35rem;' });
     notes.forEach(function (n) {
       var quoted = n.selected.length > 60 ? n.selected.slice(0, 60) + '…' : n.selected;
@@ -348,6 +351,16 @@
         quoteLine
       ]));
     });
+    return list;
+  }
+
+  function refreshSheetIfOpen() {
+    if (!sheetEl) return;
+    sheetEl.replaceChild(sheetList(), sheetEl.lastChild);
+  }
+
+  function toggleSheet() {
+    if (sheetEl && sheetEl.parentNode) { sheetEl.parentNode.removeChild(sheetEl); sheetEl = null; return; }
     var closeBtn = el('button', { type: 'button', style: 'border:0; background:none; font-size:19px; line-height:1; cursor:pointer;' }, ['×']);
     closeBtn.addEventListener('click', toggleSheet);
     sheetEl = el('div', {
@@ -359,7 +372,7 @@
         style: 'padding:.65rem .5rem .65rem .85rem; border-bottom:1px solid #DDE8F0; display:flex;' +
           'align-items:center; justify-content:space-between;'
       }, [el('b', { style: 'font-size:14px;' }, ['Notes for this page']), closeBtn]),
-      list
+      sheetList()
     ]);
     document.body.appendChild(sheetEl);
   }
