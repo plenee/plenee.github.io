@@ -1436,8 +1436,8 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
 
 /* "What's your dream?" — big/bold words blurring into focus one at a time, per the guided-quiz
    question's special emphasis (this exact string is verbatim from the P0 prompt, see
-   assistant_p0.py's "ALWAYS open with 'What's your dream?'" rule). A 1s pause before the first
-   word (baked into each word's animation-delay in the JS below) gives a beat of anticipation
+   assistant_p0.py's rule closing the first reply with "What's your dream?" verbatim). A 1s pause
+   before the first word (baked into each word's animation-delay in the JS below) gives a beat of anticipation
    before the reveal starts. Inline (not block/flex) since 2026-07-20 — the guided-quiz reply is
    now a full multi-paragraph message with real text before/after the question, not the entire
    bubble, so the animated words need to sit inline within normal paragraph flow. */
