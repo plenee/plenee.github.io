@@ -19,6 +19,9 @@
 # the lockup is HTML text beside it.
 !nav.css
 !nav.js
+# The registration invitation's wording and trial length. Read at runtime by every page,
+# so it must publish or the invitation renders empty.
+!offer.js
 !plenee_icon2.svg
 
 # Academy Review reviewer tooling, loaded by every Academy page same as nav.js — self-gates
@@ -43,3 +46,7 @@
 # academy2/ is gone: v2 moved to /academy/ on 2026-09-01 and Academy v1 was retired with it.
 !academy/
 !academy/**
+
+# The Plenee Guide — its own property, generated from _private/_guide-source.
+!guide/
+!guide/**

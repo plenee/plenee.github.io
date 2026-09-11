@@ -572,6 +572,25 @@ footer p { color: #2E4A60; font-size: 13px; }
 .fl a { color: #2E4A60; font-size: 13px; text-decoration: none; margin-left: 24px; transition: color .2s; }
 .fl a:hover { color: var(--teal); }
 
+#plenee-invite {
+  background: #0C1929; padding: 26px 48px; text-align: center;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+#plenee-invite[hidden] { display: none; }
+#plenee-invite p {
+  font-size: 15px; color: #B6C6D6; line-height: 1.6;
+  max-width: 720px; margin: 0 auto;
+}
+#plenee-invite a {
+  display: inline-block; margin-left: 10px; padding: 8px 18px;
+  background: #F5A04A; color: #0C1929; border-radius: 8px;
+  font-weight: 700; text-decoration: none; white-space: nowrap;
+}
+#plenee-invite a:hover { background: #E08A2E; }
+@media (max-width: 768px) {
+  #plenee-invite { padding: 22px 20px; }
+  #plenee-invite a { display: block; margin: 12px auto 0; max-width: 220px; }
+}
 #disclaimer-strip { background: var(--off); border-top: 1px solid var(--border); padding: 16px 48px; text-align: center; }
 #disclaimer-strip p { font-size: 12px; color: var(--light); line-height: 1.6; max-width: 900px; margin: 0 auto; }
 
@@ -901,6 +920,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 {style}
 </style>
 <link rel="stylesheet" href="{root}nav.css">
+<script src="{root}offer.js" defer></script>
 <script src="{root}nav.js" defer></script>
 </head>
 <body data-plenee-surface="academy" data-plenee-home="{root}index.html" data-plenee-academy="{ac_root}index.html">
@@ -931,6 +951,8 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 </nav>
 
 {body}
+
+<div id="plenee-invite" hidden></div>
 
 <div id="disclaimer-strip">
   <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. Some of this material is written with AI assistance and may contain mistakes. Check anything you plan to act on. <a href="{root}plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>

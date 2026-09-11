@@ -128,6 +128,16 @@ OUT = Path(os.environ["PLENEE_ACADEMY_OUT"]).expanduser().resolve() \
     if os.environ.get("PLENEE_ACADEMY_OUT") else WEBSITE / "academy"
 
 V2_STYLE = """
+/* Draft notice. A piece whose closing Plenee section is not finished publishes anyway (Rob,
+   2026-09-11: no external readers yet) but says so where a reader sees it, not in a comment.
+   Amber rather than red: this is unfinished, not wrong. */
+.draft-notice {
+  max-width: 760px; margin: 0 auto 8px; padding: 12px 18px;
+  background: #FFF8EC; border: 1.5px solid #E9CBA6; border-left-width: 4px;
+  border-radius: 10px; font-size: 13.5px; line-height: 1.55; color: #6B4E24;
+}
+.draft-notice b { color: #4A3516; }
+
 /* The two non-personalized ways into the corpus. Quiet by intent: the track cards are the
    page's argument, and these are for a reader who already knows what they are after. */
 .ways{margin:3.25rem auto 0;padding-top:2rem;border-top:1px solid var(--border);text-align:center}
@@ -279,24 +289,66 @@ def esc(s: str) -> str:
     return html.escape(s, quote=False)
 
 
+def _unquote(v: str) -> str:
+    # a value containing a colon has to be quoted in YAML; strip the quotes or they render
+    # literally on the card
+    if len(v) > 1 and v[0] == v[-1] and v[0] in "\"'":
+        return v[1:-1]
+    return v
+
+
 def parse_front(text: str) -> tuple[dict, str]:
+    """Minimal YAML-ish frontmatter. Deliberately stdlib — this generator has no third-party
+    dependency and is not worth acquiring one.
+
+    Handles one nested shape, a list of mappings, because Guide pieces record where a figure
+    came from without printing it (Rob, 2026-09-11: no citations on a Guide page):
+
+        sources:
+          - figure: "74% of overdraft fees are paid by the 8% who overdraw ten times or more"
+            basis: "CFPB overdraft report"
+
+    The flat parser silently produced `sources: ''` plus junk keys `- figure` and `basis` for
+    that block, and a second entry overwrote the first — so provenance would have been lost
+    quietly across every piece, which is the exact failure recording it is meant to prevent.
+    """
     if not text.startswith("---"):
         return {}, text
     end = text.index("\n---", 3)
     meta: dict = {}
-    for line in text[3:end].strip().splitlines():
-        if ":" not in line:
+    lines = text[3:end].strip().splitlines()
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        if ":" not in line or line.startswith((" ", "\t", "-")):
+            i += 1
             continue
         k, v = line.split(":", 1)
-        v = v.strip()
+        key, v = k.strip(), v.strip()
+
+        if not v and i + 1 < len(lines) and lines[i + 1].lstrip().startswith("- "):
+            items, i = [], i + 1
+            cur: dict = {}
+            while i < len(lines) and (lines[i].startswith((" ", "\t")) or lines[i].lstrip().startswith("- ")):
+                item = lines[i].lstrip()
+                if item.startswith("- "):
+                    if cur:
+                        items.append(cur)
+                    cur, item = {}, item[2:]
+                if ":" in item:
+                    ik, iv = item.split(":", 1)
+                    cur[ik.strip()] = _unquote(iv.strip())
+                i += 1
+            if cur:
+                items.append(cur)
+            meta[key] = items
+            continue
+
         if v.startswith("[") and v.endswith("]"):
-            meta[k.strip()] = [x.strip() for x in v[1:-1].split(",") if x.strip()]
+            meta[key] = [x.strip() for x in v[1:-1].split(",") if x.strip()]
         else:
-            # a title containing a colon has to be quoted in YAML; strip the quotes or they
-            # render literally on the card
-            if len(v) > 1 and v[0] == v[-1] and v[0] in "\"'":
-                v = v[1:-1]
-            meta[k.strip()] = v
+            meta[key] = _unquote(v)
+        i += 1
     return meta, text[end + 4:]
 
 
@@ -443,6 +495,27 @@ def render_body(md: str) -> tuple[str, str]:
 
 # --------------------------------------------------------------------------- pages
 
+# Which corpus a page belongs to, for review notes (Spec §7). Three parallel bodies of
+# material reuse the same slugs, so slug alone cannot tell a note on one from a note on another.
+#
+#   reference — the glossary and the quizzes. Not rewritten for an audience; they define and
+#               test, they do not argue, so they carry no closing Plenee section.
+#   guide     — a piece rewritten into the Guide format. Marked by a plenee_depends key in its
+#               frontmatter, which is what conversion sets.
+#   academy   — everything else: original chapters not yet rewritten.
+#
+# INERT TODAY. review.js ignores it and review_notes has no corpus column; both are with Rob.
+# Emitting it now saves regenerating every published page later.
+# Footnote markers left in the body after the Sources block is dropped would be superscript
+# links to nothing — the same shape as a dangling {{ref:}}, and invisible until a reader clicks.
+FOOTNOTE_MARK = re.compile(r'<sup[^>]*>\s*<a[^>]*href="#[^"]*"[^>]*>.*?</a>\s*</sup>', re.S)
+
+
+def review_corpus(slug: str, ch: dict | None) -> str:
+    if ch is None or slug == GLOSSARY_SLUG:
+        return "reference"
+    return "guide" if "plenee_depends" in ch else "academy"
+
 BASE = "https://plenee.com/academy/"
 
 # Flat .html files, not directories. Directory-style URLs need a server to resolve "/" to
@@ -515,8 +588,39 @@ def json_ld(kind: str, title: str, canonical: str, meta: dict | None = None) -> 
     return f'<script type="application/ld+json">{json.dumps(data)}</script>'
 
 
+PENDING = re.compile(r'<!--\s*PLENEE-PENDING:\s*([a-z0-9-]+)\s*(?:—|--)?\s*(.*?)-->', re.S)
+
+_PENDING_LABEL = {
+    "networth-goals": "net worth goals and trajectory",
+    "debt-plan": "the debt payoff plan",
+    "fleece": "fee and interest tracking",
+    "bills-leg": "scheduled bills on the forward calendar",
+    "prior-year": "prior-year views",
+    "export": "data export",
+}
+
+
+def draft_notice(body: str) -> tuple[str, str]:
+    """Pull PLENEE-PENDING markers out of the body and return a reader-visible notice.
+
+    The raw comment never ships — a marker a reader cannot see is the same as no marker, and
+    the whole point is that this piece announces its own incompleteness."""
+    found = PENDING.findall(body)
+    if not found:
+        return body, ""
+    body = PENDING.sub("", body)
+    feats = sorted({_PENDING_LABEL.get(k, k) for k, _ in found})
+    what = feats[0] if len(feats) == 1 else ", ".join(feats[:-1]) + " and " + feats[-1]
+    return body, (
+        '<div class="draft-notice">'
+        f'<b>Draft.</b> What Plenee does about this is not written yet, because Plenee does '
+        f'not have {what} yet. Everything above it is finished.'
+        '</div>'
+    )
+
+
 def shell(title: str, body: str, depth_root: str, ac_root: str, canonical: str = "",
-          kind: str | None = None, meta: dict | None = None, review_slug: str = "") -> str:
+          kind: str | None = None, meta: dict | None = None, review_slug: str = "", review_corpus_value: str = "academy") -> str:
     # The landing IS the Academy, so its tab reads "Academy" rather than
     # "Plenee — Academy". Every other page is "<chapter> — Academy": the chapter
     # first, because that is what tells one Academy tab from another.
@@ -549,7 +653,8 @@ def shell(title: str, body: str, depth_root: str, ac_root: str, canonical: str =
     if review_slug:
         page = page.replace(
             '<body data-plenee-surface="academy"',
-            f'<body data-plenee-surface="academy" data-review-slug="{esc(review_slug)}"',
+            f'<body data-plenee-surface="academy" data-review-slug="{esc(review_slug)}"'
+            f' data-review-corpus="{esc(review_corpus_value)}"',
             1,
         )
     return page
@@ -624,10 +729,24 @@ def h1_title(t: str) -> str:
 
 
 def chapter_page(slug, ch, tracks, titles, subject_nbrs, subject_name) -> str:
+    # Draft markers come out of the SOURCE, before rendering. Stripping them from rendered HTML
+    # does not work: the marker gets escaped to &lt;!-- and swept into whatever block it happens
+    # to sit in — it landed in the Sources list on the first attempt. Same class of bug as the
+    # footnote {{ref:}} one below, and the same fix: act on the markdown, not on its output.
+    raw, notice = draft_notice(ch["body"])
     if slug == GLOSSARY_SLUG:
-        body_html, src_html, heads = glossary_body(ch["body"]), "", []
+        body_html, src_html, heads = glossary_body(raw), "", []
     else:
-        body_html, src_html, heads = render_body(ch["body"])
+        body_html, src_html, heads = render_body(raw)
+
+    # The Guide prints no sources. A reader who stops to check a citation has stopped reading,
+    # and substantiation is about what is held rather than what is published — the basis lives
+    # in the piece's `sources:` frontmatter, where the reader never sees it and it cannot be
+    # lost. The Academy keeps its Sources block: a reader checking the argument is the point
+    # there. So this is conditional on corpus, not a global strip.
+    if review_corpus(slug, ch) == "guide":
+        src_html = ""
+        body_html = FOOTNOTE_MARK.sub("", body_html)
     # Footnote definitions can carry {{ref:}} too — one chapter cites another's sourcing
     # from inside a note. Resolving only the body left the marker printed in the Sources
     # list, which is the same class of bug as the contents page had.
@@ -672,6 +791,7 @@ def chapter_page(slug, ch, tracks, titles, subject_nbrs, subject_name) -> str:
         + f'<div class="chapter-eyebrow ctx" id="v2-ctx">{esc(subject_name)}</div>'
         + f'<h1>{h1_title(ch.get("title", slug))}</h1>'
         + '<div class="chapter-accent"></div>'
+        + notice
         + jump
         + f'<div class="chapter-body">{body_html}{also}{src_html}</div>'
         + pager((subject_nbrs or {}).get("prev"), (subject_nbrs or {}).get("next"))
@@ -679,7 +799,7 @@ def chapter_page(slug, ch, tracks, titles, subject_nbrs, subject_name) -> str:
         + f'<script type="application/json" id="v2-nav">{payload}</script>{NAV_JS}'
     )
     return shell(ch.get("title", slug), body, "../", "", f"{slug}.html", kind="Article", meta=ch,
-                 review_slug=slug)
+                 review_slug=slug, review_corpus_value=review_corpus(slug, ch))
 
 
 CHAPTER_TITLES: dict = {}
@@ -1000,7 +1120,7 @@ def quiz_page(qz: dict, titles: dict) -> str:
         + json.dumps({"n": n, "items": data}) + "</script>"
         + QUIZ_JS)
     return shell(qz.get("title", qz["slug"]), body, "../", "", f'{qz["slug"]}.html',
-                 review_slug=qz["slug"])
+                 review_slug=qz["slug"], review_corpus_value="reference")
 
 
 def quizzes_index(quizzes: list) -> str:

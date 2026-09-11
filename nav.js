@@ -235,6 +235,29 @@
     });
   }
 
+  /* ── registration invitation ──────────────────────────────────────────────
+     Shown only to a reader who is not signed in. Hidden in the markup and revealed here,
+     rather than the reverse, so a signed-in reader never sees it flash before the script runs.
+
+     Wording and trial length come from offer.js at runtime, not from the generator — changing
+     "a free month" must mean editing one file, not regenerating every page.
+
+     Honest by construction: the copy is about trying Plenee, never about what Plenee will do
+     for someone. There are no users yet and so no basis for an outcome claim. */
+  var invite = document.getElementById('plenee-invite');
+  if (invite && !signedIn() && window.PLENEE_OFFER) {
+    var o = window.PLENEE_OFFER;
+    var p = document.createElement('p');
+    p.textContent = o.line + ' ';
+    var a = document.createElement('a');
+    a.href = o.href;
+    a.textContent = o.cta;
+    a.target = TARGETS.navigator.name;
+    p.appendChild(a);
+    invite.appendChild(p);
+    invite.hidden = false;
+  }
+
   render();
   /* coming back via bfcache, or from another tab: the hint may have changed */
   window.addEventListener('pageshow', render);
