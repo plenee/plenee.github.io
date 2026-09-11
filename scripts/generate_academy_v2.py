@@ -511,9 +511,18 @@ def render_body(md: str) -> tuple[str, str]:
 FOOTNOTE_MARK = re.compile(r'<sup[^>]*>\s*<a[^>]*href="#[^"]*"[^>]*>.*?</a>\s*</sup>', re.S)
 
 
+# Which property this run is building. The generator serves both: the Academy from
+# _academy-source and the Guide from _guide-source, same shell, different corpus. Set
+# PLENEE_CORPUS=guide for a Guide build. It decides the review-note corpus, the tab suffix,
+# and whether footnotes print.
+PROPERTY = "Guide" if os.environ.get("PLENEE_CORPUS", "").lower() == "guide" else "Academy"
+
+
 def review_corpus(slug: str, ch: dict | None) -> str:
     if ch is None or slug == GLOSSARY_SLUG:
         return "reference"
+    if PROPERTY == "Guide":
+        return "guide"
     return "guide" if "plenee_depends" in ch else "academy"
 
 BASE = "https://plenee.com/academy/"
@@ -621,10 +630,12 @@ def draft_notice(body: str) -> tuple[str, str]:
 
 def shell(title: str, body: str, depth_root: str, ac_root: str, canonical: str = "",
           kind: str | None = None, meta: dict | None = None, review_slug: str = "", review_corpus_value: str = "academy") -> str:
-    # The landing IS the Academy, so its tab reads "Academy" rather than
-    # "Plenee — Academy". Every other page is "<chapter> — Academy": the chapter
-    # first, because that is what tells one Academy tab from another.
-    full = "Academy" if title == "Academy" else f"{esc(title)} — Academy"
+    # The tab names the property, not the generator. A Guide page reading "— Academy" is
+    # wrong in the one place Rob sees it first. The landing IS the property, so its tab is
+    # just the property name; every other page leads with the piece, because that is what
+    # tells one tab from another when several are open.
+    prop = PROPERTY
+    full = prop if title in ("Academy", "Guide", "Plenee") else f"{esc(title)} — {prop}"
     page = PAGE_TEMPLATE.format(page_title=full, style=STYLE_BLOCK + V2_STYLE,
                                 body=body, root=depth_root, ac_root=ac_root,
                                 ac_active=' class="active"')
@@ -1175,7 +1186,7 @@ def landing_page(tracks, titles, chapters) -> str:
         + '<div class="chapters-heading">Pick the situation closest to yours</div>'
         + grid
         + ways_in(titles, chapters) + "</div>")
-    return shell("Academy", body, "../", "", "", kind="WebSite")
+    return shell(PROPERTY, body, "../", "", "", kind="WebSite")
 
 
 CHAPTER_BLURB: dict = {}
