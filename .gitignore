@@ -44,8 +44,14 @@
 # Plenee Academy. git-ignore rules can't negate into an already-excluded directory without
 # first un-ignoring the directory itself, hence the paired lines.
 # academy2/ is gone: v2 moved to /academy/ on 2026-09-01 and Academy v1 was retired with it.
-!academy/
-!academy/**
+#
+# DISARMED 2026-09-14 on Rob's instruction: "I don't need the html files in the academy
+# written to git for now." The generated pages stay on disk so review.js can be run
+# against them locally; nothing publishes. The source they are generated from lives in
+# _private/_academy-source/academy_v2, committed to plenee-private. Uncomment both lines
+# together to publish again.
+#!academy/
+#!academy/**
 
 # The Plenee Guide — its own property, generated from _private/_guide-source.
 !guide/
