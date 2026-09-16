@@ -3,21 +3,26 @@
    the two are deliberately separate deploy units, so that small duplication is on purpose.
 
    THE TWO HALVES AGREE ONLY BY SPELLING FIVE STRINGS THE SAME WAY: plenee_auth_hint,
-   plenee_tab_*, and the three tab names below. Rename one on either side and nothing
-   errors — the switcher silently opens duplicate tabs, and the account menu shows
-   signed-out forever. After touching either file run:
+   plenee_tab_*, plenee-home, plenee-academy, plenee-navigator (see check_crosstab_contract.py's
+   own SHARED list, which is the actual source of truth for exactly which five). TARGETS below
+   holds a fourth entry, guide, that is NOT part of that fixed set — it's a plain addition, safe
+   because it renames nothing on either side. Rename any of the five and nothing errors — the
+   switcher silently opens duplicate tabs, and the account menu shows signed-out forever. After
+   touching either file run:
        python3 scripts/check_crosstab_contract.py
 
    Wire-up, on <body>:
-     data-plenee-surface="home" | "academy"
+     data-plenee-surface="home" | "academy" | "guide"
      data-plenee-home="index.html"          (relative, so file:// still works)
      data-plenee-academy="academy/index.html"
+     data-plenee-guide="guide/index.html"
 
    Three things happen here:
      1. the nav collapses past the top of the page and the wordmark clips away
      2. the account menu is built from the surface plus the sign-in hint cookie
-     3. Academy and Navigator open in NAMED tabs, so a second click focuses rather
-        than duplicates
+     3. Guide and Navigator open in NAMED tabs, so a second click focuses rather
+        than duplicates (Academy is unpublished — see buildMenu() below — but its
+        tab name stays wired for the cross-tab contract regardless)
 */
 (function () {
   'use strict';
@@ -29,11 +34,13 @@
   var TARGETS = {
     home:      { name: 'plenee-home',      label: 'Plenee' },
     academy:   { name: 'plenee-academy',   label: 'Academy' },
+    guide:     { name: 'plenee-guide',     label: 'Guide' },
     navigator: { name: 'plenee-navigator', label: 'Navigator' }
   };
   function urlFor(key) {
     if (key === 'navigator') return NAVIGATOR_URL;
     if (key === 'academy')   return body.getAttribute('data-plenee-academy') || '/academy/';
+    if (key === 'guide')     return body.getAttribute('data-plenee-guide') || '/guide/';
     return body.getAttribute('data-plenee-home') || '/';
   }
 
@@ -117,7 +124,7 @@
     /* the surfaces you are NOT on. Home is reached by the mark, so it is not listed.
        Academy is unpublished, so it is not offered here. TARGETS keeps its entry: the
        plenee-academy tab name is part of the cross-tab contract with crossTab.ts. */
-    ['navigator'].forEach(function (key) {
+    ['navigator', 'guide'].forEach(function (key) {
       if (key === SURFACE) return;
       var live = tabLooksOpen(key);
       var b = row('nav-dot' + (live ? ' is-live' : ''));

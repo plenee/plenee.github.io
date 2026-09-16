@@ -526,7 +526,10 @@ def review_corpus(slug: str, ch: dict | None) -> str:
         return "guide"
     return "guide" if "plenee_depends" in ch else "academy"
 
-BASE = "https://plenee.com/academy/"
+# Every Guide page was declaring its canonical URL and JSON-LD as if it lived under
+# /academy/ — this constant never branched on PROPERTY even though review_corpus() above
+# already does. Caught 2026-09-16: confirmed live on guide/index.html before fixing here.
+BASE = "https://plenee.com/guide/" if PROPERTY == "Guide" else "https://plenee.com/academy/"
 
 # Flat .html files, not directories. Directory-style URLs need a server to resolve "/" to
 # index.html, so they break when the site is opened from disk — and v1 emits flat files, so
@@ -636,10 +639,11 @@ def shell(title: str, body: str, depth_root: str, ac_root: str, canonical: str =
     # just the property name; every other page leads with the piece, because that is what
     # tells one tab from another when several are open.
     prop = PROPERTY
+    surface = prop.lower()
     full = prop if title in ("Academy", "Guide", "Plenee") else f"{esc(title)} — {prop}"
     page = PAGE_TEMPLATE.format(page_title=full, style=STYLE_BLOCK + V2_STYLE,
                                 body=body, root=depth_root, ac_root=ac_root,
-                                ac_active=' class="active"')
+                                ac_active=' class="active"', surface=surface, property=prop)
     # Every page declares its canonical URL without the ?via= parameter. Track context is a
     # query string precisely so a chapter never gets a second address; without this tag a
     # crawler can still index /slug/?via=a and /slug/?via=b as separate pages and split
@@ -664,8 +668,8 @@ def shell(title: str, body: str, depth_root: str, ac_root: str, canonical: str =
     )
     if review_slug:
         page = page.replace(
-            '<body data-plenee-surface="academy"',
-            f'<body data-plenee-surface="academy" data-review-slug="{esc(review_slug)}"'
+            f'<body data-plenee-surface="{surface}"',
+            f'<body data-plenee-surface="{surface}" data-review-slug="{esc(review_slug)}"'
             f' data-review-corpus="{esc(review_corpus_value)}"',
             1,
         )
@@ -1163,7 +1167,7 @@ def quizzes_index(quizzes: list) -> str:
                    + f'<div class="qz-grid">{rows}</div>')
     n = sum(len(f["items"]) for f in fams.values())
     body = (
-        '<div class="page-header"><div class="page-kicker">Plenee Academy</div>'
+        f'<div class="page-header"><div class="page-kicker">Plenee {PROPERTY}</div>'
         '<h1>Test what you actually know</h1>'
         f'<p class="header-subtitle">{n} quizzes, graded, so a beginner is not asked an '
         'expert question and an expert is not asked a trivial one.</p></div>'
@@ -1180,7 +1184,7 @@ def landing_page(tracks, titles, chapters) -> str:
     grid = cards(entries, tl, href=lambda e: f'tracks/{e["slug"]}.html', hue_slug=lambda e: e["slug"])
     body = (
         ART_FILTER_DEFS
-        + '<div class="page-header"><div class="page-kicker">Plenee Academy</div>'
+        + f'<div class="page-header"><div class="page-kicker">Plenee {PROPERTY}</div>'
         + "<h1>Start where you are</h1>"
         + '<p class="header-subtitle">What you get sold, what it costs, and what comes back</p></div>'
         + '<div class="track-wrap">'

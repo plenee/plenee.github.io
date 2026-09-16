@@ -923,14 +923,14 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 <script src="{root}offer.js" defer></script>
 <script src="{root}nav.js" defer></script>
 </head>
-<body data-plenee-surface="academy" data-plenee-home="{root}index.html" data-plenee-academy="{ac_root}index.html">
+<body data-plenee-surface="{surface}" data-plenee-home="{root}index.html" data-plenee-{surface}="{ac_root}index.html">
 
 <nav>
   <div class="nav-brand">
     <button class="nav-home" type="button" aria-label="Go to the Plenee home page">
       <img src="{root}plenee_icon2_small.svg" alt="Plenee" width="40" height="40">
     </button>
-    <span class="nav-word"><span class="nw-1">Plenee<em>&nbsp;Academy</em></span><span class="nw-2">A Guide for Wealth</span></span>
+    <span class="nav-word"><span class="nw-1">Plenee<em>&nbsp;{property}</em></span><span class="nw-2">A Guide for Wealth</span></span>
   </div>
   <div class="nav-links" id="nav-links">
     <a href="{ac_root}index.html"{ac_active}>Tracks</a>
@@ -955,13 +955,13 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 <div id="plenee-invite" hidden></div>
 
 <div id="disclaimer-strip">
-  <p>Plenee Academy provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. Some of this material is written with AI assistance and may contain mistakes. Check anything you plan to act on. <a href="{root}plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
+  <p>Plenee {property} provides financial information and education, not personalized financial advice. Plenee Co. is not a registered investment adviser, broker-dealer, or financial planner. Some of this material is written with AI assistance and may contain mistakes. Check anything you plan to act on. <a href="{root}plenee_legal.html">Legal Disclosures &amp; Notices →</a></p>
 </div>
 
 <footer>
   <a href="{root}index.html" class="foot-brand">
     <img src="{root}plenee_icon2_small.svg" alt="Plenee" width="44" height="44">
-    <span class="foot-word"><span class="fw-1">Plenee<em>&nbsp;Academy</em></span><span class="fw-2">A Guide for Wealth</span></span>
+    <span class="foot-word"><span class="fw-1">Plenee<em>&nbsp;{property}</em></span><span class="fw-2">A Guide for Wealth</span></span>
   </a>
   <p>© 2026 Plenee Co. All rights reserved.</p>
   <div class="fl"><a href="{root}privacy.html">Privacy</a><a href="{root}terms.html">Terms</a><a href="{root}plenee_legal.html" style="color:var(--teal)">Legal</a><a href="{root}contact.html">Contact</a></div>
@@ -1501,6 +1501,7 @@ def render_chapter_page(chapter: dict, chapter_index: int, all_chapters: list[di
 </div>"""
 
     page_html = PAGE_TEMPLATE.format(page_title=esc(chapter["title"]) + " — Plenee Academy", style=STYLE_BLOCK, body=body,
+                                      surface="academy", property="Academy",
                                       **DEPTH_CHAPTER_OR_TRACK)
 
     search_entry = {
@@ -1669,6 +1670,7 @@ def render_index_page(track_info, track_title: str, chapters: list[dict]) -> str
 </div>"""
 
     return PAGE_TEMPLATE.format(page_title=esc(title_bare) + " — Plenee Academy", style=STYLE_BLOCK, body=body,
+                                 surface="academy", property="Academy",
                                  **DEPTH_CHAPTER_OR_TRACK)
 
 
@@ -1759,7 +1761,8 @@ def render_landing_page(track_order: list, search_index: list[dict]) -> str:
 <script type="application/json" id="academy-search-data">{search_json}</script>
 <script>{SEARCH_JS}</script>"""
 
-    return PAGE_TEMPLATE.format(page_title="Plenee Academy", style=STYLE_BLOCK, body=body, **DEPTH_LANDING)
+    return PAGE_TEMPLATE.format(page_title="Plenee Academy", style=STYLE_BLOCK, body=body,
+                                 surface="academy", property="Academy", **DEPTH_LANDING)
 
 
 def generate_landing_page(idx, global_search_index: list[dict]) -> None:
