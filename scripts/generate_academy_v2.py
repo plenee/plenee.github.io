@@ -16,6 +16,7 @@ at five addresses splits whatever retrieval authority the page earns five ways.
 
 Run from the website/ directory:  python3 scripts/generate_academy_v2.py
 """
+import hashlib
 import html
 import json
 import os
@@ -1069,6 +1070,20 @@ QUIZ_JS = """
 </script>
 """
 
+def _shuffled(q: dict, slug: str) -> dict:
+    """Put a question's options in a fixed shuffled order, moving the answer index with them.
+
+    Authors put the right answer second out of habit — 244 of 289 questions when this was
+    added, enough for anyone always choosing option 2 to score 100% on 21 of 44 quizzes. Rob,
+    2026-09-18: shuffle at build, leave the quiz files alone. The order comes from a hash of
+    the quiz, the question and each option's written position, so it is identical on every
+    build and for every visitor, and a review comment about "the third option" stays true.
+    sha256 rather than hash(), which is salted per process and would reshuffle every run."""
+    key = lambda i: hashlib.sha256(f"{slug}\0{q['q']}\0{i}".encode()).hexdigest()
+    order = sorted(range(len(q["options"])), key=key)
+    return {**q, "options": [q["options"][i] for i in order], "answer": order.index(q["answer"])}
+
+
 def load_quizzes() -> list:
     """Parse quizzes/*.md into question data.
 
@@ -1097,7 +1112,8 @@ def load_quizzes() -> list:
             elif ln.startswith("> "):
                 cur["why"].append(ln[2:].strip())
         meta["intro"] = " ".join(intro)
-        meta["questions"] = [{**q, "why": " ".join(q["why"])} for q in qs]
+        meta["questions"] = [_shuffled({**q, "why": " ".join(q["why"])}, meta.get("slug", f.stem))
+                             for q in qs]
         out.append(meta)
     return out
 
