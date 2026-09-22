@@ -381,8 +381,17 @@ def refs(text: str, titles: dict, depth: str) -> str:
         if slug not in titles:
             raise SystemExit(f"BUILD FAILED: {{{{ref:{slug}}}}} has no chapter. "
                              "A dangling reference must break the build, not render as text.")
+        if STANDALONE:
+            HIDDEN_REFS.append((slug, titles[slug]))
+            return ""
         return f'<a class="ref-link" href="{depth}{slug}.html">{esc(titles[slug])}</a>'
-    return re.sub(r'\{\{ref:([\w-]+)\}\}', sub, text)
+    out = re.sub(r'\{\{ref:([\w-]+)\}\}', sub, text)
+    if STANDALONE:
+        # The reference was the last thing in its sentence, so removing it leaves the space
+        # that preceded it stranded before the full stop.
+        out = re.sub(r'[ \t]+([.,;:!?])', r'\1', out)
+        out = re.sub(r'[ \t]{2,}', ' ', out).strip()
+    return out
 
 
 def is_block(ln: str) -> bool:
@@ -517,7 +526,28 @@ FOOTNOTE_MARK = re.compile(r'<sup[^>]*>\s*<a[^>]*href="#[^"]*"[^>]*>.*?</a>\s*</
 # _academy-source and the Guide from _guide-source, same shell, different corpus. Set
 # PLENEE_CORPUS=guide for a Guide build. It decides the review-note corpus, the tab suffix,
 # and whether footnotes print.
-PROPERTY = "Guide" if os.environ.get("PLENEE_CORPUS", "").lower() == "guide" else "Academy"
+_CORPUS = os.environ.get("PLENEE_CORPUS", "").lower()
+PROPERTY = {"guide": "Guide", "glossary": "Glossary",
+            "quizzes": "Quizzes"}.get(_CORPUS, "Academy")
+
+# The Glossary and the Quizzes publish as their own sections (Rob, 2026-09-22) while the
+# chapters they were written beside stay unpublished. STANDALONE is what tells every
+# link-emitting function below that there is nothing on the other end of a chapter address.
+# A reference is then written into the page as an HTML comment instead of an anchor —
+# preserved for the day the chapters publish, invisible until then, and never a dead link.
+# Rob's words: "remove the references to academy for now - (hide them from html - comment
+# them out)". All 289 of them sit at the end of their sentence, so dropping the visible
+# text costs no prose; this was checked against the quiz sources before the change.
+STANDALONE = _CORPUS in ("glossary", "quizzes")
+
+# Filled by refs() while a page's body is built, drained by shell() into one comment block
+# at the foot of that page. Module-level because refs() is called from a dozen places and
+# threading an accumulator through all of them would be a far larger change.
+HIDDEN_REFS: list = []
+
+# Where "All quizzes" and "Take another" point. In a standalone section the quizzes index is
+# that section's root page; inside the Academy it is one file among many.
+QZ_INDEX = "index.html" if STANDALONE else "quizzes.html"
 
 
 def review_corpus(slug: str, ch: dict | None) -> str:
@@ -530,7 +560,9 @@ def review_corpus(slug: str, ch: dict | None) -> str:
 # Every Guide page was declaring its canonical URL and JSON-LD as if it lived under
 # /academy/ — this constant never branched on PROPERTY even though review_corpus() above
 # already does. Caught 2026-09-16: confirmed live on guide/index.html before fixing here.
-BASE = "https://plenee.com/guide/" if PROPERTY == "Guide" else "https://plenee.com/academy/"
+BASE = {"Guide": "https://plenee.com/guide/",
+        "Glossary": "https://plenee.com/glossary/",
+        "Quizzes": "https://plenee.com/quizzes/"}.get(PROPERTY, "https://plenee.com/academy/")
 
 # Flat .html files, not directories. Directory-style URLs need a server to resolve "/" to
 # index.html, so they break when the site is opened from disk — and v1 emits flat files, so
@@ -641,10 +673,26 @@ def shell(title: str, body: str, depth_root: str, ac_root: str, canonical: str =
     # tells one tab from another when several are open.
     prop = PROPERTY
     surface = prop.lower()
-    full = prop if title in ("Academy", "Guide", "Plenee") else f"{esc(title)} — {prop}"
+    if STANDALONE:
+        # These pages declare themselves the GUIDE surface, not a surface of their own.
+        # nav.js resolves data-plenee-surface against a fixed TARGETS map whose tab names
+        # are half of a cross-tab contract with the app's crossTab.ts (guarded by
+        # check_crosstab_contract.py), so inventing "glossary" and "quizzes" surfaces would
+        # mean an unknown key: window.name never gets set and the return trip from the app
+        # opens a duplicate tab instead of finding this one. They are the same reading
+        # property anyway — until today they were files inside /academy/.
+        surface = "guide"
+        # The nav's first link is the corpus landing ("Tracks"). A standalone section has no
+        # such page of its own, and pointing it at the section root would make it a link to
+        # the page you are already on — so it points at the Guide, which is the property a
+        # reader browsing from here should end up in. Nothing in this section is "Tracks",
+        # so nothing in the nav is marked active either.
+        ac_root, ac_active = "../guide/", ""
+    full = prop if title in ("Academy", "Guide", "Glossary", "Quizzes", "Plenee") else f"{esc(title)} — {prop}"
     page = PAGE_TEMPLATE.format(page_title=full, style=STYLE_BLOCK + V2_STYLE,
                                 body=body, root=depth_root, ac_root=ac_root,
-                                ac_active=' class="active"', surface=surface, property=prop)
+                                ac_active=(ac_active if STANDALONE else ' class="active"'),
+                                surface=surface, property=prop)
     # Every page declares its canonical URL without the ?via= parameter. Track context is a
     # query string precisely so a chapter never gets a second address; without this tag a
     # crawler can still index /slug/?via=a and /slug/?via=b as separate pages and split
@@ -667,6 +715,21 @@ def shell(title: str, body: str, depth_root: str, ac_root: str, canonical: str =
         f'<script src="{depth_root}review.js" defer></script>',
         1,
     )
+    if STANDALONE:
+        seen, lines = set(), []
+        for slug, chapter_title in HIDDEN_REFS:
+            if slug not in seen:
+                seen.add(slug)
+                # "--" would close this comment early if it ever met a ">".
+                lines.append(f"  {slug} — {chapter_title}".replace("--", "-"))
+        HIDDEN_REFS.clear()
+        if lines:
+            page = page.replace("</body>",
+                "<!--\nChapter references hidden while the Academy chapters are unpublished\n"
+                "(Rob, 2026-09-22). Each answer above was written to open into one of these.\n"
+                "Rebuild without PLENEE_CORPUS once the chapters publish and they become\n"
+                "links again:\n" + "\n".join(lines) + "\n-->\n</body>", 1)
+
     if review_slug:
         page = page.replace(
             f'<body data-plenee-surface="{surface}"',
@@ -679,13 +742,26 @@ def shell(title: str, body: str, depth_root: str, ac_root: str, canonical: str =
 
 def crumb(here: str, depth: str, mid: tuple | None = None,
           right: tuple | None = None) -> str:
-    parts = [f'<a href="{depth}index.html">Academy</a><span>&rsaquo;</span>']
+    # This said "Academy" on every page of every property, so each published Guide page
+    # named a property the site no longer has and linked it to an address that 404s —
+    # confirmed live on plenee.com before the fix (Private, 2026-09-22).
+    if STANDALONE:
+        # A section of two pages has no index of its own to climb to; the Guide is the
+        # property a reader who wants more should land in.
+        parts = ['<a href="../guide/index.html">Plenee Guide</a><span>&rsaquo;</span>']
+    else:
+        parts = [f'<a href="{depth}index.html">{esc(PROPERTY)}</a><span>&rsaquo;</span>']
     if mid:
         parts.append(f'<a href="{mid[1]}">{esc(mid[0])}</a><span>&rsaquo;</span>')
     parts.append(f"<span>{esc(here)}</span>")
     parts.append('<span style="margin-left:auto"></span>')
     # a crumb that links to the page you are already on is dead weight; the contents page
     # points at the picker instead
+    if right is None and STANDALONE:
+        # contents.html belongs to the unpublished chapters. Point across to the other
+        # section instead, which is the only other thing published beside this one.
+        right = (("Quizzes", "../quizzes/index.html") if PROPERTY == "Glossary"
+                 else ("Glossary", "../glossary/index.html"))
     label, href = right or ("Everything by subject", f"{depth}contents.html")
     parts.append(f'<a href="{href}">{esc(label)}</a>')
     return '<div class="crumb">' + "".join(parts) + "</div>"
@@ -815,7 +891,8 @@ def chapter_page(slug, ch, tracks, titles, subject_nbrs, subject_name) -> str:
         + "</div>"
         + f'<script type="application/json" id="v2-nav">{payload}</script>{NAV_JS}'
     )
-    return shell(ch.get("title", slug), body, "../", "", f"{slug}.html", kind="Article", meta=ch,
+    return shell(ch.get("title", slug), body, "../", "",
+                 "" if STANDALONE else f"{slug}.html", kind="Article", meta=ch,
                  review_slug=slug, review_corpus_value=review_corpus(slug, ch))
 
 
@@ -989,7 +1066,7 @@ def contents_page(md, titles) -> str:
     body_html, _, _ = render_body(md.split("---\n", 2)[-1])
     body_html = refs(body_html, titles, "")
     body = (
-        '<div class="page-header"><div class="page-kicker">The whole Academy</div>'
+        f'<div class="page-header"><div class="page-kicker">The whole {PROPERTY}</div>'
         '<h1>Everything, by Subject</h1>'
         '<p class="header-subtitle">Every chapter, once, grouped by what it is about</p></div>'
         + crumb("Everything by subject", "", right=("Choose a situation", "index.html"))
@@ -1138,7 +1215,7 @@ def quiz_page(qz: dict, titles: dict) -> str:
         '<div class="page-header"><div class="page-kicker">' + esc(qz.get("kicker", "Quiz"))
         + '</div><h1>' + esc(qz.get("title", qz["slug"])) + '</h1>'
         + '<p class="header-subtitle">' + esc(qz.get("blurb", "")) + '</p></div>'
-        + crumb(qz.get("title", ""), "", right=("All quizzes", "quizzes.html"))
+        + crumb(qz.get("title", ""), "", right=("All quizzes", QZ_INDEX))
         + '<div class="chapter-wrap"><div class="chapter-body">'
         + (f'<p>{inline(qz["intro"])}</p>' if qz.get("intro") else "")
         + '<div id="quiz"></div>'
@@ -1146,7 +1223,7 @@ def quiz_page(qz: dict, titles: dict) -> str:
         + '<div class="tk-label">Your score</div><div class="subhead-accent"></div>'
         + '<p class="quiz-score" id="quiz-score"></p>'
         + (f'<p class="quiz-bench">{inline(bench)}</p>' if bench else "")
-        + '<p><a class="ref-link" href="quizzes.html">Take another &rarr;</a></p>'
+        + f'<p><a class="ref-link" href="{QZ_INDEX}">Take another &rarr;</a></p>'
         + "</div></div></div>"
         + '<script type="application/json" id="quiz-data">'
         + json.dumps({"n": n, "items": data}) + "</script>"
@@ -1187,9 +1264,11 @@ def quizzes_index(quizzes: list) -> str:
         '<h1>Test what you actually know</h1>'
         f'<p class="header-subtitle">{n} quizzes, graded, so a beginner is not asked an '
         'expert question and an expert is not asked a trivial one.</p></div>'
-        + crumb("Quizzes", "", right=("Everything by subject", "contents.html"))
+        + crumb("Quizzes", "", right=None if STANDALONE
+                else ("Everything by subject", "contents.html"))
         + '<div class="track-wrap">' + "".join(out) + "</div>")
-    return shell("Quizzes", body, "../", "", "quizzes.html", kind="CollectionPage")
+    return shell("Quizzes", body, "../", "", "" if STANDALONE else "quizzes.html",
+                 kind="CollectionPage")
 
 
 def landing_page(tracks, titles, chapters) -> str:
@@ -1225,7 +1304,7 @@ def main() -> int:
     order = re.findall(r'\{\{ref:([\w-]+)\}\}', contents_md)
     # the eyebrow carries the chapter's subject from the general index. v1 puts a chapter
     # number there; v2 has no numbers by design, so it carries something true instead.
-    subject_of, cur = {}, "Academy"
+    subject_of, cur = {}, PROPERTY
     for line in contents_md.split("\n"):
         if line.startswith("## "):
             cur = line[3:].strip()
@@ -1324,20 +1403,39 @@ def main() -> int:
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True)
 
-    (OUT / "index.html").write_text(landing_page(tracks, titles, chapters))
-    (OUT / "contents.html").write_text(contents_page(contents_md, titles))
+    if STANDALONE:
+        # One section, two pages or forty-five. Nothing else is written: a landing page, a
+        # contents page or a track page here would be an index of chapters that 404.
+        if PROPERTY == "Glossary":
+            gl = chapters.get(GLOSSARY_SLUG)
+            if gl is None:
+                raise SystemExit(f"BUILD FAILED: no {GLOSSARY_SLUG} chapter to build a glossary from.")
+            # tracks={} and subject_nbrs=None are what strip the chapter furniture: no
+            # "also in these situations" list, no previous/next pager, no track switcher.
+            (OUT / "index.html").write_text(
+                chapter_page(GLOSSARY_SLUG, gl, {}, titles, None, "Glossary"))
+        else:
+            quizzes = load_quizzes()
+            if not quizzes:
+                raise SystemExit("BUILD FAILED: PLENEE_CORPUS=quizzes but the source has no quizzes.")
+            (OUT / "index.html").write_text(quizzes_index(quizzes))
+            for qz in quizzes:
+                (OUT / f'{qz["slug"]}.html').write_text(quiz_page(qz, titles))
+    else:
+        (OUT / "index.html").write_text(landing_page(tracks, titles, chapters))
+        (OUT / "contents.html").write_text(contents_page(contents_md, titles))
 
-    quizzes = load_quizzes()
-    if quizzes:
-        (OUT / "quizzes.html").write_text(quizzes_index(quizzes))
-        for qz in quizzes:
-            (OUT / f'{qz["slug"]}.html').write_text(quiz_page(qz, titles))
-    (OUT / "tracks").mkdir()
-    for tslug, t in tracks.items():
-        (OUT / "tracks" / f"{tslug}.html").write_text(track_page(tslug, t, titles))
-    for slug, ch in chapters.items():
-        (OUT / f"{slug}.html").write_text(
-            chapter_page(slug, ch, tracks, titles, subj.get(slug), subject_of.get(slug, "Academy")))
+        quizzes = load_quizzes()
+        if quizzes:
+            (OUT / "quizzes.html").write_text(quizzes_index(quizzes))
+            for qz in quizzes:
+                (OUT / f'{qz["slug"]}.html').write_text(quiz_page(qz, titles))
+        (OUT / "tracks").mkdir()
+        for tslug, t in tracks.items():
+            (OUT / "tracks" / f"{tslug}.html").write_text(track_page(tslug, t, titles))
+        for slug, ch in chapters.items():
+            (OUT / f"{slug}.html").write_text(
+                chapter_page(slug, ch, tracks, titles, subj.get(slug), subject_of.get(slug, PROPERTY)))
 
     # Everything above checks the SOURCES. This checks the OUTPUT, and it is the only one
     # that catches a bug in the renderer itself. {{ref:}} markers once shipped to live
@@ -1352,6 +1450,10 @@ def main() -> int:
             + "\n  ".join(raw_markers))
 
     n = len(list(OUT.rglob("*.html")))
+    if STANDALONE:
+        hidden = sum(1 for f in OUT.rglob("*.html") if "Chapter references hidden" in f.read_text())
+        print(f"{OUT.name}/: {n} pages, {hidden} of them carrying hidden chapter references")
+        return 0
     print(f"academy/: {len(chapters)} chapters, {len(tracks)} tracks, {n} pages")
     untracked = [s for s in chapters
                  if not any(s in [e["slug"] for e in t["entries"]] for t in tracks.values())]

@@ -934,8 +934,8 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
   </div>
   <div class="nav-links" id="nav-links">
     <a href="{ac_root}index.html"{ac_active}>Tracks</a>
-    <a href="{ac_root}money-words-defined.html">Glossary</a>
-    <a href="{ac_root}quizzes.html">Quizzes</a>
+    <a href="{root}glossary/index.html">Glossary</a>
+    <a href="{root}quizzes/index.html">Quizzes</a>
     <a href="{root}index.html#how">How it works</a>
     <a href="{root}index.html#fid">Our Promise</a>
   </div>

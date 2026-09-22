@@ -56,3 +56,13 @@
 # The Plenee Guide — its own property, generated from _private/_guide-source.
 !guide/
 !guide/**
+
+# The Glossary and the Quizzes, published as their own sections (Rob, 2026-09-22) rather
+# than as files inside the unpublished Academy, where they have returned 404 since
+# 2026-09-05. Built with PLENEE_CORPUS=glossary / =quizzes, which is also what strips the
+# links into chapters that are not published: those references are written into the pages
+# as HTML comments instead, so they come back as links when the chapters do.
+!glossary/
+!glossary/**
+!quizzes/
+!quizzes/**
