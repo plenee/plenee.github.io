@@ -550,6 +550,9 @@ HIDDEN_REFS: list = []
 QZ_INDEX = "index.html" if STANDALONE else "quizzes.html"
 
 
+# These three values are a contract shared with two files outside this repo: migration 191's
+# review_notes_corpus_ck and review.py's NoteIn.corpus. A fourth added here alone is rejected
+# with a 400, which review.js reports on its banner instead of drawing an empty page.
 def review_corpus(slug: str, ch: dict | None) -> str:
     if ch is None or slug == GLOSSARY_SLUG:
         return "reference"

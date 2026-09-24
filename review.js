@@ -17,12 +17,14 @@
    still re-checks the bearer token and the is_academy_reviewer flag regardless of what this
    script decides to show — that part of the architecture is unchanged from the app.
 
-   Wire-up, on <body>: data-review-slug="<slug>" — emitted by generate_academy_v2.py only for
-   pages backend/app/routers/review.py's GET /review/pages actually lists (chapters, the
-   glossary, and the 5 quiz pages). Its absence means "nothing on this page to anchor a note
-   against" — selection/notes stay off even for a signed-in reviewer, though the sign-in card
-   itself still works on every page, so a first ?review=1 visit is never a dead end regardless of
-   which page happens to carry it. */
+   Wire-up, on <body>: data-review-slug="<slug>" and data-review-corpus="<corpus>", both emitted
+   by generate_academy_v2.py. The slug is emitted only for pages backend/app/routers/review.py's
+   GET /review/pages actually lists (chapters, the glossary, and the 5 quiz pages). Its absence
+   means "nothing on this page to anchor a note against" — selection/notes stay off even for a
+   signed-in reviewer, though the sign-in card itself still works on every page, so a first
+   ?review=1 visit is never a dead end regardless of which page happens to carry it. The corpus
+   says which body of work that slug belongs to: a Guide piece and an Academy chapter can carry
+   the same slug, and without it the two are indistinguishable once stored. */
 (function () {
   'use strict';
 
@@ -39,6 +41,10 @@
 
   var body = document.body;
   var SLUG = body.getAttribute('data-review-slug') || '';
+  var CORPUS = body.getAttribute('data-review-corpus') || ''; /* 'academy' | 'guide' | 'reference'
+     — see review_corpus() in generate_academy_v2.py for the contract those three belong to.
+     Absent on a page generated before the attribute existed: send nothing there and let the
+     backend apply its own default, rather than guessing a corpus here. */
   var PAGE_URL = location.href.split('?')[0].split('#')[0];
   var ANCHOR_TAGS = 'p, dd, dt, h2, [data-qz]';
 
@@ -101,9 +107,16 @@
     });
   }
   function fetchNotes(slug) {
-    return authedFetch('/review/notes?chapter_slug=' + encodeURIComponent(slug))
-      .then(function (res) { return res.ok ? res.json() : []; })
-      .catch(function () { return []; });
+    var q = '/review/notes?chapter_slug=' + encodeURIComponent(slug);
+    if (CORPUS) q += '&corpus=' + encodeURIComponent(CORPUS);
+    /* This used to answer [] for any failure, which draws the page exactly like one nobody has
+       noted on yet. Three unrelated faults hid behind that: a corpus value the backend rejects
+       (400), an expired token (401), and the API being unreachable. Reject instead and let
+       activate() put the status on the banner. A genuine empty 200 renders as it always did. */
+    return authedFetch(q).then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    });
   }
   function sendNote(anchor, instruction) {
     var payload = {}, k;
@@ -185,10 +198,10 @@
      same visual content (banner, popover with Cmd/Ctrl-Enter + Escape, floating "See notes"
      button + count badge, notes sheet), no React underneath it. ─────────────────────────────── */
   var pendingRange = null, pendingAnchor = null, notes = [];
-  var popoverEl = null, sheetBtnEl = null, sheetEl = null;
+  var popoverEl = null, sheetBtnEl = null, sheetEl = null, bannerEl = null;
 
   function buildBanner() {
-    document.body.appendChild(el('div', {
+    bannerEl = el('div', {
       style: 'position:fixed; top:0; left:0; right:0; z-index:9999; background:#FFF6E3;' +
         'border-bottom:1px solid #F0C766; color:#8A5D00; padding:.5rem .9rem; text-align:center;' +
         'font:600 13px/1.4 ' + FONT + ';'
@@ -196,7 +209,14 @@
       SLUG
         ? 'Reviewing — select any text below to leave a note. Nothing here is published.'
         : 'Academy Review is signed in, but this page has nothing to review.'
-    ]));
+    ]);
+    document.body.appendChild(bannerEl);
+  }
+
+  /* Only the read was ever silent — sendNote() already alerts on a failed write. */
+  function bannerError(text) {
+    if (!bannerEl) return;
+    bannerEl.appendChild(el('div', { style: 'color:#B23B3B; margin-top:3px;' }, [text]));
   }
 
   function closePop() {
@@ -279,6 +299,7 @@
       start_index: start_index,
       end_index: end_index
     };
+    if (CORPUS) anchor.corpus = CORPUS;
     if (qzKind) {
       var qi = parseInt(startBlock.getAttribute('data-qi'), 10);
       anchor.element = 'qz-' + qzKind;
@@ -449,6 +470,13 @@
         var range = rangeFromOffsets(block, note.start_index, note.end_index);
         if (range) markRange(range, note.id);
       });
+    }, function (err) {
+      /* Rejection arm rather than .catch(), so a throw inside the render arm above is not
+         reported to the reviewer as a failed read. */
+      notes = [];
+      renderSheetButton();
+      bannerError('Existing notes did not load (' + (err.message || 'request failed') +
+        '). New notes will still save; earlier marks are not shown.');
     });
   }
 
