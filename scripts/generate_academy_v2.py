@@ -1092,14 +1092,24 @@ def ways_in(titles, chapters) -> str:
     gl = chapters.get(GLOSSARY_SLUG, {}).get("body", "")
     terms = len(re.findall(r'^\*\*([^*]+)\*\*\s+—', gl, re.M))
     nq = len(list((SRC / "quizzes").glob("*.md"))) if (SRC / "quizzes").exists() else 0
-    ways = [("contents.html", "Everything by subject", f"{len(titles)} chapters"),
-            (f"{GLOSSARY_SLUG}.html", "Glossary", f"{terms} terms")]
+    glossary = (f"{GLOSSARY_SLUG}.html", "Glossary", f"{terms} terms")
+    if PROPERTY == "Guide":
+        # The Guide has no glossary of its own: its card pointed at a page that does not exist
+        # under guide/ (a live 404, fixed by hand in 6214bd2) and counted the zero terms this
+        # build loads. The glossary publishes as its own section, so link there and count the
+        # terms on that published page, the one the reader lands on. A missing page means no
+        # count rather than a wrong one. Rob approved this 2026-09-27, relayed by PM.
+        pub = WEBSITE / "glossary" / "index.html"
+        n = pub.read_text(errors="replace").count("<dt") if pub.exists() else 0
+        glossary = ("../glossary/index.html", "Glossary", f"{n} terms" if n else "")
+    ways = [("contents.html", "Everything by subject", f"{len(titles)} chapters"), glossary]
     if nq:
         ways.append(("quizzes.html", "Quizzes", f"{nq} to try"))
     return ('<div class="ways"><div class="chapters-heading">Or find it another way</div>'
             '<div class="ways-row">' + "".join(
                 f'<a class="way" href="{h}"><span class="way-t">{esc(t)}</span>'
-                f'<span class="way-m">{esc(m)}</span></a>' for h, t, m in ways)
+                + (f'<span class="way-m">{esc(m)}</span>' if m else "") + '</a>'
+                for h, t, m in ways)
             + "</div></div>")
 
 
