@@ -233,6 +233,9 @@ V2_STYLE = """
 .ctx{display:flex;gap:.7rem;align-items:baseline;flex-wrap:wrap}
 .ctx .pos{color:var(--light);font-variant-numeric:tabular-nums}
 .v2-scroll{overflow-x:auto;margin:1.6rem 0;-webkit-overflow-scrolling:touch}
+.v2-fig{margin:1.8rem 0}
+.v2-fig img{display:block;max-width:100%;height:auto;border-radius:12px}
+.v2-fig figcaption{margin-top:.5rem;font-size:.85rem;color:var(--light)}
 table.v2{border-collapse:collapse;width:100%;font-size:.94rem;color:var(--text)}
 table.v2 th,table.v2 td{border-bottom:1px solid var(--border);padding:.6rem .7rem;
   text-align:left;vertical-align:top}
@@ -394,6 +397,35 @@ def refs(text: str, titles: dict, depth: str) -> str:
     return out
 
 
+# A figure: `![alt](images/name.svg)` or `![alt](images/name.svg "Caption")`, alone on its line.
+# Alt text is required (a picture with no description is invisible to a screen reader), and the
+# file must live in the source's own images/ folder. Anything else is left as ordinary text on
+# purpose, so a typo cannot reach a published page as a broken image.
+FIGURE = re.compile(r'^!\[([^\]]+)\]\(images/([A-Za-z0-9][A-Za-z0-9_.-]*\.(?:svg|png|jpe?g|webp))'
+                    r'(?: "([^"]+)")?\)\s*$')
+IMAGES_USED: set = set()
+
+
+def render_figure(m) -> str:
+    alt, name, caption = m.group(1).strip(), m.group(2), m.group(3)
+    if not (SRC / "images" / name).is_file():
+        raise SystemExit(f"BUILD FAILED: a page uses images/{name}, which is not in {SRC / 'images'}.")
+    IMAGES_USED.add(name)
+    cap = f"<figcaption>{esc(caption)}</figcaption>" if caption else ""
+    return (f'<figure class="v2-fig"><img src="img/{name}" alt="{html.escape(alt, quote=True)}" '
+            f'loading="lazy">{cap}</figure>')
+
+
+def publish_images() -> None:
+    """Copy exactly the images a built page uses into OUT/img. The build empties OUT first, so
+    this runs last, and nothing in images/ that no page uses is ever published."""
+    if not IMAGES_USED:
+        return
+    (OUT / "img").mkdir(exist_ok=True)
+    for name in sorted(IMAGES_USED):
+        shutil.copy2(SRC / "images" / name, OUT / "img" / name)
+
+
 def is_block(ln: str) -> bool:
     """True if the line opens a block that is not a paragraph.
 
@@ -405,6 +437,7 @@ def is_block(ln: str) -> bool:
     s = ln.lstrip()
     return (s.startswith(("#", "|", ">"))
             or s.rstrip() == "---"
+            or bool(FIGURE.match(s))
             or bool(re.match(r'^([-*+] |\d+\. )', s)))
 
 
@@ -484,6 +517,13 @@ def render_body(md: str) -> tuple[str, str]:
             out.append(f"<blockquote><p>{inline(' '.join(q), seen)}</p></blockquote>")
         elif ln.strip() == "---":
             out.append("<hr>"); i += 1
+        elif FIGURE.match(ln.strip()):
+            out.append(render_figure(FIGURE.match(ln.strip()))); i += 1
+        elif ln.lstrip().startswith("!["):
+            # Looks like an image but is not a valid figure (no alt text, a path outside
+            # images/, extra text on the line). Printing it as text would publish the markup.
+            raise SystemExit(f"BUILD FAILED: not a valid figure line: {ln.strip()[:100]!r}\n"
+                             '  Use: ![alt text](images/name.svg) or ![alt text](images/name.svg "Caption")')
         elif ln.strip():
             para = []
             while i < len(lines) and lines[i].strip() and not is_block(lines[i]):
@@ -1462,6 +1502,7 @@ def main() -> int:
             "the pages are written but MUST NOT be published.\n  "
             + "\n  ".join(raw_markers))
 
+    publish_images()
     n = len(list(OUT.rglob("*.html")))
     if STANDALONE:
         hidden = sum(1 for f in OUT.rglob("*.html") if "Chapter references hidden" in f.read_text())
