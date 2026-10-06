@@ -147,7 +147,7 @@ V2_STYLE = """
 .way{display:inline-flex;flex-direction:column;gap:.15rem;text-decoration:none;
   padding:.35rem .5rem;border-radius:6px}
 .way-t{font-weight:700;color:var(--teal-d)}
-.way-t::after{content:" \2192";display:inline-block;transition:transform .15s ease}
+.way-t::after{content:" \\2192";display:inline-block;transition:transform .15s ease}
 .way:hover .way-t::after,.way:focus-visible .way-t::after{transform:translateX(3px)}
 .way:hover,.way:focus-visible{background:var(--teal-l)}
 .way-m{font-size:.82rem;color:var(--light);font-weight:400}
@@ -1101,7 +1101,7 @@ def glossary_body(md: str) -> str:
     return "".join(out)
 
 
-def contents_page(md, titles) -> str:
+def contents_page(md, titles, has_situations: bool = True) -> str:
     # refs resolve AFTER render_body, not before. inline() escapes its input, so an
     # anchor produced up front arrives as visible &lt;a ...&gt; text — which is exactly
     # what shipped to /academy/contents.html. A {{ref:slug}} marker carries no HTML
@@ -1112,15 +1112,16 @@ def contents_page(md, titles) -> str:
         f'<div class="page-header"><div class="page-kicker">The whole {PROPERTY}</div>'
         '<h1>Everything, by Subject</h1>'
         '<p class="header-subtitle">Every chapter, once, grouped by what it is about</p></div>'
-        + crumb("Everything by subject", "", right=("Choose a situation", "index.html"))
+        + crumb("Everything by subject", "", right=("Choose a situation", "index.html") if has_situations else ("Glossary", "../glossary/index.html"))
         + f'<div class="chapter-wrap"><div class="chapter-body">{body_html}</div>'
-        + '<div class="chapter-nav"><a class="cn-link next" href="index.html">'
-        + '<div class="cn-dir">Or</div><div class="cn-title">Choose a situation instead</div>'
-        + "</a></div></div>")
+        + ('<div class="chapter-nav"><a class="cn-link next" href="index.html">'
+           '<div class="cn-dir">Or</div><div class="cn-title">Choose a situation instead</div>'
+           "</a></div>" if has_situations else "")
+        + "</div>")
     return shell("Everything, by Subject", body, "../", "", "contents.html", kind="CollectionPage")
 
 
-def ways_in(titles, chapters) -> str:
+def ways_in(titles, chapters, has_situations: bool = True) -> str:
     """The two entry points that are not the track cards.
 
     The cards above ask the reader to recognize their own situation. These do not: one is
@@ -1145,7 +1146,8 @@ def ways_in(titles, chapters) -> str:
     ways = [("contents.html", "Everything by subject", f"{len(titles)} chapters"), glossary]
     if nq:
         ways.append(("quizzes.html", "Quizzes", f"{nq} to try"))
-    return ('<div class="ways"><div class="chapters-heading">Or find it another way</div>'
+    heading = "Or find it another way" if has_situations else "Find it"
+    return ('<div class="ways"><div class="chapters-heading">' + heading + '</div>'
             '<div class="ways-row">' + "".join(
                 f'<a class="way" href="{h}"><span class="way-t">{esc(t)}</span>'
                 + (f'<span class="way-m">{esc(m)}</span>' if m else "") + '</a>'
@@ -1336,9 +1338,8 @@ def landing_page(tracks, titles, chapters) -> str:
         + "<h1>Start where you are</h1>"
         + '<p class="header-subtitle">What you get sold, what it costs, and what comes back</p></div>'
         + '<div class="track-wrap">'
-        + '<div class="chapters-heading">Pick the situation closest to yours</div>'
-        + grid
-        + ways_in(titles, chapters) + "</div>")
+        + ('<div class="chapters-heading">Pick the situation closest to yours</div>' + grid if tracks else "")
+        + ways_in(titles, chapters, bool(tracks)) + "</div>")
     return shell(PROPERTY, body, "../", "", "", kind="WebSite")
 
 
@@ -1476,7 +1477,7 @@ def main() -> int:
                 (OUT / f'{qz["slug"]}.html').write_text(quiz_page(qz, titles))
     else:
         (OUT / "index.html").write_text(landing_page(tracks, titles, chapters))
-        (OUT / "contents.html").write_text(contents_page(contents_md, titles))
+        (OUT / "contents.html").write_text(contents_page(contents_md, titles, bool(tracks)))
 
         quizzes = load_quizzes()
         if quizzes:
