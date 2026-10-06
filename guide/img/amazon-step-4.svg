@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 266" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <title id="t">Step 4: download your files</title>
+  <desc id="d">A list of the files you asked for, with a Download button beside each. Your Orders.zip is listed first. FileDescriptions.csv explains the data. Links stay available for 90 days.</desc>
+  <rect width="760" height="266" rx="14" fill="#FFFFFF" stroke="#DDE8F0"/>
+  <text x="28" y="34" font-size="12" fill="#8A9EB0" letter-spacing="1.2">STEP 4 · DOWNLOAD</text>
+  <text x="28" y="70" font-size="18" font-weight="700" fill="#0C1929">Download your Amazon data</text>
+  <rect x="28" y="90" width="704" height="48" rx="10" fill="#F7FAFC" stroke="#DDE8F0" stroke-width="2"/>
+  <text x="46" y="111" font-size="14" font-weight="700" fill="#0C1929">Your Orders.zip</text>
+  <text x="46" y="129" font-size="12.5" fill="#4A5D70">Around 9 MB</text>
+  <rect x="608" y="99" width="110" height="30" rx="15" fill="#0A8A9E" stroke="#0A8A9E" stroke-width="1.5"/><text x="663.0" y="119" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Download</text>
+  <rect x="28" y="148" width="704" height="48" rx="10" fill="#F7FAFC" stroke="#DDE8F0" stroke-width="2"/>
+  <text x="46" y="169" font-size="14" font-weight="700" fill="#0C1929">FileDescriptions.csv</text>
+  <text x="46" y="187" font-size="12.5" fill="#4A5D70">Explains what each file holds</text>
+  <rect x="608" y="157" width="110" height="30" rx="15" fill="#FFFFFF" stroke="#0A8A9E" stroke-width="1.5"/><text x="663.0" y="177" font-size="13" font-weight="700" fill="#0A8A9E" text-anchor="middle">Download</text>
+  <text x="28" y="222" font-size="12.5" fill="#4A5D70">The links stay available for 90 days.</text>
+  <text x="28" y="242" font-size="12" fill="#8A9EB0">An illustration of the step, not a copy of the page. What you see on Amazon may look different.</text>
+</svg>

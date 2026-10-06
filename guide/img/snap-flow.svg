@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <title id="t">From snap to saved</title>
+  <desc id="d">You snap a receipt, Plenee shrinks the photo, reads it, and asks what to save. Save with attachment keeps the photo as a PDF; Save just transaction drops the photo; Cancel saves nothing.</desc>
+  <rect width="760" height="340" rx="14" fill="#FFFFFF" stroke="#DDE8F0"/>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0A8A9E"/></marker></defs>
+
+  <g font-size="12" fill="#8A9EB0" letter-spacing="1.2"><text x="28" y="34">FROM SNAP TO SAVED</text></g>
+
+  <!-- main row -->
+  <g stroke="#0FA8BC" stroke-width="2">
+    <rect x="28"  y="62" width="150" height="86" rx="10" fill="#E6F7FA"/>
+    <rect x="218" y="62" width="150" height="86" rx="10" fill="#FFFFFF" stroke="#DDE8F0"/>
+    <rect x="408" y="62" width="150" height="86" rx="10" fill="#FFFFFF" stroke="#DDE8F0"/>
+    <rect x="598" y="62" width="134" height="86" rx="10" fill="#FFFFFF" stroke="#DDE8F0"/>
+  </g>
+  <g fill="#0C1929" font-size="16" font-weight="700">
+    <text x="48" y="94">Snap</text><text x="238" y="94">Shrink</text><text x="428" y="94">Read</text><text x="618" y="94">Choose</text>
+  </g>
+  <g fill="#4A5D70" font-size="12.5">
+    <text x="48" y="116">One tap per photo,</text><text x="48" y="133">up to 5 photos</text>
+    <text x="238" y="116">Made smaller on</text><text x="238" y="133">your phone first</text>
+    <text x="428" y="116">"Reading your</text><text x="428" y="133">file..."</text>
+    <text x="618" y="116">Buttons under</text><text x="618" y="133">the reply</text>
+  </g>
+  <g stroke="#0A8A9E" stroke-width="2" marker-end="url(#a)" fill="none">
+    <path d="M180 105H214"/><path d="M370 105H404"/><path d="M560 105H594"/>
+  </g>
+
+  <!-- choices -->
+  <path d="M665 150V196" stroke="#0A8A9E" stroke-width="2" fill="none"/>
+  <g stroke="#0A8A9E" stroke-width="2" fill="none" marker-end="url(#a)"><path d="M665 196H146V212"/><path d="M665 196H395V212"/><path d="M665 196H629V212"/></g>
+
+  <g>
+    <rect x="28"  y="214" width="236" height="98" rx="10" fill="#E6F7FA" stroke="#0FA8BC" stroke-width="2"/>
+    <rect x="282" y="214" width="226" height="98" rx="10" fill="#FFFFFF" stroke="#DDE8F0" stroke-width="2"/>
+    <rect x="526" y="214" width="206" height="98" rx="10" fill="#FFFFFF" stroke="#DDE8F0" stroke-width="2"/>
+  </g>
+  <g fill="#0C1929" font-size="14" font-weight="700">
+    <text x="46" y="240">Save with attachment</text>
+    <text x="300" y="240">Save just transaction</text>
+    <text x="544" y="240">Cancel</text>
+  </g>
+  <g fill="#4A5D70" font-size="12.5">
+    <text x="46" y="262">The itemized receipt, the</text><text x="46" y="279">transaction, and the photo</text><text x="46" y="296">kept as a PDF</text>
+    <text x="300" y="262">The itemized receipt and</text><text x="300" y="279">the transaction. The photo</text><text x="300" y="296">is dropped</text>
+    <text x="544" y="262">Nothing saved. The</text><text x="544" y="279">photo is dropped</text>
+  </g>
+</svg>

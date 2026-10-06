@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <title id="t">Step 1: ask Amazon for three kinds of data</title>
+  <desc id="d">A list of three separate requests: Your Orders, Payment Options and Subscriptions, each with its own Request button.</desc>
+  <rect width="760" height="300" rx="14" fill="#FFFFFF" stroke="#DDE8F0"/>
+  <text x="28" y="34" font-size="12" fill="#8A9EB0" letter-spacing="1.2">STEP 1 · REQUEST YOUR DATA</text>
+  <text x="28" y="70" font-size="18" font-weight="700" fill="#0C1929">Request your data</text>
+  <rect x="28" y="90" width="704" height="48" rx="10" fill="#F7FAFC" stroke="#DDE8F0" stroke-width="2"/>
+  <text x="46" y="111" font-size="14" font-weight="700" fill="#0C1929">Your Orders</text>
+  <text x="46" y="129" font-size="12.5" fill="#4A5D70">Orders, items, shipments, prices, returns and refunds</text>
+  <rect x="620" y="99" width="98" height="30" rx="15" fill="#0A8A9E" stroke="#0A8A9E" stroke-width="1.5"/><text x="669.0" y="119" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Request</text>
+  <rect x="28" y="148" width="704" height="48" rx="10" fill="#F7FAFC" stroke="#DDE8F0" stroke-width="2"/>
+  <text x="46" y="169" font-size="14" font-weight="700" fill="#0C1929">Payment Options</text>
+  <text x="46" y="187" font-size="12.5" fill="#4A5D70">Gift card information, such as a balance</text>
+  <rect x="620" y="157" width="98" height="30" rx="15" fill="#0A8A9E" stroke="#0A8A9E" stroke-width="1.5"/><text x="669.0" y="177" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Request</text>
+  <rect x="28" y="206" width="704" height="48" rx="10" fill="#F7FAFC" stroke="#DDE8F0" stroke-width="2"/>
+  <text x="46" y="227" font-size="14" font-weight="700" fill="#0C1929">Subscriptions</text>
+  <text x="46" y="245" font-size="12.5" fill="#4A5D70">Prime, Subscribe &amp; Save and digital subscriptions</text>
+  <rect x="620" y="215" width="98" height="30" rx="15" fill="#0A8A9E" stroke="#0A8A9E" stroke-width="1.5"/><text x="669.0" y="235" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Request</text>
+  <text x="28" y="280" font-size="12" fill="#8A9EB0">An illustration of the step, not a copy of the page. What you see on Amazon may look different.</text>
+</svg>

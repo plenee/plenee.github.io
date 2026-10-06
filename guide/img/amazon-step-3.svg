@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 250" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <title id="t">Step 3: enter the verification code</title>
+  <desc id="d">A box for the verification code Amazon sends to your phone and email, with a Submit code button and a note that you can approve it in the Amazon app instead.</desc>
+  <rect width="760" height="250" rx="14" fill="#FFFFFF" stroke="#DDE8F0"/>
+  <text x="28" y="34" font-size="12" fill="#8A9EB0" letter-spacing="1.2">STEP 3 · VERIFY</text>
+  <text x="28" y="70" font-size="18" font-weight="700" fill="#0C1929">Enter verification code</text>
+  <text x="28" y="94" font-size="13" fill="#4A5D70">Amazon sends a code to your phone and your email.</text>
+  <rect x="28" y="110" width="300" height="42" rx="8" fill="#FFFFFF" stroke="#8A9EB0" stroke-width="2"/>
+  <text x="44" y="136" font-size="14" fill="#8A9EB0">Code</text>
+  <rect x="344" y="116" width="130" height="30" rx="15" fill="#0A8A9E" stroke="#0A8A9E" stroke-width="1.5"/><text x="409.0" y="136" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Submit code</text>
+  <text x="28" y="182" font-size="13" fill="#4A5D70">Or approve the request in the Amazon app.</text>
+  <text x="28" y="228" font-size="12" fill="#8A9EB0">An illustration of the step, not a copy of the page. What you see on Amazon may look different.</text>
+</svg>
