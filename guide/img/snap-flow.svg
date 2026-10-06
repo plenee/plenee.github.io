@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
   <title id="t">From snap to saved</title>
-  <desc id="d">You snap a receipt, Plenee shrinks the photo, reads it, and asks what to save. Save with attachment keeps the photo as a PDF; Save just transaction drops the photo; Cancel saves nothing.</desc>
+  <desc id="d">You snap a receipt, Plenee cuts the photo to the paper and shrinks it, reads it, and asks what to save. Save with attachment keeps the photo as a PDF; Save just transaction drops the photo; Cancel saves nothing.</desc>
   <rect width="760" height="340" rx="14" fill="#FFFFFF" stroke="#DDE8F0"/>
   <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0A8A9E"/></marker></defs>
 
@@ -14,11 +14,11 @@
     <rect x="598" y="62" width="134" height="86" rx="10" fill="#FFFFFF" stroke="#DDE8F0"/>
   </g>
   <g fill="#0C1929" font-size="16" font-weight="700">
-    <text x="48" y="94">Snap</text><text x="238" y="94">Shrink</text><text x="428" y="94">Read</text><text x="618" y="94">Choose</text>
+    <text x="48" y="94">Snap</text><text x="238" y="94">Crop</text><text x="428" y="94">Read</text><text x="618" y="94">Choose</text>
   </g>
   <g fill="#4A5D70" font-size="12.5">
     <text x="48" y="116">One tap per photo,</text><text x="48" y="133">up to 5 photos</text>
-    <text x="238" y="116">Made smaller on</text><text x="238" y="133">your phone first</text>
+    <text x="238" y="116">Cut to the paper,</text><text x="238" y="133">then made smaller</text>
     <text x="428" y="116">"Reading your</text><text x="428" y="133">file..."</text>
     <text x="618" y="116">Buttons under</text><text x="618" y="133">the reply</text>
   </g>

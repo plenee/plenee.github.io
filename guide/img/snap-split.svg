@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <title id="t">Several receipts in one photo</title>
+  <desc id="d">One photo with three separate receipts on it is cut into three pictures, and each becomes its own card. A card slip in the same photo whose total matches a receipt joins that receipt. If the receipts cannot be separated cleanly, nothing is uploaded.</desc>
+  <rect width="760" height="420" rx="14" fill="#FFFFFF" stroke="#DDE8F0"/>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0A8A9E"/></marker></defs>
+  <text x="28" y="34" font-size="12" fill="#8A9EB0" letter-spacing="1.2">SEVERAL RECEIPTS IN ONE PHOTO</text>
+
+  <!-- the photo -->
+  <rect x="28" y="56" width="250" height="150" rx="10" fill="#F3F6F9" stroke="#8A9EB0" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="40" y="76" font-size="12" fill="#8A9EB0">One photo</text>
+  <g fill="#FFFFFF" stroke="#DDE8F0" stroke-width="2">
+    <rect x="44"  y="88" width="64" height="104" rx="4"/>
+    <rect x="120" y="88" width="64" height="104" rx="4"/>
+    <rect x="196" y="88" width="64" height="104" rx="4"/>
+  </g>
+  <g fill="#4A5D70" font-size="11.5" text-anchor="middle"><text x="76" y="144">Receipt</text><text x="152" y="144">Receipt</text><text x="228" y="144">Receipt</text></g>
+
+  <!-- arrows to cards -->
+  <g stroke="#0A8A9E" stroke-width="2" fill="none" marker-end="url(#a)">
+    <path d="M282 100H346"/><path d="M282 131H346"/><path d="M282 162H346"/>
+  </g>
+  <text x="290" y="90" font-size="12" fill="#0A8A9E" font-weight="700">cut apart</text>
+
+  <g fill="#E6F7FA" stroke="#0FA8BC" stroke-width="2">
+    <rect x="350" y="80" width="382" height="40" rx="10"/><rect x="350" y="124" width="382" height="40" rx="10"/><rect x="350" y="168" width="382" height="40" rx="10"/>
+  </g>
+  <g fill="#0C1929" font-size="14" font-weight="700"><text x="368" y="105">Its own card</text><text x="368" y="149">Its own card</text><text x="368" y="193">Its own card</text></g>
+
+  <line x1="28" y1="228" x2="732" y2="228" stroke="#DDE8F0" stroke-width="2"/>
+  <text x="28" y="252" font-size="12" fill="#8A9EB0" letter-spacing="1.2">A CARD SLIP IN THE SAME PHOTO</text>
+
+  <g fill="#F7FAFC" stroke="#DDE8F0" stroke-width="2"><rect x="28" y="268" width="120" height="56" rx="8"/><rect x="164" y="268" width="120" height="56" rx="8"/></g>
+  <g fill="#0C1929" font-size="13" font-weight="700"><text x="44" y="292">Receipt</text><text x="180" y="292">Card slip</text></g>
+  <g fill="#4A5D70" font-size="12"><text x="44" y="310">Itemized</text><text x="180" y="310">Total only</text></g>
+  <path d="M290 296H336" stroke="#0A8A9E" stroke-width="2" fill="none" marker-end="url(#a)"/>
+  <rect x="340" y="262" width="392" height="68" rx="10" fill="#E6F7FA" stroke="#0FA8BC" stroke-width="2"/>
+  <text x="358" y="288" font-size="15" font-weight="700" fill="#0C1929">One card, when the totals match to the cent</text>
+  <text x="358" y="310" font-size="13" fill="#4A5D70">If the match is not clear, nothing is joined.</text>
+
+  <line x1="28" y1="346" x2="732" y2="346" stroke="#DDE8F0" stroke-width="2"/>
+  <text x="28" y="370" font-size="12" fill="#8A9EB0" letter-spacing="1.2">WHEN THEY CANNOT BE SEPARATED CLEANLY</text>
+  <rect x="28" y="382" width="704" height="26" rx="13" fill="#FFFFFF" stroke="#0A8A9E" stroke-width="1.5"/>
+  <text x="46" y="400" font-size="13" font-weight="700" fill="#0A8A9E">Nothing is uploaded, and you are asked to snap each receipt separately.</text>
+</svg>
