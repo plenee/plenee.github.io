@@ -233,8 +233,8 @@ V2_STYLE = """
 .ctx{display:flex;gap:.7rem;align-items:baseline;flex-wrap:wrap}
 .ctx .pos{color:var(--light);font-variant-numeric:tabular-nums}
 .v2-scroll{overflow-x:auto;margin:1.6rem 0;-webkit-overflow-scrolling:touch}
-.v2-fig{margin:1.8rem 0}
-.v2-fig img{display:block;max-width:100%;height:auto;border-radius:12px}
+.v2-fig{margin:1.8rem 0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.v2-fig img{display:block;width:100%;min-width:600px;height:auto;border-radius:12px}
 .v2-fig figcaption{margin-top:.5rem;font-size:.85rem;color:var(--light)}
 table.v2{border-collapse:collapse;width:100%;font-size:.94rem;color:var(--text)}
 table.v2 th,table.v2 td{border-bottom:1px solid var(--border);padding:.6rem .7rem;
