@@ -284,9 +284,9 @@ footer p { color: #2E4A60; font-size: 13px; }
     <p>If you turn on notifications, your browser gives us a push address and security keys for that device. We store them with a short description of the browser and device (its "user agent") and your notification settings. We use them only to send the notifications you chose, such as a reminder that a bill is due soon. Notifications are delivered through your browser maker's push service (for example Apple, Google, Microsoft or Mozilla). The message is encrypted so that service can't read it, and we keep amounts, account names and account numbers out of notification text. You can turn notifications off in Plenee or in your device settings at any time. We delete a device's push address when you turn notifications off for it, when the device stops accepting them, or when you delete your account.</p>
 
     <h3>1.8 Viewers on Your Account</h3>
-    <p>You can invite someone to view your Plenee account. A viewer can see your accounts, transactions and budgets. They can also add receipts, which update your records and show who added them, and save documents, which you can see. They can't make other changes.</p>
+    <p>You can invite someone to view your Plenee account. A viewer can see your accounts, transactions and budgets. They can also add receipts, which update your records and show who added them, and save documents, which you can see. They can't make other changes. They can't see your credit report and Plenee Score.</p>
     <p>Your saved documents stay private unless you share them one by one. If you share a document, the viewer can open the file itself, so any numbers printed on it, such as on an ID scan, are visible to them. A viewer's Copilot use counts toward your account's usage, and you can set a dollar limit for each viewer.</p>
-    <p>When you invite a viewer, we record their full name, their email address and their relationship to you, which only you can see. The invite link works once and expires in 72 hours. The email address you invited is removed 30 days after the invite ends. Viewers can send invites with their own link, and only the viewer who sends an invite can see it: not you, and not other viewers. Everything a viewer adds becomes part of your account and stays there, even if you remove them, except ID numbers read from their documents. You can remove a viewer at any time.</p>
+    <p>When you invite a viewer, we record their full name, their email address and their relationship to you, which only you can see. The invite link works once and expires in 72 hours. The email address you invited is removed 30 days after the invite ends. Viewers can send invitations to try Plenee with their own link, and only the viewer who sends an invitation can see it: not you, and not other viewers. Everything a viewer adds becomes part of your account and stays there, even if you remove them, except ID numbers read from their documents. You can remove a viewer at any time.</p>
     <p>If you are a viewer on someone else's account, what you add becomes part of the owner's account and stays there: you can't remove it in the app, even after your access ends, but the owner can. The owner can read what you ask Copilot there, and it isn't added to anyone's Copilot memory. Your Copilot use is charged to the owner.</p>
 
     <h3>1.9 Links You Share with Copilot</h3>
@@ -294,6 +294,9 @@ footer p { color: #2E4A60; font-size: 13px; }
 
     <h3>1.10 Invitations</h3>
     <p>If you invite someone to try Plenee, Plenee opens your own email app with a suggested message and your personal invite link, and you decide whether to send it. The addresses you choose stay on your device: Plenee doesn't receive or keep them. If someone signs up with your link, we record that they joined through your invitation.</p>
+
+    <h3>1.11 Credit Reports</h3>
+    <p>If you upload your credit report, we read it to calculate your Plenee Score. We keep the information in it, such as your name, birth date, addresses and employers, each account's type, limit, balance, payment history and age, and any collections, public records and inquiries, and we delete the uploaded file once it has been read. We remove your Social Security number before the report is sent to our AI provider for reading, and we don't keep it.</p>
   </div>
 
   <!-- 2. How We Use -->
@@ -426,13 +429,14 @@ footer p { color: #2E4A60; font-size: 13px; }
     </ul>
     <p><strong>Categories of personal information we collect</strong> (California disclosure):</p>
     <ul>
-      <li>Identifiers (name, email address, IP address, phone number)</li>
-      <li>Financial information (bank account numbers, transaction history, balances)</li>
+      <li>Identifiers (name, email address, IP address, phone number, birth date, past addresses and employers from a credit report you upload)</li>
+      <li>Financial information (bank account numbers, transaction history, balances, account histories from credit reports)</li>
       <li>Device and internet activity information (device signals, usage patterns, referral source, notification push addresses)</li>
       <li>Geolocation data (city and ZIP code derived from IP address)</li>
       <li>Inferences drawn from the above (estimated income range, device quality tier)</li>
       <li>Chat-derived information (a summary of what you have told Copilot, and product-improvement signals derived from conversations — see Section 1.6)</li>
       <li>Documents you save (the file itself, government ID numbers, license or passport details, account and reference numbers, and the amounts, dates and other details read from it; see Section 1.5)</li>
+      <li>Sensitive personal information: your Social Security number, if it appears on a credit report you upload; we remove it when the report is read and don't keep it.</li>
     </ul>
     <p>To exercise your California rights, contact us at <a href="mailto:privacy@plenee.com" style="color:var(--teal)">privacy@plenee.com</a>.</p>
   </div>
