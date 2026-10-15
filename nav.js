@@ -251,8 +251,15 @@
 
      Honest by construction: the copy is about trying Plenee, never about what Plenee will do
      for someone. There are no users yet and so no basis for an outcome claim. */
+  /* Inside the app (Rob, via PM 2026-10-15: "Yes, hide it in the app"): the app opens the Guide with ?app=1, and also in a
+     frame. Either one hides the invitation, since the reader there is already a member. A cross-origin parent throws on
+     window.top, which also means framed. */
+  function inApp() {
+    try { if (new URLSearchParams(window.location.search).get('app') === '1') return true; } catch (e) { /* old browser: fall through */ }
+    try { return window.self !== window.top; } catch (e) { return true; }
+  }
   var invite = document.getElementById('plenee-invite');
-  if (invite && !signedIn() && window.PLENEE_OFFER) {
+  if (invite && !signedIn() && !inApp() && window.PLENEE_OFFER) {
     var o = window.PLENEE_OFFER;
     var p = document.createElement('p');
     p.textContent = o.line + ' ';
