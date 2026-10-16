@@ -1378,6 +1378,9 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
      Real backend, real Claude — not the scripted design mockup (wave0_mockup.html).
      ══════════════════════════════════════════════════════════════════════ -->
 <style>
+/* The free chatbot is hidden until launch (Rob, 2026-10-16: "Also hide the free chatbot on the website"): its button, panel and the card that sends visitors to it.
+   The markup and script stay, so showing it again is deleting this one rule. */
+#p0-launch, #p0-panel, #p0-hook-card { display: none !important; }
 #p0-launch { position: fixed; bottom: 22px; right: 22px; z-index: 9998; display: flex;
   align-items: center; gap: 9px; background: var(--navy); color: #fff; border: none;
   border-radius: 999px; padding: 13px 20px 13px 15px; font-family: inherit; font-size: 15px;
@@ -1534,8 +1537,7 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
     <button id="p0-send">➤</button>
   </div>
   <div id="p0-foot">
-    <a id="p0-signup-link" href="#" style="color:var(--teal-d); font-weight:600; text-decoration:none;">Create free account</a>
-    &nbsp;·&nbsp; Educational information only. <a href="#disclaimer-strip" style="color:inherit; text-decoration:underline;">See full disclosures ↓</a>
+    Educational information only. <a href="#disclaimer-strip" style="color:inherit; text-decoration:underline;">See full disclosures ↓</a>
   </div>
 </div>
 
@@ -1570,7 +1572,9 @@ setTimeout(()=>{ document.getElementById('av1').style.width='78%'; document.getE
   const APP_REGISTER_URL = isLocalDev ? 'http://localhost:5173/register' : 'https://app.plenee.com/register';
   const APP_LOGIN_URL = isLocalDev ? 'http://localhost:5173/login' : 'https://app.plenee.com/login';
   function updateSignupLink(){
-    document.getElementById('p0-signup-link').href =
+    const link = document.getElementById('p0-signup-link');   // not on the page while sign-up is closed to invited people (Rob, 2026-10-16)
+    if (!link) return;
+    link.href =
       `${APP_REGISTER_URL}?p0_session=${encodeURIComponent(sessionId)}`;
   }
   updateSignupLink();

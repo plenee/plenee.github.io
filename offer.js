@@ -10,9 +10,9 @@
  * claim, at any rigor level. Keep this copy about seeing your own numbers — which is true today
  * from the six shipped capabilities — rather than about savings, results or improvement.
  */
-window.PLENEE_OFFER = {
-  trial: "a free month",
-  line: "Plenee is free for your first month — long enough to see your own numbers here instead of somebody's example.",
-  cta: "Start a free month",
-  href: "https://app.plenee.com/register"
-};
+/* Sign-up is closed to invited people only (Rob, 2026-10-16: "Remove the Register links from the website until launch"), so no Guide page invites a reader
+ * to register: null makes nav.js leave the invitation out. To reopen, put the object back:
+ *   { trial: "a free month", line: "Plenee is free for your first month — long enough to see your own numbers here instead of somebody's example.",
+ *     cta: "Start a free month", href: "https://app.plenee.com/register" }
+ */
+window.PLENEE_OFFER = null;

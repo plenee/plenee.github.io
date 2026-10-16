@@ -152,7 +152,8 @@
       });
       menu.appendChild(out);
     } else {
-      [['Sign in', 'login'], ['Register', 'register']].forEach(function (p) {
+      /* Register is not offered while sign-up is closed to invited people (Rob, 2026-10-16); add it back when sign-up reopens. */
+      [['Sign in', 'login']].forEach(function (p) {
         var a = document.createElement('a');
         a.className = 'nav-mi'; a.setAttribute('role', 'menuitem');
         a.href = NAVIGATOR_URL + p[1];
